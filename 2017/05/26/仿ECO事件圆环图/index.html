@@ -105,7 +105,7 @@
 <meta property="og:image" content="http://oqjxwq9ix.bkt.clouddn.com/four.png">
 <meta property="og:image" content="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-05-26T09:06:49.850Z">
+<meta property="og:updated_time" content="2017-05-26T09:08:42.116Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="仿ECO事件圆环图">
 <meta name="twitter:description" content="该案例取自刘万祥老师的博客——EexclPro。最初使用Excel完成，相当复杂，我自己是没有那个水平了，所以本例使用R语言完成。 还原度相对来说比较高，但是该图实用性确实不很高，经济学人也只是偶尔亮出来装点门面而已。">
@@ -382,7 +382,7 @@
         <p>该案例取自刘万祥老师的博客——EexclPro。最初使用Excel完成，相当复杂，我自己是没有那个水平了，所以本例使用R语言完成。</p>
 <p>还原度相对来说比较高，但是该图实用性确实不很高，经济学人也只是偶尔亮出来装点门面而已。</p>
 <a id="more"></a>
-<h3 id="加载包："><a href="#加载包：" class="headerlink" title="加载包："></a>加载包：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(<span class="string">"ggplot2"</span>)</div><div class="line"><span class="keyword">library</span>(Cairo)</div><div class="line"><span class="keyword">library</span>(ggmap)</div><div class="line"><span class="keyword">library</span>(xlsx)</div><div class="line"><span class="keyword">library</span>(lubridate)</div><div class="line"><span class="keyword">library</span>(reshape2)</div><div class="line"><span class="keyword">library</span>(showtext)</div><div class="line"><span class="keyword">library</span>(grid)</div><div class="line"><span class="keyword">library</span>(plyr)</div></pre></td></tr></table></figure>
+<h3 id="加载包："><a href="#加载包：" class="headerlink" title="加载包："></a>加载包：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(<span class="string">"ggplot2"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"Cairo"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"ggmap"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"xlsx"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"lubridate"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"reshape2"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"showtext"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"grid"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"plyr"</span>)</div></pre></td></tr></table></figure>
 <h3 id="案例图"><a href="#案例图" class="headerlink" title="案例图:"></a>案例图:</h3><p><strong>经济学人版</strong></p>
 <div align="center"><br><img src="http://oqjxwq9ix.bkt.clouddn.com/one.png" width="400" height="400" alt="one" align="center"><br></div>
 
