@@ -1,0 +1,968 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="R语言,数据可视化,ggplot2," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="raindu's home" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="自带学习R语言以来，从来没用把这些技能用在自己的专业方向上，说好的学以致用呢~ 最近看到的一篇微信公众号推文，内容是关于山东省各县（细化到137个县级行政区）2016年的GDP规模、公共预算收入规模及其增速指标，数据质量还不错，是山东省发改委公布的。 http://mp.weixin.qq.com/s/Sk4fIh3-ykcNK8uP0gZryw 感觉自己终于离专业方向近了一些（本人学财政的），数">
+<meta name="keywords" content="R语言,数据可视化,ggplot2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="山东省公共财政预算数据可视化">
+<meta property="og:url" content="http://www.raindu.com/2017/05/24/山东省公共财政预算数据可视化/index.html">
+<meta property="og:site_name" content="raindu&#39;s home">
+<meta property="og:description" content="自带学习R语言以来，从来没用把这些技能用在自己的专业方向上，说好的学以致用呢~ 最近看到的一篇微信公众号推文，内容是关于山东省各县（细化到137个县级行政区）2016年的GDP规模、公共预算收入规模及其增速指标，数据质量还不错，是山东省发改委公布的。 http://mp.weixin.qq.com/s/Sk4fIh3-ykcNK8uP0gZryw 感觉自己终于离专业方向近了一些（本人学财政的），数">
+<meta property="og:image" content="http://oqfmz6sk5.bkt.clouddn.com/GDPScale.png">
+<meta property="og:image" content="http://oqfmz6sk5.bkt.clouddn.com/BudgetScale.png">
+<meta property="og:image" content="http://oqfmz6sk5.bkt.clouddn.com/DistrictGDPScale.png">
+<meta property="og:image" content="http://oqfmz6sk5.bkt.clouddn.com/DistrictPerGDPScale.png">
+<meta property="og:image" content="http://oqfmz6sk5.bkt.clouddn.com/DistrictBudgetScale.png">
+<meta property="og:image" content="http://oqfmz6sk5.bkt.clouddn.com/DistrictGDP&Budget.png">
+<meta property="og:image" content="http://oqfmz6sk5.bkt.clouddn.com/DistrictPerGDPGrowth&BudgetGrodth.png">
+<meta property="og:image" content="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png">
+<meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
+<meta property="og:updated_time" content="2017-05-24T02:42:57.894Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="山东省公共财政预算数据可视化">
+<meta name="twitter:description" content="自带学习R语言以来，从来没用把这些技能用在自己的专业方向上，说好的学以致用呢~ 最近看到的一篇微信公众号推文，内容是关于山东省各县（细化到137个县级行政区）2016年的GDP规模、公共预算收入规模及其增速指标，数据质量还不错，是山东省发改委公布的。 http://mp.weixin.qq.com/s/Sk4fIh3-ykcNK8uP0gZryw 感觉自己终于离专业方向近了一些（本人学财政的），数">
+<meta name="twitter:image" content="http://oqfmz6sk5.bkt.clouddn.com/GDPScale.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.raindu.com/2017/05/24/山东省公共财政预算数据可视化/"/>
+
+
+
+
+
+  <title>山东省公共财政预算数据可视化 | raindu's home</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">raindu's home</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">A lifelong learner!!!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/05/24/山东省公共财政预算数据可视化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RainDu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="raindu's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">山东省公共财政预算数据可视化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-24T09:08:07+08:00">
+                2017-05-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据可视化/" itemprop="url" rel="index">
+                    <span itemprop="name">数据可视化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>自带学习R语言以来，从来没用把这些技能用在自己的专业方向上，说好的学以致用呢~</p>
+<p>最近看到的一篇微信公众号推文，内容是关于山东省各县（细化到137个县级行政区）2016年的GDP规模、公共预算收入规模及其增速指标，数据质量还不错，是山东省发改委公布的。</p>
+<p><a href="http://mp.weixin.qq.com/s/Sk4fIh3-ykcNK8uP0gZryw" target="_blank" rel="external">http://mp.weixin.qq.com/s/Sk4fIh3-ykcNK8uP0gZryw</a></p>
+<p>感觉自己终于离专业方向近了一些（本人学财政的），数据就在眼前，这次机会一定要抓住了。</p>
+<a id="more"></a>
+<p>数据虽然质量不错，但是苦于手头没有最新的山东省县级地图素材（之前练习用的SHP素材都是很古老的素材，使用市级范围没啥问题，但是县级行政单位变更太快了，根本没法用）。所以这篇文章写作过程特别艰难~</p>
+<p>我用了半个上午爬取并整理数据，却用了两天时间寻找地图素材、最终找到了山东省17个地级市的json素材（还不会合并json数据），找到了个在线json转shp的平台，用17个json文件拼接成一个 完整的山东省地图，然后导出shp数据，这才搞定了县级地图工作。（想想也是太执着了~）</p>
+<p>本篇文章主要主要还是演示地图可视化为主，其中包含基础的数据抓取、数据清洗、数据聚合、变量结构和ggplot图层语法，最终得到7福高质量的数据地图。</p>
+<h3 id="加载包"><a href="#加载包" class="headerlink" title="加载包"></a>加载包</h3><p>以下是本文需要用到的包：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(XML)</div><div class="line"><span class="keyword">library</span>(RCurl)</div><div class="line"><span class="keyword">library</span>(stringr)</div><div class="line"><span class="keyword">library</span>(dplyr)</div><div class="line"><span class="keyword">library</span>(plyr)</div><div class="line"><span class="keyword">library</span>(ggplot2)      </div><div class="line"><span class="keyword">library</span>(maptools)   </div><div class="line"><span class="keyword">library</span>(Cairo)        </div><div class="line"><span class="keyword">library</span>(RColorBrewer) </div><div class="line"><span class="keyword">library</span>(xlsx)</div><div class="line"><span class="keyword">library</span>(rjson)</div><div class="line"><span class="keyword">library</span>(rgdal)</div><div class="line"><span class="keyword">library</span>(data.table)</div><div class="line"><span class="keyword">library</span>(tidyr)</div><div class="line"><span class="keyword">library</span>(grid)</div><div class="line"><span class="keyword">library</span>(showtext)</div><div class="line"><span class="keyword">library</span>(sqldf)</div></pre></td></tr></table></figure>
+<h3 id="数据抓取"><a href="#数据抓取" class="headerlink" title="数据抓取"></a>数据抓取</h3><p><strong>数据抓取过程</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">url&lt;-<span class="string">"http://mp.weixin.qq.com/s/Sk4fIh3-ykcNK8uP0gZryw"</span></div><div class="line">Name&lt;- getURL(url,.encoding=<span class="string">"utf-8"</span>)%&gt;%htmlParse(encoding=<span class="string">"UTF-8"</span>)%&gt;%getNodeSet(<span class="string">"//strong/span"</span>)   </div><div class="line">title&lt;-grep(<span class="string">"按"</span>,laply(Name,xmlValue,trim=<span class="literal">T</span>),value=<span class="literal">T</span>);title</div><div class="line"></div><div class="line">tbls&lt;-readHTMLTable(url,header=<span class="literal">TRUE</span>,trim=<span class="literal">TRUE</span>)</div><div class="line"></div><div class="line">names(tbls)&lt;-title;names(tbls)</div><div class="line">sapply(tbls,nrow)</div><div class="line">[<span class="number">1</span>] <span class="string">"按公共财政预算收入规模："</span>     <span class="string">"按公共财政预算收入增长幅度："</span></div><div class="line">[<span class="number">3</span>] <span class="string">"按GDP规模："</span>                  <span class="string">"按GDP增长幅度："</span>             </div><div class="line">[<span class="number">5</span>] <span class="string">"按人均GDP："</span></div></pre></td></tr></table></figure></p>
+<p><strong>以下数据网页中五张表格的提取过程：</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">BudgetScale&lt;-tbls$`按公共财政预算收入规模：`[-<span class="number">1</span>];names(BudgetScale)&lt;-c(<span class="string">"Country"</span>,<span class="string">"BudgetScale"</span>)</div><div class="line">BudgetScale$Country&lt;-as.character(BudgetScale$Country)</div><div class="line">BudgetScale$BudgetScale&lt;-as.numeric(as.character(BudgetScale$BudgetScale))</div><div class="line"></div><div class="line">BudgetGrowth&lt;-tbls$`按公共财政预算收入增长幅度：`[-<span class="number">1</span>];names(BudgetGrowth)&lt;-c(<span class="string">"Country"</span>,<span class="string">"BudgetGrowth"</span>)</div><div class="line">BudgetGrowth$Country&lt;-as.character(BudgetGrowth$Country)</div><div class="line">BudgetGrowth$BudgetGrowth&lt;-as.numeric(as.character(BudgetGrowth$BudgetGrowth))</div><div class="line"></div><div class="line">GDPScale&lt;-tbls$`按GDP规模：`[-<span class="number">1</span>];names(GDPScale)&lt;-c(<span class="string">"Country"</span>,<span class="string">"GDPScale"</span>)</div><div class="line">GDPScale$Country&lt;-as.character(GDPScale$Country)</div><div class="line">GDPScale$GDPScale&lt;-as.numeric(as.character(GDPScale$GDPScale))</div><div class="line"></div><div class="line">GDPGrowth&lt;-tbls$`按GDP增长幅度：`[-<span class="number">1</span>];names(GDPGrowth)&lt;-c(<span class="string">"Country"</span>,<span class="string">"GDPGrowth"</span>)</div><div class="line">GDPGrowth$Country&lt;-as.character(GDPGrowth$Country)</div><div class="line">GDPGrowth$GDPGrowth&lt;-as.numeric(as.character(GDPGrowth$GDPGrowth))</div><div class="line"></div><div class="line"></div><div class="line">PerGDPGrowth&lt;-tbls$`按人均GDP：`[-<span class="number">1</span>];names(PerGDPGrowth)&lt;-c(<span class="string">"Country"</span>,<span class="string">"PerGDPGrowth"</span>)</div><div class="line">PerGDPGrowth$Country&lt;-as.character(PerGDPGrowth$Country)</div><div class="line">PerGDPGrowth$PerGDPGrowth&lt;-as.numeric(as.character(PerGDPGrowth$PerGDPGrowth))</div><div class="line"></div><div class="line">BudgetScale&lt;-arrange(BudgetScale,Country)</div><div class="line">BudgetGrowth&lt;-arrange(BudgetGrowth,Country)</div><div class="line">GDPScale&lt;-arrange(GDPScale,Country)</div><div class="line">GDPGrowth&lt;-arrange(GDPGrowth,Country)</div><div class="line">PerGDPGrowth&lt;-arrange(PerGDPGrowth,Country)</div></pre></td></tr></table></figure>
+<p>本来137个县级行政区的名称应该是一致的，但是网页中公布的数据名称不一致，所以没法合并，需要自己集合最新的行政区划名称手动修改，费老大劲！</p>
+<p>先将五张表格的数据写入一个工作薄中，然后手动修改:</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">write.xlsx(BudgetScale,<span class="string">"D:/R/File/shddata.xlsx"</span>,sheetName=<span class="string">"BudgetScale"</span>,append=<span class="literal">FALSE</span>,row.names=<span class="literal">FALSE</span>)</div><div class="line">write.xlsx(BudgetGrowth,<span class="string">"D:/R/File/shddata.xlsx"</span>,sheetName=<span class="string">"BudgetGrowth"</span>,append=<span class="literal">TRUE</span>,row.names=<span class="literal">FALSE</span>)</div><div class="line">write.xlsx(GDPScale,<span class="string">"D:/R/File/shddata.xlsx"</span>,sheetName=<span class="string">"GDPScale"</span>,append=<span class="literal">TRUE</span>,row.names=<span class="literal">FALSE</span>)</div><div class="line">write.xlsx(GDPGrowth,<span class="string">"D:/R/File/shddata.xlsx"</span>,sheetName=<span class="string">"GDPGrowth"</span>,append=<span class="literal">TRUE</span>,row.names=<span class="literal">FALSE</span>)</div><div class="line">write.xlsx(PerGDPGrowth,<span class="string">"D:/R/File/shddata.xlsx"</span>,sheetName=<span class="string">"PerGDPGrowth"</span>,append=<span class="literal">TRUE</span>,row.names=<span class="literal">FALSE</span>)</div></pre></td></tr></table></figure>
+<p>因为以上五个表格所用到的行政区划名称不完全相同，需要手动各县级行政区划对应的隶属地级市名称才能进行列合并。</p>
+<p>以下是我从网络上找到并整理的山东省17地级市，137县级（包含县级市）行政单位的代号，名称，经纬度信息。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">setwd(<span class="string">"D:/R/mapdata/Country/shandong"</span>)</div><div class="line">shandong_city&lt;-read.xlsx(<span class="string">"City.xlsx"</span>,sheetName=<span class="string">"City"</span>,header=<span class="literal">T</span>,encoding=<span class="string">'UTF-8'</span>,stringsAsFactors=<span class="literal">FALSE</span>)</div><div class="line">shandong_district&lt;-read.xlsx(<span class="string">"City.xlsx"</span>,sheetName=<span class="string">"District"</span>,header=<span class="literal">T</span>,encoding=<span class="string">'UTF-8'</span>,stringsAsFactors=<span class="literal">FALSE</span>)</div><div class="line"></div><div class="line">shandong_district&lt;-</div><div class="line">unite(shandong_district,address,City,Name,sep=<span class="string">""</span>)</div><div class="line">shandong_district&lt;-transform(shandong_district,Adress=paste0(<span class="string">"山东省"</span>,shandong_district$address))[,-<span class="number">1</span>][,c(<span class="number">4</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)]</div><div class="line">names(shandong_district)[<span class="number">1</span>]&lt;-<span class="string">"address"</span></div></pre></td></tr></table></figure>
+<p>通过以上shandong_district表中的城市、县级市名称字段合理规范以上五张表中的县级行政单位名称，总最终合并至表6——shandongdata注意五张表在同一个工作薄中。</p>
+<h3 id="经纬度地址解析："><a href="#经纬度地址解析：" class="headerlink" title="经纬度地址解析："></a>经纬度地址解析：</h3><p>解析经纬度地址：这里调用百度地图的API解析县级市的经纬度地址：<br>（大家最好自己去注册百度地图开发者，然后申请免费秘钥）</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">baidu_lng &lt;- c()</div><div class="line">baidu_lat &lt;- c()</div><div class="line">ak&lt;-<span class="string">"X8zlxPUdSe2weshrZ1WqnWxb43cfBI2N"</span></div><div class="line">address&lt;-shandong_district$address</div><div class="line"><span class="keyword">for</span>(location <span class="keyword">in</span> address)&#123;</div><div class="line">url&lt;-paste(<span class="string">"http://api.map.baidu.com/geocoder/v2/?ak="</span>,ak,<span class="string">"&amp;callback=renderOption&amp;output=json&amp;address="</span>,location,sep=<span class="string">""</span>)</div><div class="line">url_string &lt;- URLencode(url)                  </div><div class="line">json&lt;- readLines(url_string, warn=<span class="literal">F</span>)         </div><div class="line">geo &lt;- fromJSON(substr(json,regexpr(<span class="string">"\\("</span>,json)+<span class="number">1</span>,nchar(json)-<span class="number">1</span>))  </div><div class="line">lng&lt;-geo$result$location$lng</div><div class="line">lat&lt;-geo$result$location$lat                 </div><div class="line">baidu_lng&lt;-c(baidu_lng,lng)                 </div><div class="line">baidu_lat&lt;-c(baidu_lat,lat)</div><div class="line">&#125;</div><div class="line">result&lt;-data.frame(address=address,longitude=baidu_lng,latitude=baidu_lat,stringsAsFactors=<span class="literal">FALSE</span>)</div></pre></td></tr></table></figure>
+<p>将县级市数据与经纬度数据合并：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">shandong_district_data&lt;-merge(shandong_district,result,by=<span class="string">"address"</span>)[,-c(<span class="number">3</span>,<span class="number">4</span>)]</div><div class="line">names(shandong_district_data)[<span class="number">3</span>:<span class="number">4</span>]&lt;-c(<span class="string">"lon"</span>,<span class="string">"lat"</span>)</div><div class="line">shandong_district_data$address&lt;-as.character(shandong_district_data$address)</div><div class="line">shandong_zhibiao_data&lt;-read.xlsx(<span class="string">"shddata.xlsx"</span>,sheetName=<span class="string">"Shandongdata"</span>,header=<span class="literal">T</span>,encoding=<span class="string">'UTF-8'</span>,stringsAsFactors=<span class="literal">FALSE</span>)</div><div class="line">names(shandong_zhibiao_data)[<span class="number">2</span>]&lt;-<span class="string">"address"</span></div><div class="line">shandong_district_data&lt;-merge(shandong_district_data,shandong_zhibiao_data,by=<span class="string">"address"</span>)</div></pre></td></tr></table></figure>
+<p>以上得到了山东省所有县级行政单位的点坐标信息。</p>
+<h3 id="导入背景地图素材数据"><a href="#导入背景地图素材数据" class="headerlink" title="导入背景地图素材数据"></a>导入背景地图素材数据</h3><p>读图背景素材导入：</p>
+<p><strong>素材一：山东省县级地图素材：</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mymap&lt;-readOGR(<span class="string">"."</span>,<span class="string">"map"</span>,encoding = <span class="string">"UTF-8"</span>,verbose=<span class="literal">FALSE</span>)</div><div class="line">myShape &lt;- fortify(mymap)  </div><div class="line">x &lt;- mymap@data</div><div class="line">names(x)[<span class="number">3</span>]&lt;-<span class="string">"Code"</span>   </div><div class="line">xs &lt;- data.frame(x,ID=seq(<span class="number">0</span>:<span class="number">139</span>)-<span class="number">1</span>)[,c(<span class="number">3</span>,<span class="number">8</span>)]</div><div class="line">shandong_district_map_data&lt;-merge(myShape,xs,by.x=<span class="string">"id"</span>,by.y=<span class="string">"ID"</span>,type=<span class="string">"full"</span>)[,-c(<span class="number">5</span>,<span class="number">6</span>)]</div></pre></td></tr></table></figure>
+<p>很遗憾，我们从以上素材中所提取的城市名称数据，可能涉及到编码的问题，中文全部成为了乱码，这样我们前期整理的山东省GDP及公共财政相关数据的中名称便无法与该地图进行匹配，好在行政区代码还在，这样我们就可以从之前找到行政区划代码和名称信息进行匹配。</p>
+<p>将县级行政区地图与县级市进行匹配，获得信息完整的县级地图数据。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">shandong_district_map_data&lt;-merge(shandong_district_map_data,shandong_district_data[,-c(<span class="number">3</span>,<span class="number">4</span>)],by=<span class="string">"Code"</span>,all.x=<span class="literal">TRUE</span>)</div><div class="line">shandong_district_map_data&lt;-shandong_district_map_data[order(shandong_district_map_data$order),]</div></pre></td></tr></table></figure>
+<p><strong>素材2：山东省市级地图素材：</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">CHN_adm2 &lt;- readOGR(<span class="string">"D:/R/rstudy/CHN_adm/CHN_adm2.shp"</span>) </div><div class="line">CHN_adm2_1 &lt;- fortify(CHN_adm2)  </div><div class="line">CHN_adm2_1$id&lt;-as.numeric(CHN_adm2_1$id)</div><div class="line">shx &lt;- CHN_adm2@data          </div><div class="line">shxs &lt;- data.frame(shx,id=seq(<span class="number">0</span>:<span class="number">344</span>)-<span class="number">1</span>)        </div><div class="line">china_map_data &lt;- join(CHN_adm2_1,shxs,type=<span class="string">"full"</span>) </div><div class="line">shandong_city_map_data&lt;-subset(china_map_data,NAME_1==c(<span class="string">"Shandong"</span>))[,c(<span class="number">1</span>,<span class="number">2</span>,<span class="number">7</span>,<span class="number">14</span>)]</div><div class="line">mydata&lt;-read.csv(<span class="string">"D:/R/rstudy/State/huanbohai.csv"</span>,header=<span class="literal">T</span>)[,-<span class="number">3</span>]</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#匹配市级行政单位信息：</span></div><div class="line">shandong_city_map_data &lt;-join(shandong_city_map_data,mydata,by=<span class="string">"NAME_2"</span>,type=<span class="string">"left"</span>)</div></pre></td></tr></table></figure>
+<h3 id="接下来整合指标信息与地图作图数据："><a href="#接下来整合指标信息与地图作图数据：" class="headerlink" title="接下来整合指标信息与地图作图数据："></a>接下来整合指标信息与地图作图数据：</h3><p><strong>山东省市级地图作图数据：</strong></p>
+<p>因为我们之前获取的指标数据是按照县级行政区划整理的，这里需要使用聚合函数，整理成市级的。因为增长比率数据汇总聚合后意义不大，即便是平均值也不是很有意义，所以这里只用市级的公共预算支出和GDP数据。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">shandongdata&lt;-data.table(shandong_zhibiao_data)</div><div class="line">shandongnewdata&lt;-shandongdata[,.(SUM_BudgetScale=sum(BudgetScale),SUM_GDPScale=sum(GDPScale)),by=City]</div><div class="line">shandong_city_map_data&lt;-merge(shandong_city_map_data,shandongnewdata,by.x=<span class="string">"city"</span>,by.y=<span class="string">"City"</span>) </div><div class="line">shandong_fill_map_data&lt;-shandongnewdata</div><div class="line">shandong_fill_map_data$city&lt;-paste0(shandong_fill_map_data$City,<span class="string">"市"</span>)</div><div class="line">shandong_fill_map_data&lt;-shandong_fill_map_data[,c(<span class="number">1</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">3</span>)]</div><div class="line">shandong_fill_map_data&lt;-merge(shandong_fill_map_data[,-<span class="number">1</span>],shandong_city,by.x=<span class="string">"city"</span>,by.y=<span class="string">"City"</span>)</div><div class="line">shandong_fill_map_data&lt;-shandong_fill_map_data[,c(<span class="number">1</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">2</span>,<span class="number">3</span>)]</div></pre></td></tr></table></figure>
+<p>现在所有的数据已经整理完毕，我们一共得到了四张有用的数据集：</p>
+<ul>
+<li>市级地图数据——shandong_city_map_data（含城市指标）  </li>
+<li>县级地图数据——shandong_district_map_data（含17个地级市指标及经纬度）  </li>
+<li>市级指标数据——shandong_fill_map_data（含城市经纬度及两个指标：GDP规模和公众预算规模）  </li>
+<li>县级指标数据——shandong_district_data（含137个行政县指标及经纬度和五个指标数据，GDP规模、GDP增速，人均GDP增速，预算规模、预算增速）。  </li>
+</ul>
+<p>因为地级市数据限制，只有两个指标（GDP规模和预算规模），所以，最多只能制作两张地图。<br>县级行政区数据比较齐全，这里计划的呈现的维度是GDP规模与GDP增速，GDP规模与人均GDP增速，GDP增速与人均GDP增速。预算规模和预算增速。合计一共四张图。</p>
+<h3 id="接下来我们进入地图制作环节："><a href="#接下来我们进入地图制作环节：" class="headerlink" title="接下来我们进入地图制作环节："></a>接下来我们进入地图制作环节：</h3><p><strong>市级地图：（这两将包含两幅地图：GDP规模、公共预算收入规模）</strong></p>
+<blockquote>
+<p>为了更加明显的呈现出各个地级市的GDP和预算规模，这里我准备将两个指标的连续数值型变量切割成有序分段因子变量。</p>
+</blockquote>
+<p>首先浏览下各市GDP的极差分布：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; range(shandong_city_map_data$SUM_GDPScale)</div><div class="line">[<span class="number">1</span>]  <span class="number">703</span> <span class="number">9901</span></div></pre></td></tr></table></figure>
+<p>所以这里范围使用0~10000，均分为5组；</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">shandong_city_map_data$FA_SUM_GDPScale&lt;-cut(shandong_city_map_data$SUM_GDPScale, breaks=c(<span class="number">0</span>,<span class="number">1500</span>,<span class="number">3000</span>,<span class="number">4500</span>,<span class="number">6000</span>,<span class="number">10000</span>),labels=c(<span class="string">'0~1500'</span>,<span class="string">'1500~3000'</span>,<span class="string">'3000~4500'</span>,<span class="string">'4500~6000'</span>,<span class="string">'6000~10000'</span>),order=<span class="literal">TRUE</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">CairoPNG(file=<span class="string">"GDPScale.png"</span>,width=<span class="number">1200</span>,height=<span class="number">640</span>)</div><div class="line">font.add(<span class="string">"myfont"</span>, <span class="string">"msyh.ttc"</span>)</div><div class="line">showtext.begin()</div><div class="line">ggplot()+</div><div class="line">geom_polygon(data=shandong_city_map_data,aes(x=long,y=lat,group=group,fill=FA_SUM_GDPScale),col=<span class="string">"white"</span>,size=<span class="number">.2</span>)+</div><div class="line">scale_fill_brewer(palette=<span class="string">"Greens"</span>)+</div><div class="line">     coord_map(<span class="string">"polyconic"</span>) +</div><div class="line">     labs(title=<span class="string">"山东省各地级市2016年GDP规模分布"</span>,subtitle=<span class="string">"单位：（亿元）"</span>,caption=<span class="string">"数据来源：山东省发展与改革委员会"</span>)+       </div><div class="line">     guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))+   </div><div class="line">     geom_text(data=shandong_fill_map_data,aes(x=long,y=lat,label=city),family=<span class="string">"myfont"</span>,fontface=<span class="string">"plain"</span>,size=<span class="number">6</span>)+    </div><div class="line">     theme(</div><div class="line">          title=element_text(family=<span class="string">"myfont"</span>,size=<span class="number">18</span>),</div><div class="line">          plot.title=element_text(size=<span class="number">24</span>), </div><div class="line">          plot.subtitle=element_text(family=<span class="string">"myfont"</span>,size=<span class="number">18</span>), </div><div class="line">          <span class="comment">#plot.caption=element_text(family="myfont",size=18), </span></div><div class="line">          legend.text.align=<span class="number">1</span>, </div><div class="line">          legend.text=element_text(hjust=-<span class="number">5</span>,size=<span class="number">12</span>),          </div><div class="line">          panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank(),</div><div class="line">          legend.position = c(<span class="number">0.08</span>,<span class="number">0.8</span>),</div><div class="line">          plot.caption=element_text(hjust=<span class="number">0</span>)</div><div class="line">          )</div><div class="line">showtext.end()</div><div class="line">dev.off()</div></pre></td></tr></table></figure>
+<div align="center"><br><img src="http://oqfmz6sk5.bkt.clouddn.com/GDPScale.png" width="1200" height="640" alt="GDPScale" align="center"><br></div>
+
+
+<hr>
+<p><strong>浏览下各市公共预算规模的极差分布：</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; range(shandong_city_map_data$SUM_BudgetScale)</div><div class="line">[<span class="number">1</span>]   <span class="number">47.2</span> <span class="number">1003.3</span></div></pre></td></tr></table></figure>
+<p>使用直方图大致了解下最终的预算规模数据分布；</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(shandong_city_map_data,aes(SUM_BudgetScale))+geom_histogram()</div></pre></td></tr></table></figure>
+<p>所以这里范围使用0~1200，不等分为5组；</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">shandong_city_map_data$FA_SUM_BudgetScale&lt;-cut(shandong_city_map_data$SUM_BudgetScale, breaks=c(<span class="number">0</span>,<span class="number">150</span>,<span class="number">300</span>,<span class="number">450</span>,<span class="number">600</span>,<span class="number">1005</span>),labels=c(<span class="string">'0~150'</span>,<span class="string">'150~300'</span>,<span class="string">'300~450'</span>,<span class="string">'450~600'</span>,<span class="string">'600~       '</span>),order=<span class="literal">TRUE</span>) </div><div class="line"></div><div class="line">CairoPNG(file=<span class="string">"BudgetScale.png"</span>,width=<span class="number">1200</span>,height=<span class="number">640</span>)</div><div class="line">font.add(<span class="string">"myfont"</span>, <span class="string">"msyh.ttc"</span>)</div><div class="line">showtext.begin()</div><div class="line">ggplot()+</div><div class="line">geom_polygon(data=shandong_city_map_data,aes(x=long,y=lat,group=group,fill=FA_SUM_BudgetScale),col=<span class="string">"white"</span>,size=<span class="number">.2</span>)+</div><div class="line">scale_fill_brewer(palette=<span class="string">"OrRd"</span>)+</div><div class="line">     coord_map(<span class="string">"polyconic"</span>) +</div><div class="line">     labs(title=<span class="string">"山东省各地级市2016年公共预算收入规模分布"</span>,subtitle=<span class="string">"单位：（亿元）"</span>,caption=<span class="string">"数据来源：山东省发展与改革委员会"</span>)+       </div><div class="line"> guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))+   </div><div class="line"> geom_text(data=shandong_fill_map_data,aes(x=long,y=lat,label=city),family=<span class="string">"myfont"</span>,fontface=<span class="string">"plain"</span>,size=<span class="number">6</span>)+    </div><div class="line">     theme(</div><div class="line">          title=element_text(family=<span class="string">"myfont"</span>,size=<span class="number">18</span>),</div><div class="line">          plot.title=element_text(size=<span class="number">24</span>), </div><div class="line">          plot.subtitle=element_text(family=<span class="string">"myfont"</span>,size=<span class="number">18</span>), </div><div class="line">          <span class="comment">#plot.caption=element_text(family="myfont",size=18), </span></div><div class="line">          legend.text.align=<span class="number">1</span>, </div><div class="line">          legend.text=element_text(hjust=-<span class="number">5</span>,size=<span class="number">12</span>),          </div><div class="line">          panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank(),</div><div class="line">          legend.position = c(<span class="number">0.08</span>,<span class="number">0.8</span>),</div><div class="line">          plot.caption=element_text(hjust=<span class="number">0</span>)</div><div class="line">          )</div><div class="line">showtext.end()</div><div class="line">dev.off()</div></pre></td></tr></table></figure>
+<div align="center"><br><img src="http://oqfmz6sk5.bkt.clouddn.com/BudgetScale.png" width="1200" height="640" alt="BudgetScale" align="center"><br></div>
+
+<hr>
+<p>以上是地级市数据可视化两个维度的全部代码，通过2016GDP规模以公共预算支出的规模对比可以发现，山东省地区间经济发展水平差异还是很大的，其中青岛在两个指标上都遥遥领先，也是全国为数不多的地级市发展好于省会的城市之一。</p>
+<p>县级地图，以下过程将会输出五福图形，展示山东省县级行政区在GDP和预算规模的绝对量、增长率等各维度信息。分别包含GDP规模与增速、GDP规模与人均GDP增速、预算规模与预算增速、GDP规模与预算规模、GDP增速与预算增速对比。</p>
+<p>为了与上面过程保持一致，这里的绝对量还是要换算成分段因子变量，这样比较适合通过分段颜色来更好的呈现山东省各县的相关数据信息。</p>
+<p><strong>首先还是简略查看下GDP的极差分布：</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">range(shandong_district_map_data$GDPScale)</div><div class="line">[<span class="number">1</span>]   <span class="number">67</span> <span class="number">2766</span></div><div class="line"></div><div class="line">shandong_district__data</div><div class="line">ggplot(shandong_district_map_data,aes(GDPScale))+geom_histogram()</div></pre></td></tr></table></figure>
+<p>可以看出来，县级地区GDP的分布比较诡异，出现了一个特别的值，其他县市都集中在1200以下。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sqldf(<span class="string">"SELECT address,Max(GDPScale)  AS  GDPmax  FROM shandong_district_data"</span>)</div><div class="line">             address GDPmax</div><div class="line"><span class="number">1</span> 山东省青岛市黄岛区   <span class="number">2766</span></div></pre></td></tr></table></figure>
+<p>果然青岛市各县GDP黄岛区占了大头儿。如果数据分布不是很规律的话，平均分组可能 导致有些组没数据，有些组特别集中的情况。</p>
+<p>这里尝试着对各县GDP进行分组，期待能够分组合理的利用可视化呈现的分组。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">shandong_district_map_data$FA_GDPScale&lt;-cut(shandong_district_map_data$GDPScale, breaks=c(<span class="number">0</span>,<span class="number">300</span>,<span class="number">600</span>,<span class="number">900</span>,<span class="number">1200</span>,<span class="number">3000</span>),labels=c(<span class="string">'0~300'</span>,<span class="string">'300~600'</span>,<span class="string">'600~900'</span>,<span class="string">'900~1200'</span>,<span class="string">'1200~3000'</span>),order=<span class="literal">TRUE</span>) </div><div class="line">summary(shandong_district_map_data$FA_GDPScale)</div><div class="line"></div><div class="line">    <span class="number">0</span>~<span class="number">300</span>   <span class="number">300</span>~<span class="number">600</span>   <span class="number">600</span>~<span class="number">900</span>  <span class="number">900</span>~<span class="number">1200</span> <span class="number">1200</span>~<span class="number">3000</span> </div><div class="line">     <span class="number">2930</span>      <span class="number">2549</span>      <span class="number">1064</span>       <span class="number">539</span>        <span class="number">85</span> </div><div class="line"></div><div class="line">text&lt;-arrange(shandong_district_data,desc(GDPScale))%&gt;%select(Country,lon,lat,GDPScale)</div><div class="line">text&lt;-text[<span class="number">1</span>:<span class="number">10</span>,]</div></pre></td></tr></table></figure>
+<p><strong>山东省各行政县（包含县级市）2016年GDP规模&amp;增速分布</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">CairoPNG(file=<span class="string">"DistrictGDPScale.png"</span>,width=<span class="number">1200</span>,height=<span class="number">640</span>)</div><div class="line">font.add(<span class="string">"myfont"</span>, <span class="string">"msyh.ttc"</span>)</div><div class="line">showtext.begin()</div><div class="line">ggplot()+ </div><div class="line">geom_polygon(data=shandong_district_map_data,aes(x=long,y=lat,group=group,fill=FA_GDPScale),col=<span class="string">"grey60"</span>,size=<span class="number">.2</span>)+</div><div class="line">geom_point(data=shandong_district_data,aes(x=lon,y=lat,size=GDPGrowth),shape=<span class="number">21</span>,fill=<span class="string">"#FB832D"</span>,col=<span class="string">"#ED7D31"</span>,alpha=<span class="number">.6</span>)+ <span class="comment">#ED7D31E02939</span></div><div class="line">scale_size(range=c(<span class="number">1</span>,<span class="number">8</span>),guide=<span class="literal">FALSE</span>)+ </div><div class="line">scale_fill_brewer(palette=<span class="string">"Greens"</span>)+</div><div class="line">     coord_map(<span class="string">"polyconic"</span>) +</div><div class="line">     labs(title=<span class="string">"山东省各行政县（包含县级市）2016年GDP规模&amp;增速分布"</span>,subtitle=<span class="string">"单位：（亿元）"</span>,caption=<span class="string">"数据来源：山东省发展与改革委员会"</span>)+       </div><div class="line">     guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))+   </div><div class="line">     geom_text(data=text,aes(x=lon,y=lat-<span class="number">.1</span>,label=Country),family=<span class="string">"myfont"</span>,fontface=<span class="string">"plain"</span>,size=<span class="number">4</span>)+    </div><div class="line">     theme(</div><div class="line">          title=element_text(family=<span class="string">"myfont"</span>,size=<span class="number">18</span>),</div><div class="line">          plot.title=element_text(size=<span class="number">24</span>), </div><div class="line">          plot.subtitle=element_text(family=<span class="string">"myfont"</span>,size=<span class="number">18</span>), </div><div class="line">          <span class="comment">#plot.caption=element_text(family="myfont",size=18), </span></div><div class="line">          legend.text.align=<span class="number">1</span>, </div><div class="line">          legend.text=element_text(hjust=-<span class="number">5</span>,size=<span class="number">12</span>),          </div><div class="line">          panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank(),</div><div class="line">          legend.position = c(<span class="number">0.02</span>,<span class="number">0.8</span>),</div><div class="line">          plot.caption=element_text(hjust=<span class="number">0</span>)</div><div class="line">          )</div><div class="line">showtext.end()</div><div class="line">dev.off()</div></pre></td></tr></table></figure>
+<div align="center"><br><img src="http://oqfmz6sk5.bkt.clouddn.com/DistrictGDPScale.png" width="1200" height="640" alt="DistrictGDPScale" align="center"><br></div>
+
+<hr>
+<p><strong>山东省各行政县（包含县级市）2016年GDP规模&amp;人均GDP增速分布</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">CairoPNG(file=<span class="string">"DistrictPerGDPScale.png"</span>,width=<span class="number">1200</span>,height=<span class="number">640</span>)</div><div class="line">font.add(<span class="string">"myfont"</span>, <span class="string">"msyh.ttc"</span>)</div><div class="line">showtext.begin()</div><div class="line">ggplot()+ </div><div class="line">geom_polygon(data=shandong_district_map_data,aes(x=long,y=lat,group=group,fill=FA_GDPScale),col=<span class="string">"grey60"</span>,size=<span class="number">.2</span>)+</div><div class="line">geom_point(data=shandong_district_data,aes(x=lon,y=lat,size=PerGDPGrowth),shape=<span class="number">21</span>,fill=<span class="string">"#098154"</span>,col=<span class="string">"#ED7D31"</span>,alpha=<span class="number">.6</span>)+ <span class="comment">#ED7D31E02939</span></div><div class="line">scale_size(range=c(<span class="number">1</span>,<span class="number">8</span>),guide=<span class="literal">FALSE</span>)+ </div><div class="line">scale_fill_brewer(palette=<span class="string">"OrRd"</span>)+</div><div class="line">     coord_map(<span class="string">"polyconic"</span>) +</div><div class="line">     labs(title=<span class="string">"山东省各行政县（包含县级市）2016年GDP规模&amp;人均GDP增速分布"</span>,subtitle=<span class="string">"单位：（亿元）"</span>,caption=<span class="string">"数据来源：山东省发展与改革委员会"</span>)+       </div><div class="line">     guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))+   </div><div class="line">     geom_text(data=text,aes(x=lon,y=lat-<span class="number">.1</span>,label=Country),family=<span class="string">"myfont"</span>,fontface=<span class="string">"plain"</span>,size=<span class="number">4</span>)+    </div><div class="line">     theme(</div><div class="line">          title=element_text(family=<span class="string">"myfont"</span>,size=<span class="number">18</span>),</div><div class="line">          plot.title=element_text(size=<span class="number">24</span>), </div><div class="line">          plot.subtitle=element_text(family=<span class="string">"myfont"</span>,size=<span class="number">18</span>), </div><div class="line">          <span class="comment">#plot.caption=element_text(family="myfont",size=18), </span></div><div class="line">          legend.text.align=<span class="number">1</span>, </div><div class="line">          legend.text=element_text(hjust=-<span class="number">5</span>,size=<span class="number">12</span>),          </div><div class="line">          panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank(),</div><div class="line">          legend.position = c(<span class="number">0.05</span>,<span class="number">0.8</span>),</div><div class="line">          plot.caption=element_text(hjust=<span class="number">0</span>)</div><div class="line">          )</div><div class="line">showtext.end()</div><div class="line">dev.off()</div></pre></td></tr></table></figure>
+<div align="center"><br><img src="http://oqfmz6sk5.bkt.clouddn.com/DistrictPerGDPScale.png" width="1200" height="640" alt="DistrictPerGDPScale" align="center"><br></div>
+
+
+
+<p>除了GDP之外，还有另一个规模性指标——预算规模，接下来，我们针对预算规模来分析。</p>
+<p>查看各县预算规模的极差分布状况。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">summary(shandong_district_map_data$BudgetScale)</div><div class="line"></div><div class="line">  Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    <span class="literal">NA</span><span class="string">'s </span></div><div class="line">   1.30   14.00   22.90   34.26   46.00  212.40     346 </div><div class="line"></div><div class="line">shandong_district_map_data$FA_BudgetScale&lt;-cut(shandong_district_map_data$BudgetScale, breaks=c(0,40,80,120,160,240),labels=c('<span class="number">0</span>~<span class="number">50</span><span class="string">','</span><span class="number">50</span>~<span class="number">100</span><span class="string">','</span><span class="number">100</span>~<span class="number">150</span><span class="string">','</span><span class="number">150</span>~<span class="number">200</span><span class="string">','</span><span class="number">200</span>~<span class="number">250</span><span class="string">'),order=TRUE) </span></div><div class="line"></div><div class="line">&gt; summary(shandong_district_map_data$FA_BudgetScale)</div><div class="line">   0~50  50~100 100~150 150~200 200~250    NA's </div><div class="line">   <span class="number">4999</span>    <span class="number">1544</span>     <span class="number">521</span>      <span class="number">53</span>      <span class="number">50</span>     <span class="number">346</span> </div><div class="line"></div><div class="line">text1&lt;-arrange(shandong_district_data,desc(BudgetScale))%&gt;%select(Country,lon,lat,BudgetScale)</div><div class="line">text1&lt;-text1[<span class="number">1</span>:<span class="number">10</span>,]</div></pre></td></tr></table></figure>
+<p><strong>山东省各行政县（包含县级市）2016年公共预算收入规模&amp;增速分布</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt; summary(shandong_district_data$BudgetGrowth)</div><div class="line">   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </div><div class="line">-<span class="number">15.600</span>   <span class="number">6.500</span>   <span class="number">9.500</span>   <span class="number">9.085</span>  <span class="number">11.400</span>  <span class="number">31.300</span></div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">CairoPNG(file=<span class="string">"DistrictBudgetScale.png"</span>,width=<span class="number">1200</span>,height=<span class="number">640</span>)</div><div class="line">font.add(<span class="string">"myfont"</span>, <span class="string">"msyh.ttc"</span>)</div><div class="line">showtext.begin()</div><div class="line">ggplot()+ </div><div class="line">geom_polygon(data=shandong_district_map_data,aes(x=long,y=lat,group=group,fill=FA_BudgetScale),col=<span class="string">"grey60"</span>,size=<span class="number">.2</span>)+</div><div class="line">geom_point(data=shandong_district_data,aes(x=lon,y=lat,size=abs(BudgetGrowth)),shape=<span class="number">21</span>,fill=ifelse(shandong_district_data$BudgetGrowth&gt;<span class="number">0</span>,<span class="string">"#FB832D"</span>,<span class="string">"#014D64"</span>),col=<span class="string">"#ED7D31"</span>,alpha=<span class="number">.6</span>)+ <span class="comment">#气泡图颜色根据正负值分开填充</span></div><div class="line">scale_size(range=c(<span class="number">1</span>,<span class="number">8</span>),guide=<span class="literal">FALSE</span>)+ </div><div class="line">scale_fill_brewer(palette=<span class="string">"Greens"</span>)+</div><div class="line">     coord_map(<span class="string">"polyconic"</span>) +</div><div class="line">     labs(title=<span class="string">"山东省各行政县（包含县级市）2016年公共预算收入规模&amp;增速分布"</span>,subtitle=<span class="string">"单位：（亿元）"</span>,caption=<span class="string">"数据来源：山东省发展与改革委员会"</span>)+       </div><div class="line">     guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))+   </div><div class="line">     geom_text(data=text1,aes(x=lon,y=lat-<span class="number">.1</span>,label=Country),family=<span class="string">"myfont"</span>,fontface=<span class="string">"plain"</span>,size=<span class="number">4</span>)+    </div><div class="line">     theme(</div><div class="line">          title=element_text(family=<span class="string">"myfont"</span>,size=<span class="number">18</span>),</div><div class="line">          plot.title=element_text(size=<span class="number">24</span>), </div><div class="line">          plot.subtitle=element_text(family=<span class="string">"myfont"</span>,size=<span class="number">18</span>), </div><div class="line">          <span class="comment">#plot.caption=element_text(family="myfont",size=18), </span></div><div class="line">          legend.text.align=<span class="number">1</span>, </div><div class="line">          legend.text=element_text(hjust=-<span class="number">5</span>,size=<span class="number">12</span>),          </div><div class="line">          panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank(),</div><div class="line">          legend.position = c(<span class="number">0.02</span>,<span class="number">0.8</span>),</div><div class="line">          plot.caption=element_text(hjust=<span class="number">0</span>)</div><div class="line">          )</div><div class="line">showtext.end()</div><div class="line">dev.off()</div></pre></td></tr></table></figure>
+<div align="center"><br><img src="http://oqfmz6sk5.bkt.clouddn.com/DistrictBudgetScale.png" width="1200" height="640" alt="DistrictBudgetScale" align="center"><br></div>
+
+
+<p>以上三个维度分别展示了山东省各县GDP规模与增速指标、GDP规模与人均GDP增速指标、财政公共预算收入与增速指标的分布情况。</p>
+<hr>
+<p><strong>接下来我们在呈现各县GDP相对于公共预算收入规模的分布情况。</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">CairoPNG(file=<span class="string">"DistrictGDP&amp;Budget.png"</span>,width=<span class="number">1200</span>,height=<span class="number">640</span>)</div><div class="line">font.add(<span class="string">"myfont"</span>, <span class="string">"msyh.ttc"</span>)</div><div class="line">showtext.begin()</div><div class="line">ggplot()+ </div><div class="line">geom_polygon(data=shandong_district_map_data,aes(x=long,y=lat,group=group),col=<span class="string">"grey60"</span>,fill=<span class="string">"white"</span>,size=<span class="number">.2</span>)+</div><div class="line">geom_point(data=shandong_district_data,aes(x=lon,y=lat,size=GDPScale,fill=BudgetScale),shape=<span class="number">21</span>,col=<span class="string">"grey60"</span>,alpha=<span class="number">.8</span>)+ </div><div class="line">scale_size(range=c(<span class="number">1</span>,<span class="number">12</span>),guide=<span class="literal">FALSE</span>)+ </div><div class="line">scale_fill_gradient2(low=<span class="string">"#014D64"</span>,mid=<span class="string">"grey"</span>,high=<span class="string">"#C72E29"</span>,midpoint=range(na.omit(shandong_district_map_data$BudgetScale))/<span class="number">2</span>,guide=<span class="literal">FALSE</span>)+</div><div class="line">     coord_map(<span class="string">"polyconic"</span>) +</div><div class="line">     labs(title=<span class="string">"山东省各行政县（包含县级市）2016年GDP规模&amp;公共预算收入分布"</span>,subtitle=<span class="string">"单位：（亿元）"</span>,caption=<span class="string">"数据来源：山东省发展与改革委员会"</span>)+   </div><div class="line">     annotate(<span class="string">"text"</span>, x=<span class="number">114.8</span>, y=<span class="number">38.3</span>, label=<span class="string">"● 高（预算）"</span>, color= <span class="string">"#C72E29"</span>, size=<span class="number">6</span>) +    </div><div class="line">     annotate(<span class="string">"text"</span>, x=<span class="number">114.8</span>, y=<span class="number">38</span>, label=<span class="string">"● 低（预算）"</span>, color= <span class="string">"#014D64"</span>, size=<span class="number">6</span>) +    </div><div class="line">     theme(</div><div class="line">          title=element_text(family=<span class="string">"myfont"</span>,size=<span class="number">18</span>),</div><div class="line">          plot.title=element_text(size=<span class="number">24</span>), </div><div class="line">          plot.subtitle=element_text(family=<span class="string">"myfont"</span>,size=<span class="number">18</span>), </div><div class="line">          <span class="comment">#plot.caption=element_text(family="myfont",size=18),        </span></div><div class="line">          panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank(),</div><div class="line">          legend.position = c(<span class="number">0.02</span>,<span class="number">0.8</span>),</div><div class="line">          plot.caption=element_text(hjust=<span class="number">0</span>)</div><div class="line">          )</div><div class="line">showtext.end()</div><div class="line">dev.off()</div></pre></td></tr></table></figure>
+<div align="center"><br><img src="http://oqfmz6sk5.bkt.clouddn.com/DistrictGDP&Budget.png" width="1200" height="640" alt="DistrictGDP&Budget" align="center"><br></div>
+
+
+<p><strong>下面是关于人均GDP增速与各县公共预算收入增速之间的关系：</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">CairoPNG(file=<span class="string">"DistrictPerGDPGrowth&amp;BudgetGrodth.png"</span>,width=<span class="number">1200</span>,height=<span class="number">640</span>)</div><div class="line">font.add(<span class="string">"myfont"</span>, <span class="string">"msyh.ttc"</span>)</div><div class="line">showtext.begin()</div><div class="line">ggplot()+ </div><div class="line">geom_polygon(data=shandong_district_map_data,aes(x=long,y=lat,group=group),col=<span class="string">"grey60"</span>,fill=<span class="string">"white"</span>,size=<span class="number">.2</span>)+</div><div class="line">geom_point(data=shandong_district_data,aes(x=lon,y=lat,size=GDPScale),shape=<span class="number">21</span>,fill=<span class="string">"transparent"</span>,col=<span class="string">"#014D64"</span>)+ </div><div class="line">geom_point(data=shandong_district_data,aes(x=lon,y=lat,size=BudgetScale),shape=<span class="number">21</span>,fill=<span class="string">"#C72E29"</span>,col=<span class="string">"transparent"</span>,alpha=<span class="number">.6</span>)+ </div><div class="line">scale_size(range=c(<span class="number">1</span>,<span class="number">12</span>),guide=<span class="literal">FALSE</span>)+ </div><div class="line">     coord_map(<span class="string">"polyconic"</span>) +</div><div class="line">     labs(title=<span class="string">"山东省各行政县（包含县级市）2016年GDP增速&amp;公共预算收入增速分布"</span>,subtitle=<span class="string">"单位：（亿元）"</span>,caption=<span class="string">"数据来源：山东省发展与改革委员会"</span>)+   </div><div class="line">     annotate(<span class="string">"text"</span>, x=<span class="number">114.8</span>, y=<span class="number">38.3</span>, label=<span class="string">"○ GDP（增速）"</span>, color= <span class="string">"#014D64"</span>, size=<span class="number">6</span>) + </div><div class="line">     annotate(<span class="string">"text"</span>, x=<span class="number">114.8</span>, y=<span class="number">38</span>,   label=<span class="string">"● 预算（预算）"</span>, color= <span class="string">"#C72E29"</span>, size=<span class="number">6</span>) +    </div><div class="line">     theme(</div><div class="line">          title=element_text(family=<span class="string">"myfont"</span>,size=<span class="number">18</span>),</div><div class="line">          plot.title=element_text(size=<span class="number">24</span>), </div><div class="line">          plot.subtitle=element_text(family=<span class="string">"myfont"</span>,size=<span class="number">18</span>), </div><div class="line">          <span class="comment">#plot.caption=element_text(family="myfont",size=18),        </span></div><div class="line">          panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank(),</div><div class="line">          legend.position = c(<span class="number">0.02</span>,<span class="number">0.8</span>),</div><div class="line">          plot.caption=element_text(hjust=<span class="number">0</span>)</div><div class="line">          )</div><div class="line">showtext.end()</div><div class="line">dev.off()</div></pre></td></tr></table></figure>
+<div align="center"><br><img src="http://oqfmz6sk5.bkt.clouddn.com/DistrictPerGDPGrowth&BudgetGrodth.png" width="1200" height="640" alt="DistrictPerGDPGrowth&BudgetGrodth" align="center"><br></div>
+
+<p>以上过程确实有些烧脑，大篇幅的代码，可以就是代码驱动的可视化，让数据呈现更为直观，数据可视化本就服务于数据呈现，无助于数据呈现的可视化相当于数据灾难。</p>
+<p>本篇算是学习R以来比较完善的一篇以实战为目的的案例练习，虽然写的有些杂乱，但是过程还是学习了很东西，补了很多平时遗忘的漏洞。</p>
+<hr>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
+<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
+<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
+
+<hr>
+<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://oqbxptw4f.bkt.clouddn.com/dashang/wechat.jpg" alt="RainDu WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://oqbxptw4f.bkt.clouddn.com/dashang/Alipay.png" alt="RainDu Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/R语言/" rel="tag"># R语言</a>
+          
+            <a href="/tags/数据可视化/" rel="tag"># 数据可视化</a>
+          
+            <a href="/tags/ggplot2/" rel="tag"># ggplot2</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/23/emoji表情可视化北京历史天气/" rel="next" title="emoji表情可视化北京历史天气">
+                <i class="fa fa-chevron-left"></i> emoji表情可视化北京历史天气
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/25/实习僧招聘网招聘信息爬虫数据可视化/" rel="prev" title="实习僧招聘网招聘信息爬虫数据可视化">
+                实习僧招聘网招聘信息爬虫数据可视化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="uyan_frame"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="RainDu" />
+          <p class="site-author-name" itemprop="name">RainDu</p>
+           
+              <p class="site-description motion-element" itemprop="description">身体和心灵，总有一个在路上！</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ljtyduyu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/1676935144" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.zhihu.com/people/du-yu-48-94/activities" title="知乎" target="_blank">知乎</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jianshu.com/u/29dbe4c85801" title="简书" target="_blank">简书</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#加载包"><span class="nav-number">1.</span> <span class="nav-text">加载包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据抓取"><span class="nav-number">2.</span> <span class="nav-text">数据抓取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#经纬度地址解析："><span class="nav-number">3.</span> <span class="nav-text">经纬度地址解析：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导入背景地图素材数据"><span class="nav-number">4.</span> <span class="nav-text">导入背景地图素材数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接下来整合指标信息与地图作图数据："><span class="nav-number">5.</span> <span class="nav-text">接下来整合指标信息与地图作图数据：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接下来我们进入地图制作环节："><span class="nav-number">6.</span> <span class="nav-text">接下来我们进入地图制作环节：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RainDu</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2134216"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

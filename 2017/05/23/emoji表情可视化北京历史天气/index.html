@@ -1,0 +1,911 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="R语言,数据可视化,ggplot2," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="raindu's home" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="数据抓取：加载包1234567891011121314library(RCurl)library(XML)library(dplyr)library(ggplot2)library(stringr)library(rvest)library(lubridate)library(&quot;DT&quot;)library(openair)library(ggplot2)library(scales)library(s">
+<meta name="keywords" content="R语言,数据可视化,ggplot2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="emoji表情可视化北京历史天气">
+<meta property="og:url" content="http://www.raindu.com/2017/05/23/emoji表情可视化北京历史天气/index.html">
+<meta property="og:site_name" content="raindu&#39;s home">
+<meta property="og:description" content="数据抓取：加载包1234567891011121314library(RCurl)library(XML)library(dplyr)library(ggplot2)library(stringr)library(rvest)library(lubridate)library(&quot;DT&quot;)library(openair)library(ggplot2)library(scales)library(s">
+<meta property="og:image" content="http://oqdvmreg2.bkt.clouddn.com/beijingweather/jpg/calendar1.png">
+<meta property="og:image" content="http://oqdvmreg2.bkt.clouddn.com/beijingweather/jpg/calendar2.png">
+<meta property="og:image" content="http://oqdvmreg2.bkt.clouddn.com/beijingweather/jpg/calendar3.png">
+<meta property="og:image" content="http://oqdvmreg2.bkt.clouddn.com/beijingweather/jpg/ECOCircle4.png">
+<meta property="og:image" content="http://oqdvmreg2.bkt.clouddn.com/beijingweather/jpg/ECOCircle5.png">
+<meta property="og:image" content="http://oqdvmreg2.bkt.clouddn.com/beijingweather/jpg/ECOCircle2.png">
+<meta property="og:image" content="http://oqdvmreg2.bkt.clouddn.com/beijingweather/jpg/ECOCircle3.png">
+<meta property="og:image" content="http://oqdvmreg2.bkt.clouddn.com/beijingweather/jpg/ECOCircle6.png">
+<meta property="og:image" content="http://oqdvmreg2.bkt.clouddn.com/beijingweather/jpg/resume.png">
+<meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
+<meta property="og:updated_time" content="2017-05-23T02:40:00.053Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="emoji表情可视化北京历史天气">
+<meta name="twitter:description" content="数据抓取：加载包1234567891011121314library(RCurl)library(XML)library(dplyr)library(ggplot2)library(stringr)library(rvest)library(lubridate)library(&quot;DT&quot;)library(openair)library(ggplot2)library(scales)library(s">
+<meta name="twitter:image" content="http://oqdvmreg2.bkt.clouddn.com/beijingweather/jpg/calendar1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.raindu.com/2017/05/23/emoji表情可视化北京历史天气/"/>
+
+
+
+
+
+  <title>emoji表情可视化北京历史天气 | raindu's home</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">raindu's home</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">A lifelong learner!!!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/05/23/emoji表情可视化北京历史天气/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RainDu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="raindu's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">emoji表情可视化北京历史天气</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-23T10:08:40+08:00">
+                2017-05-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/R语言/" itemprop="url" rel="index">
+                    <span itemprop="name">R语言</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="数据抓取："><a href="#数据抓取：" class="headerlink" title="数据抓取："></a>数据抓取：</h3><p>加载包<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(RCurl)</div><div class="line"><span class="keyword">library</span>(XML)</div><div class="line"><span class="keyword">library</span>(dplyr)</div><div class="line"><span class="keyword">library</span>(ggplot2)</div><div class="line"><span class="keyword">library</span>(stringr)</div><div class="line"><span class="keyword">library</span>(rvest)</div><div class="line"><span class="keyword">library</span>(lubridate)</div><div class="line"><span class="keyword">library</span>(<span class="string">"DT"</span>)</div><div class="line"><span class="keyword">library</span>(openair)</div><div class="line"><span class="keyword">library</span>(ggplot2)</div><div class="line"><span class="keyword">library</span>(scales)</div><div class="line"><span class="keyword">library</span>(showtext)</div><div class="line"><span class="keyword">library</span>(grid)</div><div class="line"><span class="keyword">library</span>(Cairo)</div></pre></td></tr></table></figure></p>
+<p>用更加优雅的方式加载包：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">all.pcg&lt;-c(<span class="string">"RCurl"</span>,<span class="string">"XML"</span>,<span class="string">"dplyr"</span>,<span class="string">"ggplot2"</span>,<span class="string">"stringr"</span>,<span class="string">"rvest"</span>,<span class="string">"lubridate"</span>,<span class="string">"DT"</span>,<span class="string">"scales"</span>,<span class="string">"showtext"</span>,<span class="string">"grid"</span>,<span class="string">"Cairo"</span>) </div><div class="line">req.pcg &lt;- <span class="keyword">function</span>(pcg)&#123; </div><div class="line">new &lt;- pcg[!(pcg %<span class="keyword">in</span>% installed.packages()[, <span class="string">"Package"</span>])] </div><div class="line"><span class="keyword">if</span> (length(new)) install.packages(new, dependencies = <span class="literal">T</span>) </div><div class="line">sapply(req.pcg, <span class="keyword">require</span>, ch = <span class="literal">T</span>) </div><div class="line">&#125; </div><div class="line">req.pcg(all.pcg)</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>构建历史天气数据网页链接：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">year&lt;-<span class="number">2014</span>:<span class="number">2016</span></div><div class="line">month&lt;-sprintf(<span class="string">"%02d"</span>,<span class="number">1</span>:<span class="number">12</span>)</div><div class="line">url&lt;- paste(<span class="string">"https://www.aqistudy.cn/historydata/daydata.php?city=北京&amp;month="</span>,expand.grid(year,month)$Var1</div><div class="line">,expand.grid(year,month)$Var2,sep=<span class="string">""</span>)</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>以上过程构造了北京市2014~2016年三整年的历史空气质量数据：</p>
+</blockquote>
+<p>测试单段代码：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">先写完一个看下具体情况:</div><div class="line">tbls&lt;-read_html(url[<span class="number">1</span>],encoding=<span class="string">"utf-8"</span>)%&gt;%html_table(.,header=<span class="literal">TRUE</span>,trim=<span class="literal">TRUE</span>);tbls&lt;-tbls[[<span class="number">1</span>]]</div><div class="line"></div><div class="line">构建循环下载函数：</div><div class="line">mytable&lt;-data.frame()</div><div class="line"><span class="keyword">for</span> (i <span class="keyword">in</span> url)&#123;</div><div class="line">Sys.sleep(sample(<span class="number">1</span>:<span class="number">5</span>,<span class="number">1</span>))</div><div class="line">fun&lt;-<span class="keyword">function</span>(m)&#123;</div><div class="line">table&lt;-read_html(m,encoding=<span class="string">"utf-8"</span>)%&gt;%html_table(.,header=<span class="literal">TRUE</span>,trim=<span class="literal">TRUE</span>)</div><div class="line">table&lt;-table[[<span class="number">1</span>]]</div><div class="line">&#125;</div><div class="line">mytable&lt;-rbind(mytable,fun(i))</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="数据清洗与处理："><a href="#数据清洗与处理：" class="headerlink" title="数据清洗与处理："></a>数据清洗与处理：</h3><p>预览一下以上数据结构：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">dim(mytable)</div><div class="line">[<span class="number">1</span>] <span class="number">1096</span>   <span class="number">11</span></div><div class="line"></div><div class="line">attributes(mytable)$names</div><div class="line"></div><div class="line"> [<span class="number">1</span>] <span class="string">"日期"</span>     <span class="string">"AQI"</span>      <span class="string">"范围"</span>     <span class="string">"质量等级"</span> <span class="string">"PM2.5"</span>    <span class="string">"PM10"</span>     <span class="string">"SO2"</span>     </div><div class="line"> [<span class="number">8</span>] <span class="string">"CO"</span>       <span class="string">"NO2"</span>      <span class="string">"O3"</span>       <span class="string">"排名"</span></div></pre></td></tr></table></figure></p>
+<p>使用DT表格预览数据集：<br>datatable(mytable)</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mytable&lt;-read.csv(<span class="string">"beijingtianqi.csv"</span>,stringsAsFactors=<span class="literal">FALSE</span>,check.names=<span class="literal">FALSE</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#查看数据结构和变量属性是否符合分析需要：</span></div><div class="line">str(mytable)</div><div class="line"><span class="string">'data.frame'</span>:	<span class="number">1096</span> obs. of  <span class="number">11</span> variables:</div><div class="line"> $ 日期    : chr  <span class="string">"2014-01-01"</span> <span class="string">"2014-01-02"</span> <span class="string">"2014-01-03"</span> <span class="string">"2014-01-04"</span> <span class="keyword">...</span></div><div class="line"> $ AQI     : int  <span class="number">87</span> <span class="number">119</span> <span class="number">81</span> <span class="number">151</span> <span class="number">121</span> <span class="number">181</span> <span class="number">144</span> <span class="number">29</span> <span class="number">44</span> <span class="number">86</span> <span class="keyword">...</span></div><div class="line"> $ 范围    : chr  <span class="string">"76~99"</span> <span class="string">"80~218"</span> <span class="string">"38~202"</span> <span class="string">"87~229"</span> <span class="keyword">...</span></div><div class="line"> $ 质量等级: chr  <span class="string">"良"</span> <span class="string">"轻度污染"</span> <span class="string">"良"</span> <span class="string">"中度污染"</span> <span class="keyword">...</span></div><div class="line"> $ PM2.5   : num  <span class="number">45</span> <span class="number">111.4</span> <span class="number">46.5</span> <span class="number">114.4</span> <span class="number">90.5</span> <span class="keyword">...</span></div><div class="line"> $ PM10    : num  <span class="number">111.3</span> <span class="number">168.5</span> <span class="number">97.7</span> <span class="number">147</span> <span class="number">117.5</span> <span class="keyword">...</span></div><div class="line"> $ SO2     : num  <span class="number">27.7</span> <span class="number">69.3</span> <span class="number">29</span> <span class="number">40</span> <span class="number">35.9</span> <span class="number">46.3</span> <span class="number">34.4</span> <span class="number">13</span> <span class="number">19.3</span> <span class="number">53.2</span> <span class="keyword">...</span></div><div class="line"> $ CO      : num  <span class="number">1.5</span> <span class="number">3.43</span> <span class="number">1.31</span> <span class="number">2.82</span> <span class="number">2.31</span> <span class="keyword">...</span></div><div class="line"> $ NO2     : num  <span class="number">61.9</span> <span class="number">93.1</span> <span class="number">52</span> <span class="number">75.4</span> <span class="number">67</span> <span class="number">68.2</span> <span class="number">59.8</span> <span class="number">21.1</span> <span class="number">34.5</span> <span class="number">70.5</span> <span class="keyword">...</span></div><div class="line"> $ O3      : int  <span class="number">64</span> <span class="number">17</span> <span class="number">65</span> <span class="number">10</span> <span class="number">57</span> <span class="number">11</span> <span class="number">55</span> <span class="number">59</span> <span class="number">65</span> <span class="number">28</span> <span class="keyword">...</span></div><div class="line"> $ 排名    : int  <span class="number">32</span> <span class="number">66</span> <span class="number">41</span> <span class="number">112</span> <span class="number">67</span> <span class="number">104</span> <span class="number">85</span> <span class="number">9</span> <span class="number">25</span> <span class="number">58</span> <span class="keyword">...</span></div></pre></td></tr></table></figure>
+<hr>
+<p>定义日期变量格式：<br></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">mytable$日期&lt;-as.Date(mytable$日期)</div><div class="line"></div><div class="line">names(mytable)[c(<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">11</span>)]&lt;-c(<span class="string">"date"</span>,<span class="string">"Range"</span>,<span class="string">"Level"</span>,<span class="string">"Order"</span>)</div><div class="line">mytable$Year&lt;-year(mytable$date)</div><div class="line"></div><div class="line">breaks&lt;-c(<span class="number">0</span>,<span class="number">50</span>,<span class="number">100</span>,<span class="number">150</span>,<span class="number">200</span>,<span class="number">300</span>,<span class="number">500</span>)</div><div class="line">label&lt;-c(<span class="string">"excellent"</span>,<span class="string">"good"</span>,<span class="string">"Mild pollution"</span>,<span class="string">"moderate pollution"</span>,<span class="string">"heavy pollution "</span>,<span class="string">"serious pollution"</span>)</div><div class="line"></div><div class="line">filter(mytable,Year==<span class="number">2014</span>)%&gt;%calendarPlot(.,pollutant=<span class="string">"AQI"</span>,breaks=breaks,labels=label,year=<span class="number">2014</span>)</div><div class="line">filter(mytable,Year==<span class="number">2015</span>)%&gt;%calendarPlot(.,pollutant=<span class="string">"AQI"</span>,breaks=breaks,labels=label,year=<span class="number">2015</span>)</div><div class="line">filter(mytable,Year==<span class="number">2016</span>)%&gt;%calendarPlot(.,pollutant=<span class="string">"AQI"</span>,breaks=breaks,labels=label,year=<span class="number">2016</span>)</div></pre></td></tr></table></figure>
+<div align="center"><br><img src="http://oqdvmreg2.bkt.clouddn.com/beijingweather/jpg/calendar1.png" width="550" height="400" alt="calendar1" align="center"><br></div>
+
+
+
+<div align="center"><br><img src="http://oqdvmreg2.bkt.clouddn.com/beijingweather/jpg/calendar2.png" width="550" height="400" alt="calendar2" align="center"><br></div>
+
+
+
+<div align="center"><br><img src="http://oqdvmreg2.bkt.clouddn.com/beijingweather/jpg/calendar3.png" width="550" height="400" alt="calendar3" align="center"><br></div>
+
+
+<h3 id="可视化阶段"><a href="#可视化阶段" class="headerlink" title="可视化阶段"></a>可视化阶段</h3><p>接下来让我们疯狂一把，将北京三年的空气质量指标AQI用一幅图形尽数呈现。<br></p>
+<h4 id="数据整体与备份："><a href="#数据整体与备份：" class="headerlink" title="数据整体与备份："></a>数据整体与备份：</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mydata1&lt;-mytable</div><div class="line">write.table (mytable,<span class="string">"beijingtianqi.csv"</span>,sep=<span class="string">","</span>,row.names=<span class="literal">FALSE</span>)</div><div class="line">mydata11&lt;-mydata1[c(<span class="string">"date"</span>,<span class="string">"AQI"</span>,<span class="string">"Year"</span>)]</div><div class="line">myasst&lt;-mydata11[mydata11$date %<span class="keyword">in</span>% as.Date(c(<span class="string">"2014-01-01"</span>,<span class="string">"2015-01-01"</span>,<span class="string">"2016-01-01"</span>)),]</div><div class="line">mydata11&lt;-rbind(mydata11,myasst)</div></pre></td></tr></table></figure>
+<p>因为作图需要，2016年是闰年，2月有29天，14、15年均为28天，会导致最终数据不等长，影响之后的图表制作过程，这里暂且将其去除。<br><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mydata11&lt;-arrange(mydata11,Year,date)</div><div class="line">mydata11&lt;-mydata11[mydata11$date!=<span class="string">"2016-02-29"</span>,]</div><div class="line">mydata11$Month&lt;-month(mydata11$date)</div><div class="line">mydata11$Monthdata&lt;--<span class="number">5</span></div><div class="line">mydata11$Monthjo&lt;-ifelse(mydata11$Month%%<span class="number">2</span>==<span class="number">0</span>,<span class="string">"A"</span>,<span class="string">"B"</span>)</div><div class="line">circlemonth&lt;-seq(<span class="number">0</span>,<span class="number">180</span>,length=<span class="number">17</span>)</div><div class="line">circlebj&lt;-rep(c(-circlemonth[<span class="number">1</span>:<span class="number">3</span>],rev(circlemonth[<span class="number">1</span>:<span class="number">3</span>])),<span class="number">2</span>)</div></pre></td></tr></table></figure></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">mydata11$ID&lt;-rep(seq(from=<span class="number">0</span>,to=<span class="number">365</span>),<span class="number">3</span>)</div><div class="line">mydata11$Year&lt;-factor(mydata11$Year,order=<span class="literal">T</span>)</div><div class="line">mydata11$Asst&lt;-<span class="number">5</span></div><div class="line">mydata11$Asst[mydata11$Year==<span class="number">2015</span>]&lt;-<span class="number">10</span></div><div class="line">mydata11$Asst[mydata11$Year==<span class="number">2016</span>]&lt;-<span class="number">15</span></div><div class="line">mydata11A&lt;-mydata11[mydata11$Year==<span class="number">2014</span>&amp;mydata11$Monthjo==<span class="string">"A"</span>,]</div><div class="line">mydata11B&lt;-mydata11[mydata11$Year==<span class="number">2014</span>&amp;mydata11$Monthjo==<span class="string">"B"</span>,]</div><div class="line"></div><div class="line">mydata11$Quarter&lt;-quarter(mydata11$date)</div><div class="line">mydata11$Quarterdata&lt;-<span class="number">20</span></div><div class="line">mydata11C&lt;-mydata11%&gt;%filter(mydata11$Year==<span class="number">2014</span>)%&gt;%filter(Quarter %<span class="keyword">in</span>% c(<span class="number">1</span>,<span class="number">3</span>)) </div><div class="line">mydata11D&lt;-mydata11%&gt;%filter(mydata11$Year==<span class="number">2014</span>)%&gt;%filter(Quarter %<span class="keyword">in</span>% c(<span class="number">2</span>,<span class="number">4</span>)) </div><div class="line">circlequarter&lt;-seq(<span class="number">45</span>,<span class="number">315</span>,length=<span class="number">4</span>)</div><div class="line">circleqd&lt;-rep(c(-circlequarter[<span class="number">1</span>],circlequarter[<span class="number">1</span>]),<span class="number">2</span>)</div><div class="line"></div><div class="line">mydata11$FADD&lt;-cut(mydata11$AQI,breaks=c(<span class="number">0</span>,<span class="number">50</span>,<span class="number">100</span>,<span class="number">150</span>,<span class="number">200</span>,<span class="number">300</span>,<span class="number">500</span>),labels=c(<span class="string">"0~50"</span>,<span class="string">"51~100"</span>,<span class="string">"101~150"</span>,<span class="string">"151~200"</span>,<span class="string">"201~300"</span>,<span class="string">"301~500"</span>),order=<span class="literal">T</span>)</div></pre></td></tr></table></figure>
+<h4 id="瓦片图可视化历史天气"><a href="#瓦片图可视化历史天气" class="headerlink" title="瓦片图可视化历史天气"></a>瓦片图可视化历史天气</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#作图方法1：（简便方法，但效果不太好调整）</span></div><div class="line">CairoPNG(file=<span class="string">"ECOCirclejj.png"</span>,width=<span class="number">1488</span>,height=<span class="number">996</span>)</div><div class="line">showtext.begin()</div><div class="line">ggplot(data=mydata11)+</div><div class="line">geom_tile(aes(ID,Year,fill=FADD))+</div><div class="line">coord_polar(theta=<span class="string">"x"</span>)+</div><div class="line">expand_limits(ylim=c(-<span class="number">4</span>,<span class="number">4</span>))+</div><div class="line">scale_fill_brewer(palette=<span class="string">"YlOrRd"</span>,type=<span class="string">"seq"</span>,direction=<span class="number">1</span>,guide=guide_legend(reverse=<span class="literal">TRUE</span>))+</div><div class="line">labs(title=<span class="string">"2014~2016年度北京市空气质量水平可视化"</span>,subtitle=<span class="string">"数据根据AQI指标水平进行分段分割"</span>,caption=<span class="string">"Source：https://www.aqistudy.cn/"</span>,x=<span class="string">""</span>,y=<span class="string">""</span>,fill=<span class="string">""</span>)+</div><div class="line">theme(</div><div class="line">axis.text=element_blank(),</div><div class="line">axis.title=element_blank(),</div><div class="line">axis.ticks=element_blank(),</div><div class="line">panel.background=element_blank(),</div><div class="line">panel.grid=element_blank(),</div><div class="line">panel.border=element_blank(),</div><div class="line">legend.key.size=unit(<span class="number">1.2</span>,<span class="string">'cm'</span>),</div><div class="line">legend.key.height=unit(<span class="number">1</span>,<span class="string">'cm'</span>),</div><div class="line">legend.text.align=<span class="number">1</span>, </div><div class="line">legend.position=c(<span class="number">1</span>,<span class="number">0.95</span>),legend.justification=c(<span class="number">1</span>,<span class="number">1</span>),</div><div class="line">legend.text=element_text(size=<span class="number">20</span>,hjust=<span class="number">3</span>,vjust=<span class="number">3</span>,face=<span class="string">"bold"</span>),</div><div class="line">plot.background=element_blank(),</div><div class="line">plot.title=element_text(size=<span class="number">50</span>,lineheight=<span class="number">1.5</span>),</div><div class="line">plot.subtitle=element_text(size=<span class="number">35</span>,lineheight=<span class="number">1.5</span>),</div><div class="line">plot.caption=element_text(size=<span class="number">25</span>,hjust=<span class="number">0</span>,lineheight=<span class="number">1.2</span>),</div><div class="line">plot.margin=unit(c(<span class="number">.5</span>,<span class="number">.5</span>,<span class="number">.5</span>,<span class="number">.5</span>),<span class="string">"lines"</span>)</div><div class="line">)</div><div class="line">showtext.end()</div><div class="line">dev.off()</div></pre></td></tr></table></figure>
+<div align="center"><br><img src="http://oqdvmreg2.bkt.clouddn.com/beijingweather/jpg/ECOCircle4.png" width="750" height="500" alt="ECOCircle4" align="center"><br></div>
+
+<h4 id="光栅图可视化历史天气"><a href="#光栅图可视化历史天气" class="headerlink" title="光栅图可视化历史天气"></a>光栅图可视化历史天气</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#这里使用geom_raster()图层进行映射（不支持极坐标转换）</span></div><div class="line">breaks&lt;-aggregate(ID~Month,data=mydata11[mydata11$Year==<span class="number">2014</span>,],FUN=median)</div><div class="line">CairoPNG(file=<span class="string">"ECOCirclejjj.png"</span>,width=<span class="number">1200</span>,height=<span class="number">600</span>)</div><div class="line">showtext.begin()</div><div class="line">ggplot(data=mydata11)+</div><div class="line">geom_raster(aes(ID,Year,fill=FADD))+</div><div class="line">scale_fill_brewer(palette=<span class="string">"YlOrRd"</span>,type=<span class="string">"seq"</span>,direction=<span class="number">1</span>,guide=guide_legend(reverse=<span class="literal">TRUE</span>))+</div><div class="line">scale_x_continuous(breaks=breaks[,<span class="number">2</span>],labels=paste0(<span class="number">1</span>:<span class="number">12</span>,<span class="string">"月"</span>))+</div><div class="line">labs(title=<span class="string">"2014~2016年度北京市空气质量水平可视化"</span>,subtitle=<span class="string">"数据根据AQI指标水平进行分段分割"</span>,caption=<span class="string">"Source：https://www.aqistudy.cn/"</span>,fill=<span class="string">""</span>)+</div><div class="line">theme(</div><div class="line">text=element_text(family=<span class="string">"myfont"</span>),</div><div class="line">axis.text=element_text(size=<span class="number">20</span>),</div><div class="line">axis.title=element_blank(),</div><div class="line">axis.ticks=element_blank(),</div><div class="line">panel.background=element_blank(),</div><div class="line">panel.grid=element_blank(),</div><div class="line">panel.border=element_blank(),</div><div class="line">legend.key.size=unit(<span class="number">1.2</span>,<span class="string">'cm'</span>),</div><div class="line">legend.key.height=unit(<span class="number">1</span>,<span class="string">'cm'</span>),</div><div class="line">legend.text.align=<span class="number">1</span>,</div><div class="line">legend.text=element_text(size=<span class="number">20</span>,hjust=<span class="number">3</span>,vjust=<span class="number">3</span>,face=<span class="string">"bold"</span>),</div><div class="line">plot.background=element_blank(),</div><div class="line">plot.title=element_text(size=<span class="number">50</span>,lineheight=<span class="number">1.5</span>),</div><div class="line">plot.subtitle=element_text(size=<span class="number">35</span>,lineheight=<span class="number">1.5</span>),</div><div class="line">plot.caption=element_text(size=<span class="number">25</span>,hjust=<span class="number">0</span>,lineheight=<span class="number">1.2</span>),</div><div class="line">plot.margin=unit(c(<span class="number">.5</span>,<span class="number">.5</span>,<span class="number">.5</span>,<span class="number">.5</span>),<span class="string">"lines"</span>)</div><div class="line">)</div><div class="line">showtext.end()</div><div class="line">dev.off()</div></pre></td></tr></table></figure>
+<div align="center"><br><img src="http://oqdvmreg2.bkt.clouddn.com/beijingweather/jpg/ECOCircle5.png" width="800" height="500" alt="ECOCircle5" align="center"><br></div>
+
+
+<h4 id="构造多重柱形图模拟北京历史天气可视化"><a href="#构造多重柱形图模拟北京历史天气可视化" class="headerlink" title="构造多重柱形图模拟北京历史天气可视化"></a>构造多重柱形图模拟北京历史天气可视化</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#作图方法2：（虽然代码多但是调整相对自由）</span></div><div class="line">setwd(<span class="string">"F:/微信公众号/公众号——数据小魔方/2017年4月/20170404"</span>)</div><div class="line">font.add(<span class="string">"myfont"</span>,<span class="string">"msyhl.ttc"</span>)</div><div class="line">CairoPNG(file=<span class="string">"ECOCircle.png"</span>,width=<span class="number">1488</span>,height=<span class="number">996</span>)</div><div class="line">showtext.begin()</div><div class="line">ggplot()+</div><div class="line">geom_bar(data=mydata11A,aes(x=ID,y=Monthdata),stat=<span class="string">"identity"</span>,width=<span class="number">1</span>,fill=<span class="string">"#ECEDD1"</span>,col=<span class="string">"#ECEDD1"</span>)+</div><div class="line">geom_bar(data=mydata11B,aes(x=ID,y=Monthdata),stat=<span class="string">"identity"</span>,width=<span class="number">1</span>,fill=<span class="string">"#DFE0B1"</span>,col=<span class="string">"#DFE0B1"</span>)+</div><div class="line">geom_bar(data=mydata11C,aes(x=ID,y=Quarterdata),stat=<span class="string">"identity"</span>,width=<span class="number">1</span>,fill=<span class="string">"#BDBDBD"</span>,col=<span class="string">"#BDBDBD"</span>)+</div><div class="line">geom_bar(data=mydata11D,aes(x=ID,y=Quarterdata),stat=<span class="string">"identity"</span>,width=<span class="number">1</span>,fill=<span class="string">"#D4D2D3"</span>,col=<span class="string">"#D4D2D3"</span>)+</div><div class="line">geom_bar(data=mydata11[mydata11$Year==<span class="number">2016</span>,],aes(x=ID,y=Asst,fill=FADD),stat=<span class="string">"identity"</span>,width=<span class="number">1</span>)+</div><div class="line">geom_bar(data=mydata11[mydata11$Year==<span class="number">2015</span>,],aes(x=ID,y=Asst,fill=FADD),stat=<span class="string">"identity"</span>,width=<span class="number">1</span>)+</div><div class="line">geom_bar(data=mydata11[mydata11$Year==<span class="number">2014</span>,],aes(x=ID,y=Asst,fill=FADD),stat=<span class="string">"identity"</span>,width=<span class="number">1</span>)+</div><div class="line">scale_fill_brewer(palette=<span class="string">"YlOrRd"</span>,type=<span class="string">"seq"</span>,direction=<span class="number">1</span>,guide=guide_legend(reverse=<span class="literal">TRUE</span>))+</div><div class="line">coord_polar(theta=<span class="string">"x"</span>)+</div><div class="line">ylim(-<span class="number">20</span>,<span class="number">20</span>)+</div><div class="line">guides(colour=guide_legend(reverse=<span class="literal">TRUE</span>))+</div><div class="line">geom_text(data=<span class="literal">NULL</span>,aes(x=circlemonth,y=-<span class="number">2.5</span>,label=paste0(<span class="number">1</span>:<span class="number">12</span>,<span class="string">"月"</span>),angle=circlebj),family=<span class="string">"myfont"</span>,size=<span class="number">7</span>,hjust=<span class="number">0.5</span>,vjust=<span class="number">.5</span>)+</div><div class="line">geom_text(data=<span class="literal">NULL</span>,aes(x=circlequarter,y=<span class="number">17.5</span>,label=paste0(c(<span class="string">"一"</span>,<span class="string">"二"</span>,<span class="string">"三"</span>,<span class="string">"四"</span>),<span class="string">"季度"</span>),angle=circleqd),family=<span class="string">"myfont"</span>,size=<span class="number">7</span>,hjust=<span class="number">0.5</span>,vjust=<span class="number">.5</span>)+</div><div class="line">annotate(<span class="string">"text"</span>,x=<span class="number">0</span>,y=-<span class="number">15</span>,label=<span class="string">"北京"</span>,size=<span class="number">25</span>,hjust=<span class="number">.5</span>,vjust=<span class="number">1</span>,family=<span class="string">"myfont"</span>) +    </div><div class="line">labs(title=<span class="string">"2014~2016年度北京市空气质量水平可视化"</span>,subtitle=<span class="string">"数据根据AQI指标水平进行分段分割"</span>,caption=<span class="string">"Source：https://www.aqistudy.cn/"</span>,x=<span class="string">""</span>,y=<span class="string">""</span>,fill=<span class="string">""</span>)+</div><div class="line">theme(</div><div class="line">text=element_text(family=<span class="string">"myfont"</span>),</div><div class="line">axis.text=element_blank(),</div><div class="line">axis.title=element_blank(),</div><div class="line">axis.ticks=element_blank(),</div><div class="line">panel.background=element_blank(),</div><div class="line">panel.grid=element_blank(),</div><div class="line">panel.border=element_blank(),</div><div class="line">legend.key.size=unit(<span class="number">1.2</span>,<span class="string">'cm'</span>),</div><div class="line">legend.key.height=unit(<span class="number">1</span>,<span class="string">'cm'</span>),</div><div class="line">legend.text.align=<span class="number">1</span>, </div><div class="line">legend.position=c(<span class="number">1</span>,<span class="number">0</span>),legend.justification=c(<span class="number">1</span>,<span class="number">0</span>),</div><div class="line">legend.text=element_text(size=<span class="number">20</span>,hjust=<span class="number">3</span>,vjust=<span class="number">3</span>,face=<span class="string">"bold"</span>),</div><div class="line">plot.background=element_blank(),</div><div class="line">plot.title=element_text(size=<span class="number">50</span>,lineheight=<span class="number">1.5</span>),</div><div class="line">plot.subtitle=element_text(size=<span class="number">35</span>,lineheight=<span class="number">1.5</span>),</div><div class="line">plot.caption=element_text(size=<span class="number">25</span>,hjust=<span class="number">0</span>,lineheight=<span class="number">1.2</span>),</div><div class="line">plot.margin=unit(c(<span class="number">.5</span>,<span class="number">.5</span>,<span class="number">.5</span>,<span class="number">.5</span>),<span class="string">"lines"</span>),</div><div class="line">)</div><div class="line">showtext.end()</div><div class="line">dev.off()</div></pre></td></tr></table></figure>
+<div align="center"><br><img src="http://oqdvmreg2.bkt.clouddn.com/beijingweather/jpg/ECOCircle2.png" width="650" height="440" alt="ECOCircle2" align="center"><br></div>
+
+<p><br></p>
+<div align="center"><br><img src="http://oqdvmreg2.bkt.clouddn.com/beijingweather/jpg/ECOCircle3.png" width="650" height="440" alt="ECOCircle3" align="center"><br></div>
+
+<p><br></p>
+<div align="center"><br><img src="http://oqdvmreg2.bkt.clouddn.com/beijingweather/jpg/ECOCircle6.png" width="650" height="440" alt="ECOCircle6" align="center"><br></div>
+
+
+<hr>
+<p><strong>联系方式：</strong></p>
+<p>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834  </p>
+<p><strong>个人简介：</strong></p>
+<p><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。 <br><br>Mail:578708965@qq.com </p>
+<div align="center"><br><img src="http://oqdvmreg2.bkt.clouddn.com/beijingweather/jpg/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
+
+<hr>
+<p><strong>备注信息：</strong></p>
+<p><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://oqbxptw4f.bkt.clouddn.com/dashang/wechat.jpg" alt="RainDu WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://oqbxptw4f.bkt.clouddn.com/dashang/Alipay.png" alt="RainDu Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/R语言/" rel="tag"># R语言</a>
+          
+            <a href="/tags/数据可视化/" rel="tag"># 数据可视化</a>
+          
+            <a href="/tags/ggplot2/" rel="tag"># ggplot2</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/22/中国字体地图/" rel="next" title="中国字体地图">
+                <i class="fa fa-chevron-left"></i> 中国字体地图
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/24/山东省公共财政预算数据可视化/" rel="prev" title="山东省公共财政预算数据可视化">
+                山东省公共财政预算数据可视化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="uyan_frame"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="RainDu" />
+          <p class="site-author-name" itemprop="name">RainDu</p>
+           
+              <p class="site-description motion-element" itemprop="description">身体和心灵，总有一个在路上！</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ljtyduyu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/1676935144" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.zhihu.com/people/du-yu-48-94/activities" title="知乎" target="_blank">知乎</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jianshu.com/u/29dbe4c85801" title="简书" target="_blank">简书</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据抓取："><span class="nav-number">1.</span> <span class="nav-text">数据抓取：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据清洗与处理："><span class="nav-number">2.</span> <span class="nav-text">数据清洗与处理：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可视化阶段"><span class="nav-number">3.</span> <span class="nav-text">可视化阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据整体与备份："><span class="nav-number">3.1.</span> <span class="nav-text">数据整体与备份：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#瓦片图可视化历史天气"><span class="nav-number">3.2.</span> <span class="nav-text">瓦片图可视化历史天气</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#光栅图可视化历史天气"><span class="nav-number">3.3.</span> <span class="nav-text">光栅图可视化历史天气</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构造多重柱形图模拟北京历史天气可视化"><span class="nav-number">3.4.</span> <span class="nav-text">构造多重柱形图模拟北京历史天气可视化</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RainDu</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2134216"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

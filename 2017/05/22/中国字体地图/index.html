@@ -1,0 +1,915 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="R语言,数据可视化,ggplot2," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="raindu's home" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="数据获取加载包12345678library(rvest)           library(dplyr)          library(stringr)        library(showtext)      library(Cairo)          library(RColorBrewer)   library(ggplot2)        library(grid)  由于">
+<meta name="keywords" content="R语言,数据可视化,ggplot2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="中国字体地图">
+<meta property="og:url" content="http://www.raindu.com/2017/05/22/中国字体地图/index.html">
+<meta property="og:site_name" content="raindu&#39;s home">
+<meta property="og:description" content="数据获取加载包12345678library(rvest)           library(dplyr)          library(stringr)        library(showtext)      library(Cairo)          library(RColorBrewer)   library(ggplot2)        library(grid)  由于">
+<meta property="og:image" content="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/circle.png">
+<meta property="og:image" content="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/jsonview.png">
+<meta property="og:image" content="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/ploygon.png">
+<meta property="og:image" content="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/circle.png">
+<meta property="og:image" content="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/China.png">
+<meta property="og:image" content="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/Final.png">
+<meta property="og:image" content="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png">
+<meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
+<meta property="og:updated_time" content="2017-05-22T13:35:49.151Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="中国字体地图">
+<meta name="twitter:description" content="数据获取加载包12345678library(rvest)           library(dplyr)          library(stringr)        library(showtext)      library(Cairo)          library(RColorBrewer)   library(ggplot2)        library(grid)  由于">
+<meta name="twitter:image" content="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/circle.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.raindu.com/2017/05/22/中国字体地图/"/>
+
+
+
+
+
+  <title>中国字体地图 | raindu's home</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">raindu's home</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">A lifelong learner!!!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/05/22/中国字体地图/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RainDu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="raindu's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">中国字体地图</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-22T11:02:41+08:00">
+                2017-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/R语言/" itemprop="url" rel="index">
+                    <span itemprop="name">R语言</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="数据获取"><a href="#数据获取" class="headerlink" title="数据获取"></a>数据获取</h3><p>加载包<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(rvest)           </div><div class="line"><span class="keyword">library</span>(dplyr)          </div><div class="line"><span class="keyword">library</span>(stringr)        </div><div class="line"><span class="keyword">library</span>(showtext)      </div><div class="line"><span class="keyword">library</span>(Cairo)          </div><div class="line"><span class="keyword">library</span>(RColorBrewer)   </div><div class="line"><span class="keyword">library</span>(ggplot2)        </div><div class="line"><span class="keyword">library</span>(grid)</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>由于本文用到了一款中国行政区划的字体地图——EyesAsia，每一个行政区都是以一个字母代替的，所以需要获取该地图字体对应的索引表。该字体的开源项目主页为：<a href="https://github.com/HaoyunS/EyesAsia" target="_blank" rel="external">EyesAsia</a><br>与此对应的，还有一款也很fashion的字体地图（StateFace），是美帝的行政区划字体地图。项目主页在这里:<a href="https://propublica.github.io/stateface" target="_blank" rel="external">stateface</a></p>
+</blockquote>
+<p>一共43个编号，以下是提取过程，因为是一个table，所以可以直接使用rvest非常便捷的表格抓取工具。<br></p>
+<a id="more"></a>
+<h4 id="抓取数据"><a href="#抓取数据" class="headerlink" title="抓取数据"></a>抓取数据</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">url&lt;-<span class="string">"https://github.com/haoyuns/EyesAsia"</span></div><div class="line">table&lt;-read_html(url,encoding=<span class="string">"utf-8"</span>)%&gt;%html_table()%&gt;%.[[<span class="number">2</span>]]</div><div class="line">table1&lt;-table[table$lowercase!=<span class="string">""</span>,]</div><div class="line">table2&lt;-table[table$lowercase==<span class="string">""</span>,]%&gt;%.[,<span class="number">2</span>:<span class="number">3</span>]</div><div class="line">table11&lt;-table1[,<span class="number">1</span>:<span class="number">2</span>]%&gt;%rename(case=lowercase)</div><div class="line">table12&lt;-table1[,<span class="number">3</span>:<span class="number">4</span>]%&gt;%rename(case=UPPERCASE)</div><div class="line">table13&lt;-table2%&gt;%rename(case=Content,Content=UPPERCASE)</div><div class="line">tabledata&lt;-rbind(table11,table12,table13)</div></pre></td></tr></table></figure>
+<h4 id="筛选出中国的34个省级行政区"><a href="#筛选出中国的34个省级行政区" class="headerlink" title="筛选出中国的34个省级行政区"></a>筛选出中国的34个省级行政区</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">tabledata$Cname&lt;-str_extract(tabledata$Content,<span class="string">"[\\u4e00-\\u9fa5]+"</span>)</div><div class="line">tabledata$Ename&lt;-str_extract(tabledata$Content,<span class="string">"[^\\u4e00-\\u9fa5]+"</span>)%&gt;%str_trim(side=c(<span class="string">"right"</span>))</div><div class="line">tabledata&lt;-tabledata[,-<span class="number">2</span>]</div><div class="line">setwd(<span class="string">"D:/R/File"</span>)</div><div class="line">write.table(tabledata,<span class="string">"EyesAsia.csv"</span>,sep=<span class="string">","</span>,row.names=<span class="literal">FALSE</span>)</div><div class="line">word&lt;-c(<span class="string">"日本"</span>,<span class="string">"蒙古"</span>,<span class="string">"朝鲜"</span>,<span class="string">"韩国"</span>,<span class="string">"青海湖"</span>,<span class="string">"鄱阳湖"</span>,<span class="string">"洞庭湖"</span>,<span class="string">"太湖"</span>,<span class="string">"洪泽湖"</span>)</div><div class="line">mymapdata&lt;-tabledata</div><div class="line">mymapdata$m&lt;-mymapdata$Cname %<span class="keyword">in</span>% word</div><div class="line">mymapdata&lt;-mymapdata%&gt;%filter(m==<span class="literal">FALSE</span>)%&gt;%.[,<span class="number">1</span>:<span class="number">3</span>]</div><div class="line">write.table(mymapdata,<span class="string">"EyesAsia.csv"</span>,sep=<span class="string">","</span>,row.names=<span class="literal">FALSE</span>)</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="作图主要过程分为三部分："><a href="#作图主要过程分为三部分：" class="headerlink" title="作图主要过程分为三部分："></a>作图主要过程分为三部分：</h3><h4 id="步骤一：外围字体圆环图："><a href="#步骤一：外围字体圆环图：" class="headerlink" title="步骤一：外围字体圆环图："></a>步骤一：外围字体圆环图：</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#导入数据：</span></div><div class="line"><span class="comment">#生成一个虚拟指标，并分割为有序分段因子变量。</span></div><div class="line">mymapdata&lt;-read.csv(<span class="string">"EyesAsia.csv"</span>,stringsAsFactors=<span class="literal">FALSE</span>,check.names=<span class="literal">FALSE</span>)</div><div class="line">mymapdata&lt;-transform(mymapdata,scale=<span class="number">5</span>,peform=runif(<span class="number">34</span>,<span class="number">20</span>,<span class="number">50</span>))</div><div class="line">mymapdata$scale&lt;-as.numeric(mymapdata$scale)</div><div class="line">mymapdata$group&lt;-cut(mymapdata$peform,breaks=c(<span class="number">20</span>,<span class="number">26</span>,<span class="number">32</span>,<span class="number">38</span>,<span class="number">44</span>,<span class="number">50</span>),levels=,labels=c(<span class="string">"20~26"</span>,<span class="string">"26~32"</span>,<span class="string">"32~38"</span>,<span class="string">"38~44"</span>,<span class="string">"44~50"</span>),order=<span class="literal">TRUE</span>)</div><div class="line">mymapdata&lt;-arrange(mymapdata,desc(peform));mymapdata$order=<span class="number">1</span>:nrow(mymapdata)</div><div class="line">mymapdata$order&lt;-as.numeric(mymapdata$order)</div></pre></td></tr></table></figure>
+<p>作图函数：  </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">CairoPNG(<span class="string">"chineserador.png"</span>,<span class="number">900</span>,<span class="number">900</span>)</div><div class="line">showtext.begin()</div><div class="line">ggplot(mymapdata,aes(order,scale,label=case))+</div><div class="line">ylim(-<span class="number">6</span>,<span class="number">6</span>)+</div><div class="line">coord_polar(theta=<span class="string">"x"</span>,start=<span class="number">0</span>)+</div><div class="line">geom_text(aes(colour=group),family=<span class="string">"myfont"</span>,size=<span class="number">20</span>)+</div><div class="line">scale_colour_brewer(palette=<span class="string">"Greens"</span>,guide=<span class="literal">FALSE</span>)+</div><div class="line">theme_minimal()+</div><div class="line">theme(</div><div class="line">panel.grid=element_blank(),</div><div class="line">axis.title=element_blank(),</div><div class="line">axis.text=element_blank(),</div><div class="line">)</div><div class="line">showtext.end()</div><div class="line">dev.off()</div></pre></td></tr></table></figure>
+<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/circle.png" width="500" height="500" alt="circle" align="center"><br></div>
+
+
+<h4 id="制作中心中国地图"><a href="#制作中心中国地图" class="headerlink" title="制作中心中国地图"></a>制作中心中国地图</h4><p>其实针对中国省级地图素材而言，大部分shp格式的地图都是可以放心使用的，但是为了练习自己对于json数据的操控能力（毕竟是非常流行的web端数据存储格式），<br>这里我硬生生的抽取了json格式的中国地图数据，所以以下代码看着有些不适，请大家谨慎观看！<br></p>
+<p>载入包：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(plyr)         </div><div class="line"><span class="keyword">library</span>(maptools)      </div><div class="line"><span class="keyword">library</span>(scales)       </div><div class="line"><span class="keyword">library</span>(jsonlite)</div><div class="line"><span class="keyword">library</span>(jsonview)</div></pre></td></tr></table></figure>
+<p>导入json格式中国地图：     </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">setwd(<span class="string">"D:/R/mapdata/State/"</span>)</div><div class="line">china_data&lt;-fromJSON(<span class="string">"china.json"</span>)</div><div class="line">json_tree_view(china_data)</div></pre></td></tr></table></figure>
+<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/jsonview.png" width="400" height="400" alt="jsontree" align="center"><br></div>
+
+<p>最新发现的可以自动化解析并渲染json树结构的包，它不仅可以渲染json数据，也可以渲染xml、html格式的树结构：<br></p>
+<p>抽取行政区里列表信息：     </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">china_city_data&lt;-china_data$features$properties[,c(<span class="number">1</span>,<span class="number">3</span>)]</div><div class="line">names(china_city_data)[<span class="number">2</span>]&lt;-<span class="string">"region"</span></div><div class="line">china_city_data$ID&lt;-<span class="number">1</span>:nrow(china_city_data)</div><div class="line">china_city_data$size&lt;-runif(<span class="number">34</span>,<span class="number">900</span>,<span class="number">1150</span>)</div><div class="line">china_city_data$group&lt;-cut(china_city_data$size,breaks=c(<span class="number">900</span>,<span class="number">950</span>,<span class="number">1000</span>,<span class="number">1050</span>,<span class="number">1100</span>,<span class="number">1150</span>),labels=c(<span class="string">"900~950"</span>,<span class="string">"951~1000"</span>,<span class="string">"1001~1050"</span>,<span class="string">"1051~1100"</span>,<span class="string">"1101~1150"</span>),order=<span class="literal">TRUE</span>)</div></pre></td></tr></table></figure>
+<p>抽取行政区划边界经纬度多边形数据：（最艰难的部分）    </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">china_map_data&lt;-china_data$features$geometry$coordinates</div></pre></td></tr></table></figure>
+<p>还时上次讲到的困难，中国某些省份辖区内有独立于主区域的分离区域（比如河北的廊坊，以及山东、及南部沿海多岛屿的省份）。<br></p>
+<p>今天这个json素材要比上次提取的那个安徽省的素材更加复杂，具体步骤也不详细讲解了，看不太懂就直接略过吧，反正代码写的也比较烂，基本写不出那种可以通用的代码！<br></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">num&lt;-c();id&lt;-c()</div><div class="line"><span class="keyword">for</span>( i <span class="keyword">in</span> <span class="number">1</span>:length(china_map_data))&#123;</div><div class="line">citymapdata&lt;-china_map_data[[i]]</div><div class="line">num[i]&lt;-length(citymapdata)</div><div class="line">id&lt;-<span class="number">1</span>:i</div><div class="line">a&lt;-data.frame(id,num)</div><div class="line">&#125;</div><div class="line">a[a$num&lt;=<span class="number">2</span>,]</div><div class="line">   id num</div><div class="line"><span class="number">12</span> <span class="number">12</span>   <span class="number">2</span></div><div class="line"><span class="number">14</span> <span class="number">14</span>   <span class="number">2</span></div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">dim(china_map_data[[<span class="number">14</span>]][[<span class="number">1</span>]])=c(length(china_map_data[[<span class="number">14</span>]][[<span class="number">1</span>]])/<span class="number">2</span>,<span class="number">2</span>)</div><div class="line">dim(china_map_data[[<span class="number">14</span>]][[<span class="number">2</span>]])=c(length(china_map_data[[<span class="number">14</span>]][[<span class="number">2</span>]])/<span class="number">2</span>,<span class="number">2</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">mapdata1&lt;-data.frame()</div><div class="line">mapdata2&lt;-data.frame()</div><div class="line"><span class="keyword">for</span>( i <span class="keyword">in</span> <span class="number">1</span>:length(china_map_data))&#123;</div><div class="line">    citymapdata&lt;-china_map_data[[i]]</div><div class="line">        <span class="keyword">if</span> (length(citymapdata)&lt;=<span class="number">2</span>)&#123;</div><div class="line">            <span class="keyword">for</span>(m <span class="keyword">in</span> <span class="number">1</span>:length(citymapdata))&#123;</div><div class="line">                citymapdata1&lt;-data.frame(citymapdata[[m]])%&gt;%dplyr::rename(long=X1,lat=X2)</div><div class="line">                citymapdata1$ID&lt;-i</div><div class="line">                citymapdata1$group&lt;-as.numeric(paste0(i,<span class="string">"."</span>,m,<span class="number">1</span>))</div><div class="line">                citymapdata1$order&lt;-<span class="number">1</span>:nrow(citymapdata1)</div><div class="line">             mapdata1&lt;-rbind(mapdata1,citymapdata1,citymapdata2)</div><div class="line">             &#125;</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">             dim(citymapdata)=c(length(citymapdata)/<span class="number">2</span>,<span class="number">2</span>)</div><div class="line">             citymapdata2&lt;-data.frame(citymapdata)%&gt;%dplyr::rename(long=X1,lat=X2)</div><div class="line">             citymapdata2$ID&lt;-i</div><div class="line">             citymapdata2$group&lt;-as.numeric(paste0(i,<span class="string">"."</span>,<span class="number">1</span>))</div><div class="line">             citymapdata2$order&lt;-<span class="number">1</span>:nrow(citymapdata2)</div><div class="line">         mapdata2&lt;-rbind(mapdata2,citymapdata2)</div><div class="line">        &#125;</div><div class="line">    mydatanew&lt;-rbind(mapdata1,mapdata2)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>至此经纬度的边界点信息也有了，接下来就可可以映射地图了：<br></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mydatanew&lt;-dplyr::arrange(mydatanew,ID,order)</div></pre></td></tr></table></figure>
+<p>合并经纬度边界点信息和行政区划信息。  </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mydatanew_map_data&lt;-merge(mydatanew,china_city_data[,c(<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)])</div></pre></td></tr></table></figure>
+<p>预览地图素材是否可用：<br></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">ggplot(mydatanew_map_data,aes(long,lat,group=group))+geom_polygon(col=<span class="string">"white"</span>,fill=<span class="string">"grey"</span>)+</div><div class="line">coord_map(<span class="string">"polyconic"</span>)+</div><div class="line">     theme(               </div><div class="line">          panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank()</div><div class="line">          )</div></pre></td></tr></table></figure>
+<p>预览效果图：<br></p>
+<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/ploygon.png" width="400" height="400" alt="test" align="center"><br></div>
+
+<h4 id="拼接两幅地图。"><a href="#拼接两幅地图。" class="headerlink" title="拼接两幅地图。"></a>拼接两幅地图。</h4><p>第一款字体时最初提到的地图字体（需要事先下载哦）；第二款就是微软雅黑喽，渲染省份标签用的。  </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">font.add(<span class="string">"myfont"</span>,<span class="string">"EyesAsia-Regular.otf"</span>)</div><div class="line">font.add(<span class="string">"myyh"</span>,<span class="string">"msyhl.ttc"</span>)</div></pre></td></tr></table></figure>
+<p>为了更加舒适的看圆环上的省份标签，这里给标签添加角度偏移量。   </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">circle&lt;-seq(<span class="number">0</span>,<span class="number">95</span>,length=<span class="number">9</span>)</div><div class="line">circleALL&lt;-rep(c(-circle,rev(circle[<span class="number">2</span>:<span class="number">9</span>])),<span class="number">2</span>)</div><div class="line">mymapdata$circle&lt;-circleALL</div></pre></td></tr></table></figure>
+<p>鉴于ggplot极坐标下的首尾不衔接的缺陷，这里再查补一个缺失值。    </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mymapdata&lt;-arrange(mymapdata,order)</div><div class="line">mapx&lt;-mymapdata[mymapdata$order==<span class="number">34</span>,]</div><div class="line">mapx$order&lt;-<span class="number">35</span>;mapx$Cname=<span class="literal">NA</span>;mapx$case=<span class="literal">NA</span></div><div class="line">mymapdata1&lt;-rbind(mymapdata,mapx)</div></pre></td></tr></table></figure>
+<p>所有的步骤都弄完之后，接下来将两幅图表存为对象。    </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">p1&lt;-ggplot(mymapdata1,aes(x=order,y=scale))+</div><div class="line">ylim(-<span class="number">6</span>,<span class="number">7.5</span>)+</div><div class="line">coord_polar(theta=<span class="string">"x"</span>,start=<span class="number">0</span>)+</div><div class="line">geom_text(aes(colour=group,label=case),family=<span class="string">"myfont"</span>,size=<span class="number">15</span>)+</div><div class="line">geom_text(aes(y=scale+<span class="number">2</span>,angle=circle,label=Cname),family=<span class="string">"myyh"</span>,size=<span class="number">6</span>,vjust=<span class="number">0.5</span>,hjust=<span class="number">.5</span>)+</div><div class="line">scale_colour_brewer(palette=<span class="string">"Greens"</span>,guide=<span class="literal">FALSE</span>)+</div><div class="line">theme_minimal()+</div><div class="line">theme(</div><div class="line">panel.grid=element_blank(),</div><div class="line">axis.title=element_blank(),</div><div class="line">axis.text=element_blank(),</div><div class="line">)</div></pre></td></tr></table></figure>
+<p>图表效果大致是这样的：  </p>
+<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/circle.png" width="450" height="450" alt="circle" align="center"><br></div>
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">p2&lt;-ggplot(china_city_data,aes(map_id=region,fill=group))+</div><div class="line">geom_map(map=mydatanew_map_data,colour=<span class="string">"white"</span>)+</div><div class="line">expand_limits(x=mydatanew_map_data$long,y=mydatanew_map_data$lat)+</div><div class="line">scale_fill_brewer(palette=<span class="string">"YlOrRd"</span>,guide=<span class="literal">FALSE</span>)+</div><div class="line">coord_map(<span class="string">"polyconic"</span>)+</div><div class="line">     theme(             </div><div class="line">          panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank(),</div><div class="line">          plot.background=element_rect(I(<span class="number">0</span>),linetype=<span class="number">0</span>)</div><div class="line">          )</div></pre></td></tr></table></figure>
+<p>图表效果大致是这样的：<br></p>
+<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/China.png" width="500" height="500" alt="ChinaMap" align="center"><br></div>
+
+
+<p>拼接：<br></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">CairoPNG(<span class="string">"chineserador.png"</span>,<span class="number">1000</span>,<span class="number">1000</span>)</div><div class="line">showtext.begin()</div><div class="line">vs &lt;- viewport(width=<span class="number">0.95</span>,height=<span class="number">0.95</span>,x=<span class="number">0.5</span>,y=<span class="number">0.5</span>)    </div><div class="line">print(p1,vp=vs)  </div><div class="line">vs &lt;- viewport(width=<span class="number">0.75</span>,height=<span class="number">0.8</span>,x=<span class="number">0.5</span>,y=<span class="number">0.5</span>)   </div><div class="line">print(p2,vp=vs) </div><div class="line">showtext.end()</div><div class="line">dev.off()</div></pre></td></tr></table></figure>
+<p>以下是最终的结果：<br></p>
+<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/Final.png" width="400" height="400" alt="Final" align="center"><br></div>
+
+<h3 id="OK了，做完收工"><a href="#OK了，做完收工" class="headerlink" title="OK了，做完收工~"></a>OK了，做完收工~</h3><hr>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
+<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
+<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
+
+<hr>
+<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://oqbxptw4f.bkt.clouddn.com/dashang/wechat.jpg" alt="RainDu WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://oqbxptw4f.bkt.clouddn.com/dashang/Alipay.png" alt="RainDu Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/R语言/" rel="tag"># R语言</a>
+          
+            <a href="/tags/数据可视化/" rel="tag"># 数据可视化</a>
+          
+            <a href="/tags/ggplot2/" rel="tag"># ggplot2</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/23/emoji表情可视化北京历史天气/" rel="prev" title="emoji表情可视化北京历史天气">
+                emoji表情可视化北京历史天气 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="uyan_frame"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="RainDu" />
+          <p class="site-author-name" itemprop="name">RainDu</p>
+           
+              <p class="site-description motion-element" itemprop="description">身体和心灵，总有一个在路上！</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ljtyduyu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/1676935144" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.zhihu.com/people/du-yu-48-94/activities" title="知乎" target="_blank">知乎</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jianshu.com/u/29dbe4c85801" title="简书" target="_blank">简书</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据获取"><span class="nav-number">1.</span> <span class="nav-text">数据获取</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#抓取数据"><span class="nav-number">1.1.</span> <span class="nav-text">抓取数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#筛选出中国的34个省级行政区"><span class="nav-number">1.2.</span> <span class="nav-text">筛选出中国的34个省级行政区</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作图主要过程分为三部分："><span class="nav-number">2.</span> <span class="nav-text">作图主要过程分为三部分：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#步骤一：外围字体圆环图："><span class="nav-number">2.1.</span> <span class="nav-text">步骤一：外围字体圆环图：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#制作中心中国地图"><span class="nav-number">2.2.</span> <span class="nav-text">制作中心中国地图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#拼接两幅地图。"><span class="nav-number">2.3.</span> <span class="nav-text">拼接两幅地图。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OK了，做完收工"><span class="nav-number">3.</span> <span class="nav-text">OK了，做完收工~</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RainDu</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2134216"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
