@@ -1,0 +1,888 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="R语言,ggplot2,数据可视化,信息图," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="raindu's home" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="该图表案例来源于某财经杂志，我是从刘万祥老师那里看来的，之后又在知乎上发现有人发帖求做法。我就抱着试一试的心态，用ggplot2尝试着做，没想到真的让我给弄出来了。 这里分享给大家我的做法和思路：">
+<meta name="keywords" content="R语言,ggplot2,数据可视化,信息图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="鱼眼百分比信息图">
+<meta property="og:url" content="http://www.raindu.com/2017/05/27/鱼眼百分比信息图/index.html">
+<meta property="og:site_name" content="raindu&#39;s home">
+<meta property="og:description" content="该图表案例来源于某财经杂志，我是从刘万祥老师那里看来的，之后又在知乎上发现有人发帖求做法。我就抱着试一试的心态，用ggplot2尝试着做，没想到真的让我给弄出来了。 这里分享给大家我的做法和思路：">
+<meta property="og:image" content="http://oqlznmmja.bkt.clouddn.com/one.png">
+<meta property="og:image" content="http://oqlznmmja.bkt.clouddn.com/two.png">
+<meta property="og:image" content="http://oqlznmmja.bkt.clouddn.com/five.jpg">
+<meta property="og:image" content="http://oqlznmmja.bkt.clouddn.com/six.jpg">
+<meta property="og:image" content="http://oqlznmmja.bkt.clouddn.com/three.png">
+<meta property="og:image" content="http://oqlznmmja.bkt.clouddn.com/four.png">
+<meta property="og:image" content="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png">
+<meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
+<meta property="og:updated_time" content="2017-05-27T11:28:35.881Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="鱼眼百分比信息图">
+<meta name="twitter:description" content="该图表案例来源于某财经杂志，我是从刘万祥老师那里看来的，之后又在知乎上发现有人发帖求做法。我就抱着试一试的心态，用ggplot2尝试着做，没想到真的让我给弄出来了。 这里分享给大家我的做法和思路：">
+<meta name="twitter:image" content="http://oqlznmmja.bkt.clouddn.com/one.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.raindu.com/2017/05/27/鱼眼百分比信息图/"/>
+
+
+
+
+
+  <title>鱼眼百分比信息图 | raindu's home</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">raindu's home</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">A lifelong learner!!!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/05/27/鱼眼百分比信息图/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RainDu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="raindu's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">鱼眼百分比信息图</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-27T19:11:30+08:00">
+                2017-05-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据可视化/" itemprop="url" rel="index">
+                    <span itemprop="name">数据可视化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>该图表案例来源于某财经杂志，我是从刘万祥老师那里看来的，之后又在知乎上发现有人发帖求做法。我就抱着试一试的心态，用ggplot2尝试着做，没想到真的让我给弄出来了。</p>
+<p>这里分享给大家我的做法和思路：</p>
+<a id="more"></a>
+<h3 id="加载包："><a href="#加载包：" class="headerlink" title="加载包："></a>加载包：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(tidyverse)</div><div class="line"><span class="keyword">require</span>(grid)</div><div class="line"><span class="keyword">library</span>(<span class="string">"Rmisc"</span>)</div></pre></td></tr></table></figure>
+<h3 id="生成辅助数据："><a href="#生成辅助数据：" class="headerlink" title="生成辅助数据："></a>生成辅助数据：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">px1&lt;-seq(from=<span class="number">0</span>,to=<span class="number">10</span>,length=<span class="number">1000</span>)</div><div class="line">py1&lt;-sqrt(<span class="number">5</span>^<span class="number">2</span>-(px1-<span class="number">5</span>)^<span class="number">2</span>)</div><div class="line"></div><div class="line">Project1x&lt;-c(px1,rev(px1))</div><div class="line">Project1y&lt;-c(py1,-py1)</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="圆环数据构造过程："><a href="#圆环数据构造过程：" class="headerlink" title="圆环数据构造过程："></a>圆环数据构造过程：</h4><p><strong>这里全部都是同一个套路的数据</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">Project1&lt;-data.frame(lon=Project1x,lat=Project1y)</div><div class="line">Project1$group&lt;-<span class="string">"ProjectA"</span></div><div class="line">Project1$order&lt;-<span class="number">1</span>:nrow(Project1)</div><div class="line"></div><div class="line">Project2&lt;-data.frame(lon=Project1x+<span class="number">15</span>,lat=Project1y)</div><div class="line">Project2$group&lt;-<span class="string">"ProjectB"</span></div><div class="line">Project2$order&lt;-<span class="number">1</span>:nrow(Project2)</div><div class="line"></div><div class="line">Project3&lt;-data.frame(lon=Project1x+<span class="number">30</span>,lat=Project1y)</div><div class="line">Project3$group&lt;-<span class="string">"ProjectC"</span></div><div class="line">Project3$order&lt;-<span class="number">1</span>:nrow(Project3)</div><div class="line"></div><div class="line">Project4&lt;-data.frame(lon=Project1x+<span class="number">45</span>,lat=Project1y)</div><div class="line">Project4$group&lt;-<span class="string">"ProjectD"</span></div><div class="line">Project4$order&lt;-<span class="number">1</span>:nrow(Project4)</div><div class="line"></div><div class="line">Project5&lt;-data.frame(lon=Project1x+<span class="number">60</span>,lat=Project1y)</div><div class="line">Project5$group&lt;-<span class="string">"ProjectE"</span></div><div class="line">Project5$order&lt;-<span class="number">1</span>:nrow(Project5)</div><div class="line"></div><div class="line">Project&lt;-rbind(Project1,Project2,Project3,Project4,Project5)</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(Project)+geom_path(aes(lon,lat,group=group))</div></pre></td></tr></table></figure>
+<div align="center"><br><img src="http://oqlznmmja.bkt.clouddn.com/one.png" width="632.6" height="130.8" alt="one" align="center"><br></div>
+
+
+<h4 id="多边形数据构造过程："><a href="#多边形数据构造过程：" class="headerlink" title="多边形数据构造过程："></a>多边形数据构造过程：</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">Proj1&lt;-Project1[,<span class="number">1</span>:<span class="number">2</span>]%&gt;%filter(lat&lt;=-<span class="number">4</span>)</div><div class="line">Proj1[nrow(Proj1)+<span class="number">1</span>,]&lt;-c(<span class="number">8</span>,-<span class="number">4</span>)</div><div class="line">Proj1$group&lt;-<span class="string">"ProjA"</span></div><div class="line">Proj1$order&lt;-<span class="number">1</span>:nrow(Proj1)</div><div class="line"></div><div class="line">Proj2&lt;-Project2[,<span class="number">1</span>:<span class="number">2</span>]%&gt;%filter(lat&lt;=-<span class="number">3</span>)</div><div class="line">Proj2[nrow(Proj2)+<span class="number">1</span>,]&lt;-c(<span class="number">24</span>,-<span class="number">3</span>)</div><div class="line">Proj2$group&lt;-<span class="string">"ProjB"</span></div><div class="line">Proj2$order&lt;-<span class="number">1</span>:nrow(Proj2)</div><div class="line"></div><div class="line">Proj3&lt;-Project3[,<span class="number">1</span>:<span class="number">2</span>]%&gt;%filter(lat&lt;=<span class="number">0</span>)</div><div class="line">Proj3[nrow(Proj3)+<span class="number">1</span>,]&lt;-c(<span class="number">40</span>,<span class="number">0</span>)</div><div class="line">Proj3$group&lt;-<span class="string">"ProjC"</span></div><div class="line">Proj3$order&lt;-<span class="number">1</span>:nrow(Proj3)</div><div class="line"></div><div class="line">Proj4&lt;-Project4[,<span class="number">1</span>:<span class="number">2</span>]%&gt;%filter(lat&lt;=<span class="number">3</span>)</div><div class="line">Proj4$group&lt;-<span class="string">"ProjD"</span></div><div class="line">Proj4$order&lt;-<span class="number">1</span>:nrow(Proj4)</div><div class="line"></div><div class="line">Proj5&lt;-Project5[,<span class="number">1</span>:<span class="number">2</span>]%&gt;%filter(lat&lt;=<span class="number">4</span>)</div><div class="line">Proj5$group&lt;-<span class="string">"ProjE"</span></div><div class="line">Proj5$order&lt;-<span class="number">1</span>:nrow(Proj5)</div><div class="line"></div><div class="line">Projdata&lt;-rbind(Proj1,Proj2,Proj3,Proj4,Proj5)</div></pre></td></tr></table></figure>
+<div align="center"><br><img src="http://oqlznmmja.bkt.clouddn.com/two.png" width="635.8" height="135.5" alt="two" align="center"><br></div>
+
+<h3 id="可视化图形："><a href="#可视化图形：" class="headerlink" title="可视化图形："></a>可视化图形：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">windowsFonts(myFont=windowsFont(<span class="string">"msyh.ttc"</span>))</div><div class="line">labeldata&lt;-data.frame(x=seq(from=<span class="number">5</span>,to=<span class="number">65</span>,length=<span class="number">5</span>),y=c(-<span class="number">4</span>,-<span class="number">3</span>,<span class="number">0</span>,<span class="number">3</span>,<span class="number">4</span>),label=sprintf(<span class="string">"%2d%%"</span>,c(<span class="number">10</span>,<span class="number">20</span>,<span class="number">50</span>,<span class="number">80</span>,<span class="number">90</span>)))</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">p1&lt;-ggplot()+</div><div class="line">geom_polygon(data=Projdata,aes(x=lon,y=lat,group=group),fill=<span class="string">"#92D24F"</span>,col=<span class="literal">NA</span>)+</div><div class="line">geom_path(data=Project,aes(x=lon,y=lat,group=group),col=<span class="string">"black"</span>,size=<span class="number">1.2</span>)+</div><div class="line">geom_text(data=labeldata,aes(x=x,y=y+<span class="number">1</span>,label=label),hjust=<span class="number">.5</span>)+</div><div class="line">scale_x_continuous(breaks=labeldata$x,labels=paste0(<span class="string">"Project"</span>,LETTERS[<span class="number">1</span>:<span class="number">5</span>]))+</div><div class="line">ylim(-<span class="number">5.5</span>,<span class="number">6</span>)+</div><div class="line">theme_minimal()+</div><div class="line">theme(</div><div class="line">panel.grid=element_blank(),</div><div class="line">axis.title=element_blank(),</div><div class="line">axis.text.y=element_blank(),</div><div class="line">plot.margin = unit(c(<span class="number">.2</span>,<span class="number">.2</span>,<span class="number">1</span>,<span class="number">.2</span>), <span class="string">"cm"</span>)</div><div class="line">)</div></pre></td></tr></table></figure>
+<div align="center"><br><img src="http://oqlznmmja.bkt.clouddn.com/five.jpg" width="660" height="280" alt="five" align="center"><br></div>
+
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">p2&lt;-ggplot()+</div><div class="line">geom_polygon(data=Projdata,aes(x=lon,y=lat,group=group),fill=<span class="string">"#FFC000"</span>,col=<span class="literal">NA</span>)+</div><div class="line">geom_path(data=Project,aes(x=lon,y=lat,group=group),col=<span class="string">"black"</span>,size=<span class="number">1.2</span>)+</div><div class="line">geom_text(data=labeldata,aes(x=x,y=y+<span class="number">1</span>,label=label),hjust=<span class="number">.5</span>)+</div><div class="line">scale_x_continuous(breaks=labeldata$x,labels=paste0(<span class="string">"Project"</span>,LETTERS[<span class="number">1</span>:<span class="number">5</span>]))+</div><div class="line">ylim(-<span class="number">5.5</span>,<span class="number">6</span>)+</div><div class="line">theme_minimal()+</div><div class="line">theme(</div><div class="line">panel.grid=element_blank(),</div><div class="line">axis.title=element_blank(),</div><div class="line">axis.text.y=element_blank(),</div><div class="line">plot.margin = unit(c(<span class="number">.2</span>,<span class="number">.2</span>,<span class="number">1</span>,<span class="number">.2</span>), <span class="string">"cm"</span>)</div><div class="line">)</div></pre></td></tr></table></figure>
+<div align="center"><br><img src="http://oqlznmmja.bkt.clouddn.com/six.jpg" width="600" height="270" alt="six" align="center"><br></div>
+
+
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">grid.newpage()</div><div class="line">pushViewport(viewport(layout=grid.layout(<span class="number">2</span>,<span class="number">2</span>)))</div><div class="line">vplayout &lt;- <span class="keyword">function</span>(x,y)&#123;viewport(layout.pos.row = x, layout.pos.col = y)&#125;</div><div class="line">print(p1,vp=vplayout(<span class="number">1</span>,<span class="number">1</span>:<span class="number">2</span>))</div><div class="line">print(p2,vp=vplayout(<span class="number">2</span>,<span class="number">1</span>:<span class="number">2</span>))</div></pre></td></tr></table></figure>
+<div align="center"><br><img src="http://oqlznmmja.bkt.clouddn.com/three.png" width="681.6" height="323.6" alt="three" align="center"><br></div>
+
+
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(gridExtra)</div><div class="line"><span class="keyword">library</span>(<span class="string">"plyr"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"lattice"</span>)</div><div class="line">multiplot(p1,p2,layout=matrix(c(<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>),nrow=<span class="number">2</span>,byrow=<span class="literal">TRUE</span>))</div></pre></td></tr></table></figure>
+<div align="center"><br><img src="http://oqlznmmja.bkt.clouddn.com/four.png" width="700" height="280" alt="four" align="center"><br></div>
+
+<hr>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
+<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
+<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
+
+<hr>
+<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://oqbxptw4f.bkt.clouddn.com/dashang/wechat.jpg" alt="RainDu WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://oqbxptw4f.bkt.clouddn.com/dashang/Alipay.png" alt="RainDu Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/R语言/" rel="tag"># R语言</a>
+          
+            <a href="/tags/ggplot2/" rel="tag"># ggplot2</a>
+          
+            <a href="/tags/数据可视化/" rel="tag"># 数据可视化</a>
+          
+            <a href="/tags/信息图/" rel="tag"># 信息图</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/27/北京历史天气emoji表情包可视化/" rel="next" title="北京历史天气emoji表情包可视化">
+                <i class="fa fa-chevron-left"></i> 北京历史天气emoji表情包可视化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="uyan_frame"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="RainDu" />
+          <p class="site-author-name" itemprop="name">RainDu</p>
+           
+              <p class="site-description motion-element" itemprop="description">身体和心灵，总有一个在路上！</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ljtyduyu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/1676935144" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.zhihu.com/people/du-yu-48-94/activities" title="知乎" target="_blank">知乎</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jianshu.com/u/29dbe4c85801" title="简书" target="_blank">简书</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#加载包："><span class="nav-number">1.</span> <span class="nav-text">加载包：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成辅助数据："><span class="nav-number">2.</span> <span class="nav-text">生成辅助数据：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#圆环数据构造过程："><span class="nav-number">2.1.</span> <span class="nav-text">圆环数据构造过程：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多边形数据构造过程："><span class="nav-number">2.2.</span> <span class="nav-text">多边形数据构造过程：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可视化图形："><span class="nav-number">3.</span> <span class="nav-text">可视化图形：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RainDu</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2134216"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
