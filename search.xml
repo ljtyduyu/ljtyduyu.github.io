@@ -3,6 +3,57 @@
   
     
     <entry>
+      <title><![CDATA[炫彩仪表盘图表]]></title>
+      <url>/2017/05/28/%E7%82%AB%E5%BD%A9%E4%BB%AA%E8%A1%A8%E7%9B%98%E5%9B%BE%E8%A1%A8/</url>
+      <content type="html"><![CDATA[<p>该图表示利用ggplot2来模拟制作实际商务分析场景中应用的单值仪表盘。</p>
+<p>这种单值仪表盘最初发源于汽车驾驶舱的控制系统，也广泛用于飞行器、机械驾驶舱内的导航控制系统，但用在商务分析与决策系统却是别有一番风味。</p>
+<a id="more"></a>
+<h3 id="加载包："><a href="#加载包：" class="headerlink" title="加载包："></a>加载包：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(ggplot2)</div><div class="line"><span class="keyword">library</span>(<span class="string">"showtext"</span>)</div><div class="line"><span class="keyword">library</span>(Cairo)</div><div class="line"><span class="keyword">library</span>(<span class="string">"Rmisc"</span>)</div><div class="line"><span class="keyword">library</span>(grid)</div></pre></td></tr></table></figure>
+<h3 id="生成辅助数据："><a href="#生成辅助数据：" class="headerlink" title="生成辅助数据："></a>生成辅助数据：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">font.add(<span class="string">"myfont"</span>,<span class="string">"msyh.ttc"</span>)</div><div class="line">bardata&lt;-seq(from=<span class="number">0</span>,to=<span class="number">270</span>,length=<span class="number">1000</span>)</div><div class="line">rectdata&lt;-seq(from=<span class="number">0</span>,to=<span class="number">270</span>,by=<span class="number">27</span>)%&gt;%c(<span class="number">360</span>)</div><div class="line">setwd(<span class="string">"F:/微信公众号/公众号——数据小魔方/2017年4月/20170415"</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">target&lt;-<span class="number">1</span>/<span class="number">3</span></div><div class="line">assist&lt;-target*<span class="number">270</span></div></pre></td></tr></table></figure>
+<h3 id="生成单个仪表盘："><a href="#生成单个仪表盘：" class="headerlink" title="生成单个仪表盘："></a>生成单个仪表盘：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">CairoPNG(file=<span class="string">"dashboard.png"</span>,width=<span class="number">800</span>,height=<span class="number">540</span>)</div><div class="line">showtext.begin()</div><div class="line">ggplot(data=<span class="literal">NULL</span>)+</div><div class="line">geom_rect(aes(xmin=rectdata[-<span class="number">12</span>],xmax=rectdata[-<span class="number">1</span>],ymin=<span class="number">5</span>,ymax=<span class="number">10</span>),fill=<span class="string">"#F2F2F2"</span>,col=<span class="string">"white"</span>)+</div><div class="line">geom_bar(aes(x=bardata,y=<span class="number">5</span>,col=bardata),stat=<span class="string">"identity"</span>,fill=<span class="literal">NA</span>,size=<span class="number">2</span>)+</div><div class="line">geom_text(aes(x=rectdata[-<span class="number">12</span>],y=-<span class="number">5</span>,label=seq(<span class="number">0</span>,<span class="number">100</span>,by=<span class="number">10</span>)),vjust=<span class="number">.5</span>,hjust=<span class="number">.5</span>,size=<span class="number">5</span>,family=<span class="string">"myfont"</span>,col=<span class="string">"#0F1110"</span>)+</div><div class="line">geom_segment(aes(x=assist,y=-<span class="number">50</span>,xend=assist,yend=-<span class="number">10</span>),arrow =arrow(length=unit(<span class="number">0.4</span>,<span class="string">"cm"</span>)),size=<span class="number">1.2</span>,col=<span class="string">"red"</span>)+</div><div class="line">geom_point(aes(x=assist,y=-<span class="number">50</span>),shape=<span class="number">21</span>,fill=<span class="string">"white"</span>,col=<span class="string">"black"</span>,size=<span class="number">7</span>)+</div><div class="line">annotate(<span class="string">"text"</span>,x=<span class="number">315</span>,y=-<span class="number">30</span>,label=percent(target),size=<span class="number">12</span>,hjust=<span class="number">.5</span>,vjust=<span class="number">.5</span>,family=<span class="string">"myfont"</span>,col=ifelse(target&lt;<span class="number">.5</span>,<span class="string">"#F32626"</span>,<span class="string">"#38E968"</span>),fontface=<span class="string">"plain"</span>)+ </div><div class="line">annotate(<span class="string">"text"</span>,x=<span class="number">315</span>,y=-<span class="number">15</span>,label=<span class="string">"指标1"</span>,size=<span class="number">15</span>,hjust=<span class="number">.5</span>,vjust=<span class="number">.5</span>,family=<span class="string">"myfont"</span>)+ </div><div class="line">ylim(-<span class="number">50</span>,<span class="number">12</span>)+</div><div class="line">coord_polar(theta=<span class="string">"x"</span>,start=<span class="number">179.85</span>)+</div><div class="line">scale_colour_gradient(low=<span class="string">"#F32626"</span>,high=<span class="string">"#38E968"</span>,guide=<span class="literal">FALSE</span>)+</div><div class="line">theme_minimal()+</div><div class="line">theme(</div><div class="line">text=element_blank(),</div><div class="line">line=element_blank(),</div><div class="line">rect=element_blank()</div><div class="line">)</div><div class="line">showtext.end()</div><div class="line">dev.off()</div></pre></td></tr></table></figure>
+<div align="center"><br><img src="http://oqn1i92yh.bkt.clouddn.com/dashboard.png" width="600" height="405" alt="dashboard" align="center"><br></div>
+
+<hr>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">set.seed(<span class="number">123</span>)</div><div class="line">target&lt;-runif(<span class="number">5</span>,<span class="number">0</span>,<span class="number">1</span>)</div><div class="line">assist&lt;-<span class="number">270</span>*target</div></pre></td></tr></table></figure>
+<h3 id="生成仪表盘组合："><a href="#生成仪表盘组合：" class="headerlink" title="生成仪表盘组合："></a>生成仪表盘组合：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">CairoPNG(file=<span class="string">"bigdashboard.png"</span>,width=<span class="number">1500</span>,height=<span class="number">675</span>)</div><div class="line">showtext.begin()</div><div class="line">grid.newpage()</div><div class="line">pushViewport(viewport(layout=grid.layout(<span class="number">1</span>,<span class="number">5</span>)))</div><div class="line">vplayout&lt;-<span class="keyword">function</span>(x,y)&#123;viewport(layout.pos.row =x,layout.pos.col=y)&#125;</div><div class="line"><span class="keyword">for</span>(i <span class="keyword">in</span> <span class="number">1</span>:<span class="number">5</span>)&#123;</div><div class="line">p&lt;-ggplot(data=<span class="literal">NULL</span>)+</div><div class="line">geom_rect(aes(xmin=rectdata[-<span class="number">12</span>],xmax=rectdata[-<span class="number">1</span>],ymin=<span class="number">5</span>,ymax=<span class="number">12</span>),fill=<span class="string">"#F2F2F2"</span>,col=<span class="string">"white"</span>)+</div><div class="line">geom_bar(aes(x=bardata,y=<span class="number">5</span>,col=bardata),stat=<span class="string">"identity"</span>,fill=<span class="literal">NA</span>,size=<span class="number">2</span>)+</div><div class="line">geom_text(aes(x=rectdata[-<span class="number">12</span>],y=-<span class="number">5</span>,label=seq(<span class="number">0</span>,<span class="number">100</span>,by=<span class="number">10</span>)),vjust=<span class="number">.5</span>,hjust=<span class="number">.5</span>,size=<span class="number">3.5</span>,family=<span class="string">"myfont"</span>,col=<span class="string">"#0F1110"</span>)+</div><div class="line">geom_segment(aes(x=assist[i],y=-<span class="number">50</span>,xend=assist[i],yend=-<span class="number">10</span>),arrow =arrow(length=unit(<span class="number">0.4</span>,<span class="string">"cm"</span>)),size=<span class="number">1.2</span>,col=<span class="string">"red"</span>)+</div><div class="line">geom_point(aes(x=assist[i],y=-<span class="number">50</span>),shape=<span class="number">21</span>,fill=<span class="string">"white"</span>,col=<span class="string">"black"</span>,size=<span class="number">7</span>)+</div><div class="line">annotate(<span class="string">"text"</span>,x=<span class="number">315</span>,y=-<span class="number">30</span>,label=percent(target[i]),size=<span class="number">7.5</span>,hjust=<span class="number">.5</span>,vjust=<span class="number">.5</span>,family=<span class="string">"myfont"</span>,col=ifelse(target[i]&lt;<span class="number">.5</span>,<span class="string">"#F32626"</span>,<span class="string">"#38E968"</span>),fontface=<span class="string">"plain"</span>)+ </div><div class="line">annotate(<span class="string">"text"</span>,x=<span class="number">315</span>,y=-<span class="number">15</span>,label=paste0(<span class="string">"指标"</span>,i),size=<span class="number">8.5</span>,hjust=<span class="number">.5</span>,vjust=<span class="number">.5</span>,family=<span class="string">"myfont"</span>)+ </div><div class="line">ylim(-<span class="number">50</span>,<span class="number">12</span>)+</div><div class="line">coord_polar(theta=<span class="string">"x"</span>,start=<span class="number">179.85</span>)+</div><div class="line">scale_colour_gradient(low=<span class="string">"#F32626"</span>,high=<span class="string">"#38E968"</span>,guide=<span class="literal">FALSE</span>)+</div><div class="line">theme_minimal()+</div><div class="line">theme(</div><div class="line">text=element_blank(),</div><div class="line">line=element_blank(),</div><div class="line">rect=element_blank()</div><div class="line">)</div><div class="line">print(p,vp=vplayout(<span class="number">1</span>,i))</div><div class="line">&#125;</div><div class="line">showtext.end()</div><div class="line">dev.off()</div></pre></td></tr></table></figure>
+<div align="center"><br><img src="http://oqn1i92yh.bkt.clouddn.com/bigdashboard.png" width="750" height="337.5" alt="bigdashboard" align="center"><br></div>
+
+
+
+<hr>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
+<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
+<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
+
+<hr>
+<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 仪表盘 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> R语言 </tag>
+            
+            <tag> 数据可视化 </tag>
+            
+            <tag> ggplot2 </tag>
+            
+            <tag> 仪表盘 </tag>
+            
+            <tag> 排版 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[鱼眼百分比信息图]]></title>
       <url>/2017/05/27/%E9%B1%BC%E7%9C%BC%E7%99%BE%E5%88%86%E6%AF%94%E4%BF%A1%E6%81%AF%E5%9B%BE/</url>
       <content type="html"><![CDATA[<p>该图表案例来源于某财经杂志，我是从刘万祥老师那里看来的，之后又在知乎上发现有人发帖求做法。我就抱着试一试的心态，用ggplot2尝试着做，没想到真的让我给弄出来了。</p>
@@ -58,9 +109,9 @@
             
             <tag> R语言 </tag>
             
-            <tag> ggplot2 </tag>
-            
             <tag> 数据可视化 </tag>
+            
+            <tag> ggplot2 </tag>
             
             <tag> 信息图 </tag>
             
@@ -118,9 +169,9 @@
             
             <tag> R语言 </tag>
             
-            <tag> ggplot2 </tag>
-            
             <tag> 数据可视化 </tag>
+            
+            <tag> ggplot2 </tag>
             
             <tag> 爬虫 </tag>
             
@@ -176,9 +227,9 @@
             
             <tag> R语言 </tag>
             
-            <tag> ggplot2 </tag>
-            
             <tag> 数据可视化 </tag>
+            
+            <tag> ggplot2 </tag>
             
         </tags>
         
@@ -250,9 +301,9 @@
             
             <tag> R语言 </tag>
             
-            <tag> ggplot2 </tag>
-            
             <tag> 数据可视化 </tag>
+            
+            <tag> ggplot2 </tag>
             
             <tag> 爬虫 </tag>
             
@@ -531,9 +582,9 @@
             
             <tag> R语言 </tag>
             
-            <tag> ggplot2 </tag>
-            
             <tag> 数据可视化 </tag>
+            
+            <tag> ggplot2 </tag>
             
         </tags>
         
@@ -614,9 +665,9 @@
             
             <tag> R语言 </tag>
             
-            <tag> ggplot2 </tag>
-            
             <tag> 数据可视化 </tag>
+            
+            <tag> ggplot2 </tag>
             
         </tags>
         
@@ -707,9 +758,9 @@
             
             <tag> R语言 </tag>
             
-            <tag> ggplot2 </tag>
-            
             <tag> 数据可视化 </tag>
+            
+            <tag> ggplot2 </tag>
             
         </tags>
         
