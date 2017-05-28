@@ -1,0 +1,883 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="R语言,ggplot2,数据可视化,动态地图,gif," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="raindu's home" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="上帝视角——给世界一个特写~ 最近在研究使用R包制作动画图表，也就是类似GIF动图，感觉很有趣，也是动态图表呈现的一个非常独特的领域，刚刚研究出了些成果，今天这篇分享使用GIF动画+球型投影来制作呈现地球转动效果的动态GIF图表。 过程要使用谢益辉大神的动画包——animation，该包依赖可执行程序——ImageMagic，所以导入animation包之前要提前下载并安装该动画软件。">
+<meta name="keywords" content="R语言,ggplot2,数据可视化,动态地图,gif">
+<meta property="og:type" content="article">
+<meta property="og:title" content="动态世界地图">
+<meta property="og:url" content="http://www.raindu.com/2017/05/28/动态世界地图/index.html">
+<meta property="og:site_name" content="raindu&#39;s home">
+<meta property="og:description" content="上帝视角——给世界一个特写~ 最近在研究使用R包制作动画图表，也就是类似GIF动图，感觉很有趣，也是动态图表呈现的一个非常独特的领域，刚刚研究出了些成果，今天这篇分享使用GIF动画+球型投影来制作呈现地球转动效果的动态GIF图表。 过程要使用谢益辉大神的动画包——animation，该包依赖可执行程序——ImageMagic，所以导入animation包之前要提前下载并安装该动画软件。">
+<meta property="og:image" content="http://oqn83owfg.bkt.clouddn.com/image1.png">
+<meta property="og:image" content="http://oqn83owfg.bkt.clouddn.com/image2.png">
+<meta property="og:image" content="http://oqn83owfg.bkt.clouddn.com/image3.png">
+<meta property="og:image" content="http://oqn83owfg.bkt.clouddn.com/wordmap.gif">
+<meta property="og:image" content="http://oqn83owfg.bkt.clouddn.com/image4.gif">
+<meta property="og:image" content="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png">
+<meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
+<meta property="og:updated_time" content="2017-05-28T03:54:10.067Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="动态世界地图">
+<meta name="twitter:description" content="上帝视角——给世界一个特写~ 最近在研究使用R包制作动画图表，也就是类似GIF动图，感觉很有趣，也是动态图表呈现的一个非常独特的领域，刚刚研究出了些成果，今天这篇分享使用GIF动画+球型投影来制作呈现地球转动效果的动态GIF图表。 过程要使用谢益辉大神的动画包——animation，该包依赖可执行程序——ImageMagic，所以导入animation包之前要提前下载并安装该动画软件。">
+<meta name="twitter:image" content="http://oqn83owfg.bkt.clouddn.com/image1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.raindu.com/2017/05/28/动态世界地图/"/>
+
+
+
+
+
+  <title>动态世界地图 | raindu's home</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">raindu's home</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">A lifelong learner!!!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/05/28/动态世界地图/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RainDu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="raindu's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">动态世界地图</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-28T11:30:32+08:00">
+                2017-05-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据可视化/" itemprop="url" rel="index">
+                    <span itemprop="name">数据可视化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>上帝视角——给世界一个特写~</strong></p>
+<p>最近在研究使用R包制作动画图表，也就是类似GIF动图，感觉很有趣，也是动态图表呈现的一个非常独特的领域，刚刚研究出了些成果，今天这篇分享使用GIF动画+球型投影来制作呈现地球转动效果的动态GIF图表。<br></p>
+<p>过程要使用谢益辉大神的动画包——animation，该包依赖可执行程序——ImageMagic，所以导入animation包之前要提前下载并安装该动画软件。</p>
+<a id="more"></a>
+<h3 id="加载包："><a href="#加载包：" class="headerlink" title="加载包："></a>加载包：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(ggplot2)</div><div class="line"><span class="keyword">library</span>(maps)  </div><div class="line"><span class="keyword">library</span>(plyr)        </div><div class="line"><span class="keyword">library</span>(grid)</div><div class="line"><span class="keyword">library</span>(showtext)</div><div class="line"><span class="keyword">library</span>(Cairo)</div><div class="line"><span class="keyword">library</span>(xlsx)</div><div class="line"><span class="keyword">library</span>(RColorBrewer)</div><div class="line"><span class="keyword">library</span>(dplyr)</div><div class="line"><span class="keyword">library</span>(<span class="string">"animation"</span>)</div></pre></td></tr></table></figure>
+<h3 id="可视化过程："><a href="#可视化过程：" class="headerlink" title="可视化过程："></a>可视化过程：</h3><hr>
+<p><strong>本次使用maps中的世界地图素材：</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">world_map &lt;- map_data(<span class="string">"world"</span>)</div></pre></td></tr></table></figure>
+<h4 id="预览地图素材效果："><a href="#预览地图素材效果：" class="headerlink" title="预览地图素材效果："></a>预览地图素材效果：</h4><blockquote>
+<p>为了区分大洲，我将该地图中的国家按照地理位置进行了归类（七大洲）</p>
+</blockquote>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">data&lt;-read.csv(<span class="string">"D:/R/mapdata/Word_State.csv"</span>,stringsAsFactors = <span class="literal">FALSE</span>,check.names = <span class="literal">FALSE</span>)  </div><div class="line">ggplot(data,aes(map_id=region))+</div><div class="line">geom_map(aes(fill=Address),map=world_map,col=<span class="string">"white"</span>)+</div><div class="line">expand_limits(x=world_map$long,y=world_map$lat)+</div><div class="line">scale_y_continuous(breaks=(-<span class="number">2</span>:<span class="number">2</span>)*<span class="number">30</span>) +</div><div class="line">scale_x_continuous(breaks=(-<span class="number">4</span>:<span class="number">4</span>)*<span class="number">45</span>)+</div><div class="line">coord_map(<span class="string">"ortho"</span>, orientation = c(<span class="number">30</span>,<span class="number">110</span>,<span class="number">0</span>))</div></pre></td></tr></table></figure>
+<p><img src="http://oqn83owfg.bkt.clouddn.com/image1.png" alt="image1"></p>
+<h4 id="呈现特定视角地球："><a href="#呈现特定视角地球：" class="headerlink" title="呈现特定视角地球："></a>呈现特定视角地球：</h4><p>筛选其中某一个州进行特定角度呈现：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">data1&lt;-data[data$Address==<span class="string">"North America"</span>,]</div><div class="line">ggplot()+</div><div class="line">geom_map(data=data,aes(map_id=region),map=world_map,col=<span class="string">"white"</span>,fill=<span class="string">"#A3A3A3"</span>)+</div><div class="line">geom_map(data=data1,aes(map_id=region,fill=Address),map=world_map,col=<span class="literal">NA</span>)+</div><div class="line">expand_limits(x=world_map$long,y=world_map$lat)+</div><div class="line">scale_y_continuous(breaks=(-<span class="number">6</span>:<span class="number">6</span>)*<span class="number">15</span>) +</div><div class="line">scale_x_continuous(breaks=(-<span class="number">12</span>:<span class="number">12</span>)*<span class="number">15</span>)+</div><div class="line">coord_map(<span class="string">"ortho"</span>, orientation = c(<span class="number">0</span>,-<span class="number">95</span>,<span class="number">0</span>))+</div><div class="line">guides(fill=<span class="literal">FALSE</span>) +</div><div class="line">theme(</div><div class="line">    axis.ticks=element_blank(),</div><div class="line">    axis.text=element_blank(),</div><div class="line">    axis.title=element_blank(),</div><div class="line">    panel.background=element_rect(fill=<span class="string">"white"</span>,colour=<span class="literal">NA</span>),</div><div class="line">    panel.grid.major = element_line(colour = <span class="string">"grey60"</span>,size=<span class="number">.25</span>),</div><div class="line">    panel.grid.minor = element_line(colour = <span class="string">"grey60"</span>,size=<span class="number">.25</span>)</div><div class="line">    </div><div class="line">)</div></pre></td></tr></table></figure>
+<p><img src="http://oqn83owfg.bkt.clouddn.com/image2.png" alt="image2"></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">world_map_data&lt;-merge(world_map,data,all.x=<span class="literal">TRUE</span>)</div><div class="line">midpos&lt;-<span class="keyword">function</span>(x) mean(range(x,na.rm=<span class="literal">TRUE</span>))</div><div class="line">centres&lt;-ddply(world_map_data,.(Address),colwise(midpos,.(long,lat)))</div><div class="line">centres&lt;-centres[centres$Address!=<span class="string">"Antarctica"</span>,]</div><div class="line">centres$angle&lt;-<span class="number">0</span></div><div class="line">centres$long[centres$Address==<span class="string">"Asia"</span>]=<span class="number">100</span></div><div class="line">centres$long[centres$Address==<span class="string">"North America"</span>]=-<span class="number">100</span></div><div class="line">centres$long[centres$Address==<span class="string">"Oceania"</span>]=<span class="number">130</span></div></pre></td></tr></table></figure>
+<p>计算每个大洲的地区中心（个别中心偏离中心大陆太远，需要手动调整）<br></p>
+<h3 id="使用grid的版面控制系统进行多图排版："><a href="#使用grid的版面控制系统进行多图排版：" class="headerlink" title="使用grid的版面控制系统进行多图排版："></a>使用grid的版面控制系统进行多图排版：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">setwd(<span class="string">"E:/数据可视化/R/R语言学习笔记/可视化/Shiny/动态图表"</span>)</div><div class="line">world_map_data&lt;-arrange(world_map_data,group,order)</div><div class="line">CairoPNG(file=<span class="string">"wordmap.png"</span>,width=<span class="number">1600</span>,height=<span class="number">1200</span>)</div><div class="line">showtext.begin()</div><div class="line">grid.newpage()</div><div class="line">pushViewport(viewport(layout=grid.layout(<span class="number">2</span>,<span class="number">3</span>)))</div><div class="line">vplayout&lt;-<span class="keyword">function</span>(x,y)&#123;viewport(layout.pos.row =x,layout.pos.col=y)&#125;</div><div class="line"><span class="keyword">for</span>(i <span class="keyword">in</span> <span class="number">1</span>:nrow(centres))&#123;</div><div class="line">mydata&lt;-world_map_data[world_map_data$Address==centres$Address[i],]</div><div class="line">p&lt;-ggplot()+</div><div class="line">geom_polygon(data=world_map_data,aes(x=long,y=lat,group=group),fill=<span class="string">"grey95"</span>,colour=<span class="string">"grey"</span>,size=<span class="number">.25</span>)+</div><div class="line">geom_map(data=mydata,aes(map_id=region),map=world_map_data,colour=<span class="string">"white"</span>,fill=<span class="string">"#F8766D"</span>,size=<span class="number">.25</span>)+</div><div class="line">coord_map(<span class="string">"ortho"</span>,orientation=c(centres$lat[i],centres$long[i],<span class="number">0</span>))+</div><div class="line">scale_y_continuous(breaks=(-<span class="number">6</span>:<span class="number">6</span>)*<span class="number">15</span>) +</div><div class="line">scale_x_continuous(breaks=(-<span class="number">12</span>:<span class="number">12</span>)*<span class="number">15</span>)+</div><div class="line">labs(title=centres$Address[i])+</div><div class="line">theme(</div><div class="line">panel.background=element_rect(fill=<span class="string">"white"</span>,colour=<span class="literal">NA</span>),</div><div class="line">panel.grid.major = element_line(colour = <span class="string">"grey60"</span>,size=<span class="number">.25</span>),</div><div class="line">panel.grid.minor = element_line(colour = <span class="string">"grey60"</span>,size=<span class="number">.25</span>),</div><div class="line">text=element_text(size=<span class="number">20</span>),</div><div class="line">axis.text=element_blank(),</div><div class="line">axis.title=element_blank(),</div><div class="line">axis.ticks=element_blank(),</div><div class="line">plot.title=element_text(size=<span class="number">20</span>,family=<span class="string">"myfont"</span>,hjust=<span class="number">.5</span>),</div><div class="line">plot.margin = unit(c(ifelse(i&lt;=<span class="number">3</span>,<span class="number">5</span>,<span class="number">.5</span>),<span class="number">1</span>,ifelse(i&gt;=<span class="number">3</span>,<span class="number">5</span>,<span class="number">.5</span>),<span class="number">1</span>),<span class="string">"lines"</span>)</div><div class="line">)</div><div class="line">print(p,vp=vplayout(ifelse(i&lt;=<span class="number">3</span>,<span class="number">1</span>,<span class="number">2</span>),ifelse(i&lt;=<span class="number">3</span>,i,i-<span class="number">3</span>)))</div><div class="line">&#125;</div><div class="line">grid.text(label=<span class="string">"God's Perspective"</span>,x=<span class="number">.01</span>,y=<span class="number">.98</span>,gp=gpar(col=<span class="string">"black"</span>,fontsize=<span class="number">35</span>),draw=<span class="literal">TRUE</span>,just=<span class="string">"left"</span>)</div><div class="line">grid.text(label=<span class="string">"Data Source:DataMofang"</span>,x=<span class="number">.02</span>,y=<span class="number">.02</span>,gp=gpar(col=<span class="string">"black"</span>,fontsize=<span class="number">20</span>),draw=<span class="literal">TRUE</span>,just=<span class="string">"left"</span>)</div><div class="line">showtext.end()</div><div class="line">dev.off()</div></pre></td></tr></table></figure>
+<p><img src="http://oqn83owfg.bkt.clouddn.com/image3.png" alt="image3"></p>
+<h3 id="使用animation包将361帧地图合并为GIF动画"><a href="#使用animation包将361帧地图合并为GIF动画" class="headerlink" title="使用animation包将361帧地图合并为GIF动画"></a>使用animation包将361帧地图合并为GIF动画</h3><p>使用animation包将361帧地图合并为GIF动画<br>（友情提示：机器性能太弱请不要随便玩火，容易爆内存~！！！）</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">saveGIF(&#123;</div><div class="line">ani.options(interval=<span class="number">.15</span>,convert=shQuote(<span class="string">"D:/Program Files/ImageMagick-7.0.5-Q16/convert.exe"</span>))</div><div class="line"><span class="keyword">for</span>(i <span class="keyword">in</span> <span class="number">0</span>:<span class="number">360</span>)&#123;</div><div class="line">p&lt;-ggplot()+</div><div class="line">geom_polygon(data=world_map_data,aes(x=long,y=lat,group=group,fill=Address),colour=<span class="string">"grey"</span>,size=<span class="number">.25</span>)+</div><div class="line">coord_map(<span class="string">"ortho"</span>,orientation=c(<span class="number">0</span>,i,<span class="number">0</span>))+</div><div class="line">scale_y_continuous(breaks=(-<span class="number">6</span>:<span class="number">6</span>)*<span class="number">15</span>) +</div><div class="line">scale_x_continuous(breaks=(-<span class="number">12</span>:<span class="number">12</span>)*<span class="number">15</span>)+</div><div class="line">scale_fill_brewer(name=<span class="string">"million($)"</span>,palette=<span class="string">"Set2"</span>)+</div><div class="line">theme(</div><div class="line">panel.background=element_rect(fill=<span class="string">"white"</span>,colour=<span class="literal">NA</span>),</div><div class="line">panel.grid.major = element_line(colour = <span class="string">"grey60"</span>,size=<span class="number">.25</span>),</div><div class="line">panel.grid.minor = element_line(colour = <span class="string">"grey60"</span>,size=<span class="number">.25</span>),</div><div class="line">axis.text=element_blank(),</div><div class="line">axis.title=element_blank(),</div><div class="line">axis.ticks=element_blank()</div><div class="line">)</div><div class="line">print(p)</div><div class="line">&#125;</div><div class="line">&#125;,movie.name=<span class="string">'Movingworld_map.gif'</span>,ani.width=<span class="number">1200</span>,ani.height=<span class="number">1000</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://oqn83owfg.bkt.clouddn.com/wordmap.gif" alt="worldmap"></p>
+<p>因为原图有13M，微信公众平台限制图片大小为5m，所以大图能就没法奉上了，不过又做了一个压缩版的小图，效果如下：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">draw = <span class="keyword">function</span>(i)&#123;  </div><div class="line">ggplot()+</div><div class="line">geom_polygon(data=world_map_data,aes(x=long,y=lat,group=group,fill=Address),colour=<span class="string">"grey"</span>,size=<span class="number">.25</span>)+</div><div class="line">coord_map(<span class="string">"ortho"</span>,orientation=c(<span class="number">0</span>,i,<span class="number">0</span>))+</div><div class="line">scale_y_continuous(breaks=(-<span class="number">6</span>:<span class="number">6</span>)*<span class="number">15</span>) +</div><div class="line">scale_x_continuous(breaks=(-<span class="number">12</span>:<span class="number">12</span>)*<span class="number">15</span>)+</div><div class="line">scale_fill_brewer(name=<span class="string">"million($)"</span>,palette=<span class="string">"Set2"</span>)+</div><div class="line">theme(</div><div class="line">panel.background=element_rect(fill=<span class="string">"white"</span>,colour=<span class="literal">NA</span>),</div><div class="line">panel.grid.major = element_line(colour = <span class="string">"grey60"</span>,size=<span class="number">.25</span>),</div><div class="line">panel.grid.minor = element_line(colour = <span class="string">"grey60"</span>,size=<span class="number">.25</span>),</div><div class="line">axis.text=element_blank(),</div><div class="line">axis.title=element_blank(),</div><div class="line">axis.ticks=element_blank()</div><div class="line">)</div><div class="line">                  &#125; </div><div class="line"></div><div class="line">oopts=ani.options(ffmpeg = <span class="string">"D:/Program Files/ImageMagick-7.0.5-Q16/ffmpeg.exe"</span>) </div><div class="line">saveVideo(&#123;  </div><div class="line">    <span class="keyword">for</span>(i <span class="keyword">in</span> <span class="number">1</span>:<span class="number">36</span>) print(draw(i))</div><div class="line">    ani.options(interval = <span class="number">0.6</span>,nmax=<span class="number">230</span>)&#125;,  </div><div class="line">    video.name =<span class="string">"world_map_move.gif"</span>,other.opts=<span class="string">"-b 4000k"</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://oqn83owfg.bkt.clouddn.com/image4.gif" alt="image4"></p>
+<p>该案例涉及到的技术面比较广，需要使用循环、grid图形版面控制、地图投影、自编函数、颜色填充等，仅作为探索可视化道路上的一个小台阶，<br><br>也许现在看起来有些高不可攀，但是当你真正深入的了解R语法以及函数编程和ggplot2之后，就没那么难理解了！<br></p>
+<hr>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
+<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
+<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
+
+<hr>
+<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://oqbxptw4f.bkt.clouddn.com/dashang/wechat.jpg" alt="RainDu WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://oqbxptw4f.bkt.clouddn.com/dashang/Alipay.png" alt="RainDu Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/R语言/" rel="tag"># R语言</a>
+          
+            <a href="/tags/ggplot2/" rel="tag"># ggplot2</a>
+          
+            <a href="/tags/数据可视化/" rel="tag"># 数据可视化</a>
+          
+            <a href="/tags/动态地图/" rel="tag"># 动态地图</a>
+          
+            <a href="/tags/gif/" rel="tag"># gif</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/28/炫彩仪表盘图表/" rel="next" title="炫彩仪表盘图表">
+                <i class="fa fa-chevron-left"></i> 炫彩仪表盘图表
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="uyan_frame"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="RainDu" />
+          <p class="site-author-name" itemprop="name">RainDu</p>
+           
+              <p class="site-description motion-element" itemprop="description">身体和心灵，总有一个在路上！</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ljtyduyu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/1676935144" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.zhihu.com/people/du-yu-48-94/activities" title="知乎" target="_blank">知乎</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jianshu.com/u/29dbe4c85801" title="简书" target="_blank">简书</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#加载包："><span class="nav-number">1.</span> <span class="nav-text">加载包：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可视化过程："><span class="nav-number">2.</span> <span class="nav-text">可视化过程：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#预览地图素材效果："><span class="nav-number">2.1.</span> <span class="nav-text">预览地图素材效果：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#呈现特定视角地球："><span class="nav-number">2.2.</span> <span class="nav-text">呈现特定视角地球：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用grid的版面控制系统进行多图排版："><span class="nav-number">3.</span> <span class="nav-text">使用grid的版面控制系统进行多图排版：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用animation包将361帧地图合并为GIF动画"><span class="nav-number">4.</span> <span class="nav-text">使用animation包将361帧地图合并为GIF动画</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RainDu</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2134216"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
