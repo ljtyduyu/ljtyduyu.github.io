@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="R语言,ggplot2,数据可视化,gif,动态图表," />
+  <meta name="keywords" content="R语言,ggplot2,数据可视化,信息图," />
 
 
 
@@ -92,22 +92,22 @@
 
 
 
-<meta name="description" content="中国人口金字塔动态图 以下是一个之前在网络上引起巨大轰动的人口金字塔动态图：  没有找到原始数据，后来在UN的官网上找到了一个五年间隔的数据，顺便还原了下图表：">
-<meta name="keywords" content="R语言,ggplot2,数据可视化,gif,动态图表">
+<meta name="description" content="该图案例来自经济学人，国内看到刘老师在博客上用Excel仿制过，这里仍然使用ggplot2进行仿制。">
+<meta name="keywords" content="R语言,ggplot2,数据可视化,信息图">
 <meta property="og:type" content="article">
-<meta property="og:title" content="中国人口金字塔动态图">
-<meta property="og:url" content="http://www.raindu.com/2017/05/29/中国人口金字塔动态图/index.html">
+<meta property="og:title" content="百分比方块比较图">
+<meta property="og:url" content="http://www.raindu.com/2017/05/29/百分比方块比较图/index.html">
 <meta property="og:site_name" content="raindu&#39;s home">
-<meta property="og:description" content="中国人口金字塔动态图 以下是一个之前在网络上引起巨大轰动的人口金字塔动态图：  没有找到原始数据，后来在UN的官网上找到了一个五年间隔的数据，顺便还原了下图表：">
-<meta property="og:image" content="http://oqoy8x3as.bkt.clouddn.com/%E4%BA%BA%E5%8F%A3%E9%87%91%E5%AD%97%E5%A1%94%EF%BC%881950-2050%EF%BC%89.gif">
-<meta property="og:image" content="http://oqoy8x3as.bkt.clouddn.com/China_pyramid.gif">
+<meta property="og:description" content="该图案例来自经济学人，国内看到刘老师在博客上用Excel仿制过，这里仍然使用ggplot2进行仿制。">
+<meta property="og:image" content="http://oqp4xxgxu.bkt.clouddn.com/image1.png">
+<meta property="og:image" content="http://oqp4xxgxu.bkt.clouddn.com/image2.jpg">
 <meta property="og:image" content="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-05-29T01:55:18.081Z">
+<meta property="og:updated_time" content="2017-05-29T04:12:17.491Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="中国人口金字塔动态图">
-<meta name="twitter:description" content="中国人口金字塔动态图 以下是一个之前在网络上引起巨大轰动的人口金字塔动态图：  没有找到原始数据，后来在UN的官网上找到了一个五年间隔的数据，顺便还原了下图表：">
-<meta name="twitter:image" content="http://oqoy8x3as.bkt.clouddn.com/%E4%BA%BA%E5%8F%A3%E9%87%91%E5%AD%97%E5%A1%94%EF%BC%881950-2050%EF%BC%89.gif">
+<meta name="twitter:title" content="百分比方块比较图">
+<meta name="twitter:description" content="该图案例来自经济学人，国内看到刘老师在博客上用Excel仿制过，这里仍然使用ggplot2进行仿制。">
+<meta name="twitter:image" content="http://oqp4xxgxu.bkt.clouddn.com/image1.png">
 
 
 
@@ -135,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://www.raindu.com/2017/05/29/中国人口金字塔动态图/"/>
+  <link rel="canonical" href="http://www.raindu.com/2017/05/29/百分比方块比较图/"/>
 
 
 
 
 
-  <title>中国人口金字塔动态图 | raindu's home</title>
+  <title>百分比方块比较图 | raindu's home</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -291,7 +291,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/05/29/中国人口金字塔动态图/">
+    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/05/29/百分比方块比较图/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="RainDu">
@@ -308,7 +308,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">中国人口金字塔动态图</h1>
+          <h1 class="post-title" itemprop="name headline">百分比方块比较图</h1>
         
 
         <div class="post-meta">
@@ -320,7 +320,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-29T09:48:42+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-29T12:08:12+08:00">
                 2017-05-29
               </time>
             
@@ -343,8 +343,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/R语言/" itemprop="url" rel="index">
-                    <span itemprop="name">R语言</span>
+                  <a href="/categories/数据可视化/" itemprop="url" rel="index">
+                    <span itemprop="name">数据可视化</span>
                   </a>
                 </span>
 
@@ -377,16 +377,18 @@
       
 
       
-        <p><strong>中国人口金字塔动态图</strong></p>
-<p>以下是一个之前在网络上引起巨大轰动的人口金字塔动态图：</p>
-<p><img src="http://oqoy8x3as.bkt.clouddn.com/%E4%BA%BA%E5%8F%A3%E9%87%91%E5%AD%97%E5%A1%94%EF%BC%881950-2050%EF%BC%89.gif" alt="人口金字塔"></p>
-<p>没有找到原始数据，后来在UN的官网上找到了一个五年间隔的数据，顺便还原了下图表：</p>
+        <p>该图案例来自经济学人，国内看到刘老师在博客上用Excel仿制过，这里仍然使用ggplot2进行仿制。</p>
 <a id="more"></a>
-<h3 id="加载包："><a href="#加载包：" class="headerlink" title="加载包："></a>加载包：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(ggplot2)</div><div class="line"><span class="keyword">library</span>(animation)</div><div class="line"><span class="keyword">library</span>(dplyr)</div><div class="line"><span class="keyword">library</span>(tidyr)</div><div class="line"><span class="keyword">library</span>(xlsx)</div><div class="line"><span class="keyword">library</span>(ggthemes)</div><div class="line">setwd(<span class="string">"E:/数据可视化/R/R语言学习笔记/可视化/ggplot2/商务图表/动态图表"</span>)</div></pre></td></tr></table></figure>
-<h3 id="整理并导入人口结构数据："><a href="#整理并导入人口结构数据：" class="headerlink" title="整理并导入人口结构数据："></a>整理并导入人口结构数据：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">female&lt;-read.xlsx(<span class="string">"Population.xlsx"</span>,sheetName=<span class="string">"Female"</span>,header=<span class="literal">T</span>,encoding=<span class="string">'UTF-8'</span>,check.names = <span class="literal">FALSE</span>)</div><div class="line">male&lt;-read.xlsx(<span class="string">"Population.xlsx"</span>,sheetName=<span class="string">"Male"</span>,header=<span class="literal">T</span>,encoding=<span class="string">'UTF-8'</span>,check.names = <span class="literal">FALSE</span>)</div><div class="line"></div><div class="line">female&lt;-female%&gt;%gather(Year,Poputation,-<span class="number">1</span>)</div><div class="line">male&lt;-male%&gt;%gather(Year,Poputation,-<span class="number">1</span>)</div><div class="line">female$Poputation&lt;-female$Poputation*-<span class="number">1</span></div><div class="line"></div><div class="line">male$sex&lt;-<span class="string">"male"</span>;female$sex&lt;-<span class="string">"female"</span></div></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">China_Population&lt;-rbind(male,female)%&gt;%mutate(abs_pop=abs(Poputation))</div><div class="line">China_Population$agegroup&lt;-factor(China_Population$agegroup,</div><div class="line">levels=c(<span class="string">"0-4"</span>,<span class="string">"5-9"</span>,<span class="string">"10-14"</span>,<span class="string">"15-19"</span>,<span class="string">"20-24"</span>,<span class="string">"25-29"</span>,<span class="string">"30-34"</span>,<span class="string">"35-39"</span>,<span class="string">"40-44"</span>,<span class="string">"45-49"</span>,<span class="string">"50-54"</span>,<span class="string">"55-59"</span>,<span class="string">"60-64"</span>,<span class="string">"65-69"</span>,<span class="string">"70-74"</span>,<span class="string">"75-79"</span>,<span class="string">"80+"</span>) ,order=<span class="literal">T</span>)</div><div class="line"></div><div class="line">m&lt;-seq(<span class="number">1950</span>,<span class="number">2015</span>,by=<span class="number">5</span>)</div></pre></td></tr></table></figure>
-<h3 id="可视化动态图表："><a href="#可视化动态图表：" class="headerlink" title="可视化动态图表："></a>可视化动态图表：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">saveGIF(&#123;</div><div class="line">  <span class="keyword">for</span> (i <span class="keyword">in</span> m) &#123; </div><div class="line">    title &lt;- as.character(i)</div><div class="line">    year_data &lt;- filter(China_Population,Year==i)</div><div class="line">     g1&lt;-ggplot(year_data,aes(x =agegroup,y=Poputation,fill=sex,width=<span class="number">1</span>)) +</div><div class="line">        coord_fixed()+ </div><div class="line">        coord_flip() +</div><div class="line">        geom_bar(data=subset(year_data,sex==<span class="string">"female"</span>),stat = <span class="string">"identity"</span>) +</div><div class="line">        geom_bar(data=subset(year_data,sex==<span class="string">"male"</span>), stat = <span class="string">"identity"</span>) +</div><div class="line">        scale_y_continuous(breaks = seq(-<span class="number">70000</span>,<span class="number">70000</span>,length=<span class="number">9</span>),</div><div class="line">                         labels = paste0(as.character(c(abs(seq(-<span class="number">70</span>,<span class="number">70</span>,length=<span class="number">9</span>)))), <span class="string">"m"</span>), </div><div class="line">                         limits = c(-<span class="number">75000</span>, <span class="number">75000</span>)) +</div><div class="line">        theme_economist(base_size = <span class="number">14</span>) + </div><div class="line">        scale_fill_manual(values = c(<span class="string">'#D40225'</span>, <span class="string">'#374F8F'</span>)) + </div><div class="line">        labs(title=paste0(<span class="string">"Population structure of China:"</span>, title),</div><div class="line">        caption=<span class="string">"Data Source:United Nations Department of Economic and Docial Affairs\nPopulation Division\nWorld Population Prospects,the 2015 Revision"</span></div><div class="line">        ,y=<span class="string">"Population"</span>,x=<span class="string">"Age"</span>) + </div><div class="line">        guides(fill=guide_legend(reverse = <span class="literal">TRUE</span>))+</div><div class="line">        theme(</div><div class="line">             legend.position =c(<span class="number">0.8</span>,<span class="number">0.9</span>),</div><div class="line">             legend.title = element_blank(),</div><div class="line">             plot.title = element_text(size=<span class="number">20</span>),</div><div class="line">             plot.caption = element_text(size=<span class="number">12</span>,hjust=<span class="number">0</span>),</div><div class="line">         )</div><div class="line"></div><div class="line">        print(g1)</div><div class="line">  &#125;</div><div class="line">&#125;,movie.name=<span class="string">'japan_pyramid.gif'</span>,interval=<span class="number">0.5</span>,ani.width=<span class="number">700</span>,ani.height=<span class="number">600</span>)</div></pre></td></tr></table></figure>
-<p><img src="http://oqoy8x3as.bkt.clouddn.com/China_pyramid.gif" alt="China_pyramid"></p>
+<h3 id="加载包："><a href="#加载包：" class="headerlink" title="加载包："></a>加载包：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(ggplot2)</div><div class="line"><span class="keyword">library</span>(ggmap)</div></pre></td></tr></table></figure>
+<h3 id="构造数据源："><a href="#构造数据源：" class="headerlink" title="构造数据源："></a>构造数据源：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">mydata&lt;-data.frame(X=c(<span class="number">3</span>,<span class="number">7</span>,<span class="number">11</span>,<span class="number">15</span>,<span class="number">19</span>),A=c(<span class="number">2471</span>,<span class="number">1893</span>,<span class="number">1248</span>,<span class="number">1078</span>,<span class="number">556</span>),B=c(<span class="number">1385</span>,<span class="number">951</span>,<span class="number">869</span>,<span class="number">784</span>,<span class="number">366</span>),C=c(<span class="number">56</span>,<span class="number">7</span>,<span class="number">19</span>,<span class="number">13</span>,<span class="number">40</span>))</div><div class="line">mydata$Axmin&lt;-mydata$X-sqrt(mydata$A)/<span class="number">30</span></div><div class="line">mydata$Axmax&lt;-mydata$X+sqrt(mydata$A)/<span class="number">30</span></div><div class="line">mydata$Aymin&lt;-<span class="number">0</span></div><div class="line">mydata$Aymax&lt;-sqrt(mydata$A)/<span class="number">15</span></div><div class="line"></div><div class="line">mydata$Bxmin&lt;-mydata$X+sqrt(mydata$A)/<span class="number">30</span>-sqrt(mydata$B)/<span class="number">15</span></div><div class="line">mydata$Bxmax&lt;-mydata$X+sqrt(mydata$A)/<span class="number">30</span></div><div class="line">mydata$Bymin&lt;-<span class="number">0</span></div><div class="line">mydata$Bymax&lt;-sqrt(mydata$B)/<span class="number">15</span></div><div class="line"></div><div class="line"></div><div class="line">mydata$Cxmin&lt;-mydata$X+sqrt(mydata$A)/<span class="number">30</span>-sqrt(mydata$C)/<span class="number">10</span></div><div class="line">mydata$Cxmax&lt;-mydata$X+sqrt(mydata$A)/<span class="number">30</span></div><div class="line">mydata$Cymin&lt;-<span class="number">0</span></div><div class="line">mydata$Cymax&lt;-sqrt(mydata$C)/<span class="number">10</span></div><div class="line"></div><div class="line">mydata$text&lt;-c(<span class="string">"University of\n Pennsylvania"</span>,<span class="string">"University of\n Notre Dame"</span>,<span class="string">"Princeton\n University"</span>,<span class="string">"Stanford\n University"</span>,<span class="string">"California Institute\n of Technology"</span>)</div><div class="line">mydata$full&lt;-c(<span class="string">"31663"</span>,<span class="string">"16548"</span>,<span class="string">"27189"</span>,<span class="string">"34348"</span>,<span class="string">"5225"</span>)</div></pre></td></tr></table></figure>
+<h3 id="可视化图形过程："><a href="#可视化图形过程：" class="headerlink" title="可视化图形过程："></a>可视化图形过程：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">windowsFonts(myFont = windowsFont(<span class="string">"arial"</span>))</div><div class="line">ggplot(mydata)+</div><div class="line">geom_rect(aes(xmin=Axmin,xmax=Axmax,ymin=Aymin,ymax=Aymax),fill=<span class="string">"#59AF8A"</span>)+</div><div class="line">geom_rect(aes(xmin=Bxmin,xmax=Bxmax,ymin=Bymin,ymax=Bymax),fill=<span class="string">"#0074A3"</span>)+</div><div class="line">geom_rect(aes(xmin=Cxmin,xmax=Cxmax,ymin=Cymin,ymax=Cymax),fill=<span class="string">"#C72733"</span>)+</div><div class="line">geom_linerange(aes(x=X+<span class="number">2</span>,ymin=<span class="number">0</span>,ymax=<span class="number">4.8</span>),col=<span class="string">"grey"</span>,linetype=<span class="number">2</span>)+</div><div class="line">ylim(-<span class="number">.5</span>,<span class="number">6</span>)+</div><div class="line">labs(x=<span class="string">""</span>,y=<span class="string">""</span>)+</div><div class="line">geom_text(aes(x=X,y=<span class="number">4.5</span>,label=text),size=<span class="number">4</span>,fontface=<span class="string">"bold"</span>,family=<span class="string">"myFont"</span>)+</div><div class="line">geom_label(aes(x=X,y=<span class="number">3.7</span>,label=full),fill=<span class="string">"#EFE5CA"</span>,colour=<span class="string">"black"</span>,fontface=<span class="string">"bold"</span>,size=<span class="number">3.5</span>,label.r=unit(<span class="number">0.15</span>,<span class="string">"lines"</span>),family=<span class="string">"myFont"</span>)+</div><div class="line">geom_text(aes(x=Axmin,y=Aymax,label=A),hjust=-<span class="number">.2</span>,vjust=<span class="number">1</span>,size=<span class="number">3.5</span>,col=<span class="string">"white"</span>,family=<span class="string">"myFont"</span>)+</div><div class="line">geom_text(aes(x=Bxmin,y=Bymax,label=B),hjust=-<span class="number">.2</span>,vjust=<span class="number">1</span>,size=<span class="number">3.5</span>,col=<span class="string">"white"</span>,family=<span class="string">"myFont"</span>)+</div><div class="line">geom_text(aes(x=Cxmin,y=Cymax,label=C),hjust=-<span class="number">.2</span>,vjust=<span class="number">1</span>,size=<span class="number">3</span>,col=<span class="string">"white"</span>,family=<span class="string">"myFont"</span>)+</div><div class="line">annotate(<span class="string">"text"</span>,x=<span class="number">2.5</span>,y=<span class="number">5.7</span>,label=<span class="string">"Class Struggle"</span>,col=<span class="string">"black"</span>, size=<span class="number">6</span>,family=<span class="string">"myFont"</span>)+  </div><div class="line">annotate(<span class="string">"text"</span>,x=<span class="number">8.85</span>,y=<span class="number">5.2</span>,label=<span class="string">"A spot on a university or college's waitlist rarely translates into admission. A look at the numbers for several institutions"</span>, size=<span class="number">4</span>,family=<span class="string">"myFont"</span>)+  </div><div class="line">annotate(<span class="string">"text"</span>,x=<span class="number">3.9</span>,y=-<span class="number">.32</span>,label=<span class="string">"Source:The universities and 2011-2012 Common Data Set"</span>,col=<span class="string">"black"</span>,size=<span class="number">3</span>,family=<span class="string">"myFont"</span>)+  </div><div class="line">annotate(<span class="string">"text"</span>,x=<span class="number">19.8</span>,y=-<span class="number">.32</span>,label=<span class="string">"The wall Street Jaunual"</span>,col=<span class="string">"black"</span>,size=<span class="number">3</span>,family=<span class="string">"myFont"</span>)+  </div><div class="line">theme_nothing()+</div><div class="line">theme(panel.background=element_rect(fill=<span class="string">"#F5F2E1"</span>))</div></pre></td></tr></table></figure>
+<div align="center"><br><img src="http://oqp4xxgxu.bkt.clouddn.com/image1.png" width="526" height="182" alt="image1" align="center"><br></div>
+
+<p><strong>建议保存尺寸（1035*330）</strong> </p>
+<h3 id="更加紧促的方式："><a href="#更加紧促的方式：" class="headerlink" title="更加紧促的方式："></a>更加紧促的方式：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">mydata1&lt;-mydata[,<span class="number">5</span>:<span class="number">8</span>]</div><div class="line">names(mydata1)&lt;-c(<span class="string">"xmin"</span>,<span class="string">"xmax"</span>,<span class="string">"ymin"</span>,<span class="string">"ymax"</span>)</div><div class="line">mydata1$Group&lt;-<span class="string">"A"</span></div><div class="line"></div><div class="line">mydata2&lt;-mydata[,<span class="number">9</span>:<span class="number">12</span>]</div><div class="line">names(mydata2)&lt;-c(<span class="string">"xmin"</span>,<span class="string">"xmax"</span>,<span class="string">"ymin"</span>,<span class="string">"ymax"</span>)</div><div class="line">mydata2$Group&lt;-<span class="string">"B"</span></div><div class="line"></div><div class="line">mydata3&lt;-mydata[,<span class="number">13</span>:<span class="number">16</span>]</div><div class="line">names(mydata3)&lt;-c(<span class="string">"xmin"</span>,<span class="string">"xmax"</span>,<span class="string">"ymin"</span>,<span class="string">"ymax"</span>)</div><div class="line">mydata3$Group&lt;-<span class="string">"C"</span></div><div class="line"></div><div class="line">mynewdata&lt;-rbind(mydata1,mydata2,mydata3)</div><div class="line">mynewdata$Group&lt;-factor(mynewdata$Group,order=<span class="literal">T</span>)</div><div class="line"></div><div class="line">ggplot(mynewdata)+</div><div class="line">geom_rect(aes(xmin=xmin,xmax=xmax,ymin=ymin,ymax=ymax,fill=Group))+</div><div class="line">scale_fill_manual(values=c(<span class="string">"#59AF8A"</span>,<span class="string">"#0074A3"</span>,<span class="string">"#C72733"</span>))</div></pre></td></tr></table></figure>
+<div align="center"><br><img src="http://oqp4xxgxu.bkt.clouddn.com/image2.jpg" width="512" height="285" alt="image2" align="center"><br></div>
+
+
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
@@ -450,9 +452,7 @@
           
             <a href="/tags/数据可视化/" rel="tag"># 数据可视化</a>
           
-            <a href="/tags/gif/" rel="tag"># gif</a>
-          
-            <a href="/tags/动态图表/" rel="tag"># 动态图表</a>
+            <a href="/tags/信息图/" rel="tag"># 信息图</a>
           
         </div>
       
@@ -465,8 +465,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/28/动态世界地图/" rel="next" title="动态世界地图">
-                <i class="fa fa-chevron-left"></i> 动态世界地图
+              <a href="/2017/05/29/中国人口金字塔动态图/" rel="next" title="中国人口金字塔动态图">
+                <i class="fa fa-chevron-left"></i> 中国人口金字塔动态图
               </a>
             
           </div>
@@ -474,10 +474,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/05/29/百分比方块比较图/" rel="prev" title="百分比方块比较图">
-                百分比方块比较图 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -653,7 +649,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#加载包："><span class="nav-number">1.</span> <span class="nav-text">加载包：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#整理并导入人口结构数据："><span class="nav-number">2.</span> <span class="nav-text">整理并导入人口结构数据：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可视化动态图表："><span class="nav-number">3.</span> <span class="nav-text">可视化动态图表：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#加载包："><span class="nav-number">1.</span> <span class="nav-text">加载包：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造数据源："><span class="nav-number">2.</span> <span class="nav-text">构造数据源：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可视化图形过程："><span class="nav-number">3.</span> <span class="nav-text">可视化图形过程：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更加紧促的方式："><span class="nav-number">4.</span> <span class="nav-text">更加紧促的方式：</span></a></li></ol></div>
             
 
           </div>
