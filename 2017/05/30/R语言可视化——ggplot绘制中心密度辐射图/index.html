@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="R语言,ggplot2,数据可视化,gif,动态图表," />
+  <meta name="keywords" content="R语言,ggplot2,数据可视化,热力地图," />
 
 
 
@@ -92,22 +92,25 @@
 
 
 
-<meta name="description" content="中国人口金字塔动态图 以下是一个之前在网络上引起巨大轰动的人口金字塔动态图：  没有找到原始数据，后来在UN的官网上找到了一个五年间隔的数据，顺便还原了下图表：">
-<meta name="keywords" content="R语言,ggplot2,数据可视化,gif,动态图表">
+<meta name="description" content="今天这篇算是之前ggplot2图表系列的增补。 因为在ggplot2中一直没有看到好的关于密度辐射图（或者称它为热力辐射图，就是那种PowerMap中可以通过颜色色度探查区域指标分布密度的图表类型）的合适解决方案，最近在看github官网上ggmap的介绍帖，看到作者在ggmap函数中嵌套了geom_polygon图层并并使用fill=..level..参数和stat=”density_2d”来来">
+<meta name="keywords" content="R语言,ggplot2,数据可视化,热力地图">
 <meta property="og:type" content="article">
-<meta property="og:title" content="中国人口金字塔动态图">
-<meta property="og:url" content="http://www.raindu.com/2017/05/29/中国人口金字塔动态图/index.html">
+<meta property="og:title" content="R语言可视化——ggplot绘制中心密度辐射图">
+<meta property="og:url" content="http://www.raindu.com/2017/05/30/R语言可视化——ggplot绘制中心密度辐射图/index.html">
 <meta property="og:site_name" content="raindu&#39;s home">
-<meta property="og:description" content="中国人口金字塔动态图 以下是一个之前在网络上引起巨大轰动的人口金字塔动态图：  没有找到原始数据，后来在UN的官网上找到了一个五年间隔的数据，顺便还原了下图表：">
-<meta property="og:image" content="http://oqoy8x3as.bkt.clouddn.com/%E4%BA%BA%E5%8F%A3%E9%87%91%E5%AD%97%E5%A1%94%EF%BC%881950-2050%EF%BC%89.gif">
-<meta property="og:image" content="http://oqoy8x3as.bkt.clouddn.com/China_pyramid.gif">
+<meta property="og:description" content="今天这篇算是之前ggplot2图表系列的增补。 因为在ggplot2中一直没有看到好的关于密度辐射图（或者称它为热力辐射图，就是那种PowerMap中可以通过颜色色度探查区域指标分布密度的图表类型）的合适解决方案，最近在看github官网上ggmap的介绍帖，看到作者在ggmap函数中嵌套了geom_polygon图层并并使用fill=..level..参数和stat=”density_2d”来来">
+<meta property="og:image" content="http://www.raindu.com/2017/05/30/R语言可视化——ggplot绘制中心密度辐射图/%22http://oqrauaruh.bkt.clouddn.com/image1.png">
+<meta property="og:image" content="http://www.raindu.com/2017/05/30/R语言可视化——ggplot绘制中心密度辐射图/%22http://oqrauaruh.bkt.clouddn.com/image22.png">
+<meta property="og:image" content="http://www.raindu.com/2017/05/30/R语言可视化——ggplot绘制中心密度辐射图/%22http://oqrauaruh.bkt.clouddn.com/image4.png">
+<meta property="og:image" content="http://www.raindu.com/2017/05/30/R语言可视化——ggplot绘制中心密度辐射图/%22http://oqrauaruh.bkt.clouddn.com/image5.png">
+<meta property="og:image" content="http://www.raindu.com/2017/05/30/R语言可视化——ggplot绘制中心密度辐射图/%22http://oqrauaruh.bkt.clouddn.com/image6.png">
 <meta property="og:image" content="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-05-29T01:55:18.081Z">
+<meta property="og:updated_time" content="2017-05-30T08:20:56.712Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="中国人口金字塔动态图">
-<meta name="twitter:description" content="中国人口金字塔动态图 以下是一个之前在网络上引起巨大轰动的人口金字塔动态图：  没有找到原始数据，后来在UN的官网上找到了一个五年间隔的数据，顺便还原了下图表：">
-<meta name="twitter:image" content="http://oqoy8x3as.bkt.clouddn.com/%E4%BA%BA%E5%8F%A3%E9%87%91%E5%AD%97%E5%A1%94%EF%BC%881950-2050%EF%BC%89.gif">
+<meta name="twitter:title" content="R语言可视化——ggplot绘制中心密度辐射图">
+<meta name="twitter:description" content="今天这篇算是之前ggplot2图表系列的增补。 因为在ggplot2中一直没有看到好的关于密度辐射图（或者称它为热力辐射图，就是那种PowerMap中可以通过颜色色度探查区域指标分布密度的图表类型）的合适解决方案，最近在看github官网上ggmap的介绍帖，看到作者在ggmap函数中嵌套了geom_polygon图层并并使用fill=..level..参数和stat=”density_2d”来来">
+<meta name="twitter:image" content="http://www.raindu.com/2017/05/30/R语言可视化——ggplot绘制中心密度辐射图/%22http://oqrauaruh.bkt.clouddn.com/image1.png">
 
 
 
@@ -135,13 +138,13 @@
 
 
 
-  <link rel="canonical" href="http://www.raindu.com/2017/05/29/中国人口金字塔动态图/"/>
+  <link rel="canonical" href="http://www.raindu.com/2017/05/30/R语言可视化——ggplot绘制中心密度辐射图/"/>
 
 
 
 
 
-  <title>中国人口金字塔动态图 | raindu's home</title>
+  <title>R语言可视化——ggplot绘制中心密度辐射图 | raindu's home</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -291,7 +294,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/05/29/中国人口金字塔动态图/">
+    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/05/30/R语言可视化——ggplot绘制中心密度辐射图/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="RainDu">
@@ -308,7 +311,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">中国人口金字塔动态图</h1>
+          <h1 class="post-title" itemprop="name headline">R语言可视化——ggplot绘制中心密度辐射图</h1>
         
 
         <div class="post-meta">
@@ -320,8 +323,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-29T09:48:42+08:00">
-                2017-05-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-30T16:05:43+08:00">
+                2017-05-30
               </time>
             
 
@@ -343,8 +346,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/R语言/" itemprop="url" rel="index">
-                    <span itemprop="name">R语言</span>
+                  <a href="/categories/数据可视化/" itemprop="url" rel="index">
+                    <span itemprop="name">数据可视化</span>
                   </a>
                 </span>
 
@@ -377,16 +380,35 @@
       
 
       
-        <p><strong>中国人口金字塔动态图</strong></p>
-<p>以下是一个之前在网络上引起巨大轰动的人口金字塔动态图：</p>
-<p><img src="http://oqoy8x3as.bkt.clouddn.com/%E4%BA%BA%E5%8F%A3%E9%87%91%E5%AD%97%E5%A1%94%EF%BC%881950-2050%EF%BC%89.gif" alt="人口金字塔"></p>
-<p>没有找到原始数据，后来在UN的官网上找到了一个五年间隔的数据，顺便还原了下图表：</p>
+        <p>今天这篇算是之前ggplot2图表系列的增补。</p>
+<p>因为在ggplot2中一直没有看到好的关于密度辐射图（或者称它为热力辐射图，就是那种PowerMap中可以通过颜色色度探查区域指标分布密度的图表类型）的合适解决方案，最近在看github官网上ggmap的介绍帖，看到作者在ggmap函数中嵌套了geom_polygon图层并并使用fill=..level..参数和stat=”density_2d”来来制作类似的热度辐射图。</p>
+<p>我就突发奇想，如果不是通过ggmap而是通过ggplot函数是否也可以呢，果然也是可以出效果的，先将方法介绍如下：</p>
 <a id="more"></a>
-<h3 id="加载包："><a href="#加载包：" class="headerlink" title="加载包："></a>加载包：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(ggplot2)</div><div class="line"><span class="keyword">library</span>(animation)</div><div class="line"><span class="keyword">library</span>(dplyr)</div><div class="line"><span class="keyword">library</span>(tidyr)</div><div class="line"><span class="keyword">library</span>(xlsx)</div><div class="line"><span class="keyword">library</span>(ggthemes)</div><div class="line">setwd(<span class="string">"E:/数据可视化/R/R语言学习笔记/可视化/ggplot2/商务图表/动态图表"</span>)</div></pre></td></tr></table></figure>
-<h3 id="整理并导入人口结构数据："><a href="#整理并导入人口结构数据：" class="headerlink" title="整理并导入人口结构数据："></a>整理并导入人口结构数据：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">female&lt;-read.xlsx(<span class="string">"Population.xlsx"</span>,sheetName=<span class="string">"Female"</span>,header=<span class="literal">T</span>,encoding=<span class="string">'UTF-8'</span>,check.names = <span class="literal">FALSE</span>)</div><div class="line">male&lt;-read.xlsx(<span class="string">"Population.xlsx"</span>,sheetName=<span class="string">"Male"</span>,header=<span class="literal">T</span>,encoding=<span class="string">'UTF-8'</span>,check.names = <span class="literal">FALSE</span>)</div><div class="line"></div><div class="line">female&lt;-female%&gt;%gather(Year,Poputation,-<span class="number">1</span>)</div><div class="line">male&lt;-male%&gt;%gather(Year,Poputation,-<span class="number">1</span>)</div><div class="line">female$Poputation&lt;-female$Poputation*-<span class="number">1</span></div><div class="line"></div><div class="line">male$sex&lt;-<span class="string">"male"</span>;female$sex&lt;-<span class="string">"female"</span></div></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">China_Population&lt;-rbind(male,female)%&gt;%mutate(abs_pop=abs(Poputation))</div><div class="line">China_Population$agegroup&lt;-factor(China_Population$agegroup,</div><div class="line">levels=c(<span class="string">"0-4"</span>,<span class="string">"5-9"</span>,<span class="string">"10-14"</span>,<span class="string">"15-19"</span>,<span class="string">"20-24"</span>,<span class="string">"25-29"</span>,<span class="string">"30-34"</span>,<span class="string">"35-39"</span>,<span class="string">"40-44"</span>,<span class="string">"45-49"</span>,<span class="string">"50-54"</span>,<span class="string">"55-59"</span>,<span class="string">"60-64"</span>,<span class="string">"65-69"</span>,<span class="string">"70-74"</span>,<span class="string">"75-79"</span>,<span class="string">"80+"</span>) ,order=<span class="literal">T</span>)</div><div class="line"></div><div class="line">m&lt;-seq(<span class="number">1950</span>,<span class="number">2015</span>,by=<span class="number">5</span>)</div></pre></td></tr></table></figure>
-<h3 id="可视化动态图表："><a href="#可视化动态图表：" class="headerlink" title="可视化动态图表："></a>可视化动态图表：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">saveGIF(&#123;</div><div class="line">  <span class="keyword">for</span> (i <span class="keyword">in</span> m) &#123; </div><div class="line">    title &lt;- as.character(i)</div><div class="line">    year_data &lt;- filter(China_Population,Year==i)</div><div class="line">     g1&lt;-ggplot(year_data,aes(x =agegroup,y=Poputation,fill=sex,width=<span class="number">1</span>)) +</div><div class="line">        coord_fixed()+ </div><div class="line">        coord_flip() +</div><div class="line">        geom_bar(data=subset(year_data,sex==<span class="string">"female"</span>),stat = <span class="string">"identity"</span>) +</div><div class="line">        geom_bar(data=subset(year_data,sex==<span class="string">"male"</span>), stat = <span class="string">"identity"</span>) +</div><div class="line">        scale_y_continuous(breaks = seq(-<span class="number">70000</span>,<span class="number">70000</span>,length=<span class="number">9</span>),</div><div class="line">                         labels = paste0(as.character(c(abs(seq(-<span class="number">70</span>,<span class="number">70</span>,length=<span class="number">9</span>)))), <span class="string">"m"</span>), </div><div class="line">                         limits = c(-<span class="number">75000</span>, <span class="number">75000</span>)) +</div><div class="line">        theme_economist(base_size = <span class="number">14</span>) + </div><div class="line">        scale_fill_manual(values = c(<span class="string">'#D40225'</span>, <span class="string">'#374F8F'</span>)) + </div><div class="line">        labs(title=paste0(<span class="string">"Population structure of China:"</span>, title),</div><div class="line">        caption=<span class="string">"Data Source:United Nations Department of Economic and Docial Affairs\nPopulation Division\nWorld Population Prospects,the 2015 Revision"</span></div><div class="line">        ,y=<span class="string">"Population"</span>,x=<span class="string">"Age"</span>) + </div><div class="line">        guides(fill=guide_legend(reverse = <span class="literal">TRUE</span>))+</div><div class="line">        theme(</div><div class="line">             legend.position =c(<span class="number">0.8</span>,<span class="number">0.9</span>),</div><div class="line">             legend.title = element_blank(),</div><div class="line">             plot.title = element_text(size=<span class="number">20</span>),</div><div class="line">             plot.caption = element_text(size=<span class="number">12</span>,hjust=<span class="number">0</span>),</div><div class="line">         )</div><div class="line"></div><div class="line">        print(g1)</div><div class="line">  &#125;</div><div class="line">&#125;,movie.name=<span class="string">'japan_pyramid.gif'</span>,interval=<span class="number">0.5</span>,ani.width=<span class="number">700</span>,ani.height=<span class="number">600</span>)</div></pre></td></tr></table></figure>
-<p><img src="http://oqoy8x3as.bkt.clouddn.com/China_pyramid.gif" alt="China_pyramid"></p>
+<h3 id="加载包："><a href="#加载包：" class="headerlink" title="加载包："></a>加载包：</h3><p>首先需要加载如下包：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(ggplot2)      </div><div class="line"><span class="keyword">library</span>(plyr)         </div><div class="line"><span class="keyword">library</span>(maptools) </div><div class="line"><span class="keyword">library</span>(ggmap)</div></pre></td></tr></table></figure></p>
+<h3 id="导入数据集："><a href="#导入数据集：" class="headerlink" title="导入数据集："></a>导入数据集：</h3><p>接下来导入两个数据集：</p>
+<p>其中一个是中国省级边界轮廓图，早期关注过数据小魔方的用户大概都知道，我曾经共享过一个名为rstudy的文件包（我在刘万祥老师的公众号里发现的，现在应该也还可以获取），如果手上没有数据可以添加魔方学院的QQ群，在群共享里查找R语言资料。（共享文件比较多，可能需要找一阵子）</p>
+<p>另一个是之前在讲解REmap热度辐射图时用过的城市价值指标数据集，推送后会共享在魔方学院的QQ群里。</p>
+<p><strong>导入数据集：</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">china_map&lt;-readShapePoly(<span class="string">"c:/rstudy/bou2_4p.shp"</span>)  <span class="comment">#地图数据 </span></div><div class="line">china_map1 &lt;- fortify(china_map)                   <span class="comment">#转换为数据框</span></div><div class="line">data&lt;- read.csv(file=<span class="string">"D:\\R\\map\\MoveChart\\cityvaluetop10.csv"</span>,header=<span class="literal">T</span>)  <span class="comment">#城市指标数据</span></div></pre></td></tr></table></figure>
+<p>因为这里使用地图仅仅是作为底图用作定位信息，可以说是陪衬，所以无需对地图和城市指标进行合并。</p>
+<h3 id="图表的正式生成过程："><a href="#图表的正式生成过程：" class="headerlink" title="图表的正式生成过程："></a>图表的正式生成过程：</h3><h4 id="画底图："><a href="#画底图：" class="headerlink" title="画底图："></a>画底图：</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">p&lt;-ggplot()+</div><div class="line">geom_polygon(data=china_map1,aes(x=long,y=lat,group=group),fill=<span class="string">"#005A32"</span>,col=<span class="string">"white"</span>);p</div></pre></td></tr></table></figure>
+<p><img src="&quot;http://oqrauaruh.bkt.clouddn.com/image1.png" alt="image1"></p>
+<h4 id="添加热度图层"><a href="#添加热度图层" class="headerlink" title="添加热度图层"></a>添加热度图层</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">p&lt;-p+geom_polygon(data=data,aes(x=lon,y=lat,fill = ..level..), stat=<span class="string">"density_2d"</span>, alpha = <span class="number">.3</span>, color = <span class="literal">NA</span>)+</div><div class="line">coord_map(<span class="string">"polyconic"</span>);p</div></pre></td></tr></table></figure>
+<p><a href="http://oqrauaruh.bkt.clouddn.com/image22.jpg" target="_blank" rel="external">http://oqrauaruh.bkt.clouddn.com/image22.jpg</a></p>
+<h4 id="调整热度图层"><a href="#调整热度图层" class="headerlink" title="调整热度图层"></a>调整热度图层</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(p&lt;-p+scale_fill_gradient2( low = <span class="string">"white"</span>,mid=<span class="string">"yellow"</span>, high = <span class="string">"red"</span>)）</div></pre></td></tr></table></figure>
+<p><img src="&quot;http://oqrauaruh.bkt.clouddn.com/image22.png" alt="image2"></p>
+<h4 id="清楚冗余元素"><a href="#清楚冗余元素" class="headerlink" title="清楚冗余元素"></a>清楚冗余元素</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(p&lt;-p+theme_nothing())</div></pre></td></tr></table></figure>
+<p><img src="&quot;http://oqrauaruh.bkt.clouddn.com/image4.png" alt="image4"></p>
+<h4 id="可以给以上热图添加散点辅助观测"><a href="#可以给以上热图添加散点辅助观测" class="headerlink" title="可以给以上热图添加散点辅助观测"></a>可以给以上热图添加散点辅助观测</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(p&lt;-p+geom_point(data=data,aes(x=lon,y=lat),col=<span class="string">"white"</span>))</div></pre></td></tr></table></figure>
+<p><img src="&quot;http://oqrauaruh.bkt.clouddn.com/image5.png" alt="image5"></p>
+<h4 id="当然，你也可以给三点指定城市的指标数据使其变成气泡图"><a href="#当然，你也可以给三点指定城市的指标数据使其变成气泡图" class="headerlink" title="当然，你也可以给三点指定城市的指标数据使其变成气泡图"></a>当然，你也可以给三点指定城市的指标数据使其变成气泡图</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(p&lt;-p+geom_point(data=data,aes(x=lon,y=lat,size=prob),col=<span class="string">"white"</span>)+scale_size_area(max_size=<span class="number">6</span>))</div></pre></td></tr></table></figure>
+<p><img src="&quot;http://oqrauaruh.bkt.clouddn.com/image6.png" alt="image6"></p>
+<p><strong>记得清除掉第5步，即从第四步开始</strong></p>
+<p>至于实际的数据标签，指标名称和区域名称，酌情添加，但是针对地图类图表，数据展示到位即可，不建议添加太多标签，影响美观性。</p>
+<p>针对本图表类型，核心参数是第二个geom_polygon()中的fill = ..level..和stat=”density_2d”统计变换，使得多边形图转换成为二维水平密度图，但是至今我还没有搞懂里面的算法是什么样的，只能大概模仿出来，至于怎么用，看大家自由发挥了，效果跟真正的热力辐射图还是有些差别，但是勉强能用。</p>
+<p>总结下，用到的所有代码如下：</p>
+<p>ggplot()+<br>geom_polygon(data=china_map1,aes(x=long,y=lat,group=group),fill=”#005A32”,col=”white”)+<br>geom_polygon(data=data,aes(x=lon,y=lat,fill = ..level..), stat=”density_2d”, alpha = .3, color = NA)+<br>coord_map(“polyconic”) +<br>geom_point(data=data,aes(x=lon,y=lat,size=prob),col=”white”)+<br>scale_size_area(max_size=6)+<br>scale_fill_gradient2( low = “white”,mid=”yellow”, high = “red”)+<br>theme_nothing()  #这一句清空主题的代码是ggmap包中的，必须加载才能用</p>
+<p>感兴趣的小伙伴儿可以移步去github官网上搜索ggmap官方介绍，里面使用ggmap调用谷歌地图做的热度图，效果很棒。</p>
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
@@ -450,9 +472,7 @@
           
             <a href="/tags/数据可视化/" rel="tag"># 数据可视化</a>
           
-            <a href="/tags/gif/" rel="tag"># gif</a>
-          
-            <a href="/tags/动态图表/" rel="tag"># 动态图表</a>
+            <a href="/tags/热力地图/" rel="tag"># 热力地图</a>
           
         </div>
       
@@ -465,8 +485,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/28/动态世界地图/" rel="next" title="动态世界地图">
-                <i class="fa fa-chevron-left"></i> 动态世界地图
+              <a href="/2017/05/30/用ggplot2制作静态数据可视化报告/" rel="next" title="用ggplot2制作静态数据可视化报告!">
+                <i class="fa fa-chevron-left"></i> 用ggplot2制作静态数据可视化报告!
               </a>
             
           </div>
@@ -474,10 +494,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/05/29/百分比方块比较图/" rel="prev" title="百分比方块比较图">
-                百分比方块比较图 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -653,7 +669,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#加载包："><span class="nav-number">1.</span> <span class="nav-text">加载包：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#整理并导入人口结构数据："><span class="nav-number">2.</span> <span class="nav-text">整理并导入人口结构数据：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可视化动态图表："><span class="nav-number">3.</span> <span class="nav-text">可视化动态图表：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#加载包："><span class="nav-number">1.</span> <span class="nav-text">加载包：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导入数据集："><span class="nav-number">2.</span> <span class="nav-text">导入数据集：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图表的正式生成过程："><span class="nav-number">3.</span> <span class="nav-text">图表的正式生成过程：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#画底图："><span class="nav-number">3.1.</span> <span class="nav-text">画底图：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加热度图层"><span class="nav-number">3.2.</span> <span class="nav-text">添加热度图层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调整热度图层"><span class="nav-number">3.3.</span> <span class="nav-text">调整热度图层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#清楚冗余元素"><span class="nav-number">3.4.</span> <span class="nav-text">清楚冗余元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可以给以上热图添加散点辅助观测"><span class="nav-number">3.5.</span> <span class="nav-text">可以给以上热图添加散点辅助观测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#当然，你也可以给三点指定城市的指标数据使其变成气泡图"><span class="nav-number">3.6.</span> <span class="nav-text">当然，你也可以给三点指定城市的指标数据使其变成气泡图</span></a></li></ol></li></ol></div>
             
 
           </div>
