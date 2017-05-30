@@ -19,14 +19,15 @@
 <h3 id="图表的正式生成过程："><a href="#图表的正式生成过程：" class="headerlink" title="图表的正式生成过程："></a>图表的正式生成过程：</h3><h4 id="画底图："><a href="#画底图：" class="headerlink" title="画底图："></a>画底图：</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">p&lt;-ggplot()+</div><div class="line">geom_polygon(data=china_map1,aes(x=long,y=lat,group=group),fill=<span class="string">"#005A32"</span>,col=<span class="string">"white"</span>);p</div></pre></td></tr></table></figure>
 <p><img src="http://oqrauaruh.bkt.clouddn.com/image1.png" alt="image1"></p>
 <h4 id="添加热度图层"><a href="#添加热度图层" class="headerlink" title="添加热度图层"></a>添加热度图层</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">p&lt;-p+geom_polygon(data=data,aes(x=lon,y=lat,fill = ..level..), stat=<span class="string">"density_2d"</span>, alpha = <span class="number">.3</span>, color = <span class="literal">NA</span>)+</div><div class="line">coord_map(<span class="string">"polyconic"</span>);p</div></pre></td></tr></table></figure>
+<p><img src="http://oqrauaruh.bkt.clouddn.com/image22.jpg" alt="image2"></p>
 <h4 id="调整热度图层"><a href="#调整热度图层" class="headerlink" title="调整热度图层"></a>调整热度图层</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(p&lt;-p+scale_fill_gradient2( low = <span class="string">"white"</span>,mid=<span class="string">"yellow"</span>, high = <span class="string">"red"</span>)）</div></pre></td></tr></table></figure>
-<p><img src="http://oqrauaruh.bkt.clouddn.com/image22.png" alt="image2"></p>
+<p><img src="http://oqrauaruh.bkt.clouddn.com/image2.png" alt="image3"></p>
 <h4 id="清楚冗余元素"><a href="#清楚冗余元素" class="headerlink" title="清楚冗余元素"></a>清楚冗余元素</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(p&lt;-p+theme_nothing())</div></pre></td></tr></table></figure>
-<p><img src="http://oqrauaruh.bkt.clouddn.com/image4.png" alt="image4"></p>
+<p><img src="http://oqrauaruh.bkt.clouddn.com/image3.png" alt="image4"></p>
 <h4 id="可以给以上热图添加散点辅助观测"><a href="#可以给以上热图添加散点辅助观测" class="headerlink" title="可以给以上热图添加散点辅助观测"></a>可以给以上热图添加散点辅助观测</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(p&lt;-p+geom_point(data=data,aes(x=lon,y=lat),col=<span class="string">"white"</span>))</div></pre></td></tr></table></figure>
-<p><img src="http://oqrauaruh.bkt.clouddn.com/image5.png" alt="image5"></p>
+<p><img src="http://oqrauaruh.bkt.clouddn.com/image4.png" alt="image5"></p>
 <h4 id="当然，你也可以给三点指定城市的指标数据使其变成气泡图"><a href="#当然，你也可以给三点指定城市的指标数据使其变成气泡图" class="headerlink" title="当然，你也可以给三点指定城市的指标数据使其变成气泡图"></a>当然，你也可以给三点指定城市的指标数据使其变成气泡图</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(p&lt;-p+geom_point(data=data,aes(x=lon,y=lat,size=prob),col=<span class="string">"white"</span>)+scale_size_area(max_size=<span class="number">6</span>))</div></pre></td></tr></table></figure>
-<p><img src="http://oqrauaruh.bkt.clouddn.com/image6.png" alt="image6"></p>
+<p><img src="http://oqrauaruh.bkt.clouddn.com/image5.png" alt="image6"></p>
 <p><strong>记得清除掉第5步，即从第四步开始</strong></p>
 <p>至于实际的数据标签，指标名称和区域名称，酌情添加，但是针对地图类图表，数据展示到位即可，不建议添加太多标签，影响美观性。</p>
 <p>针对本图表类型，核心参数是第二个geom_polygon()中的fill = ..level..和stat=”density_2d”统计变换，使得多边形图转换成为二维水平密度图，但是至今我还没有搞懂里面的算法是什么样的，只能大概模仿出来，至于怎么用，看大家自由发挥了，效果跟真正的热力辐射图还是有些差别，但是勉强能用。</p>
