@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="R语言,ggplot2,数据可视化,信息图," />
+  <meta name="keywords" content="R语言,ggplot2,数据可视化,路径图," />
 
 
 
@@ -92,22 +92,26 @@
 
 
 
-<meta name="description" content="该图案例来自经济学人，国内看到刘老师在博客上用Excel仿制过，这里仍然使用ggplot2进行仿制。">
-<meta name="keywords" content="R语言,ggplot2,数据可视化,信息图">
+<meta name="description" content="最近一直在研究ggplot剩余还没有涉略过的图表类型，试图挖掘出一些新的图表形式，就像是该包的作者所暗示的那样，ggplot2只是给你搭建了一个图层语法环境，至于具体能创造出何种图形，全凭自己的想象力。 慢慢的我发现还有一类geom_segment对象自己一直没有尝试过，于是满心欢喜的尝试了一下，果然还是有收获的，我发现通过这个segment图层，可以批量的创建放射状线条图，也就是路径图，这解决了">
+<meta name="keywords" content="R语言,ggplot2,数据可视化,路径图">
 <meta property="og:type" content="article">
-<meta property="og:title" content="百分比方块比较图">
-<meta property="og:url" content="http://www.raindu.com/2017/05/29/百分比方块比较图/index.html">
+<meta property="og:title" content="R语言可视化——中心放射状路径图">
+<meta property="og:url" content="http://www.raindu.com/2017/05/31/R语言可视化——中心放射状路径图/index.html">
 <meta property="og:site_name" content="raindu&#39;s home">
-<meta property="og:description" content="该图案例来自经济学人，国内看到刘老师在博客上用Excel仿制过，这里仍然使用ggplot2进行仿制。">
-<meta property="og:image" content="http://oqp4xxgxu.bkt.clouddn.com/image1.png">
-<meta property="og:image" content="http://oqp4xxgxu.bkt.clouddn.com/image2.jpg">
+<meta property="og:description" content="最近一直在研究ggplot剩余还没有涉略过的图表类型，试图挖掘出一些新的图表形式，就像是该包的作者所暗示的那样，ggplot2只是给你搭建了一个图层语法环境，至于具体能创造出何种图形，全凭自己的想象力。 慢慢的我发现还有一类geom_segment对象自己一直没有尝试过，于是满心欢喜的尝试了一下，果然还是有收获的，我发现通过这个segment图层，可以批量的创建放射状线条图，也就是路径图，这解决了">
+<meta property="og:image" content="http://oqsmlm3sr.bkt.clouddn.com/image1.png">
+<meta property="og:image" content="http://oqsmlm3sr.bkt.clouddn.com/image2.png">
+<meta property="og:image" content="http://oqsmlm3sr.bkt.clouddn.com/image3.png">
+<meta property="og:image" content="http://oqsmlm3sr.bkt.clouddn.com/image4.png">
+<meta property="og:image" content="http://oqsmlm3sr.bkt.clouddn.com/image5.png">
+<meta property="og:image" content="http://oqsmlm3sr.bkt.clouddn.com/image6.png">
 <meta property="og:image" content="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-05-29T04:12:17.491Z">
+<meta property="og:updated_time" content="2017-05-31T01:36:10.211Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="百分比方块比较图">
-<meta name="twitter:description" content="该图案例来自经济学人，国内看到刘老师在博客上用Excel仿制过，这里仍然使用ggplot2进行仿制。">
-<meta name="twitter:image" content="http://oqp4xxgxu.bkt.clouddn.com/image1.png">
+<meta name="twitter:title" content="R语言可视化——中心放射状路径图">
+<meta name="twitter:description" content="最近一直在研究ggplot剩余还没有涉略过的图表类型，试图挖掘出一些新的图表形式，就像是该包的作者所暗示的那样，ggplot2只是给你搭建了一个图层语法环境，至于具体能创造出何种图形，全凭自己的想象力。 慢慢的我发现还有一类geom_segment对象自己一直没有尝试过，于是满心欢喜的尝试了一下，果然还是有收获的，我发现通过这个segment图层，可以批量的创建放射状线条图，也就是路径图，这解决了">
+<meta name="twitter:image" content="http://oqsmlm3sr.bkt.clouddn.com/image1.png">
 
 
 
@@ -135,13 +139,13 @@
 
 
 
-  <link rel="canonical" href="http://www.raindu.com/2017/05/29/百分比方块比较图/"/>
+  <link rel="canonical" href="http://www.raindu.com/2017/05/31/R语言可视化——中心放射状路径图/"/>
 
 
 
 
 
-  <title>百分比方块比较图 | raindu's home</title>
+  <title>R语言可视化——中心放射状路径图 | raindu's home</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -291,7 +295,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/05/29/百分比方块比较图/">
+    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/05/31/R语言可视化——中心放射状路径图/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="RainDu">
@@ -308,7 +312,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">百分比方块比较图</h1>
+          <h1 class="post-title" itemprop="name headline">R语言可视化——中心放射状路径图</h1>
         
 
         <div class="post-meta">
@@ -320,8 +324,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-29T12:08:12+08:00">
-                2017-05-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-31T09:26:55+08:00">
+                2017-05-31
               </time>
             
 
@@ -377,18 +381,37 @@
       
 
       
-        <p>该图案例来自经济学人，国内看到刘老师在博客上用Excel仿制过，这里仍然使用ggplot2进行仿制。</p>
+        <p>最近一直在研究ggplot剩余还没有涉略过的图表类型，试图挖掘出一些新的图表形式，就像是该包的作者所暗示的那样，ggplot2只是给你搭建了一个图层语法环境，至于具体能创造出何种图形，全凭自己的想象力。</p>
+<p>慢慢的我发现还有一类geom_segment对象自己一直没有尝试过，于是满心欢喜的尝试了一下，果然还是有收获的，我发现通过这个segment图层，可以批量的创建放射状线条图，也就是路径图，这解决了我一直以来的难题，今天顺便分享给大家。</p>
 <a id="more"></a>
-<h3 id="加载包："><a href="#加载包：" class="headerlink" title="加载包："></a>加载包：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(ggplot2)</div><div class="line"><span class="keyword">library</span>(ggmap)</div></pre></td></tr></table></figure>
-<h3 id="构造数据源："><a href="#构造数据源：" class="headerlink" title="构造数据源："></a>构造数据源：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">mydata&lt;-data.frame(X=c(<span class="number">3</span>,<span class="number">7</span>,<span class="number">11</span>,<span class="number">15</span>,<span class="number">19</span>),A=c(<span class="number">2471</span>,<span class="number">1893</span>,<span class="number">1248</span>,<span class="number">1078</span>,<span class="number">556</span>),B=c(<span class="number">1385</span>,<span class="number">951</span>,<span class="number">869</span>,<span class="number">784</span>,<span class="number">366</span>),C=c(<span class="number">56</span>,<span class="number">7</span>,<span class="number">19</span>,<span class="number">13</span>,<span class="number">40</span>))</div><div class="line">mydata$Axmin&lt;-mydata$X-sqrt(mydata$A)/<span class="number">30</span></div><div class="line">mydata$Axmax&lt;-mydata$X+sqrt(mydata$A)/<span class="number">30</span></div><div class="line">mydata$Aymin&lt;-<span class="number">0</span></div><div class="line">mydata$Aymax&lt;-sqrt(mydata$A)/<span class="number">15</span></div><div class="line"></div><div class="line">mydata$Bxmin&lt;-mydata$X+sqrt(mydata$A)/<span class="number">30</span>-sqrt(mydata$B)/<span class="number">15</span></div><div class="line">mydata$Bxmax&lt;-mydata$X+sqrt(mydata$A)/<span class="number">30</span></div><div class="line">mydata$Bymin&lt;-<span class="number">0</span></div><div class="line">mydata$Bymax&lt;-sqrt(mydata$B)/<span class="number">15</span></div><div class="line"></div><div class="line"></div><div class="line">mydata$Cxmin&lt;-mydata$X+sqrt(mydata$A)/<span class="number">30</span>-sqrt(mydata$C)/<span class="number">10</span></div><div class="line">mydata$Cxmax&lt;-mydata$X+sqrt(mydata$A)/<span class="number">30</span></div><div class="line">mydata$Cymin&lt;-<span class="number">0</span></div><div class="line">mydata$Cymax&lt;-sqrt(mydata$C)/<span class="number">10</span></div><div class="line"></div><div class="line">mydata$text&lt;-c(<span class="string">"University of\n Pennsylvania"</span>,<span class="string">"University of\n Notre Dame"</span>,<span class="string">"Princeton\n University"</span>,<span class="string">"Stanford\n University"</span>,<span class="string">"California Institute\n of Technology"</span>)</div><div class="line">mydata$full&lt;-c(<span class="string">"31663"</span>,<span class="string">"16548"</span>,<span class="string">"27189"</span>,<span class="string">"34348"</span>,<span class="string">"5225"</span>)</div></pre></td></tr></table></figure>
-<h3 id="可视化图形过程："><a href="#可视化图形过程：" class="headerlink" title="可视化图形过程："></a>可视化图形过程：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">windowsFonts(myFont = windowsFont(<span class="string">"arial"</span>))</div><div class="line">ggplot(mydata)+</div><div class="line">geom_rect(aes(xmin=Axmin,xmax=Axmax,ymin=Aymin,ymax=Aymax),fill=<span class="string">"#59AF8A"</span>)+</div><div class="line">geom_rect(aes(xmin=Bxmin,xmax=Bxmax,ymin=Bymin,ymax=Bymax),fill=<span class="string">"#0074A3"</span>)+</div><div class="line">geom_rect(aes(xmin=Cxmin,xmax=Cxmax,ymin=Cymin,ymax=Cymax),fill=<span class="string">"#C72733"</span>)+</div><div class="line">geom_linerange(aes(x=X+<span class="number">2</span>,ymin=<span class="number">0</span>,ymax=<span class="number">4.8</span>),col=<span class="string">"grey"</span>,linetype=<span class="number">2</span>)+</div><div class="line">ylim(-<span class="number">.5</span>,<span class="number">6</span>)+</div><div class="line">labs(x=<span class="string">""</span>,y=<span class="string">""</span>)+</div><div class="line">geom_text(aes(x=X,y=<span class="number">4.5</span>,label=text),size=<span class="number">4</span>,fontface=<span class="string">"bold"</span>,family=<span class="string">"myFont"</span>)+</div><div class="line">geom_label(aes(x=X,y=<span class="number">3.7</span>,label=full),fill=<span class="string">"#EFE5CA"</span>,colour=<span class="string">"black"</span>,fontface=<span class="string">"bold"</span>,size=<span class="number">3.5</span>,label.r=unit(<span class="number">0.15</span>,<span class="string">"lines"</span>),family=<span class="string">"myFont"</span>)+</div><div class="line">geom_text(aes(x=Axmin,y=Aymax,label=A),hjust=-<span class="number">.2</span>,vjust=<span class="number">1</span>,size=<span class="number">3.5</span>,col=<span class="string">"white"</span>,family=<span class="string">"myFont"</span>)+</div><div class="line">geom_text(aes(x=Bxmin,y=Bymax,label=B),hjust=-<span class="number">.2</span>,vjust=<span class="number">1</span>,size=<span class="number">3.5</span>,col=<span class="string">"white"</span>,family=<span class="string">"myFont"</span>)+</div><div class="line">geom_text(aes(x=Cxmin,y=Cymax,label=C),hjust=-<span class="number">.2</span>,vjust=<span class="number">1</span>,size=<span class="number">3</span>,col=<span class="string">"white"</span>,family=<span class="string">"myFont"</span>)+</div><div class="line">annotate(<span class="string">"text"</span>,x=<span class="number">2.5</span>,y=<span class="number">5.7</span>,label=<span class="string">"Class Struggle"</span>,col=<span class="string">"black"</span>, size=<span class="number">6</span>,family=<span class="string">"myFont"</span>)+  </div><div class="line">annotate(<span class="string">"text"</span>,x=<span class="number">8.85</span>,y=<span class="number">5.2</span>,label=<span class="string">"A spot on a university or college's waitlist rarely translates into admission. A look at the numbers for several institutions"</span>, size=<span class="number">4</span>,family=<span class="string">"myFont"</span>)+  </div><div class="line">annotate(<span class="string">"text"</span>,x=<span class="number">3.9</span>,y=-<span class="number">.32</span>,label=<span class="string">"Source:The universities and 2011-2012 Common Data Set"</span>,col=<span class="string">"black"</span>,size=<span class="number">3</span>,family=<span class="string">"myFont"</span>)+  </div><div class="line">annotate(<span class="string">"text"</span>,x=<span class="number">19.8</span>,y=-<span class="number">.32</span>,label=<span class="string">"The wall Street Jaunual"</span>,col=<span class="string">"black"</span>,size=<span class="number">3</span>,family=<span class="string">"myFont"</span>)+  </div><div class="line">theme_nothing()+</div><div class="line">theme(panel.background=element_rect(fill=<span class="string">"#F5F2E1"</span>))</div></pre></td></tr></table></figure>
-<div align="center"><br><img src="http://oqp4xxgxu.bkt.clouddn.com/image1.png" width="526" height="182" alt="image1" align="center"><br></div>
-
-<p><strong>建议保存尺寸（1035*330）</strong> </p>
-<h3 id="更加紧促的方式："><a href="#更加紧促的方式：" class="headerlink" title="更加紧促的方式："></a>更加紧促的方式：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">mydata1&lt;-mydata[,<span class="number">5</span>:<span class="number">8</span>]</div><div class="line">names(mydata1)&lt;-c(<span class="string">"xmin"</span>,<span class="string">"xmax"</span>,<span class="string">"ymin"</span>,<span class="string">"ymax"</span>)</div><div class="line">mydata1$Group&lt;-<span class="string">"A"</span></div><div class="line"></div><div class="line">mydata2&lt;-mydata[,<span class="number">9</span>:<span class="number">12</span>]</div><div class="line">names(mydata2)&lt;-c(<span class="string">"xmin"</span>,<span class="string">"xmax"</span>,<span class="string">"ymin"</span>,<span class="string">"ymax"</span>)</div><div class="line">mydata2$Group&lt;-<span class="string">"B"</span></div><div class="line"></div><div class="line">mydata3&lt;-mydata[,<span class="number">13</span>:<span class="number">16</span>]</div><div class="line">names(mydata3)&lt;-c(<span class="string">"xmin"</span>,<span class="string">"xmax"</span>,<span class="string">"ymin"</span>,<span class="string">"ymax"</span>)</div><div class="line">mydata3$Group&lt;-<span class="string">"C"</span></div><div class="line"></div><div class="line">mynewdata&lt;-rbind(mydata1,mydata2,mydata3)</div><div class="line">mynewdata$Group&lt;-factor(mynewdata$Group,order=<span class="literal">T</span>)</div><div class="line"></div><div class="line">ggplot(mynewdata)+</div><div class="line">geom_rect(aes(xmin=xmin,xmax=xmax,ymin=ymin,ymax=ymax,fill=Group))+</div><div class="line">scale_fill_manual(values=c(<span class="string">"#59AF8A"</span>,<span class="string">"#0074A3"</span>,<span class="string">"#C72733"</span>))</div></pre></td></tr></table></figure>
-<div align="center"><br><img src="http://oqp4xxgxu.bkt.clouddn.com/image2.jpg" width="512" height="285" alt="image2" align="center"><br></div>
-
-
+<h3 id="加载包："><a href="#加载包：" class="headerlink" title="加载包："></a>加载包：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(ggplot2)</div><div class="line"><span class="keyword">library</span>(ggmap)</div><div class="line"><span class="keyword">library</span>(plyr)</div><div class="line"><span class="keyword">library</span>(maptools)</div></pre></td></tr></table></figure>
+<h3 id="加载中国省份行政地图："><a href="#加载中国省份行政地图：" class="headerlink" title="加载中国省份行政地图："></a>加载中国省份行政地图：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">china_map&lt;-readShapePoly(<span class="string">"c:/rstudy/bou2_4p.shp"</span>)</div><div class="line">x &lt;- china_map@data      </div><div class="line">xs &lt;- data.frame(id=row.names(x),x)</div></pre></td></tr></table></figure>
+<p><strong>转换为数据框并合并城市数据：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">china_map1 &lt;- fortify(china_map) </div><div class="line">china_map_data &lt;- join(china_map1, xs, type = <span class="string">"full"</span>) </div><div class="line">mydata &lt;- read.csv(<span class="string">"c:/rstudy/geshengzhibiao.csv"</span>)</div><div class="line">china_data &lt;- join(china_map_data, mydata, type=<span class="string">"full"</span>)</div><div class="line">province_city &lt;- read.csv(<span class="string">"c:/rstudy/chinaprovincecity.csv"</span>)</div></pre></td></tr></table></figure></p>
+<p><strong>拆分兰州数据：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">newdata&lt;-subset(province_city,city==<span class="string">"兰州"</span>)</div><div class="line">newdata1&lt;-subset(province_city,city!=<span class="string">"兰州"</span>)</div><div class="line">sourcex&lt;-rep(newdata$jd,<span class="number">33</span>)</div><div class="line">sourcey&lt;-rep(newdata$wd,<span class="number">33</span>)</div></pre></td></tr></table></figure></p>
+<p><strong>制作以兰州为中心的点对点作图数据：</strong>（可以类比之前REmap路径图数据源）</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">tagetx&lt;-newdata1$jd</div><div class="line">tagety&lt;-newdata1$wd</div><div class="line"></div><div class="line">dataA&lt;-data.frame(sourcex,sourcey,tagetx,tagety)</div><div class="line">dataB&lt;-newdata1[,<span class="number">1</span>:<span class="number">2</span>]</div><div class="line">dataC&lt;-cbind(dataB,dataA)</div><div class="line">dataC$point&lt;-round(runif(<span class="number">33</span>,<span class="number">10</span>,<span class="number">50</span>))</div></pre></td></tr></table></figure>
+<h3 id="图形可视化过程"><a href="#图形可视化过程" class="headerlink" title="图形可视化过程"></a>图形可视化过程</h3><p><strong>利用geom_segment（）图层制作放射路径图：</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">ggplot()+</div><div class="line">geom_polygon(data=china_data,aes(x=long,y=lat,group=group),fill=<span class="string">"white"</span>,colour=<span class="string">"grey60"</span>)+</div><div class="line">geom_point(data =province_city,aes(x=jd,y=wd),colour=<span class="string">"red"</span>)+</div><div class="line">coord_map(<span class="string">"polyconic"</span>) + </div><div class="line">geom_segment(data=dataC,aes(x=sourcex,y=sourcey,xend=tagetx,yend=tagety,colour=<span class="string">"red"</span>))+</div><div class="line">theme_nothing()</div></pre></td></tr></table></figure>
+<p><img src="http://oqsmlm3sr.bkt.clouddn.com/image1.png" alt="image1"></p>
+<p>这里再稍微的扩展一下，其实以上你看到的放射状线条是兰州与其他城市之间的直线，之所以变的有弧度，只是因为加了地图投影的缘故，这里我可以取消投影参数，看下效果。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ggplot()+</div><div class="line">geom_polygon(data=china_data,aes(x=long,y=lat,group=group),fill=<span class="string">"white"</span>,colour=<span class="string">"grey60"</span>)+</div><div class="line">geom_point(data =province_city,aes(x=jd,y=wd),colour=<span class="string">"red"</span>)+</div><div class="line">geom_segment(data=dataC,aes(x=sourcex,y=sourcey,xend=tagetx,yend=tagety,colour=<span class="string">"red"</span>))+</div><div class="line">theme_nothing()</div></pre></td></tr></table></figure>
+<p><img src="http://oqsmlm3sr.bkt.clouddn.com/image2.png" alt="image2"></p>
+<p>这里取消投影参数之后，线条变成了点间直线，但是默认的不带投影的地图看起来与我们认知中的中国地图形状有些不一样，好像被压扁了一样。</p>
+<p>其实这里还有一个图层函数也可以做出来这种放射状线条，geom_curve（）,图层，不过它本身就是有弧度的曲线，曲率可以通过参数进行微调。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ggplot()+</div><div class="line">geom_polygon(data=china_data,aes(x=long,y=lat,group=group),fill=<span class="string">"white"</span>,colour=<span class="string">"grey60"</span>)+</div><div class="line">geom_point(data =province_city,aes(x=jd,y=wd),colour=<span class="string">"red"</span>)+</div><div class="line">geom_curve(data=dataC,aes(x=sourcex,y=sourcey,xend=tagetx,yend=tagety,colour=<span class="string">"red"</span>))+</div><div class="line">theme_nothing()</div></pre></td></tr></table></figure>
+<p><img src="http://oqsmlm3sr.bkt.clouddn.com/image3.png" alt="image3"></p>
+<p><strong>曲率调整：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ggplot()+</div><div class="line">geom_polygon(data=china_data,aes(x=long,y=lat,group=group),fill=<span class="string">"white"</span>,colour=<span class="string">"grey60"</span>)+</div><div class="line">geom_point(data =province_city,aes(x=jd,y=wd),colour=<span class="string">"red"</span>)+</div><div class="line">geom_curve(data=dataC,aes(x=sourcex,y=sourcey,xend=tagetx,yend=tagety,colour=<span class="string">"red"</span>),curvature = <span class="number">0.8</span>)+ <span class="comment">#用于调整曲率，范围在-1~1之间。</span></div><div class="line">theme_nothing()</div></pre></td></tr></table></figure></p>
+<p><img src="http://oqsmlm3sr.bkt.clouddn.com/image4.png" alt="image4"></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ggplot()+</div><div class="line">geom_polygon(data=china_data,aes(x=long,y=lat,group=group),fill=<span class="string">"white"</span>,colour=<span class="string">"grey60"</span>)+</div><div class="line">geom_point(data =province_city,aes(x=jd,y=wd),colour=<span class="string">"red"</span>)+</div><div class="line">geom_curve(data=dataC,aes(x=sourcex,y=sourcey,xend=tagetx,yend=tagety,colour=<span class="string">"red"</span>),curvature =-<span class="number">0.5</span>)+</div><div class="line">theme_nothing()</div></pre></td></tr></table></figure>
+<p><img src="http://oqsmlm3sr.bkt.clouddn.com/image5.png" alt="image5"></p>
+<p><strong>当然，通过图形叠加，我们还可以重复多次这样的放射状线条图。</strong></p>
+<blockquote>
+<p>以下以北京为例：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">newdataA&lt;-subset(province_city,city==<span class="string">"北京"</span>)</div><div class="line">newdataB&lt;-subset(province_city,city!=<span class="string">"北京"</span>)</div><div class="line">soux&lt;-rep(newdataA$jd,<span class="number">33</span>)</div><div class="line">souy&lt;-rep(newdataA$wd,<span class="number">33</span>)</div><div class="line">tagx&lt;-newdataB$jd</div><div class="line">tagy&lt;-newdataB$wd</div><div class="line">dataD&lt;-data.frame(soux,souy,tagx,tagy)</div><div class="line">dataE&lt;-newdataB[,<span class="number">1</span>:<span class="number">2</span>]</div><div class="line">dataF&lt;-cbind(dataD,dataE)</div><div class="line">dataF$point&lt;-round(runif(<span class="number">33</span>,<span class="number">10</span>,<span class="number">50</span>))</div></pre></td></tr></table></figure></p>
+<p>两个中心的路径图（兰州、北京）</p>
+</blockquote>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ggplot()+</div><div class="line">geom_polygon(data=china_data,aes(x=long,y=lat,group=group),fill=<span class="string">"white"</span>,colour=<span class="string">"grey60"</span>)+</div><div class="line">coord_map(<span class="string">"polyconic"</span>) + </div><div class="line">geom_segment(data=dataC,aes(x=sourcex,y=sourcey,xend=tagetx,yend=tagety,colour=<span class="string">"red"</span>))+</div><div class="line">geom_segment(data=dataF,aes(x=soux,y=souy,xend=tagx,yend=tagy,colour=<span class="string">"blue"</span>))+</div><div class="line">geom_point(data =province_city,aes(x=jd,y=wd),colour=<span class="string">"red"</span>)+</div><div class="line">theme_nothing()</div></pre></td></tr></table></figure>
+<p><img src="http://oqsmlm3sr.bkt.clouddn.com/image6.png" alt="image6"></p>
+<p>当然，根据实际需要，你也可以将图层叠加N次，从而制作出与业务需求一致的多中心放射状路径图，这里只给出思路和大致步骤，感兴趣的小伙伴可以自己尝试。</p>
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
@@ -452,7 +475,7 @@
           
             <a href="/tags/数据可视化/" rel="tag"># 数据可视化</a>
           
-            <a href="/tags/信息图/" rel="tag"># 信息图</a>
+            <a href="/tags/路径图/" rel="tag"># 路径图</a>
           
         </div>
       
@@ -465,8 +488,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/29/中国人口金字塔动态图/" rel="next" title="中国人口金字塔动态图">
-                <i class="fa fa-chevron-left"></i> 中国人口金字塔动态图
+              <a href="/2017/05/30/R语言可视化——ggplot绘制中心密度辐射图/" rel="next" title="R语言可视化——ggplot绘制中心密度辐射图">
+                <i class="fa fa-chevron-left"></i> R语言可视化——ggplot绘制中心密度辐射图
               </a>
             
           </div>
@@ -474,10 +497,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/05/30/用ggplot2制作静态数据可视化报告/" rel="prev" title="用ggplot2制作静态数据可视化报告!">
-                用ggplot2制作静态数据可视化报告! <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -653,7 +672,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#加载包："><span class="nav-number">1.</span> <span class="nav-text">加载包：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造数据源："><span class="nav-number">2.</span> <span class="nav-text">构造数据源：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可视化图形过程："><span class="nav-number">3.</span> <span class="nav-text">可视化图形过程：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更加紧促的方式："><span class="nav-number">4.</span> <span class="nav-text">更加紧促的方式：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#加载包："><span class="nav-number">1.</span> <span class="nav-text">加载包：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载中国省份行政地图："><span class="nav-number">2.</span> <span class="nav-text">加载中国省份行政地图：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图形可视化过程"><span class="nav-number">3.</span> <span class="nav-text">图形可视化过程</span></a></li></ol></div>
             
 
           </div>
