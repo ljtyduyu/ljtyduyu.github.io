@@ -1,0 +1,945 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="R语言,ggplot2,数据可视化,爬虫,国产电影,rvest," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="raindu's home" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="最近国产电影评分风波引起了很多人的关注，豆瓣和猫眼因国产电影评分过低此被电影局约谈了，猫眼电影还因此下线了自己的电影评分系统，作为好奇宝宝，小魔方也来凑一波热闹。 当然今天不是要谈政治啦，刚好最近在学爬虫，那就爬一点儿官产电影的数据，用数据告诉大家，国产电影的真实处境。。（受限于技术手段和代码水平，数据不全，分析过程不敢保证精准，仅作为个人练习使用，请谨慎使用）。">
+<meta name="keywords" content="R语言,ggplot2,数据可视化,爬虫,国产电影,rvest">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R语言可视化——用数据来聊聊国产电影~">
+<meta property="og:url" content="http://www.raindu.com/2017/06/01/R语言可视化——用数据来聊聊国产电影/index.html">
+<meta property="og:site_name" content="raindu&#39;s home">
+<meta property="og:description" content="最近国产电影评分风波引起了很多人的关注，豆瓣和猫眼因国产电影评分过低此被电影局约谈了，猫眼电影还因此下线了自己的电影评分系统，作为好奇宝宝，小魔方也来凑一波热闹。 当然今天不是要谈政治啦，刚好最近在学爬虫，那就爬一点儿官产电影的数据，用数据告诉大家，国产电影的真实处境。。（受限于技术手段和代码水平，数据不全，分析过程不敢保证精准，仅作为个人练习使用，请谨慎使用）。">
+<meta property="og:image" content="http://oqug38mrh.bkt.clouddn.com/image1.png">
+<meta property="og:image" content="http://oqug38mrh.bkt.clouddn.com/image2.png">
+<meta property="og:image" content="http://oqug38mrh.bkt.clouddn.com/image3.png">
+<meta property="og:image" content="http://oqug38mrh.bkt.clouddn.com/image4.png">
+<meta property="og:image" content="http://oqug38mrh.bkt.clouddn.com/image11.png">
+<meta property="og:image" content="http://oqug38mrh.bkt.clouddn.com/image5.png">
+<meta property="og:image" content="http://oqug38mrh.bkt.clouddn.com/image6.png">
+<meta property="og:image" content="http://oqug38mrh.bkt.clouddn.com/image7.png">
+<meta property="og:image" content="http://oqug38mrh.bkt.clouddn.com/image8.png">
+<meta property="og:image" content="http://oqug38mrh.bkt.clouddn.com/image9.png">
+<meta property="og:image" content="http://oqug38mrh.bkt.clouddn.com/image10.png">
+<meta property="og:image" content="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png">
+<meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
+<meta property="og:updated_time" content="2017-06-01T01:18:54.584Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="R语言可视化——用数据来聊聊国产电影~">
+<meta name="twitter:description" content="最近国产电影评分风波引起了很多人的关注，豆瓣和猫眼因国产电影评分过低此被电影局约谈了，猫眼电影还因此下线了自己的电影评分系统，作为好奇宝宝，小魔方也来凑一波热闹。 当然今天不是要谈政治啦，刚好最近在学爬虫，那就爬一点儿官产电影的数据，用数据告诉大家，国产电影的真实处境。。（受限于技术手段和代码水平，数据不全，分析过程不敢保证精准，仅作为个人练习使用，请谨慎使用）。">
+<meta name="twitter:image" content="http://oqug38mrh.bkt.clouddn.com/image1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.raindu.com/2017/06/01/R语言可视化——用数据来聊聊国产电影/"/>
+
+
+
+
+
+  <title>R语言可视化——用数据来聊聊国产电影~ | raindu's home</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">raindu's home</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">A lifelong learner!!!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/06/01/R语言可视化——用数据来聊聊国产电影/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RainDu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="raindu's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">R语言可视化——用数据来聊聊国产电影~</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-01T08:57:19+08:00">
+                2017-06-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据可视化/" itemprop="url" rel="index">
+                    <span itemprop="name">数据可视化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近国产电影评分风波引起了很多人的关注，豆瓣和猫眼因国产电影评分过低此被电影局约谈了，猫眼电影还因此下线了自己的电影评分系统，作为好奇宝宝，小魔方也来凑一波热闹。</p>
+<p>当然今天不是要谈政治啦，刚好最近在学爬虫，那就爬一点儿官产电影的数据，用数据告诉大家，国产电影的真实处境。。（受限于技术手段和代码水平，数据不全，分析过程不敢保证精准，仅作为个人练习使用，请谨慎使用）。</p>
+<a id="more"></a>
+<h3 id="以下是本文所使用的一些依赖包："><a href="#以下是本文所使用的一些依赖包：" class="headerlink" title="以下是本文所使用的一些依赖包："></a>以下是本文所使用的一些依赖包：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(rvest)</div><div class="line"><span class="keyword">library</span>(data.table)</div><div class="line"><span class="keyword">library</span>(stringr)</div><div class="line"><span class="keyword">library</span>(<span class="string">"dplyr"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"plyr"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"ggplot2"</span>)</div><div class="line"><span class="keyword">library</span>(ggthemes)</div></pre></td></tr></table></figure>
+<h3 id="爬虫过程："><a href="#爬虫过程：" class="headerlink" title="爬虫过程："></a>爬虫过程：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">url&lt;-<span class="string">'https://movie.douban.com/tag/中国大陆?start='</span></div><div class="line">final &lt;- data.frame()</div><div class="line"><span class="keyword">for</span> (m <span class="keyword">in</span> <span class="number">1</span>:<span class="number">99</span>)&#123;</div><div class="line">fun&lt;-<span class="keyword">function</span>(m)&#123;</div><div class="line">url&lt;-paste(url,(m-<span class="number">1</span>)*<span class="number">20</span>,<span class="string">"&amp;type=T"</span>,sep=<span class="string">''</span>)</div><div class="line">web&lt;-read_html(url,encoding=<span class="string">"UTF-8"</span>)</div><div class="line">Name&lt;-web %&gt;% html_nodes(<span class="string">"tr&gt;td:nth-child(2)&gt;div.pl2&gt;a"</span>)%&gt;% html_text()%&gt;%str_trim()</div><div class="line">Abstract&lt;-web %&gt;% html_nodes(<span class="string">"tr&gt;td:nth-child(2)&gt;div.pl2&gt;p.pl"</span>)%&gt;% html_text()%&gt;%str_trim()</div><div class="line">Point&lt;-web %&gt;% html_nodes(<span class="string">"div.star.clearfix&gt;span.rating_nums"</span>)%&gt;%html_text()%&gt;%as.numeric()</div><div class="line">Value&lt;-web %&gt;% html_nodes(<span class="string">"div.star.clearfix&gt;span.pl"</span>)%&gt;%html_text()%&gt;%as.character()</div><div class="line">final&lt;-data.frame(Name=Name[<span class="number">1</span>:<span class="number">20</span>],Abstract=Abstract[<span class="number">1</span>:<span class="number">20</span>],Point=Point[<span class="number">1</span>:<span class="number">20</span>],Value=Value[<span class="number">1</span>:<span class="number">20</span>])</div><div class="line">&#125;</div><div class="line">final&lt;-rbind(final,fun(m))</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">final$Name&lt;-sub(<span class="string">"\n"</span>,<span class="string">""</span>,final$Name)</div><div class="line">final$Name&lt;-sub(<span class="string">"/"</span>,<span class="string">""</span>,final$Name)</div><div class="line">final$Name&lt;-sub(<span class="string">" "</span>,<span class="string">""</span>,final$Name)</div><div class="line">final&lt;-final[<span class="number">1</span>:<span class="number">1961</span>,]</div></pre></td></tr></table></figure>
+<blockquote>
+<p>一共爬取了1961条有效电影记录（不知道这个数量是否能够涵盖16年所有公开上映的国产电影数量，其中可能混杂一些影视剧和娱乐节目）。</p>
+</blockquote>
+<h3 id="数据清洗："><a href="#数据清洗：" class="headerlink" title="数据清洗："></a>数据清洗：</h3><p><strong>以下通过则这匹配提取了各部电影的上映具体日期：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">m&lt;-regexpr(<span class="string">"\\d&#123;4&#125;-\\d&#123;2&#125;-\\d&#123;2&#125;"</span>,final$Abstract,perl=<span class="literal">TRUE</span>)</div><div class="line">final$Date&lt;-substring(final$Abstract,m,m+attr(m,<span class="string">"match.length"</span>)-<span class="number">1</span>)</div></pre></td></tr></table></figure></p>
+<p><strong>提取出评价人数数据</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">m1&lt;-regexpr(<span class="string">"\\d+"</span>,final$Value,perl=<span class="literal">TRUE</span>)</div><div class="line">final$Value&lt;-substring(final$Value,m1,m1+attr(m1,<span class="string">"match.length"</span>)-<span class="number">1</span>)</div></pre></td></tr></table></figure></p>
+<p><strong>清除掉电影剧情及演员介绍信息中的无关信息：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">final$Abstract&lt;-gsub(<span class="string">"\\d&#123;4&#125;-\\d&#123;2&#125;-\\d&#123;2&#125;"</span>,<span class="string">""</span>,final$Abstract)</div><div class="line">final$Abstract&lt;-gsub(<span class="string">"(\\(中国大陆\\)|\\(美国\\)|\\(台湾\\)|\\(香港\\)|\\(荷兰\\))"</span>,<span class="string">""</span>,final$Abstract)</div><div class="line">final$Abstract&lt;-gsub(<span class="string">"((\\d&#123;4&#125;-\\d&#123;2&#125;)|(\\d+分钟)|\\(.*?电影节\\)|\\(公映版\\)|汉语普通话)"</span>,<span class="string">""</span>,final$Abstract)</div><div class="line">final$Abstract&lt;-gsub(<span class="string">"\\/"</span>,<span class="string">""</span>,final$Abstract)</div><div class="line">final$Abstract&lt;-gsub(<span class="string">"(中国大陆|香港|法国|美国)"</span>,<span class="string">""</span>,final$Abstract)</div></pre></td></tr></table></figure></p>
+<p><strong>预览数据集：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DT::datatable(final)</div></pre></td></tr></table></figure></p>
+<p><strong>以下过程将电影的详情介绍信息（包含类型、剧情及演员相关信息）做了分词处理，以便后续进行词云可视化：</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">newdata&lt;-paste(final$Abstract,collapse=<span class="string">" "</span>)</div><div class="line">temp1 &lt;- str_split(newdata,<span class="string">' '</span>)</div><div class="line">temp1&lt;-temp1[[<span class="number">1</span>]]</div><div class="line">temp1&lt;-gsub(<span class="string">"\\.&#123;3&#125;"</span>,<span class="string">""</span>,temp1)</div><div class="line">temp1&lt;-gsub(<span class="string">"[a-zA-Z]&#123;2,&#125;"</span>,<span class="string">""</span>,temp1)</div><div class="line">temp1&lt;-grep(<span class="string">"\\S"</span>,temp1,value=<span class="literal">T</span>)</div><div class="line"></div><div class="line">count1&lt;-count(temp1)</div><div class="line">count1$x&lt;-as.character(count1$x)</div><div class="line">mydata&lt;-filter(count1,nchar(x)&gt;=<span class="number">2</span>,freq&gt;=<span class="number">37</span>,x!=<span class="string">"()"</span>)</div></pre></td></tr></table></figure>
+<h3 id="数据可视化过程："><a href="#数据可视化过程：" class="headerlink" title="数据可视化过程："></a>数据可视化过程：</h3><p><strong>加载词云包，可视化电影类型及高频出境电影明星的词频可视化：</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(wordcloud2)</div><div class="line">wordcloud2(mydata, size = <span class="number">2</span>, fontFamily = <span class="string">"微软雅黑"</span>,minRotation = -pi/<span class="number">6</span>, maxRotation = -pi/<span class="number">6</span>,rotateRatio = <span class="number">1</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://oqug38mrh.bkt.clouddn.com/image1.png" alt="image1"></p>
+<p>所有电影类型中，排在前五位的是：剧情片、爱情片、喜剧片、动作片、纪录片。纪录片的上映率这么高吗，感觉有点难以置信。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#提取并清洗电影演员及明星的出镜率词频数据：</span></div><div class="line">temp2&lt;-gsub(<span class="string">"[\\((][\\s\\S]*[\\))]"</span>,<span class="string">""</span>,temp1)</div><div class="line">temp2&lt;-gsub(<span class="string">"\\d+"</span>,<span class="string">""</span>,temp1)</div><div class="line">temp2&lt;-grep(<span class="string">"\\S"</span>,temp2,value=<span class="literal">T</span>)</div><div class="line"></div><div class="line">count2&lt;-count(temp2)</div><div class="line">count2&lt;-count2[-c(<span class="number">1</span>:<span class="number">107</span>),]</div><div class="line">count2$l&lt;-count2$x %<span class="keyword">in</span>% mydata$x </div><div class="line">mydata2&lt;-filter(count2,l==<span class="literal">FALSE</span>)</div><div class="line">mydata2&lt;-mydata2[-c(<span class="number">5</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>),]</div><div class="line">mydata2&lt;-mydata2[,<span class="number">1</span>:<span class="number">2</span>]</div></pre></td></tr></table></figure>
+<p><strong>电影参演明星及演员可视化词云</strong><br>wordcloud2(mydata2, size =.3,fontFamily = “微软雅黑”,color = “random-light”, backgroundColor = “grey”,shape = ‘star’)</p>
+<p><img src="http://oqug38mrh.bkt.clouddn.com/image2.png" alt="image2"></p>
+<blockquote>
+<p>排在前十位的电影明星分别是：范爷、黄晓明、周迅、黄渤、刘桦、邓超、佟大为、李晨、曾志伟、杨幂。</p>
+</blockquote>
+<p><strong>前三十的电影明星如下:</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mydata2&lt;-filter(mydata2,x!=<span class="string">"音乐"</span>,x!=<span class="string">"日本"</span>,x!=<span class="string">"日语"</span>)</div><div class="line">mydata3&lt;-mydata2[order(-mydata2$freq),][<span class="number">1</span>:<span class="number">30</span>,]</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">windowsFonts(myFont = windowsFont(<span class="string">"微软雅黑"</span>)) </div><div class="line">ggplot(mydata3,aes(reorder(x,freq),freq))+</div><div class="line">geom_bar(stat=<span class="string">"identity"</span>,position=<span class="string">"dodge"</span>,fill=<span class="string">"#D6B869"</span>)+</div><div class="line">theme_wsj()+</div><div class="line">coord_flip()+</div><div class="line">scale_fill_wsj(<span class="string">"rgby"</span>, <span class="string">""</span>)+</div><div class="line">theme(axis.ticks.length=unit(<span class="number">0.5</span>,<span class="string">'cm'</span>))+</div><div class="line">geom_text(aes(label=round(freq+<span class="number">0.05</span>,<span class="number">1</span>)), position = position_dodge(<span class="number">0.9</span>),hjust=<span class="number">1.1</span>,colour=<span class="string">"white"</span>,size=<span class="number">3</span>,fontface=<span class="string">"bold"</span>)+</div><div class="line">guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">ggtitle(<span class="string">"国产电影最频繁出境明星"</span>)+</div><div class="line">theme(</div><div class="line">      axis.title = element_blank(),</div><div class="line">      title=element_text(family=<span class="string">"myFont"</span>,size=<span class="number">18</span>), </div><div class="line">      legend.position=<span class="string">'none'</span>,</div><div class="line">      panel.grid.major.x=element_line(linetype=<span class="string">"dashed"</span>,colour=<span class="string">"grey60"</span>),</div><div class="line">      panel.grid.major.y=element_blank(),</div><div class="line">      axis.ticks.x=element_blank(),</div><div class="line">      axis.ticks.y=element_line(),</div><div class="line">      axis.ticks.length=unit(<span class="number">0.3</span>,<span class="string">'cm'</span>),</div><div class="line">      axis.line.x=element_blank(),</div><div class="line">      axis.line.y=element_line(),</div><div class="line">      axis.text.x=element_text(size=<span class="number">8</span>,family=<span class="string">"myFont"</span>)</div><div class="line">      )</div></pre></td></tr></table></figure>
+<p><img src="http://oqug38mrh.bkt.clouddn.com/image3.png" alt="image3"></p>
+<blockquote>
+<p>以上是通过对各部电影的详情描述进行分词所获得的电影类型及明星出镜率分析，接下来我们回到最初的数据集，对各部电影的评分评价分数以及上映年份进行更为详细的可视化分析。（为啥冯导可以与范爷并驾齐驱，可能是因为导演的电影比较多，这里爬的时候没有区分出来）</p>
+</blockquote>
+<p><strong>国产电影上映年份、季度、月份、周度</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(lubridate)</div><div class="line">final$Date&lt;-as.Date(final$Date) </div><div class="line">final$Year&lt;-year(final$Date)</div><div class="line">final$Month&lt;-month(final$Date)</div><div class="line">final$Week&lt;-week(final$Date)</div><div class="line">final$Quarter&lt;-quarter(final$Date)</div></pre></td></tr></table></figure>
+<blockquote>
+<p>以上通过超级好用的时间处理函数lubridate，整理出了所有影片上映的日期的年份、月份、季度、周等时间信息，接下来我们用这四个时间维度分别对电影的评分数据、评论数据进行精细化分析。</p>
+</blockquote>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">datayear&lt;-data.frame(with(final,table(Year)),stringsAsFactors =<span class="literal">FALSE</span>)</div><div class="line">datayear$Year&lt;-as.numeric(as.character(datayear$Year))</div><div class="line">ggplot(datayear,aes(Year,Freq,group=<span class="number">1</span>))+geom_line(size=<span class="number">2</span>,linetype=<span class="number">1</span>,col=<span class="string">"steelblue"</span>)+</div><div class="line">xlim(<span class="number">2000</span>,<span class="number">2017</span>)+</div><div class="line">ggtitle(<span class="string">"国产电影上映年份频率分布"</span>)+</div><div class="line">theme(</div><div class="line">      axis.title = element_blank(),</div><div class="line">      title=element_text(family=<span class="string">"myFont"</span>,size=<span class="number">18</span>), </div><div class="line">      legend.position=<span class="string">'none'</span>,</div><div class="line">      panel.grid.major.y=element_line(linetype=<span class="string">"dashed"</span>,colour=<span class="string">"grey60"</span>),</div><div class="line">      panel.grid.major.x=element_blank(),</div><div class="line">      axis.ticks.y=element_blank(),</div><div class="line">      axis.ticks.x=element_line(),</div><div class="line">      axis.ticks.length=unit(<span class="number">0.3</span>,<span class="string">'cm'</span>),</div><div class="line">      axis.line.y=element_blank(),</div><div class="line">      axis.line.x=element_line(),</div><div class="line">      axis.text.x=element_text(size=<span class="number">8</span>,family=<span class="string">"myFont"</span>)</div><div class="line">      )</div></pre></td></tr></table></figure>
+<p><img src="http://oqug38mrh.bkt.clouddn.com/image4.png" alt="image4"></p>
+<blockquote>
+<p>因为抓取的电影上映年份以16年居多，所以16年是个高峰不足为奇，17年刚过去一周多，数量自然少一些。</p>
+</blockquote>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">dataquarter&lt;-data.frame(with(final,table(Quarter)),stringsAsFactors =<span class="literal">FALSE</span>)</div><div class="line">dataquarter$Quarter&lt;-as.numeric(as.character(dataquarter$Quarter))</div><div class="line">ggplot(dataquarter,aes(Quarter,Freq))+geom_bar(stat=<span class="string">"identity"</span>,fill=<span class="string">"steelblue"</span>)+</div><div class="line">ggtitle(<span class="string">"国产电影上映季度频率分布"</span>)+</div><div class="line">theme(</div><div class="line">      axis.title = element_blank(),</div><div class="line">      title=element_text(family=<span class="string">"myFont"</span>,size=<span class="number">18</span>), </div><div class="line">      legend.position=<span class="string">'none'</span>,</div><div class="line">      panel.grid.major.y=element_line(linetype=<span class="string">"dashed"</span>,colour=<span class="string">"grey60"</span>),</div><div class="line">      panel.grid.major.x=element_blank(),</div><div class="line">      axis.ticks.y=element_blank(),</div><div class="line">      axis.ticks.x=element_line(),</div><div class="line">      axis.ticks.length=unit(<span class="number">0.3</span>,<span class="string">'cm'</span>),</div><div class="line">      axis.line.y=element_blank(),</div><div class="line">      axis.line.x=element_line(),</div><div class="line">      axis.text.x=element_text(size=<span class="number">8</span>,family=<span class="string">"myFont"</span>)</div><div class="line">      )</div></pre></td></tr></table></figure>
+<p><img src="http://oqug38mrh.bkt.clouddn.com/image11.png" alt="image11"></p>
+<blockquote>
+<p>从季度上来看，3、4季度上映上映最为频繁，可能是暑期档接着和贺岁档，时间段比较特殊。</p>
+</blockquote>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">datamonth&lt;-data.frame(with(final,table(Month)),stringsAsFactors =<span class="literal">FALSE</span>)</div><div class="line">datamonth$Month&lt;-as.numeric(as.character(datamonth$Month))</div><div class="line">ggplot(datamonth,aes(Month,Freq,group=<span class="number">1</span>))+geom_line(size=<span class="number">2</span>,linetype=<span class="number">1</span>,col=<span class="string">"steelblue"</span>)+</div><div class="line">scale_x_continuous(breaks=seq(<span class="number">0</span>,<span class="number">12</span>,<span class="number">1</span>))+</div><div class="line">ggtitle(<span class="string">"国产电影上映月份频率分布"</span>)+</div><div class="line">theme(</div><div class="line">      axis.title = element_blank(),</div><div class="line">      title=element_text(family=<span class="string">"myFont"</span>,size=<span class="number">18</span>), </div><div class="line">      legend.position=<span class="string">'none'</span>,</div><div class="line">      panel.grid.major.y=element_line(linetype=<span class="string">"dashed"</span>,colour=<span class="string">"grey60"</span>),</div><div class="line">      panel.grid.major.x=element_blank(),</div><div class="line">      axis.ticks.y=element_blank(),</div><div class="line">      axis.ticks.x=element_line(),</div><div class="line">      axis.ticks.length=unit(<span class="number">0.3</span>,<span class="string">'cm'</span>),</div><div class="line">      axis.line.y=element_blank(),</div><div class="line">      axis.line.x=element_line(),</div><div class="line">      axis.text.x=element_text(size=<span class="number">8</span>,family=<span class="string">"myFont"</span>)</div><div class="line">      )</div></pre></td></tr></table></figure>
+<p><img src="http://oqug38mrh.bkt.clouddn.com/image5.png" alt="image5"></p>
+<blockquote>
+<p>从月度数据上来看，也验证了季度数据的趋势，其中第三季度的高峰在9月（算是暑期的尾巴吧），第四季度高峰在12月（年末岁尾的最电影最火了）。</p>
+</blockquote>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">dataweek&lt;-data.frame(with(final,table(Week)),stringsAsFactors =<span class="literal">FALSE</span>)</div><div class="line">dataweek$Week&lt;-as.numeric(as.character(dataweek$Week))</div><div class="line"></div><div class="line">ggplot(na.omit(dataweek),aes(Week,Freq,group=<span class="number">1</span>))+geom_line(size=<span class="number">2</span>,linetype=<span class="number">1</span>,col=<span class="string">"steelblue"</span>)+</div><div class="line">scale_x_continuous(breaks=seq(<span class="number">0</span>,<span class="number">52</span>,<span class="number">1</span>))+</div><div class="line">ggtitle(<span class="string">"国产电影上映周分布"</span>)+</div><div class="line">theme(</div><div class="line">      axis.title = element_blank(),</div><div class="line">      title=element_text(family=<span class="string">"myFont"</span>,size=<span class="number">18</span>), </div><div class="line">      legend.position=<span class="string">'none'</span>,</div><div class="line">      panel.grid.major.y=element_line(linetype=<span class="string">"dashed"</span>,colour=<span class="string">"grey60"</span>),</div><div class="line">      panel.grid.major.x=element_blank(),</div><div class="line">      axis.ticks.y=element_blank(),</div><div class="line">      axis.ticks.x=element_line(),</div><div class="line">      axis.ticks.length=unit(<span class="number">0.3</span>,<span class="string">'cm'</span>),</div><div class="line">      axis.line.y=element_blank(),</div><div class="line">      axis.line.x=element_line(),</div><div class="line">      axis.text.x=element_text(size=<span class="number">8</span>,family=<span class="string">"myFont"</span>)</div><div class="line">      )</div></pre></td></tr></table></figure>
+<p><img src="http://oqug38mrh.bkt.clouddn.com/image6.png" alt="image6"></p>
+<blockquote>
+<p>周度数据也非常有趣，第7周、29周、36、37周、45周和51周出现了几个特高点，基本都超过40部/月的量级，也是与月度上映数据吻合。</p>
+</blockquote>
+<p><strong>接下来分析一下评分最高和最低的十部国产影片：</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">datapointtop&lt;-final[order(-final$Point),][<span class="number">1</span>:<span class="number">15</span>,]</div><div class="line">ggplot(datapointtop,aes(reorder(Name,Point),Point))+</div><div class="line">geom_bar(stat=<span class="string">"identity"</span>,position=<span class="string">"dodge"</span>,fill=<span class="string">"#D6B869"</span>)+</div><div class="line">coord_flip()+</div><div class="line">theme(axis.ticks.length=unit(<span class="number">0.5</span>,<span class="string">'cm'</span>))+</div><div class="line">geom_text(aes(label=round(Point+<span class="number">0.05</span>,<span class="number">1</span>)), position = position_dodge(<span class="number">0.9</span>),hjust=<span class="number">1.1</span>,colour=<span class="string">"white"</span>,size=<span class="number">3</span>,fontface=<span class="string">"bold"</span>)+</div><div class="line">guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">ggtitle(<span class="string">"国产电影评分最高TOP15"</span>)+</div><div class="line">theme(</div><div class="line">      axis.title = element_blank(),</div><div class="line">      title=element_text(family=<span class="string">"myFont"</span>,size=<span class="number">18</span>), </div><div class="line">      legend.position=<span class="string">'none'</span>,</div><div class="line">      panel.grid.major.x=element_line(linetype=<span class="string">"dashed"</span>,colour=<span class="string">"grey60"</span>),</div><div class="line">      panel.grid.major.y=element_blank(),</div><div class="line">      axis.ticks.x=element_blank(),</div><div class="line">      axis.ticks.y=element_line(),</div><div class="line">      axis.ticks.length=unit(<span class="number">0.3</span>,<span class="string">'cm'</span>),</div><div class="line">      axis.line.x=element_blank(),</div><div class="line">      axis.line.y=element_line(),</div><div class="line">      axis.text.x=element_text(size=<span class="number">8</span>,family=<span class="string">"myFont"</span>)</div><div class="line">      )</div></pre></td></tr></table></figure>
+<p><img src="http://oqug38mrh.bkt.clouddn.com/image7.png" alt="image7"></p>
+<blockquote>
+<p>这次真的有点惊讶了，数据显示（仅限所抓取的数据，未覆盖全，并不代表真实情况），评分最高的一部国产剧是老农民，评分高达9.7，从名字上来看挺挺朴实的一部剧，不过我好想没有看过，有空要补脑一下。</p>
+<p>评分最高的电影有一个趋势，选材和主题都偏现实和文化类，我觉得这是一个好的现象，能体现电影写实性和文化传承的效果，虽然这样的剧本和影片，可能很多小伙伴不愿意付费去看。</p>
+</blockquote>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">datapointbot&lt;-final[order(final$Point),][<span class="number">1</span>:<span class="number">15</span>,]</div><div class="line">ggplot(datapointbot,aes(reorder(Name,Point),Point))+</div><div class="line">geom_bar(stat=<span class="string">"identity"</span>,position=<span class="string">"dodge"</span>,fill=<span class="string">"#D6B869"</span>)+</div><div class="line">coord_flip()+</div><div class="line">theme(axis.ticks.length=unit(<span class="number">0.5</span>,<span class="string">'cm'</span>))+</div><div class="line">geom_text(aes(label=round(Point+<span class="number">0.05</span>,<span class="number">1</span>)), position = position_dodge(<span class="number">0.9</span>),hjust=<span class="number">1.1</span>,colour=<span class="string">"white"</span>,size=<span class="number">3</span>,fontface=<span class="string">"bold"</span>)+</div><div class="line">guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">ggtitle(<span class="string">"国产电影评分最低BOT"</span>)+</div><div class="line">theme(</div><div class="line">      axis.title = element_blank(),</div><div class="line">      title=element_text(family=<span class="string">"myFont"</span>,size=<span class="number">18</span>), </div><div class="line">      legend.position=<span class="string">'none'</span>,</div><div class="line">      panel.grid.major.x=element_line(linetype=<span class="string">"dashed"</span>,colour=<span class="string">"grey60"</span>),</div><div class="line">      panel.grid.major.y=element_blank(),</div><div class="line">      axis.ticks.x=element_blank(),</div><div class="line">      axis.ticks.y=element_line(),</div><div class="line">      axis.ticks.length=unit(<span class="number">0.3</span>,<span class="string">'cm'</span>),</div><div class="line">      axis.line.x=element_blank(),</div><div class="line">      axis.line.y=element_line(),</div><div class="line">      axis.text.x=element_text(size=<span class="number">8</span>,family=<span class="string">"myFont"</span>)</div><div class="line">      )</div></pre></td></tr></table></figure>
+<p><img src="http://oqug38mrh.bkt.clouddn.com/image8.png" alt="image8"></p>
+<blockquote>
+<p>评分最低的一部是心理罪，仅为2.1，而且评分最低的几部好像也不是大家耳熟能详的名字，好吧突然看到了16年的央视春晚，我能说我已经不看春晚好多年了吗！（实在不好意思，本来是想抓电影的，不知道为啥央视春晚要出来捣乱，肯定是走错片场了~）</p>
+<p>以各部电影评价人数多少作为该作品关注度指标，我们可以统计最受关注的电影和最不受关注的电影榜单。</p>
+</blockquote>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">final$Value&lt;-as.numeric(final$Value)</div><div class="line">dataValuetop15&lt;-final[order(-final$Value),][<span class="number">1</span>:<span class="number">15</span>,]</div><div class="line"></div><div class="line">ggplot(dataValuetop15,aes(reorder(Name,Value),Value))+</div><div class="line">geom_bar(stat=<span class="string">"identity"</span>,position=<span class="string">"dodge"</span>,fill=<span class="string">"#D6B869"</span>)+</div><div class="line">coord_flip()+</div><div class="line">theme(axis.ticks.length=unit(<span class="number">0.5</span>,<span class="string">'cm'</span>))+</div><div class="line">geom_text(aes(label=round(Value+<span class="number">0.05</span>,<span class="number">1</span>)), position = position_dodge(<span class="number">0.9</span>),hjust=<span class="number">1.1</span>,colour=<span class="string">"white"</span>,size=<span class="number">3</span>,fontface=<span class="string">"bold"</span>)+</div><div class="line">guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">ggtitle(<span class="string">"国产电影关注度最高TOP15"</span>)+</div><div class="line">theme(</div><div class="line">      axis.title = element_blank(),</div><div class="line">      title=element_text(family=<span class="string">"myFont"</span>,size=<span class="number">18</span>), </div><div class="line">      legend.position=<span class="string">'none'</span>,</div><div class="line">      panel.grid.major.x=element_line(linetype=<span class="string">"dashed"</span>,colour=<span class="string">"grey60"</span>),</div><div class="line">      panel.grid.major.y=element_blank(),</div><div class="line">      axis.ticks.x=element_blank(),</div><div class="line">      axis.ticks.y=element_line(),</div><div class="line">      axis.ticks.length=unit(<span class="number">0.3</span>,<span class="string">'cm'</span>),</div><div class="line">      axis.line.x=element_blank(),</div><div class="line">      axis.line.y=element_line(),</div><div class="line">      axis.text.x=element_text(size=<span class="number">8</span>,family=<span class="string">"myFont"</span>)</div><div class="line">      )</div></pre></td></tr></table></figure>
+<p><img src="http://oqug38mrh.bkt.clouddn.com/image9.png" alt="image9"></p>
+<blockquote>
+<p>关注度最高的一步电影是《让子弹飞》，好吧竟然是好你年前的一步老电影，获评570641。前十名中我看到了《少年派的奇幻漂流》、《大话西游之大圣娶亲》、《人在囧途之泰囧》、《老炮》、《美人鱼》等。虽然热度很高，都是评分并非遥遥领先，基本都在7~8分之间。</p>
+</blockquote>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">dataValuebot15&lt;-final[order(final$Value),][<span class="number">1</span>:<span class="number">15</span>,]</div><div class="line"></div><div class="line">ggplot(dataValuebot15,aes(reorder(Name,Value),Value))+</div><div class="line">geom_bar(stat=<span class="string">"identity"</span>,position=<span class="string">"dodge"</span>,fill=<span class="string">"#D6B869"</span>)+</div><div class="line">coord_flip()+</div><div class="line">theme(axis.ticks.length=unit(<span class="number">0.5</span>,<span class="string">'cm'</span>))+</div><div class="line">geom_text(aes(label=round(Value+<span class="number">0.05</span>,<span class="number">1</span>)), position = position_dodge(<span class="number">0.9</span>),hjust=<span class="number">1.1</span>,colour=<span class="string">"white"</span>,size=<span class="number">3</span>,fontface=<span class="string">"bold"</span>)+</div><div class="line">guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">ggtitle(<span class="string">"国产电影关注度最低BOT15"</span>)+</div><div class="line">theme(</div><div class="line">      axis.title = element_blank(),</div><div class="line">      title=element_text(family=<span class="string">"myFont"</span>,size=<span class="number">18</span>), </div><div class="line">      legend.position=<span class="string">'none'</span>,</div><div class="line">      panel.grid.major.x=element_line(linetype=<span class="string">"dashed"</span>,colour=<span class="string">"grey60"</span>),</div><div class="line">      panel.grid.major.y=element_blank(),</div><div class="line">      axis.ticks.x=element_blank(),</div><div class="line">      axis.ticks.y=element_line(),</div><div class="line">      axis.ticks.length=unit(<span class="number">0.3</span>,<span class="string">'cm'</span>),</div><div class="line">      axis.line.x=element_blank(),</div><div class="line">      axis.line.y=element_line(),</div><div class="line">      axis.text.x=element_text(size=<span class="number">8</span>,family=<span class="string">"myFont"</span>)</div><div class="line">      )</div></pre></td></tr></table></figure>
+<p><img src="http://oqug38mrh.bkt.clouddn.com/image10.png" alt="image10"></p>
+<blockquote>
+<p>最后是几部评论最少的电影，好吧几乎都没咋听过这几部影片的名字，但是好奇怪，虽然关注度不高，但是评分都还是马马虎虎的。是不是可以说国产电影的评分和关注度并非严格相关吧。</p>
+<p>声明：<br>限于技术手段和个人水平，以上所抓取数据，进涵盖豆瓣电影库中的一部分，而且其中还混杂诸多娱乐节目、连续剧以及纪录片等，所统计分析结果并不准确，仅作为爬虫和数据可视化练习使用，请勿做为商业决策依据！</p>
+</blockquote>
+<hr>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
+<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
+<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
+
+<hr>
+<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://oqbxptw4f.bkt.clouddn.com/dashang/wechat.jpg" alt="RainDu WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://oqbxptw4f.bkt.clouddn.com/dashang/Alipay.png" alt="RainDu Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/R语言/" rel="tag"># R语言</a>
+          
+            <a href="/tags/ggplot2/" rel="tag"># ggplot2</a>
+          
+            <a href="/tags/数据可视化/" rel="tag"># 数据可视化</a>
+          
+            <a href="/tags/爬虫/" rel="tag"># 爬虫</a>
+          
+            <a href="/tags/国产电影/" rel="tag"># 国产电影</a>
+          
+            <a href="/tags/rvest/" rel="tag"># rvest</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/31/R语言爬虫可视化——用数据来聊聊2017年首周各大城市空气质量/" rel="next" title="R语言爬虫可视化——用数据来聊聊2017年首周各大城市空气质量">
+                <i class="fa fa-chevron-left"></i> R语言爬虫可视化——用数据来聊聊2017年首周各大城市空气质量
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="uyan_frame"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="RainDu" />
+          <p class="site-author-name" itemprop="name">RainDu</p>
+           
+              <p class="site-description motion-element" itemprop="description">身体和心灵，总有一个在路上！</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ljtyduyu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/1676935144" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.zhihu.com/people/du-yu-48-94/activities" title="知乎" target="_blank">知乎</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jianshu.com/u/29dbe4c85801" title="简书" target="_blank">简书</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#以下是本文所使用的一些依赖包："><span class="nav-number">1.</span> <span class="nav-text">以下是本文所使用的一些依赖包：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#爬虫过程："><span class="nav-number">2.</span> <span class="nav-text">爬虫过程：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据清洗："><span class="nav-number">3.</span> <span class="nav-text">数据清洗：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据可视化过程："><span class="nav-number">4.</span> <span class="nav-text">数据可视化过程：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RainDu</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2134216"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
