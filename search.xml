@@ -27,8 +27,8 @@
 <p>addCircle是实心点，只有一个颜色属性，addCircleMarkers是带轮廓的圆点，可以分别对轮廓和内园进行颜色设定，两者都支持大小（面积）映射。</p>
 <p>当然剩余两种最为常见的地图图层属性就是线和面了，这是物理空间的重要三要素嘛</p>
 <ul>
-<li>线图层：</li>
-<li>addPolylines</li>
+<li>点图层：addMarkers\addCircle\addCircleMarkers</li>
+<li>线图层:addPolylines</li>
 <li>面图层：addPolygons</li>
 </ul>
 <p>其实这些对象和ggplot中的图层对象对应的很完整，geom_point()\geom_line\geom_polygon</p>

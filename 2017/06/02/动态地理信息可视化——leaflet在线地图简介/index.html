@@ -111,7 +111,7 @@
 <meta property="og:image" content="http://oqwsfozmb.bkt.clouddn.com/image8.png">
 <meta property="og:image" content="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-06-02T07:29:06.743Z">
+<meta property="og:updated_time" content="2017-06-02T07:31:53.665Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="动态地理信息可视化——leaflet在线地图简介">
 <meta name="twitter:description" content="最近稍微涉猎了一下leaflet这个包，突然感到发现了动态可视化的新大门，这个包所提供的地图类型、动态效果、图层展示方式都大大扩展了ggplot作图系统的在数据地图上的缺陷。 leaflet是业界比较流行的JS开源交互式地图包，它支持直接调用OpenStreetMap, Mapbox, and CartoDB等主流地图数据作为辅助图层来进行地理信息数据的可视化操作。">
@@ -407,8 +407,8 @@
 <p>addCircle是实心点，只有一个颜色属性，addCircleMarkers是带轮廓的圆点，可以分别对轮廓和内园进行颜色设定，两者都支持大小（面积）映射。</p>
 <p>当然剩余两种最为常见的地图图层属性就是线和面了，这是物理空间的重要三要素嘛</p>
 <ul>
-<li>线图层：</li>
-<li>addPolylines</li>
+<li>点图层：addMarkers\addCircle\addCircleMarkers</li>
+<li>线图层:addPolylines</li>
 <li>面图层：addPolygons</li>
 </ul>
 <p>其实这些对象和ggplot中的图层对象对应的很完整，geom_point()\geom_line\geom_polygon</p>
