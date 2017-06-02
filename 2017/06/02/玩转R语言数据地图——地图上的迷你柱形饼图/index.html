@@ -95,7 +95,7 @@
 <meta name="description" content="这个周末刷微信的时候，偶然看到一篇关于R语言12月更新包的介绍，翻到底部看了一眼，刚好看到一个关于ggplot2的一个图层插件——geom_scatterpie。 这个包安装之后，可以提供给ggplot新的图层函数，并制作出气泡状饼图，饼图可以分类填色，饼图大小可以映射数值变量，特别是将这种图表形式引入地图之中，那么最终呈现的地图上的气泡饼图非常炫酷。 今天刚好整理了下完整思路，顺便分享。">
 <meta name="keywords" content="R语言,ggplot2,数据可视化,mini饼图,地理信息可视化">
 <meta property="og:type" content="article">
-<meta property="og:title" content="玩转R语言数据地图——地图上的迷你柱形饼图">
+<meta property="og:title" content="玩转R语言数据地图——地图上的迷你气泡饼图">
 <meta property="og:url" content="http://www.raindu.com/2017/06/02/玩转R语言数据地图——地图上的迷你柱形饼图/index.html">
 <meta property="og:site_name" content="raindu&#39;s home">
 <meta property="og:description" content="这个周末刷微信的时候，偶然看到一篇关于R语言12月更新包的介绍，翻到底部看了一眼，刚好看到一个关于ggplot2的一个图层插件——geom_scatterpie。 这个包安装之后，可以提供给ggplot新的图层函数，并制作出气泡状饼图，饼图可以分类填色，饼图大小可以映射数值变量，特别是将这种图表形式引入地图之中，那么最终呈现的地图上的气泡饼图非常炫酷。 今天刚好整理了下完整思路，顺便分享。">
@@ -103,9 +103,9 @@
 <meta property="og:image" content="http://oqwcd2a2i.bkt.clouddn.com/image2.png">
 <meta property="og:image" content="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-06-02T01:42:03.734Z">
+<meta property="og:updated_time" content="2017-06-02T07:02:49.852Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="玩转R语言数据地图——地图上的迷你柱形饼图">
+<meta name="twitter:title" content="玩转R语言数据地图——地图上的迷你气泡饼图">
 <meta name="twitter:description" content="这个周末刷微信的时候，偶然看到一篇关于R语言12月更新包的介绍，翻到底部看了一眼，刚好看到一个关于ggplot2的一个图层插件——geom_scatterpie。 这个包安装之后，可以提供给ggplot新的图层函数，并制作出气泡状饼图，饼图可以分类填色，饼图大小可以映射数值变量，特别是将这种图表形式引入地图之中，那么最终呈现的地图上的气泡饼图非常炫酷。 今天刚好整理了下完整思路，顺便分享。">
 <meta name="twitter:image" content="http://oqwcd2a2i.bkt.clouddn.com/image1.png">
 
@@ -141,7 +141,7 @@
 
 
 
-  <title>玩转R语言数据地图——地图上的迷你柱形饼图 | raindu's home</title>
+  <title>玩转R语言数据地图——地图上的迷你气泡饼图 | raindu's home</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -308,7 +308,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">玩转R语言数据地图——地图上的迷你柱形饼图</h1>
+          <h1 class="post-title" itemprop="name headline">玩转R语言数据地图——地图上的迷你气泡饼图</h1>
         
 
         <div class="post-meta">
@@ -487,6 +487,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2017/06/02/玩转数据地图系列之——地图上的迷你条形图/" rel="prev" title="玩转数据地图系列之——地图上的迷你条形图">
+                玩转数据地图系列之——地图上的迷你条形图 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -559,7 +563,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -581,7 +585,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
