@@ -40,14 +40,14 @@
 <li><p>用于连续数值的：colorNumeric，colorBin和colorQuantile;</p>
 </li>
 <li><p>用于分类输入，colorFactor。</p>
-</li>
-</ol>
 <ul>
 <li>colorNumeric：针对数值变量进行均匀插值，将颜色（定义的）连续均匀分布在数值区间内。</li>
 <li>colorBin：针对数值型变量进行数量段的分组，然后按照组别分别填色。（其实相当于对数值型变量进行划组，生成有序的因子组，然后以分段因子变量的形式进行颜色映射，但是这个过程在leaflet函数中是自动化完成的，无需我们手工生成新变量，这一点儿是leaflet函数相对于ggplot函数在制作数据地图方面的重要优势）。</li>
 <li>colorQuantile：也是针对数值型变量，只是是以百分比分位点的形式将数值变量划分为一组百分比分位点区间（其实理念和过程与colorBin一致，只是从绝对量分组变成了百分比分组），然后进行颜色映射。</li>
 <li>colorFactor：这个就是单纯的分类变量（因子或者有序）映射的颜色设置方式。</li>
 </ul>
+</li>
+</ol>
 <p><strong>图例对象：</strong><br>addLegend：是添加图例的图层对象，相当于ggplot中的guilde函数。</p>
 <p>接来下给大家大致展现以下leaflet所能呈现的最为常见的几种风格地图样式。</p>
 <p>###你地图可视化类型：</p>

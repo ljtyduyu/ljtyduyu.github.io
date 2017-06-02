@@ -111,7 +111,7 @@
 <meta property="og:image" content="http://oqwsfozmb.bkt.clouddn.com/image8.png">
 <meta property="og:image" content="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-06-02T07:31:53.665Z">
+<meta property="og:updated_time" content="2017-06-02T07:35:58.306Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="动态地理信息可视化——leaflet在线地图简介">
 <meta name="twitter:description" content="最近稍微涉猎了一下leaflet这个包，突然感到发现了动态可视化的新大门，这个包所提供的地图类型、动态效果、图层展示方式都大大扩展了ggplot作图系统的在数据地图上的缺陷。 leaflet是业界比较流行的JS开源交互式地图包，它支持直接调用OpenStreetMap, Mapbox, and CartoDB等主流地图数据作为辅助图层来进行地理信息数据的可视化操作。">
@@ -420,14 +420,14 @@
 <li><p>用于连续数值的：colorNumeric，colorBin和colorQuantile;</p>
 </li>
 <li><p>用于分类输入，colorFactor。</p>
-</li>
-</ol>
 <ul>
 <li>colorNumeric：针对数值变量进行均匀插值，将颜色（定义的）连续均匀分布在数值区间内。</li>
 <li>colorBin：针对数值型变量进行数量段的分组，然后按照组别分别填色。（其实相当于对数值型变量进行划组，生成有序的因子组，然后以分段因子变量的形式进行颜色映射，但是这个过程在leaflet函数中是自动化完成的，无需我们手工生成新变量，这一点儿是leaflet函数相对于ggplot函数在制作数据地图方面的重要优势）。</li>
 <li>colorQuantile：也是针对数值型变量，只是是以百分比分位点的形式将数值变量划分为一组百分比分位点区间（其实理念和过程与colorBin一致，只是从绝对量分组变成了百分比分组），然后进行颜色映射。</li>
 <li>colorFactor：这个就是单纯的分类变量（因子或者有序）映射的颜色设置方式。</li>
 </ul>
+</li>
+</ol>
 <p><strong>图例对象：</strong><br>addLegend：是添加图例的图层对象，相当于ggplot中的guilde函数。</p>
 <p>接来下给大家大致展现以下leaflet所能呈现的最为常见的几种风格地图样式。</p>
 <p>###你地图可视化类型：</p>
