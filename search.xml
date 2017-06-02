@@ -65,9 +65,9 @@
 <figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">leaflet()%&gt;%addProviderTiles(<span class="string">"Stamen.Toner"</span>)</div></pre></td></tr></table></figure>
 <p><img src="http://oqwsfozmb.bkt.clouddn.com/image8.png" alt=""></p>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">leaflet()%&gt;%addProviderTiles(<span class="string">"CartoDB.Positron"</span>)</div></pre></td></tr></table></figure>
-<p><img src="http://oqwsfozmb.bkt.clouddn.com/image8.png" alt=""></p>
+<p><img src="http://oqwsfozmb.bkt.clouddn.com/image9.png" alt=""></p>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">leaflet()%&gt;%addProviderTiles(<span class="string">"Stamen.TonerLabels"</span>)</div></pre></td></tr></table></figure>
-<p><img src="http://oqwsfozmb.bkt.clouddn.com/image8.png" alt=""></p>
+<p><img src="http://oqwsfozmb.bkt.clouddn.com/image10.png" alt=""></p>
 <p>限于字数和篇幅，本篇不宜再写下去了（主要小编太困了，上下眼皮打架，已经困得不行了）</p>
 <p>关于leaflet内容，年前先暂时先更新这一篇（如果回家还有时间的话，也许继续更新）。</p>
 <hr>
