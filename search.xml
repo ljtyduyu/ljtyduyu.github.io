@@ -3,6 +3,124 @@
   
     
     <entry>
+      <title><![CDATA[动态地理信息可视化——leaflet构造路径图]]></title>
+      <url>/2017/06/04/%E5%8A%A8%E6%80%81%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94leaflet%E6%9E%84%E9%80%A0%E8%B7%AF%E5%BE%84%E5%9B%BE/</url>
+      <content type="html"><![CDATA[<p>根据先前几篇内容的框架，今天介绍leaflet在线地图的第三篇，以线条元素构造的路径图。</p>
+<a id="more"></a>
+<h3 id="加载包："><a href="#加载包：" class="headerlink" title="加载包："></a>加载包：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(leaflet)</div><div class="line"><span class="keyword">library</span>(dplyr)</div></pre></td></tr></table></figure>
+<h3 id="导入数据集："><a href="#导入数据集：" class="headerlink" title="导入数据集："></a>导入数据集：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">data&lt;-read.table(<span class="string">"D:/R/File/subwayline.txt"</span>,header=<span class="literal">TRUE</span>,stringsAsFactors = <span class="literal">FALSE</span>)</div><div class="line">data$Type&lt;-as.factor(data$Type)</div><div class="line">data1&lt;-filter(data,Type==<span class="string">"NO1"</span>)</div><div class="line">data2&lt;-filter(data,Type==<span class="string">"NO5"</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://or029s79c.bkt.clouddn.com/image1.png" alt=""></p>
+<p>以上我用百度地图的坐标拾取平台采点拾取的背景地铁一号线和五号线的车站地理位置信息，（因为没有现成的数据，只能手工采点，可能不是很准确）</p>
+<h3 id="基本语法解释："><a href="#基本语法解释：" class="headerlink" title="基本语法解释："></a>基本语法解释：</h3><p><strong>今天要介绍的leaflet类型是线条，也即addPolylines函数，其基本语法如下：</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">addPolylines(map, lng = <span class="literal">NULL</span>,lat = <span class="literal">NULL</span>, <span class="comment">#指定数据源并做经纬度声明</span></div><div class="line">     layerId = <span class="literal">NULL</span>, </div><div class="line">     group = <span class="literal">NULL</span>,  <span class="comment">#图层分组（制作动态可见性交互时使用）</span></div><div class="line">     stroke = <span class="literal">TRUE</span>, <span class="comment">#是否呈现路径线</span></div><div class="line">     color = <span class="string">"#03F"</span>,weight = <span class="number">5</span>,opacity = <span class="number">0.5</span>, <span class="comment">#关于线条的颜色、宽度、透明度 </span></div><div class="line">     fill = <span class="literal">FALSE</span>, fillColor = color, fillOpacity = <span class="number">0.2</span>, </div><div class="line">     dashArray = <span class="literal">NULL</span>, smoothFactor = <span class="number">1</span>, noClip = <span class="literal">FALSE</span>,  <span class="comment">#线型参数，平滑度等</span></div><div class="line">     popup = <span class="literal">NULL</span>, options = pathOptions(), data = getMapData(map)) <span class="comment">#弹窗、选项控制</span></div></pre></td></tr></table></figure>
+<h3 id="构造色盘："><a href="#构造色盘：" class="headerlink" title="构造色盘："></a>构造色盘：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pal &lt;- colorFactor(topo.colors(<span class="number">2</span>),data$Type)</div></pre></td></tr></table></figure>
+<h3 id="可视化过程："><a href="#可视化过程：" class="headerlink" title="可视化过程："></a>可视化过程：</h3><h4 id="作图函数：使用默认点标识"><a href="#作图函数：使用默认点标识" class="headerlink" title="作图函数：使用默认点标识"></a>作图函数：使用默认点标识</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">leaflet()%&gt;%</div><div class="line">addTiles()%&gt;%</div><div class="line">addPolylines(data=data1,~lon,~lat,color=<span class="string">"blue"</span>)%&gt;%</div><div class="line">addPolylines(data=data2,~lon,~lat,color=<span class="string">"green"</span>)%&gt;%</div><div class="line">addMarkers(data=data,~lon, ~lat,popup = ~address)</div></pre></td></tr></table></figure>
+<p><img src="http://or029s79c.bkt.clouddn.com/image2.png" alt=""></p>
+<h4 id="使用可自定义的圆点标识车站位置"><a href="#使用可自定义的圆点标识车站位置" class="headerlink" title="使用可自定义的圆点标识车站位置"></a>使用可自定义的圆点标识车站位置</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">leaflet()%&gt;%</div><div class="line">addTiles()%&gt;%</div><div class="line">addPolylines(data=data1,~lon,~lat,color=<span class="string">"blue"</span>)%&gt;%</div><div class="line">addPolylines(data=data2,~lon,~lat,color=<span class="string">"green"</span>)%&gt;%</div><div class="line">addCircles(data=data,~lon, ~lat,popup = ~address,color=<span class="string">"red"</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://or029s79c.bkt.clouddn.com/image3.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">leaflet()%&gt;%</div><div class="line">addTiles()%&gt;%</div><div class="line">addPolylines(data=data1,~lon,~lat,color=<span class="string">"blue"</span>)%&gt;%</div><div class="line">addPolylines(data=data2,~lon,~lat,color=<span class="string">"green"</span>)%&gt;%</div><div class="line">addCircleMarkers(data=data,~lon, ~lat,popup = ~address,color=~Type)</div></pre></td></tr></table></figure>
+<p><img src="http://or029s79c.bkt.clouddn.com/image4.png" alt=""></p>
+<h4 id="以下是几种比较常用的地图背景素材"><a href="#以下是几种比较常用的地图背景素材" class="headerlink" title="以下是几种比较常用的地图背景素材"></a>以下是几种比较常用的地图背景素材</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">addProviderTiles(<span class="string">"Esri.WorldStreetMap"</span>)  </div><div class="line">addProviderTiles(<span class="string">"Esri.WorldImagery"</span>)   </div><div class="line">addProviderTiles(<span class="string">"Esri.WorldTerrain"</span>)    </div><div class="line">addProviderTiles(<span class="string">"Esri.NatGeoWorldMap"</span>)</div></pre></td></tr></table></figure>
+<h4 id="几张常见的素材风格："><a href="#几张常见的素材风格：" class="headerlink" title="几张常见的素材风格："></a>几张常见的素材风格：</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">leaflet()%&gt;%</div><div class="line">addProviderTiles(<span class="string">"Esri.WorldStreetMap"</span>)%&gt;%</div><div class="line">addPolylines(data=data1,~lon,~lat,color=<span class="string">"blue"</span>)%&gt;%</div><div class="line">addPolylines(data=data2,~lon,~lat,color=<span class="string">"green"</span>)%&gt;%</div><div class="line">addCircles(data=data,~lon, ~lat,popup = ~address,color=~Type)</div></pre></td></tr></table></figure>
+<p><img src="http://or029s79c.bkt.clouddn.com/image5.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">leaflet()%&gt;%</div><div class="line">addProviderTiles(<span class="string">"Esri.WorldImagery"</span>)%&gt;%</div><div class="line">addPolylines(data=data1,~lon,~lat,color=<span class="string">"blue"</span>)%&gt;%</div><div class="line">addPolylines(data=data2,~lon,~lat,color=<span class="string">"green"</span>)%&gt;%</div><div class="line">addCircles(data=data,~lon, ~lat,popup = ~address,color=~Type)</div></pre></td></tr></table></figure>
+<p><img src="http://or029s79c.bkt.clouddn.com/image6.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">leaflet()%&gt;%</div><div class="line">addProviderTiles(<span class="string">"Esri.WorldGrayCanvas"</span>) %&gt;%</div><div class="line">addPolylines(data=data1,~lon,~lat,color=<span class="string">"blue"</span>)%&gt;%</div><div class="line">addPolylines(data=data2,~lon,~lat,color=<span class="string">"green"</span>)%&gt;%</div><div class="line">addCircles(data=data,~lon, ~lat,popup = ~address,color=~Type)</div></pre></td></tr></table></figure>
+<p><img src="http://or029s79c.bkt.clouddn.com/image7.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">leaflet()%&gt;%</div><div class="line">addProviderTiles(<span class="string">"Esri.NatGeoWorldMap"</span>)  %&gt;%</div><div class="line">addPolylines(data=data1,~lon,~lat,color=<span class="string">"blue"</span>)%&gt;%</div><div class="line">addPolylines(data=data2,~lon,~lat,color=<span class="string">"green"</span>)%&gt;%</div><div class="line">addCircles(data=data,~lon, ~lat,popup = ~address,color=~Type)</div></pre></td></tr></table></figure>
+<p><img src="http://or029s79c.bkt.clouddn.com/image8.png" alt=""></p>
+<p>是不是觉得花样不够多呀，那好吧，以下这些，全部都送给你，那好不谢！</p>
+<hr>
+<ul>
+<li>OpenStreetMap.Mapnik</li>
+<li>OpenStreetMap.BlackAndWhite</li>
+<li>OpenStreetMap.DE</li>
+<li>OpenStreetMap.France</li>
+<li>OpenStreetMap.HOT</li>
+<li>OpenTopoMap</li>
+<li>Thunderforest.OpenCycleMap</li>
+<li>Thunderforest.Transport</li>
+<li>Thunderforest.TransportDark</li>
+<li>Thunderforest.SpinalMap</li>
+<li>Thunderforest.Landscape</li>
+<li>Thunderforest.Outdoors</li>
+<li>Thunderforest.Pioneer</li>
+<li>OpenMapSurfer.Roads</li>
+<li>OpenMapSurfer.Grayscale</li>
+<li>Hydda.Full</li>
+<li>Stamen.Toner</li>
+<li>Stamen.TonerBackground</li>
+<li>Stamen.TonerLite</li>
+<li>Stamen.Watercolor</li>
+<li>Stamen.Terrain</li>
+<li>Stamen.TerrainBackground</li>
+<li>Stamen.TopOSMRelief</li>
+<li>Esri.WorldStreetMap</li>
+<li>Esri.DeLorme</li>
+<li>Esri.WorldTopoMap</li>
+<li>Esri.WorldImagery</li>
+<li>Esri.WorldTerrain</li>
+<li>Esri.WorldShadedRelief</li>
+<li>Esri.WorldPhysical</li>
+<li>Esri.OceanBasemap</li>
+<li>Esri.NatGeoWorldMap</li>
+<li>Esri.WorldGrayCanvas</li>
+<li>MtbMap</li>
+<li>CartoDB.Positron</li>
+<li>CartoDB.PositronNoLabels</li>
+<li>CartoDB.PositronOnlyLabels</li>
+<li>CartoDB.DarkMatter</li>
+<li>CartoDB.DarkMatterNoLabels</li>
+<li>CartoDB.DarkMatterOnlyLabels</li>
+<li>HikeBike.HikeBike</li>
+<li>HikeBike.HillShading</li>
+<li>NASAGIBS.ModisTerraTrueColorCR</li>
+<li>NASAGIBS.ModisTerraBands367CR</li>
+<li>NASAGIBS.ViirsEarthAtNight2012</li>
+<li>NASAGIBS.ModisTerraLSTDay</li>
+<li>NASAGIBS.ModisTerraSnowCover</li>
+<li>NASAGIBS.ModisTerraAOD</li>
+<li>NASAGIBS.ModisTerraChlorophyll</li>
+</ul>
+<hr>
+<p>细数也有好几十个，够你玩一阵子了，使用方法仅仅是通过设置图层函数进行调用，然后就可以愉快的在图层上面进行可视化操作了。<br>addProviderTiles(“地图类型”)</p>
+<hr>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
+<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
+<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
+
+<hr>
+<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 地理信息可视化 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> R语言 </tag>
+            
+            <tag> 数据可视化 </tag>
+            
+            <tag> 路径图 </tag>
+            
+            <tag> mini柱形/条形图 </tag>
+            
+            <tag> 地理信息可视化 </tag>
+            
+            <tag> 在线地图 </tag>
+            
+            <tag> leaflet </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[动态地理信息可视化——散点地图系列]]></title>
       <url>/2017/06/03/%E5%8A%A8%E6%80%81%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94%E6%95%A3%E7%82%B9%E5%9C%B0%E5%9B%BE%E7%B3%BB%E5%88%97/</url>
       <content type="html"><![CDATA[<p>这是一篇拖了好久的稿子，因为过年玩high了，一直放着没写，今天得空，赶快得空，赶紧整理一下。</p>
