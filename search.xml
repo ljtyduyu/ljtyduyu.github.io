@@ -3,6 +3,121 @@
   
     
     <entry>
+      <title><![CDATA[leaflet在线地图进阶宝典之——高级辅助特性]]></title>
+      <url>/2017/06/06/leaflet%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE%E8%BF%9B%E9%98%B6%E5%AE%9D%E5%85%B8%E4%B9%8B%E2%80%94%E2%80%94%E9%AB%98%E7%BA%A7%E8%BE%85%E5%8A%A9%E7%89%B9%E6%80%A7/</url>
+      <content type="html"><![CDATA[<p>本文跟大家分享leaflet在线地图的高级附加属性，这些属性通常来讲仅仅作为我们数据额可视化项目的修饰元素，而并不会影响数据元素。</p>
+<p>但是有了这些辅助修饰元素，往往可以使你的数据可视化项目变得更具人性化。</p>
+<a id="more"></a>
+<p>本文内容根据leaflet的官方主页（R语言接口）翻译而来：</p>
+<p><strong>附加属性：</strong></p>
+<ul>
+<li>测度工具：Leaflet Measure  <blockquote>
+<p>增加该工具可以轻而易举的让你在可视化地图中通过鼠标打点，测量两点之间的距离，如果是闭合区域，则可以直接计算闭合区域的真实面积。</p>
+</blockquote>
+</li>
+<li>网格线：Graticule<blockquote>
+<p>网格线可以提供平面坐标系下地理空间的经纬度位置参考线。</p>
+</blockquote>
+</li>
+<li>昼夜分界线：Terminator (day/night indicator)<blockquote>
+<p>昼夜分界线可以提供一天中不同地区的昼夜分界状况。</p>
+</blockquote>
+</li>
+<li>mini小地图：Minimap<blockquote>
+<p>mini窗口小地图可以提供定位窗口，让你知道主版面中位置在更大范围地理区域上的大致方位，就相当于游戏中的mini导航图。</p>
+</blockquote>
+</li>
+<li>辅助按钮：EasyButton<blockquote>
+<p>辅助按钮可以提供一键初始化比例尺，一键定位功能。</p>
+</blockquote>
+</li>
+<li>自定义js属性：Custom JavaScript with htmlwidgets::onRender<blockquote>
+<p>你可以利用leaflet与HTML的接口工具对地图版面进行更加丰富的属性设置。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="测度工具：Leaflet-Measure"><a href="#测度工具：Leaflet-Measure" class="headerlink" title="测度工具：Leaflet Measure"></a>测度工具：Leaflet Measure</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(leaflet)</div><div class="line">m&lt;-leaflet()%&gt;%addTiles()</div><div class="line">m %&gt;%fitBounds(-<span class="number">73.9</span>,<span class="number">40.75</span>,-<span class="number">73.95</span>,<span class="number">40.8</span>) %&gt;%addMeasure()</div></pre></td></tr></table></figure>
+<p><img src="http://or3sddq9r.bkt.clouddn.com/image1.png" alt=""></p>
+<p>右上侧的小弹窗打开之后选择创建测距选项，就可以通过鼠标打点儿，测量两点之间的地理距离，如果是三个以上的点，则会测量出闭合多边形区域的面积。</p>
+<p>动态效果：</p>
+<iframe height="498" width="510" src="http://player.youku.com/embed/XMjgwNzI1NDI4OA==" frameborder="0" 'allowfullscreen'=""></iframe>
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">m %&gt;%</div><div class="line">  fitBounds(<span class="number">13.76134</span>, <span class="number">52.675499</span>, <span class="number">13.0884</span>, <span class="number">52.33812</span>) %&gt;%   <span class="comment">#设定版面呈现的地理区域范围</span></div><div class="line">  addMeasure(</div><div class="line">    position = <span class="string">"bottomleft"</span>,       <span class="comment">#测距菜单位置</span></div><div class="line">    primaryLengthUnit = <span class="string">"meters"</span>,  <span class="comment">#测量的点距离输出单位</span></div><div class="line">    primaryAreaUnit = <span class="string">"sqmeters"</span>,  <span class="comment">#测量的闭合多边形区域面积输出单位</span></div><div class="line">    activeColor = <span class="string">"#3D535D"</span>,       <span class="comment">#</span></div><div class="line">    completedColor = <span class="string">"#7D4479"</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://or3sddq9r.bkt.clouddn.com/image2.png" alt=""></p>
+<h3 id="网格线：Graticule"><a href="#网格线：Graticule" class="headerlink" title="网格线：Graticule"></a>网格线：Graticule</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">leaflet() %&gt;% addTiles() %&gt;% setView(<span class="number">0</span>,<span class="number">0</span>,<span class="number">2</span>) %&gt;% addGraticule()</div></pre></td></tr></table></figure>
+<p><img src="http://or3sddq9r.bkt.clouddn.com/image3.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">leaflet() %&gt;% addTiles() %&gt;% setView(<span class="number">0</span>,<span class="number">0</span>,<span class="number">2</span>) %&gt;% </div><div class="line">addGraticule(interval = <span class="number">10</span>, style = list(color = <span class="string">"#FF0000"</span>, weight = <span class="number">1</span>))</div></pre></td></tr></table></figure>
+<p><img src="http://or3sddq9r.bkt.clouddn.com/image4.png" alt=""></p>
+<p>而且网格线系统是可控元素，控制方式就是将其当成一个单独的图层，然后分组。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">leaflet() %&gt;% addTiles() %&gt;% setView(<span class="number">0</span>,<span class="number">0</span>,<span class="number">2</span>) %&gt;%</div><div class="line">  addGraticule(group = <span class="string">"Graticule"</span>) %&gt;%</div><div class="line">  addLayersControl(overlayGroups = c(<span class="string">"Graticule"</span>),options=layersControlOptions(collapsed = <span class="literal">FALSE</span>))</div></pre></td></tr></table></figure>
+<p><img src="http://or3sddq9r.bkt.clouddn.com/image5.png" alt=""><br><img src="http://or3sddq9r.bkt.clouddn.com/image6.png" alt=""></p>
+<h3 id="昼夜分界线：Terminator-day-night-indicator"><a href="#昼夜分界线：Terminator-day-night-indicator" class="headerlink" title="昼夜分界线：Terminator (day/night indicator)"></a>昼夜分界线：Terminator (day/night indicator)</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">leaflet() %&gt;% addTiles() %&gt;% addTerminator()</div></pre></td></tr></table></figure>
+<p><img src="http://or3sddq9r.bkt.clouddn.com/image7.png" alt=""></p>
+<p><strong>昼夜分界线支持自定义日期和分组功能：</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">leaflet() %&gt;%</div><div class="line">  addTiles() %&gt;%</div><div class="line">  addTerminator(</div><div class="line">    resolution=<span class="number">10</span>,</div><div class="line">    time = <span class="string">"2013-06-20T21:00:00Z"</span>,</div><div class="line">    group = <span class="string">"daylight"</span>) %&gt;%</div><div class="line">  addLayersControl(</div><div class="line">    overlayGroups = <span class="string">"daylight"</span>,</div><div class="line">    options = layersControlOptions(collapsed = <span class="literal">FALSE</span>))</div></pre></td></tr></table></figure>
+<p><img src="http://or3sddq9r.bkt.clouddn.com/image8.png" alt=""></p>
+<h3 id="mini导航地图：Minimap"><a href="#mini导航地图：Minimap" class="headerlink" title="mini导航地图：Minimap"></a>mini导航地图：Minimap</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">leaflet() %&gt;% setView(<span class="number">0</span>,<span class="number">0</span>,<span class="number">3</span>) %&gt;%</div><div class="line">  addProviderTiles(providers$Esri.WorldStreetMap) %&gt;%</div><div class="line">  addMiniMap()</div></pre></td></tr></table></figure>
+<p><strong>mini导航地图中的地图背景也是支持自定义的：</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">leaflet() %&gt;% setView(<span class="number">0</span>,<span class="number">0</span>,<span class="number">3</span>) %&gt;%</div><div class="line">  addProviderTiles(providers$Esri.WorldStreetMap) %&gt;%</div><div class="line">  addMiniMap(tiles = providers$Esri.WorldStreetMap,toggleDisplay = <span class="literal">TRUE</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://or3sddq9r.bkt.clouddn.com/image9.png" alt=""></p>
+<p>视频演示：</p>
+<iframe height="498" width="510" src="http://player.youku.com/embed/XMjgwNzI1Nzg3Mg==" frameborder="0" 'allowfullscreen'=""></iframe>
+
+
+<h3 id="辅助工具菜单："><a href="#辅助工具菜单：" class="headerlink" title="辅助工具菜单："></a>辅助工具菜单：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(htmltools)</div><div class="line"><span class="keyword">library</span>(htmlwidgets)</div><div class="line">leaflet() %&gt;% addTiles() %&gt;%</div><div class="line">  addEasyButton(easyButton(      <span class="comment">#添加一键恢复初始窗口比利时</span></div><div class="line">    icon=<span class="string">"fa-globe"</span>, title=<span class="string">"Zoom to Level 1"</span>,</div><div class="line">    onClick=JS(<span class="string">"function(btn, map)&#123; map.setZoom(1); &#125;"</span>))) %&gt;%</div><div class="line">  addEasyButton(easyButton(     <span class="comment">#添加一键定位功能（根据你的所在位置）</span></div><div class="line">    icon=<span class="string">"fa-crosshairs"</span>, title=<span class="string">"Locate Me"</span>,</div><div class="line">    onClick=JS(<span class="string">"function(btn, map)&#123; map.locate(&#123;setView: true&#125;); &#125;"</span>)))</div></pre></td></tr></table></figure>
+<p><img src="http://or3sddq9r.bkt.clouddn.com/image12.png" alt=""></p>
+<p>动态效果：</p>
+<iframe height="498" width="510" src="http://player.youku.com/embed/XMjgwNzI5NjIyNA==" frameborder="0" 'allowfullscreen'=""></iframe>
+
+
+<h3 id="辅助按钮：EasyButton"><a href="#辅助按钮：EasyButton" class="headerlink" title="辅助按钮：EasyButton"></a>辅助按钮：EasyButton</h3><p>以下代码展示了如何通过调用js工具控件来通过打开菜单工具开启地图上的点聚合功能，同时关闭菜单工具按钮，关闭点聚合功能。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">leaflet() %&gt;% addTiles() %&gt;%</div><div class="line">  addMarkers(data=quakes,</div><div class="line">    clusterOptions = markerClusterOptions(),</div><div class="line">    clusterId = <span class="string">"quakesCluster"</span>) %&gt;%</div><div class="line">  addEasyButton(easyButton(</div><div class="line">    states = list(</div><div class="line">      easyButtonState(   <span class="comment">#状态1：打开菜单，开启点聚合</span></div><div class="line">        stateName=<span class="string">"unfrozen-markers"</span>,</div><div class="line">        icon=<span class="string">"ion-toggle"</span>,</div><div class="line">        title=<span class="string">"Freeze Clusters"</span>,</div><div class="line">        onClick = JS(<span class="string">"</span></div><div class="line">          function(btn,map) &#123;</div><div class="line">            var clusterManager =</div><div class="line">              map.layerManager.getLayer('cluster', 'quakesCluster');</div><div class="line">            clusterManager.freezeAtZoom();</div><div class="line">            btn.state('frozen-markers');</div><div class="line">          &#125;")</div><div class="line">      ),</div><div class="line">      easyButtonState( <span class="comment">#状态2：关闭菜单，结束点聚合功能</span></div><div class="line">        stateName=<span class="string">"frozen-markers"</span>,</div><div class="line">        icon=<span class="string">"ion-toggle-filled"</span>,</div><div class="line">        title=<span class="string">"UnFreeze Clusters"</span>,</div><div class="line">        onClick = JS(<span class="string">"</span></div><div class="line">          function(btn, map) &#123;</div><div class="line">            var clusterManager =</div><div class="line">              map.layerManager.getLayer('cluster', 'quakesCluster');</div><div class="line">            clusterManager.unfreeze();</div><div class="line">            btn.state('unfrozen-markers');</div><div class="line">          &#125;")</div><div class="line">      )</div><div class="line">    )</div><div class="line">  ))</div></pre></td></tr></table></figure>
+<p><img src="http://or3sddq9r.bkt.clouddn.com/image10.png" alt=""></p>
+<p>动态效果：</p>
+<iframe height="498" width="510" src="http://player.youku.com/embed/XMjgwNzM0MDg4MA==" frameborder="0" 'allowfullscreen'=""></iframe>
+
+
+<h3 id="自定义js属性：Custom-JavaScript-with-htmlwidgets-onRender"><a href="#自定义js属性：Custom-JavaScript-with-htmlwidgets-onRender" class="headerlink" title="自定义js属性：Custom JavaScript with htmlwidgets::onRender"></a>自定义js属性：Custom JavaScript with htmlwidgets::onRender</h3><p>基础图层会根据导航窗内的图层风格改变而随之转换：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">mymap&lt;-leaflet() %&gt;% setView(<span class="number">0</span>,<span class="number">0</span>,<span class="number">3</span>)</div><div class="line">esri &lt;- grep(<span class="string">"^Esri"</span>, providers, value = <span class="literal">TRUE</span>)</div><div class="line"></div><div class="line"><span class="keyword">for</span> (provider <span class="keyword">in</span> esri) &#123;</div><div class="line">  mymap &lt;-mymap %&gt;% addProviderTiles(provider, group = provider)</div><div class="line">&#125;</div><div class="line"></div><div class="line">mymap %&gt;%</div><div class="line">  addLayersControl(baseGroups = names(esri),</div><div class="line">    options = layersControlOptions(collapsed = <span class="literal">FALSE</span>)) %&gt;%</div><div class="line">  addMiniMap(tiles = esri[[<span class="number">1</span>]], toggleDisplay = <span class="literal">TRUE</span>,</div><div class="line">    position = <span class="string">"bottomleft"</span>) %&gt;%</div><div class="line">  htmlwidgets::onRender(<span class="string">"</span></div><div class="line">    function(el, x) &#123;</div><div class="line">      var myMap = this;</div><div class="line">      myMap.on('baselayerchange',</div><div class="line">        function (e) &#123;</div><div class="line">          myMap.minimap.changeLayer(L.tileLayer.provider(e.name));</div><div class="line">        &#125;)</div><div class="line">    &#125;")</div></pre></td></tr></table></figure></p>
+<p><img src="http://or3sddq9r.bkt.clouddn.com/image11.png" alt=""></p>
+<p>动态效果：</p>
+<iframe height="498" width="510" src="http://player.youku.com/embed/XMjgwNzI3MDY4OA==" frameborder="0" 'allowfullscreen'=""></iframe>
+
+
+<hr>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
+<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
+<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
+
+<hr>
+<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 地理信息可视化 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> R语言 </tag>
+            
+            <tag> 数据可视化 </tag>
+            
+            <tag> 地理信息可视化 </tag>
+            
+            <tag> 在线地图 </tag>
+            
+            <tag> leaflet </tag>
+            
+            <tag> HTML </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Leaflet在线地图进阶宝典——json素材操纵与图层面板控制]]></title>
       <url>/2017/06/05/Leaflet%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE%E8%BF%9B%E9%98%B6%E5%AE%9D%E5%85%B8%E2%80%94%E2%80%94json%E7%B4%A0%E6%9D%90%E6%93%8D%E7%BA%B5%E4%B8%8E%E5%9B%BE%E5%B1%82%E9%9D%A2%E6%9D%BF%E6%8E%A7%E5%88%B6/</url>
       <content type="html"><![CDATA[<p>这篇教程憋了很久，其实算是3个月前leaflet在线地图系列的进阶篇，但是因为当时对于leaflet地图的数据源结构理解有限，技能勉强操控shp数据源，对于json数据源所知甚少，一直拖了这么久才更新。</p>
@@ -19,7 +134,7 @@
 <li><a href="https://zhuanlan.zhihu.com/p/27012917" target="_blank" rel="external">动态地理信息可视化——leaflet在线地图简介</a></li>
 <li><a href="https://zhuanlan.zhihu.com/p/26994131" target="_blank" rel="external">动态地理信息可视化——散点地图系列</a></li>
 <li><a href="https://zhuanlan.zhihu.com/p/27005732" target="_blank" rel="external">动态地理信息可视化——leaflet构造路径图</a></li>
-<li><a href="https://zhuanlan.zhihu.com/EasyCharts-R" target="_blank" rel="external">动态地理信息可视化——leaflet填充地图</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/27009715" target="_blank" rel="external">动态地理信息可视化——leaflet填充地图</a></li>
 </ul>
 <p>那么本文理解起来就容易多了，仅仅是温故知新罢了！</p>
 <p>当然如果你学有余力的话，你也可以顺便把百度的Echarts系统地图接口也学习一下：</p>
@@ -43,7 +158,7 @@
 <p>设置随机中非常必要，否则容易导致每次的效果都不一样：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">set.seed(<span class="number">1234</span>)</div></pre></td></tr></table></figure></p>
 <h3 id="向地图素材中添加作图数据："><a href="#向地图素材中添加作图数据：" class="headerlink" title="向地图素材中添加作图数据："></a>向地图素材中添加作图数据：</h3><p><strong>向list对象中添加数据（随机数据）</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">geojson3$features&lt;-lapply(geojson3$features,<span class="keyword">function</span>(feat)&#123;</div><div class="line">feat$properties$scale&lt;-runif(<span class="number">1</span>,<span class="number">0</span>,<span class="number">10</span>)</div><div class="line">feat</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
 <p><strong>从list对象中读取数据(主要读取我们可做更改与扩展的行政区划列表信息)</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mydata&lt;-ldply(geojson3$features,<span class="keyword">function</span>(feat)&#123; </div><div class="line">name&lt;-feat$properties$name</div><div class="line">id&lt;- feat$properties$id</div><div class="line">scale&lt;-as.numeric(feat$properties$scale)</div><div class="line">mydata&lt;-data.frame(name,id,scale)</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p><strong> Default styles for all features </strong></p>
+<p><strong>Default styles for all features </strong></p>
 <blockquote>
 <p>it has  higher precedence  compare with  the style in a function of GeoJSON<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">geojson3$style=list(weight=<span class="number">1</span>,color=<span class="string">"#555555"</span>,opacity=<span class="number">1</span>,fillOpacity=<span class="number">0.8</span>)</div></pre></td></tr></table></figure></p>
 </blockquote>
@@ -68,6 +183,28 @@
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
 ]]></content>
       
+        <categories>
+            
+            <category> 地理信息可视化 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> R语言 </tag>
+            
+            <tag> 数据可视化 </tag>
+            
+            <tag> json </tag>
+            
+            <tag> 地理信息可视化 </tag>
+            
+            <tag> 在线地图 </tag>
+            
+            <tag> leaflet </tag>
+            
+        </tags>
         
     </entry>
     
@@ -250,15 +387,15 @@
             
             <tag> 数据可视化 </tag>
             
-            <tag> 路径图 </tag>
-            
-            <tag> mini柱形/条形图 </tag>
-            
             <tag> 地理信息可视化 </tag>
             
             <tag> 在线地图 </tag>
             
             <tag> leaflet </tag>
+            
+            <tag> 路径图 </tag>
+            
+            <tag> mini柱形/条形图 </tag>
             
         </tags>
         
@@ -316,13 +453,13 @@
             
             <tag> 数据可视化 </tag>
             
-            <tag> mini柱形/条形图 </tag>
-            
             <tag> 地理信息可视化 </tag>
             
             <tag> 在线地图 </tag>
             
             <tag> leaflet </tag>
+            
+            <tag> mini柱形/条形图 </tag>
             
         </tags>
         
@@ -418,13 +555,13 @@
             
             <tag> 数据可视化 </tag>
             
-            <tag> mini柱形/条形图 </tag>
-            
             <tag> 地理信息可视化 </tag>
             
             <tag> 在线地图 </tag>
             
             <tag> leaflet </tag>
+            
+            <tag> mini柱形/条形图 </tag>
             
         </tags>
         
@@ -484,13 +621,13 @@
             
             <tag> R语言 </tag>
             
-            <tag> ggplot2 </tag>
-            
             <tag> 数据可视化 </tag>
             
-            <tag> mini柱形/条形图 </tag>
-            
             <tag> 地理信息可视化 </tag>
+            
+            <tag> ggplot2 </tag>
+            
+            <tag> mini柱形/条形图 </tag>
             
         </tags>
         
@@ -541,11 +678,11 @@
             
             <tag> R语言 </tag>
             
-            <tag> ggplot2 </tag>
-            
             <tag> 数据可视化 </tag>
             
             <tag> 地理信息可视化 </tag>
+            
+            <tag> ggplot2 </tag>
             
             <tag> mini饼图 </tag>
             
@@ -657,9 +794,9 @@
             
             <tag> R语言 </tag>
             
-            <tag> ggplot2 </tag>
-            
             <tag> 数据可视化 </tag>
+            
+            <tag> ggplot2 </tag>
             
             <tag> 爬虫 </tag>
             
@@ -718,9 +855,9 @@
             
             <tag> R语言 </tag>
             
-            <tag> ggplot2 </tag>
-            
             <tag> 数据可视化 </tag>
+            
+            <tag> ggplot2 </tag>
             
             <tag> 爬虫 </tag>
             
@@ -784,9 +921,9 @@
             
             <tag> R语言 </tag>
             
-            <tag> ggplot2 </tag>
-            
             <tag> 数据可视化 </tag>
+            
+            <tag> ggplot2 </tag>
             
             <tag> 路径图 </tag>
             
@@ -845,9 +982,9 @@
             
             <tag> R语言 </tag>
             
-            <tag> ggplot2 </tag>
-            
             <tag> 数据可视化 </tag>
+            
+            <tag> ggplot2 </tag>
             
             <tag> 热力地图 </tag>
             
@@ -898,9 +1035,9 @@
             
             <tag> R语言 </tag>
             
-            <tag> ggplot2 </tag>
-            
             <tag> 数据可视化 </tag>
+            
+            <tag> ggplot2 </tag>
             
             <tag> 信息图 </tag>
             
@@ -947,9 +1084,9 @@
             
             <tag> R语言 </tag>
             
-            <tag> ggplot2 </tag>
-            
             <tag> 数据可视化 </tag>
+            
+            <tag> ggplot2 </tag>
             
             <tag> 信息图 </tag>
             
@@ -990,9 +1127,9 @@
             
             <tag> R语言 </tag>
             
-            <tag> ggplot2 </tag>
-            
             <tag> 数据可视化 </tag>
+            
+            <tag> ggplot2 </tag>
             
             <tag> gif </tag>
             
@@ -1052,9 +1189,9 @@
             
             <tag> R语言 </tag>
             
-            <tag> ggplot2 </tag>
-            
             <tag> 数据可视化 </tag>
+            
+            <tag> ggplot2 </tag>
             
             <tag> gif </tag>
             
@@ -1103,9 +1240,9 @@
             
             <tag> R语言 </tag>
             
-            <tag> ggplot2 </tag>
-            
             <tag> 数据可视化 </tag>
+            
+            <tag> ggplot2 </tag>
             
             <tag> 仪表盘 </tag>
             
@@ -1171,9 +1308,9 @@
             
             <tag> R语言 </tag>
             
-            <tag> ggplot2 </tag>
-            
             <tag> 数据可视化 </tag>
+            
+            <tag> ggplot2 </tag>
             
             <tag> 信息图 </tag>
             
@@ -1231,9 +1368,9 @@
             
             <tag> R语言 </tag>
             
-            <tag> ggplot2 </tag>
-            
             <tag> 数据可视化 </tag>
+            
+            <tag> ggplot2 </tag>
             
             <tag> 爬虫 </tag>
             
@@ -1289,9 +1426,9 @@
             
             <tag> R语言 </tag>
             
-            <tag> ggplot2 </tag>
-            
             <tag> 数据可视化 </tag>
+            
+            <tag> ggplot2 </tag>
             
         </tags>
         
@@ -1363,9 +1500,9 @@
             
             <tag> R语言 </tag>
             
-            <tag> ggplot2 </tag>
-            
             <tag> 数据可视化 </tag>
+            
+            <tag> ggplot2 </tag>
             
             <tag> 爬虫 </tag>
             
@@ -1644,9 +1781,9 @@
             
             <tag> R语言 </tag>
             
-            <tag> ggplot2 </tag>
-            
             <tag> 数据可视化 </tag>
+            
+            <tag> ggplot2 </tag>
             
         </tags>
         
@@ -1727,9 +1864,9 @@
             
             <tag> R语言 </tag>
             
-            <tag> ggplot2 </tag>
-            
             <tag> 数据可视化 </tag>
+            
+            <tag> ggplot2 </tag>
             
         </tags>
         
@@ -1820,9 +1957,9 @@
             
             <tag> R语言 </tag>
             
-            <tag> ggplot2 </tag>
-            
             <tag> 数据可视化 </tag>
+            
+            <tag> ggplot2 </tag>
             
         </tags>
         

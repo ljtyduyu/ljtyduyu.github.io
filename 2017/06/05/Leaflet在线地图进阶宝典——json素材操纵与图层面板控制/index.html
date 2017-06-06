@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="R语言,数据可视化,json,地理信息可视化,在线地图,leaflet," />
 
 
 
@@ -93,6 +93,7 @@
 
 
 <meta name="description" content="这篇教程憋了很久，其实算是3个月前leaflet在线地图系列的进阶篇，但是因为当时对于leaflet地图的数据源结构理解有限，技能勉强操控shp数据源，对于json数据源所知甚少，一直拖了这么久才更新。 随着近期在json数据结构的理解不断加深，对于list结构和向量化运算的掌握也多有提高，这才能熟练的在leaflet系统中操控json数据。">
+<meta name="keywords" content="R语言,数据可视化,json,地理信息可视化,在线地图,leaflet">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Leaflet在线地图进阶宝典——json素材操纵与图层面板控制">
 <meta property="og:url" content="http://www.raindu.com/2017/06/05/Leaflet在线地图进阶宝典——json素材操纵与图层面板控制/index.html">
@@ -106,7 +107,7 @@
 <meta property="og:image" content="http://or2u6tot7.bkt.clouddn.com/image6.png">
 <meta property="og:image" content="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-06-05T14:18:22.629Z">
+<meta property="og:updated_time" content="2017-06-06T01:47:40.178Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Leaflet在线地图进阶宝典——json素材操纵与图层面板控制">
 <meta name="twitter:description" content="这篇教程憋了很久，其实算是3个月前leaflet在线地图系列的进阶篇，但是因为当时对于leaflet地图的数据源结构理解有限，技能勉强操控shp数据源，对于json数据源所知甚少，一直拖了这么久才更新。 随着近期在json数据结构的理解不断加深，对于list结构和向量化运算的掌握也多有提高，这才能熟练的在leaflet系统中操控json数据。">
@@ -334,6 +335,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/地理信息可视化/" itemprop="url" rel="index">
+                    <span itemprop="name">地理信息可视化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -372,7 +395,7 @@
 <li><a href="https://zhuanlan.zhihu.com/p/27012917" target="_blank" rel="external">动态地理信息可视化——leaflet在线地图简介</a></li>
 <li><a href="https://zhuanlan.zhihu.com/p/26994131" target="_blank" rel="external">动态地理信息可视化——散点地图系列</a></li>
 <li><a href="https://zhuanlan.zhihu.com/p/27005732" target="_blank" rel="external">动态地理信息可视化——leaflet构造路径图</a></li>
-<li><a href="https://zhuanlan.zhihu.com/EasyCharts-R" target="_blank" rel="external">动态地理信息可视化——leaflet填充地图</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/27009715" target="_blank" rel="external">动态地理信息可视化——leaflet填充地图</a></li>
 </ul>
 <p>那么本文理解起来就容易多了，仅仅是温故知新罢了！</p>
 <p>当然如果你学有余力的话，你也可以顺便把百度的Echarts系统地图接口也学习一下：</p>
@@ -396,7 +419,7 @@
 <p>设置随机中非常必要，否则容易导致每次的效果都不一样：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">set.seed(<span class="number">1234</span>)</div></pre></td></tr></table></figure></p>
 <h3 id="向地图素材中添加作图数据："><a href="#向地图素材中添加作图数据：" class="headerlink" title="向地图素材中添加作图数据："></a>向地图素材中添加作图数据：</h3><p><strong>向list对象中添加数据（随机数据）</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">geojson3$features&lt;-lapply(geojson3$features,<span class="keyword">function</span>(feat)&#123;</div><div class="line">feat$properties$scale&lt;-runif(<span class="number">1</span>,<span class="number">0</span>,<span class="number">10</span>)</div><div class="line">feat</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
 <p><strong>从list对象中读取数据(主要读取我们可做更改与扩展的行政区划列表信息)</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mydata&lt;-ldply(geojson3$features,<span class="keyword">function</span>(feat)&#123; </div><div class="line">name&lt;-feat$properties$name</div><div class="line">id&lt;- feat$properties$id</div><div class="line">scale&lt;-as.numeric(feat$properties$scale)</div><div class="line">mydata&lt;-data.frame(name,id,scale)</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p><strong> Default styles for all features </strong></p>
+<p><strong>Default styles for all features </strong></p>
 <blockquote>
 <p>it has  higher precedence  compare with  the style in a function of GeoJSON<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">geojson3$style=list(weight=<span class="number">1</span>,color=<span class="string">"#555555"</span>,opacity=<span class="number">1</span>,fillOpacity=<span class="number">0.8</span>)</div></pre></td></tr></table></figure></p>
 </blockquote>
@@ -467,6 +490,22 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/R语言/" rel="tag"># R语言</a>
+          
+            <a href="/tags/数据可视化/" rel="tag"># 数据可视化</a>
+          
+            <a href="/tags/json/" rel="tag"># json</a>
+          
+            <a href="/tags/地理信息可视化/" rel="tag"># 地理信息可视化</a>
+          
+            <a href="/tags/在线地图/" rel="tag"># 在线地图</a>
+          
+            <a href="/tags/leaflet/" rel="tag"># leaflet</a>
+          
+        </div>
+      
 
       
         
@@ -485,6 +524,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/06/leaflet在线地图进阶宝典之——高级辅助特性/" rel="prev" title="leaflet在线地图进阶宝典之——高级辅助特性">
+                leaflet在线地图进阶宝典之——高级辅助特性 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -558,7 +601,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -580,7 +623,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
