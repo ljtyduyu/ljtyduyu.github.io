@@ -65,7 +65,7 @@
 
 
 <h3 id="辅助工具菜单："><a href="#辅助工具菜单：" class="headerlink" title="辅助工具菜单："></a>辅助工具菜单：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(htmltools)</div><div class="line"><span class="keyword">library</span>(htmlwidgets)</div><div class="line">leaflet() %&gt;% addTiles() %&gt;%</div><div class="line">  addEasyButton(easyButton(      <span class="comment">#添加一键恢复初始窗口比利时</span></div><div class="line">    icon=<span class="string">"fa-globe"</span>, title=<span class="string">"Zoom to Level 1"</span>,</div><div class="line">    onClick=JS(<span class="string">"function(btn, map)&#123; map.setZoom(1); &#125;"</span>))) %&gt;%</div><div class="line">  addEasyButton(easyButton(     <span class="comment">#添加一键定位功能（根据你的所在位置）</span></div><div class="line">    icon=<span class="string">"fa-crosshairs"</span>, title=<span class="string">"Locate Me"</span>,</div><div class="line">    onClick=JS(<span class="string">"function(btn, map)&#123; map.locate(&#123;setView: true&#125;); &#125;"</span>)))</div></pre></td></tr></table></figure>
-<p><img src="http://or3sddq9r.bkt.clouddn.com/image12.png" alt=""></p>
+<p><img src="http://or3sddq9r.bkt.clouddn.com/image12.jpg" alt=""></p>
 <p>动态效果：</p>
 <iframe height="498" width="510" src="http://player.youku.com/embed/XMjgwNzI5NjIyNA==" frameborder="0" 'allowfullscreen'=""></iframe>
 
