@@ -5,7 +5,7 @@
     
   <url>
     <loc>http://www.raindu.com/2017/06/07/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94REmap%E5%8A%A8%E6%80%81%E5%9C%B0%E5%9B%BE/</loc>
-    <lastmod>2017-06-07T11:04:14.982Z</lastmod>
+    <lastmod>2017-06-07T11:07:10.581Z</lastmod>
     <data>
         <display>
         <title>R语言可视化——REmap动态地图</title>
@@ -103,11 +103,11 @@
          
         <tag>数据可视化</tag>
          
+        <tag>json</tag>
+         
         <tag>地理信息可视化</tag>
          
         <tag>在线地图</tag>
-         
-        <tag>json</tag>
          
         <tag>leaflet</tag>
          
@@ -167,9 +167,9 @@
          
         <tag>在线地图</tag>
          
-        <tag>路径图</tag>
-         
         <tag>leaflet</tag>
+         
+        <tag>路径图</tag>
          
         <tag>mini柱形/条形图</tag>
          
