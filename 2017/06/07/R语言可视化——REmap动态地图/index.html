@@ -1,0 +1,970 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="R语言,数据可视化,地理信息可视化,在线地图,REmap," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="raindu's home" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="今天开始，要跟着大家学习一个新的可视化R包——REmap包。 说起来，这个包要归功于百度的可视化开源项目——echarts,它是国内为数不多的高水平开源可视化js库，在业界地位首屈一指。 经过大神的努力，我们终于可以在R语言中以简洁的REmap函数形式，来调用Echarts核心功能，而不用亲自去学js代码，就可以创建动态地图可视化作品。">
+<meta name="keywords" content="R语言,数据可视化,地理信息可视化,在线地图,REmap">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R语言可视化——REmap动态地图">
+<meta property="og:url" content="http://www.raindu.com/2017/06/07/R语言可视化——REmap动态地图/index.html">
+<meta property="og:site_name" content="raindu&#39;s home">
+<meta property="og:description" content="今天开始，要跟着大家学习一个新的可视化R包——REmap包。 说起来，这个包要归功于百度的可视化开源项目——echarts,它是国内为数不多的高水平开源可视化js库，在业界地位首屈一指。 经过大神的努力，我们终于可以在R语言中以简洁的REmap函数形式，来调用Echarts核心功能，而不用亲自去学js代码，就可以创建动态地图可视化作品。">
+<meta property="og:image" content="http://or5l0vdpe.bkt.clouddn.com/image1.png">
+<meta property="og:image" content="http://or5l0vdpe.bkt.clouddn.com/image2.png">
+<meta property="og:image" content="http://or5l0vdpe.bkt.clouddn.com/image3.png">
+<meta property="og:image" content="http://or5l0vdpe.bkt.clouddn.com/image4.png">
+<meta property="og:image" content="http://or5l0vdpe.bkt.clouddn.com/image5.png">
+<meta property="og:image" content="http://or5l0vdpe.bkt.clouddn.com/image6.png">
+<meta property="og:image" content="http://or5l0vdpe.bkt.clouddn.com/image7.png">
+<meta property="og:image" content="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png">
+<meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
+<meta property="og:updated_time" content="2017-06-07T02:02:17.845Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="R语言可视化——REmap动态地图">
+<meta name="twitter:description" content="今天开始，要跟着大家学习一个新的可视化R包——REmap包。 说起来，这个包要归功于百度的可视化开源项目——echarts,它是国内为数不多的高水平开源可视化js库，在业界地位首屈一指。 经过大神的努力，我们终于可以在R语言中以简洁的REmap函数形式，来调用Echarts核心功能，而不用亲自去学js代码，就可以创建动态地图可视化作品。">
+<meta name="twitter:image" content="http://or5l0vdpe.bkt.clouddn.com/image1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'applicationID',
+      apiKey: 'apiKey',
+      indexName: 'indexName',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.raindu.com/2017/06/07/R语言可视化——REmap动态地图/"/>
+
+
+
+
+
+  <title>R语言可视化——REmap动态地图 | raindu's home</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">raindu's home</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">A lifelong learner!!!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/06/07/R语言可视化——REmap动态地图/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RainDu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="raindu's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">R语言可视化——REmap动态地图</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-07T09:27:05+08:00">
+                2017-06-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/地理信息可视化/" itemprop="url" rel="index">
+                    <span itemprop="name">地理信息可视化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>今天开始，要跟着大家学习一个新的可视化R包——REmap包。</p>
+<p>说起来，这个包要归功于百度的可视化开源项目——echarts,它是国内为数不多的高水平开源可视化js库，在业界地位首屈一指。</p>
+<p>经过大神的努力，我们终于可以在R语言中以简洁的REmap函数形式，来调用Echarts核心功能，而不用亲自去学js代码，就可以创建动态地图可视化作品。</p>
+<a id="more"></a>
+<p>如果有小伙伴儿熟悉百度的大数据可视化项目——百度迁徙地图，以及交通通勤图，以及后来的一带一路可视化路线图，肯定对那些动态地图上流动的线条和路径有很深的印象。</p>
+<p>下面我们开始简单介绍REmap的主要功能：</p>
+<p>REmap包中涵盖有一组函数，我所知道并用过的有REmap、REmapB、REmapC、REmapH。</p>
+<p>每一个函数都对应着几种炫酷的动态效果类型：</p>
+<p>今天我们先介绍REmap函数并利用该函数制作简单的流向图：</p>
+<h3 id="安装及加载："><a href="#安装及加载：" class="headerlink" title="安装及加载："></a>安装及加载：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">install.packages(<span class="string">"devtools"</span>)</div><div class="line">devtools::install_github(<span class="string">"lchiffon/REmap"</span>)   <span class="comment">#开发者/包名</span></div><div class="line"><span class="keyword">library</span>(REmap)    <span class="comment">#加载</span></div></pre></td></tr></table></figure>
+<h3 id="语法介绍："><a href="#语法介绍：" class="headerlink" title="语法介绍："></a>语法介绍：</h3><p>REmap函数的作图理念与ggplot其实还是有雷同的，它也是将数据信息和美学信息分开表达，数据信息包含在数据表中，而美化修饰参数都包含在theme内。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">remap(mapdata, title = <span class="string">" "</span>, </div><div class="line">subtitle = <span class="string">""</span>, </div><div class="line">theme = get_theme(<span class="string">"Dark"</span>))</div></pre></td></tr></table></figure></p>
+<p>这是一个典型的REmap函数的结构，mapdata是我们所要展示的数据框格式数据集，里面包含了两列数据：起点位置、终点信息。</p>
+<p>title用于设置主标题、subtitle用于设置副标题。而theme用于设定整个图形的主题风格，该主题是一个封装的函数变量，里面包含诸多参数信息（各种点线面的颜色、度量等信息）。</p>
+<p>下面是一个典型的REmap主题内的参数示例：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">get_theme(theme = <span class="string">"Dark"</span>,</div><div class="line">                  lineColor = <span class="string">"Random"</span>,</div><div class="line">                  backgroundColor = <span class="string">"#1b1b1b"</span>,</div><div class="line">                  titleColor = <span class="string">"fff"</span>,</div><div class="line">                  borderColor = <span class="string">"rgba(100,149,237,1)"</span>,</div><div class="line">                  regionColor = <span class="string">"#1b1b1b"</span>,</div><div class="line">                  labelShow = <span class="literal">T</span>,</div><div class="line">                  pointShow = <span class="literal">F</span>,</div><div class="line">                  pointColor = <span class="string">"gold"</span>)</div></pre></td></tr></table></figure></p>
+<p><strong>参数说明：</strong></p>
+<ul>
+<li>参数一：theme为总体配色，默认选项有“Dark”、“Bright”、“Sky”、“none”</li>
+<li>参数二：lineColor为线条颜色，默认是随机， 也可自行设置，如’red’</li>
+<li>参数三：backgroundColor为地图外背景颜色</li>
+<li>参数四：titleColor为标题颜色</li>
+<li>参数五：borderColor为地图中地域边缘颜色，不同省份、城市的边缘</li>
+<li>参数六：regionColor为地域颜色，即地图显示的颜色</li>
+<li>参数七：labelShow为逻辑参数，是否显示地域名称，默认为T，即显示，只用于remapC函数</li>
+<li>参数八：pointShow为逻辑参数，是否显示地域所在点，默认为F，不显示，只用于remapC函数</li>
+<li>参数九：pointColor为pointShow中点的颜色，只用于remapC函数</li>
+</ul>
+<p><strong>REmap可以非常轻松的获取城市地点的经纬度数据：</strong></p>
+<p>以大连为例：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">get_city_coord(<span class="string">"大连"</span>)</div><div class="line">[<span class="number">1</span>] <span class="number">121.62139</span>  <span class="number">38.91934</span></div></pre></td></tr></table></figure></p>
+<p>如果想要获取一组城市的经纬度信息，可以直接赋值给城市向量：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">city_list &lt;- c(<span class="string">"beijing"</span>,<span class="string">"tianjin"</span>,<span class="string">"shenyang"</span>,<span class="string">"dalian"</span>,<span class="string">"zhengzhou"</span>)</div><div class="line">get_geo_position(city_list)</div><div class="line"></div><div class="line">       lon      lat      city</div><div class="line"><span class="number">1</span> <span class="number">116.4136</span> <span class="number">39.91101</span>   beijing</div><div class="line"><span class="number">2</span> <span class="number">117.2059</span> <span class="number">39.09091</span>   tianjin</div><div class="line"><span class="number">3</span> <span class="number">123.4390</span> <span class="number">41.81134</span>  shenyang</div><div class="line"><span class="number">4</span> <span class="number">121.6214</span> <span class="number">38.91934</span>    dalian</div><div class="line"><span class="number">5</span> <span class="number">113.6313</span> <span class="number">34.75349</span> zhengzhou</div></pre></td></tr></table></figure></p>
+<p>而且据说这两个函数大部分时候对拼音与汉字，甚至拼音的大小写都不敏感，所以避免了很多麻烦。</p>
+<h3 id="生成模拟数据集："><a href="#生成模拟数据集：" class="headerlink" title="生成模拟数据集："></a>生成模拟数据集：</h3><p><strong>创建起始点：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">destination&lt;- c(<span class="string">"beijing"</span>,<span class="string">"tianjin"</span>,<span class="string">"shenyang"</span>,<span class="string">"dalian"</span>,<span class="string">"zhengzhou"</span>)    <span class="comment">#终点</span></div><div class="line">origin&lt;- rep(<span class="string">"dalian"</span>,length(destination))        <span class="comment">#起点</span></div></pre></td></tr></table></figure></p>
+<p><strong>合成数据框格式的起终点数据</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">map_data&lt;- data.frame(origin,destination)</div></pre></td></tr></table></figure></p>
+<p><strong>数据预览：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">head(map_data)</div><div class="line">  origin destination</div><div class="line"><span class="number">1</span> dalian     beijing</div><div class="line"><span class="number">2</span> dalian     tianjin</div><div class="line"><span class="number">3</span> dalian    shenyang</div><div class="line"><span class="number">4</span> dalian      dalian</div><div class="line"><span class="number">5</span> dalian   zhengzhou</div></pre></td></tr></table></figure></p>
+<h3 id="作图函数："><a href="#作图函数：" class="headerlink" title="作图函数："></a>作图函数：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">map_out&lt;-remap(mapdata=map_data,        <span class="comment">#流向地图的数据源（依次为起点、重点两列）</span></div><div class="line">                title=<span class="string">"我是标题"</span>,       <span class="comment">#设置主标题</span></div><div class="line">                subtitle=<span class="string">"我是副标题"</span>,  <span class="comment">#设置副标题</span></div><div class="line">                theme =get_theme(theme=<span class="string">"Bright"</span>)) <span class="comment">#设置主题（默认主题一共有三套：“Dark”,“Bright,”Sky“）</span></div></pre></td></tr></table></figure>
+<p>运行以上代码之后，动态图表已经生成名为<code>map_out</code>的对象，只需使用<code>plot</code>函数调用一下<code>map_out</code>图表对象就可以看到该动态图表效果。</p>
+<blockquote>
+<p>提示下，这里的<code>map_out</code>的对象是一个<code>js</code>代码生成的<code>html</code>对象，运行完<code>plot</code>之后，动态图表效果不是呈现在R的图表窗口而是调用了桌面浏览器的Web窗口。</p>
+</blockquote>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">plot(map_out)</div><div class="line">Save img as: C:\Users\ADMINI~<span class="number">1</span>\AppData\Local\Temp\RtmpAxQndv/ID_20161015191055_242761.html</div></pre></td></tr></table></figure>
+<p><img src="http://or5l0vdpe.bkt.clouddn.com/image1.png" alt=""></p>
+<p>运行完成之后，浏览器窗口会自动呈现动态图表效果：</p>
+<p>其实仔细看以上代码，与<code>ggplot</code>的地图代码相比，要简单很多，数据集也很简单（最重要的直接支持地点名称而不需要经纬度数据），当然这些便利性主要归功于它的底层代码是调用<code>Echarts</code>项目，地理位置信息有百度地图的强大系统支持。</p>
+<h3 id="可选主题介绍："><a href="#可选主题介绍：" class="headerlink" title="可选主题介绍："></a>可选主题介绍：</h3><p><strong>Dark主题：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">map_out1&lt;-remap(mapdata=map_data,title=<span class="string">"我是标题"</span>,subtitle=<span class="string">"我是副标题"</span>,theme =get_theme(theme=<span class="string">"Dark"</span>))</div><div class="line">plot(map_out1)</div></pre></td></tr></table></figure></p>
+<p><img src="http://or5l0vdpe.bkt.clouddn.com/image2.png" alt=""></p>
+<p><strong>Sky主题：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">map_out2&lt;-remap(mapdata=map_data,title=<span class="string">"我是标题"</span>,subtitle=<span class="string">"我是副标题"</span>,theme =get_theme(theme=<span class="string">"Sky"</span>))</div><div class="line"></div><div class="line">map_out&lt;-remap(mapdata=map_data,        </div><div class="line">                title=<span class="string">"我是标题"</span>,        </div><div class="line">                subtitle=<span class="string">"我是副标题"</span>, </div><div class="line">                theme =get_theme(theme=<span class="string">"Bright"</span>))</div><div class="line">plot(map_out2)</div></pre></td></tr></table></figure></p>
+<p><img src="http://or5l0vdpe.bkt.clouddn.com/image3.png" alt=""></p>
+<h3 id="关于主题自定义："><a href="#关于主题自定义：" class="headerlink" title="关于主题自定义："></a>关于主题自定义：</h3><p>以上是该函数内置的三款主题，当然如果你要想自定义主题的话，也是可以的，但是需要将<code>theme=&quot;Sky&quot;</code>设置为<code>none</code>，否则系统主题会覆盖掉你自定义的主题。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">map_out3&lt;-remap(mapdata=map_data,    <span class="comment">#设计流向地图</span></div><div class="line">title=<span class="string">"我是标题"</span>,                    <span class="comment">#设置标题</span></div><div class="line">subtitle=<span class="string">"我是副标题"</span>,               <span class="comment">#设置副标题</span></div><div class="line">theme=get_theme(theme=<span class="string">"none"</span>,        <span class="comment">#设置主题     </span></div><div class="line">lineColor=<span class="string">"blue"</span>,                    <span class="comment">#设置线条颜色</span></div><div class="line">backgroundColor=<span class="string">"white"</span>,             <span class="comment">#设置背景颜色</span></div><div class="line">titleColor=<span class="string">"black"</span>,                  <span class="comment">#设置标题颜色</span></div><div class="line">borderColor=<span class="string">"grey"</span>,                  <span class="comment">#设置地区边界颜色</span></div><div class="line">regionColor=<span class="string">"SandyBrown"</span>)            <span class="comment">#设置地区颜色</span></div><div class="line">)</div><div class="line">plot(map_out3)</div></pre></td></tr></table></figure>
+<p><img src="http://or5l0vdpe.bkt.clouddn.com/image4.png" alt=""></p>
+<p>但是个人习惯，还是比较喜欢先将主题定义好并命名，然后在运行图表代码的时候直接饮用，这样比较利于后期主题的微调：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mytheme&lt;-get_theme(theme=<span class="string">"none"</span>,     <span class="comment">#设置主题     </span></div><div class="line">lineColor=<span class="string">"blue"</span>,                    <span class="comment">#设置线条颜色</span></div><div class="line">backgroundColor=<span class="string">"white"</span>,             <span class="comment">#设置背景颜色</span></div><div class="line">titleColor=<span class="string">"black"</span>,                  <span class="comment">#设置标题颜色</span></div><div class="line">borderColor=<span class="string">"grey"</span>,                  <span class="comment">#设置地区边界颜色</span></div><div class="line">regionColor=<span class="string">"Bisque"</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">map_out4&lt;-remap(mapdata=map_data,    </div><div class="line">title=<span class="string">"我是标题"</span>,                   </div><div class="line">subtitle=<span class="string">"我是副标题"</span>,             </div><div class="line">theme=get_theme(theme=<span class="string">"none"</span>))</div><div class="line">plot(map_out4)</div></pre></td></tr></table></figure>
+<p><img src="http://or5l0vdpe.bkt.clouddn.com/image5.png" alt=""></p>
+<p>当然如果将数据框中的数据两列调换，那么地图就可以做成流入图。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">origin&lt;- c(<span class="string">"beijing"</span>,<span class="string">"tianjin"</span>,<span class="string">"shenyang"</span>,<span class="string">"dalian"</span>,<span class="string">"zhengzhou"</span>)    <span class="comment">#终点</span></div><div class="line">destination&lt;- rep(<span class="string">"dalian"</span>,length(destination))        <span class="comment">#起点</span></div></pre></td></tr></table></figure>
+<p><strong>合成数据框格式的起终点数据</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">map_data&lt;- data.frame(origin,destination) </div><div class="line"></div><div class="line">map_out5&lt;-remap(mapdata=map_data,    </div><div class="line">title=<span class="string">"我是标题"</span>,                   </div><div class="line">subtitle=<span class="string">"我是副标题"</span>,             </div><div class="line">theme=get_theme(theme=<span class="string">"Bright"</span>))</div><div class="line">plot(map_out5)</div></pre></td></tr></table></figure></p>
+<p><img src="http://or5l0vdpe.bkt.clouddn.com/image6.png" alt=""></p>
+<p>如果想要存储该HTML对象，需要设定临时目录：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">setwd(<span class="string">"D:/R/Rscript"</span>)      <span class="comment">#保存图片的位置，不做修改默认为R的工作路径</span></div><div class="line">options(remap.js.web=<span class="literal">T</span>)    <span class="comment">#动态网页图保存命令</span></div><div class="line">plot(map_out5)             <span class="comment">#保存的同时自动调用浏览器窗口</span></div></pre></td></tr></table></figure>
+<p><img src="http://or5l0vdpe.bkt.clouddn.com/image7.png" alt=""></p>
+<p>其实以上所有图表都是带有动态交互效果的！</p>
+<hr>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
+<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
+<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
+
+<hr>
+<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://oqbxptw4f.bkt.clouddn.com/dashang/wechat.jpg" alt="RainDu WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://oqbxptw4f.bkt.clouddn.com/dashang/Alipay.png" alt="RainDu Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/R语言/" rel="tag"># R语言</a>
+          
+            <a href="/tags/数据可视化/" rel="tag"># 数据可视化</a>
+          
+            <a href="/tags/地理信息可视化/" rel="tag"># 地理信息可视化</a>
+          
+            <a href="/tags/在线地图/" rel="tag"># 在线地图</a>
+          
+            <a href="/tags/REmap/" rel="tag"># REmap</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/06/leaflet在线地图进阶宝典之——高级辅助特性/" rel="next" title="leaflet在线地图进阶宝典之——高级辅助特性">
+                <i class="fa fa-chevron-left"></i> leaflet在线地图进阶宝典之——高级辅助特性
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="uyan_frame"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="RainDu" />
+          <p class="site-author-name" itemprop="name">RainDu</p>
+           
+              <p class="site-description motion-element" itemprop="description">身体和心灵，总有一个在路上！</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ljtyduyu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/1676935144" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.zhihu.com/people/du-yu-48-94/activities" title="知乎" target="_blank">知乎</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jianshu.com/u/29dbe4c85801" title="简书" target="_blank">简书</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装及加载："><span class="nav-number">1.</span> <span class="nav-text">安装及加载：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法介绍："><span class="nav-number">2.</span> <span class="nav-text">语法介绍：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成模拟数据集："><span class="nav-number">3.</span> <span class="nav-text">生成模拟数据集：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作图函数："><span class="nav-number">4.</span> <span class="nav-text">作图函数：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可选主题介绍："><span class="nav-number">5.</span> <span class="nav-text">可选主题介绍：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于主题自定义："><span class="nav-number">6.</span> <span class="nav-text">关于主题自定义：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RainDu</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2134216"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -118,9 +118,9 @@
       author: '博主'
     },
     algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
+      applicationID: 'applicationID',
+      apiKey: 'apiKey',
+      indexName: 'indexName',
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     }
@@ -258,9 +258,47 @@
       
 
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
     </ul>
   
 
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
   
 </nav>
 
@@ -288,10 +326,10 @@
     
       <div class="tag-cloud">
         <div class="tag-cloud-title">
-            目前共计 27 个标签
+            目前共计 28 个标签
         </div>
         <div class="tag-cloud-tags">
-          <a href="/tags/HTML/" style="font-size: 12px; color: #ccc">HTML</a> <a href="/tags/PowerBI/" style="font-size: 12px; color: #ccc">PowerBI</a> <a href="/tags/R语言/" style="font-size: 30px; color: #111">R语言</a> <a href="/tags/emoji/" style="font-size: 12px; color: #ccc">emoji</a> <a href="/tags/ggplot2/" style="font-size: 27.75px; color: #282828">ggplot2</a> <a href="/tags/gif/" style="font-size: 14.25px; color: #b5b5b5">gif</a> <a href="/tags/json/" style="font-size: 12px; color: #ccc">json</a> <a href="/tags/leaflet/" style="font-size: 23.25px; color: #575757">leaflet</a> <a href="/tags/mini柱形-条形图/" style="font-size: 18.75px; color: #868686">mini柱形/条形图</a> <a href="/tags/mini饼图/" style="font-size: 12px; color: #ccc">mini饼图</a> <a href="/tags/rvest/" style="font-size: 12px; color: #ccc">rvest</a> <a href="/tags/仪表盘/" style="font-size: 12px; color: #ccc">仪表盘</a> <a href="/tags/信息图/" style="font-size: 16.5px; color: #9d9d9d">信息图</a> <a href="/tags/动态图表/" style="font-size: 12px; color: #ccc">动态图表</a> <a href="/tags/动态地图/" style="font-size: 12px; color: #ccc">动态地图</a> <a href="/tags/国产电影/" style="font-size: 12px; color: #ccc">国产电影</a> <a href="/tags/图层控制/" style="font-size: 12px; color: #ccc">图层控制</a> <a href="/tags/在线地图/" style="font-size: 23.25px; color: #575757">在线地图</a> <a href="/tags/地理信息可视化/" style="font-size: 25.5px; color: #404040">地理信息可视化</a> <a href="/tags/填色地图/" style="font-size: 12px; color: #ccc">填色地图</a> <a href="/tags/排版/" style="font-size: 12px; color: #ccc">排版</a> <a href="/tags/数据可视化/" style="font-size: 30px; color: #111">数据可视化</a> <a href="/tags/热力地图/" style="font-size: 12px; color: #ccc">热力地图</a> <a href="/tags/爬虫/" style="font-size: 21px; color: #6f6f6f">爬虫</a> <a href="/tags/版面设计/" style="font-size: 12px; color: #ccc">版面设计</a> <a href="/tags/空气质量可视化/" style="font-size: 12px; color: #ccc">空气质量可视化</a> <a href="/tags/路径图/" style="font-size: 14.25px; color: #b5b5b5">路径图</a>
+          <a href="/tags/HTML/" style="font-size: 12px; color: #ccc">HTML</a> <a href="/tags/PowerBI/" style="font-size: 12px; color: #ccc">PowerBI</a> <a href="/tags/REmap/" style="font-size: 12px; color: #ccc">REmap</a> <a href="/tags/R语言/" style="font-size: 30px; color: #111">R语言</a> <a href="/tags/emoji/" style="font-size: 12px; color: #ccc">emoji</a> <a href="/tags/ggplot2/" style="font-size: 28px; color: #262626">ggplot2</a> <a href="/tags/gif/" style="font-size: 14px; color: #b7b7b7">gif</a> <a href="/tags/json/" style="font-size: 12px; color: #ccc">json</a> <a href="/tags/leaflet/" style="font-size: 22px; color: #646464">leaflet</a> <a href="/tags/mini柱形-条形图/" style="font-size: 18px; color: #8e8e8e">mini柱形/条形图</a> <a href="/tags/mini饼图/" style="font-size: 12px; color: #ccc">mini饼图</a> <a href="/tags/rvest/" style="font-size: 12px; color: #ccc">rvest</a> <a href="/tags/仪表盘/" style="font-size: 12px; color: #ccc">仪表盘</a> <a href="/tags/信息图/" style="font-size: 16px; color: #a2a2a2">信息图</a> <a href="/tags/动态图表/" style="font-size: 12px; color: #ccc">动态图表</a> <a href="/tags/动态地图/" style="font-size: 12px; color: #ccc">动态地图</a> <a href="/tags/国产电影/" style="font-size: 12px; color: #ccc">国产电影</a> <a href="/tags/图层控制/" style="font-size: 12px; color: #ccc">图层控制</a> <a href="/tags/在线地图/" style="font-size: 24px; color: #4f4f4f">在线地图</a> <a href="/tags/地理信息可视化/" style="font-size: 26px; color: #3b3b3b">地理信息可视化</a> <a href="/tags/填色地图/" style="font-size: 12px; color: #ccc">填色地图</a> <a href="/tags/排版/" style="font-size: 12px; color: #ccc">排版</a> <a href="/tags/数据可视化/" style="font-size: 30px; color: #111">数据可视化</a> <a href="/tags/热力地图/" style="font-size: 12px; color: #ccc">热力地图</a> <a href="/tags/爬虫/" style="font-size: 20px; color: #797979">爬虫</a> <a href="/tags/版面设计/" style="font-size: 12px; color: #ccc">版面设计</a> <a href="/tags/空气质量可视化/" style="font-size: 12px; color: #ccc">空气质量可视化</a> <a href="/tags/路径图/" style="font-size: 14px; color: #b7b7b7">路径图</a>
         </div>
       </div>
     
@@ -349,7 +387,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -371,7 +409,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -613,6 +651,19 @@
   
 
 
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
 
 
 

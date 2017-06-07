@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[R语言可视化——REmap动态地图]]></title>
+    <url>%2F2017%2F06%2F07%2FR%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94REmap%E5%8A%A8%E6%80%81%E5%9C%B0%E5%9B%BE%2F</url>
+    <content type="text"><![CDATA[今天开始，要跟着大家学习一个新的可视化R包——REmap包。 说起来，这个包要归功于百度的可视化开源项目——echarts,它是国内为数不多的高水平开源可视化js库，在业界地位首屈一指。 经过大神的努力，我们终于可以在R语言中以简洁的REmap函数形式，来调用Echarts核心功能，而不用亲自去学js代码，就可以创建动态地图可视化作品。 如果有小伙伴儿熟悉百度的大数据可视化项目——百度迁徙地图，以及交通通勤图，以及后来的一带一路可视化路线图，肯定对那些动态地图上流动的线条和路径有很深的印象。 下面我们开始简单介绍REmap的主要功能： REmap包中涵盖有一组函数，我所知道并用过的有REmap、REmapB、REmapC、REmapH。 每一个函数都对应着几种炫酷的动态效果类型： 今天我们先介绍REmap函数并利用该函数制作简单的流向图： 安装及加载：123install.packages("devtools")devtools::install_github("lchiffon/REmap") #开发者/包名library(REmap) #加载 语法介绍：REmap函数的作图理念与ggplot其实还是有雷同的，它也是将数据信息和美学信息分开表达，数据信息包含在数据表中，而美化修饰参数都包含在theme内。123remap(mapdata, title = " ", subtitle = "", theme = get_theme("Dark")) 这是一个典型的REmap函数的结构，mapdata是我们所要展示的数据框格式数据集，里面包含了两列数据：起点位置、终点信息。 title用于设置主标题、subtitle用于设置副标题。而theme用于设定整个图形的主题风格，该主题是一个封装的函数变量，里面包含诸多参数信息（各种点线面的颜色、度量等信息）。 下面是一个典型的REmap主题内的参数示例：123456789get_theme(theme = "Dark", lineColor = "Random", backgroundColor = "#1b1b1b", titleColor = "fff", borderColor = "rgba(100,149,237,1)", regionColor = "#1b1b1b", labelShow = T, pointShow = F, pointColor = "gold") 参数说明： 参数一：theme为总体配色，默认选项有“Dark”、“Bright”、“Sky”、“none” 参数二：lineColor为线条颜色，默认是随机， 也可自行设置，如’red’ 参数三：backgroundColor为地图外背景颜色 参数四：titleColor为标题颜色 参数五：borderColor为地图中地域边缘颜色，不同省份、城市的边缘 参数六：regionColor为地域颜色，即地图显示的颜色 参数七：labelShow为逻辑参数，是否显示地域名称，默认为T，即显示，只用于remapC函数 参数八：pointShow为逻辑参数，是否显示地域所在点，默认为F，不显示，只用于remapC函数 参数九：pointColor为pointShow中点的颜色，只用于remapC函数 REmap可以非常轻松的获取城市地点的经纬度数据： 以大连为例：12get_city_coord("大连")[1] 121.62139 38.91934 如果想要获取一组城市的经纬度信息，可以直接赋值给城市向量：123456789city_list &lt;- c("beijing","tianjin","shenyang","dalian","zhengzhou")get_geo_position(city_list) lon lat city1 116.4136 39.91101 beijing2 117.2059 39.09091 tianjin3 123.4390 41.81134 shenyang4 121.6214 38.91934 dalian5 113.6313 34.75349 zhengzhou 而且据说这两个函数大部分时候对拼音与汉字，甚至拼音的大小写都不敏感，所以避免了很多麻烦。 生成模拟数据集：创建起始点：12destination&lt;- c("beijing","tianjin","shenyang","dalian","zhengzhou") #终点origin&lt;- rep("dalian",length(destination)) #起点 合成数据框格式的起终点数据1map_data&lt;- data.frame(origin,destination) 数据预览：1234567head(map_data) origin destination1 dalian beijing2 dalian tianjin3 dalian shenyang4 dalian dalian5 dalian zhengzhou 作图函数：1234map_out&lt;-remap(mapdata=map_data, #流向地图的数据源（依次为起点、重点两列） title="我是标题", #设置主标题 subtitle="我是副标题", #设置副标题 theme =get_theme(theme="Bright")) #设置主题（默认主题一共有三套：“Dark”,“Bright,”Sky“） 运行以上代码之后，动态图表已经生成名为map_out的对象，只需使用plot函数调用一下map_out图表对象就可以看到该动态图表效果。 提示下，这里的map_out的对象是一个js代码生成的html对象，运行完plot之后，动态图表效果不是呈现在R的图表窗口而是调用了桌面浏览器的Web窗口。 12plot(map_out)Save img as: C:\Users\ADMINI~1\AppData\Local\Temp\RtmpAxQndv/ID_20161015191055_242761.html 运行完成之后，浏览器窗口会自动呈现动态图表效果： 其实仔细看以上代码，与ggplot的地图代码相比，要简单很多，数据集也很简单（最重要的直接支持地点名称而不需要经纬度数据），当然这些便利性主要归功于它的底层代码是调用Echarts项目，地理位置信息有百度地图的强大系统支持。 可选主题介绍：Dark主题：12map_out1&lt;-remap(mapdata=map_data,title="我是标题",subtitle="我是副标题",theme =get_theme(theme="Dark"))plot(map_out1) Sky主题：1234567map_out2&lt;-remap(mapdata=map_data,title="我是标题",subtitle="我是副标题",theme =get_theme(theme="Sky"))map_out&lt;-remap(mapdata=map_data, title="我是标题", subtitle="我是副标题", theme =get_theme(theme="Bright"))plot(map_out2) 关于主题自定义：以上是该函数内置的三款主题，当然如果你要想自定义主题的话，也是可以的，但是需要将theme=&quot;Sky&quot;设置为none，否则系统主题会覆盖掉你自定义的主题。 1234567891011map_out3&lt;-remap(mapdata=map_data, #设计流向地图title="我是标题", #设置标题subtitle="我是副标题", #设置副标题theme=get_theme(theme="none", #设置主题 lineColor="blue", #设置线条颜色backgroundColor="white", #设置背景颜色titleColor="black", #设置标题颜色borderColor="grey", #设置地区边界颜色regionColor="SandyBrown") #设置地区颜色)plot(map_out3) 但是个人习惯，还是比较喜欢先将主题定义好并命名，然后在运行图表代码的时候直接饮用，这样比较利于后期主题的微调： 123456mytheme&lt;-get_theme(theme="none", #设置主题 lineColor="blue", #设置线条颜色backgroundColor="white", #设置背景颜色titleColor="black", #设置标题颜色borderColor="grey", #设置地区边界颜色regionColor="Bisque") 12345map_out4&lt;-remap(mapdata=map_data, title="我是标题", subtitle="我是副标题", theme=get_theme(theme="none"))plot(map_out4) 当然如果将数据框中的数据两列调换，那么地图就可以做成流入图。 12origin&lt;- c("beijing","tianjin","shenyang","dalian","zhengzhou") #终点destination&lt;- rep("dalian",length(destination)) #起点 合成数据框格式的起终点数据1234567map_data&lt;- data.frame(origin,destination) map_out5&lt;-remap(mapdata=map_data, title="我是标题", subtitle="我是副标题", theme=get_theme(theme="Bright"))plot(map_out5) 如果想要存储该HTML对象，需要设定临时目录： 123setwd("D:/R/Rscript") #保存图片的位置，不做修改默认为R的工作路径options(remap.js.web=T) #动态网页图保存命令plot(map_out5) #保存的同时自动调用浏览器窗口 其实以上所有图表都是带有动态交互效果的！ 联系方式：wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]553270834 个人简介：杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。Mail:578708965@qq.com 备注信息：本作品采用知识共享署名-非商业性使用 4.0 国际许可协议进行许可。]]></content>
+      <categories>
+        <category>地理信息可视化</category>
+      </categories>
+      <tags>
+        <tag>R语言</tag>
+        <tag>数据可视化</tag>
+        <tag>地理信息可视化</tag>
+        <tag>在线地图</tag>
+        <tag>REmap</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[leaflet在线地图进阶宝典之——高级辅助特性]]></title>
     <url>%2F2017%2F06%2F06%2Fleaflet%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE%E8%BF%9B%E9%98%B6%E5%AE%9D%E5%85%B8%E4%B9%8B%E2%80%94%E2%80%94%E9%AB%98%E7%BA%A7%E8%BE%85%E5%8A%A9%E7%89%B9%E6%80%A7%2F</url>
     <content type="text"><![CDATA[本文跟大家分享leaflet在线地图的高级附加属性，这些属性通常来讲仅仅作为我们数据额可视化项目的修饰元素，而并不会影响数据元素。 但是有了这些辅助修饰元素，往往可以使你的数据可视化项目变得更具人性化。 本文内容根据leaflet的官方主页（R语言接口）翻译而来： 附加属性： 测度工具：Leaflet Measure 增加该工具可以轻而易举的让你在可视化地图中通过鼠标打点，测量两点之间的距离，如果是闭合区域，则可以直接计算闭合区域的真实面积。 网格线：Graticule 网格线可以提供平面坐标系下地理空间的经纬度位置参考线。 昼夜分界线：Terminator (day/night indicator) 昼夜分界线可以提供一天中不同地区的昼夜分界状况。 mini小地图：Minimap mini窗口小地图可以提供定位窗口，让你知道主版面中位置在更大范围地理区域上的大致方位，就相当于游戏中的mini导航图。 辅助按钮：EasyButton 辅助按钮可以提供一键初始化比例尺，一键定位功能。 自定义js属性：Custom JavaScript with htmlwidgets::onRender 你可以利用leaflet与HTML的接口工具对地图版面进行更加丰富的属性设置。 测度工具：Leaflet Measure123library(leaflet)m&lt;-leaflet()%&gt;%addTiles()m %&gt;%fitBounds(-73.9,40.75,-73.95,40.8) %&gt;%addMeasure() 右上侧的小弹窗打开之后选择创建测距选项，就可以通过鼠标打点儿，测量两点之间的地理距离，如果是三个以上的点，则会测量出闭合多边形区域的面积。 动态效果： 12345678m %&gt;% fitBounds(13.76134, 52.675499, 13.0884, 52.33812) %&gt;% #设定版面呈现的地理区域范围 addMeasure( position = "bottomleft", #测距菜单位置 primaryLengthUnit = "meters", #测量的点距离输出单位 primaryAreaUnit = "sqmeters", #测量的闭合多边形区域面积输出单位 activeColor = "#3D535D", # completedColor = "#7D4479") 网格线：Graticule1leaflet() %&gt;% addTiles() %&gt;% setView(0,0,2) %&gt;% addGraticule() 12leaflet() %&gt;% addTiles() %&gt;% setView(0,0,2) %&gt;% addGraticule(interval = 10, style = list(color = "#FF0000", weight = 1)) 而且网格线系统是可控元素，控制方式就是将其当成一个单独的图层，然后分组。 123leaflet() %&gt;% addTiles() %&gt;% setView(0,0,2) %&gt;% addGraticule(group = "Graticule") %&gt;% addLayersControl(overlayGroups = c("Graticule"),options=layersControlOptions(collapsed = FALSE)) 昼夜分界线：Terminator (day/night indicator)1leaflet() %&gt;% addTiles() %&gt;% addTerminator() 昼夜分界线支持自定义日期和分组功能： 123456789leaflet() %&gt;% addTiles() %&gt;% addTerminator( resolution=10, time = "2013-06-20T21:00:00Z", group = "daylight") %&gt;% addLayersControl( overlayGroups = "daylight", options = layersControlOptions(collapsed = FALSE)) mini导航地图：Minimap123leaflet() %&gt;% setView(0,0,3) %&gt;% addProviderTiles(providers$Esri.WorldStreetMap) %&gt;% addMiniMap() mini导航地图中的地图背景也是支持自定义的： 123leaflet() %&gt;% setView(0,0,3) %&gt;% addProviderTiles(providers$Esri.WorldStreetMap) %&gt;% addMiniMap(tiles = providers$Esri.WorldStreetMap,toggleDisplay = TRUE) 视频演示： 辅助工具菜单：123456789library(htmltools)library(htmlwidgets)leaflet() %&gt;% addTiles() %&gt;% addEasyButton(easyButton( #添加一键恢复初始窗口比利时 icon="fa-globe", title="Zoom to Level 1", onClick=JS("function(btn, map)&#123; map.setZoom(1); &#125;"))) %&gt;% addEasyButton(easyButton( #添加一键定位功能（根据你的所在位置） icon="fa-crosshairs", title="Locate Me", onClick=JS("function(btn, map)&#123; map.locate(&#123;setView: true&#125;); &#125;"))) 动态效果： 辅助按钮：EasyButton以下代码展示了如何通过调用js工具控件来通过打开菜单工具开启地图上的点聚合功能，同时关闭菜单工具按钮，关闭点聚合功能。 1234567891011121314151617181920212223242526272829303132leaflet() %&gt;% addTiles() %&gt;% addMarkers(data=quakes, clusterOptions = markerClusterOptions(), clusterId = "quakesCluster") %&gt;% addEasyButton(easyButton( states = list( easyButtonState( #状态1：打开菜单，开启点聚合 stateName="unfrozen-markers", icon="ion-toggle", title="Freeze Clusters", onClick = JS(" function(btn,map) &#123; var clusterManager = map.layerManager.getLayer('cluster', 'quakesCluster'); clusterManager.freezeAtZoom(); btn.state('frozen-markers'); &#125;") ), easyButtonState( #状态2：关闭菜单，结束点聚合功能 stateName="frozen-markers", icon="ion-toggle-filled", title="UnFreeze Clusters", onClick = JS(" function(btn, map) &#123; var clusterManager = map.layerManager.getLayer('cluster', 'quakesCluster'); clusterManager.unfreeze(); btn.state('unfrozen-markers'); &#125;") ) ) )) 动态效果： 自定义js属性：Custom JavaScript with htmlwidgets::onRender基础图层会根据导航窗内的图层风格改变而随之转换：1234567891011121314151617181920mymap&lt;-leaflet() %&gt;% setView(0,0,3)esri &lt;- grep("^Esri", providers, value = TRUE)for (provider in esri) &#123; mymap &lt;-mymap %&gt;% addProviderTiles(provider, group = provider)&#125;mymap %&gt;% addLayersControl(baseGroups = names(esri), options = layersControlOptions(collapsed = FALSE)) %&gt;% addMiniMap(tiles = esri[[1]], toggleDisplay = TRUE, position = "bottomleft") %&gt;% htmlwidgets::onRender(" function(el, x) &#123; var myMap = this; myMap.on('baselayerchange', function (e) &#123; myMap.minimap.changeLayer(L.tileLayer.provider(e.name)); &#125;) &#125;") 动态效果： 联系方式：wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]553270834 个人简介：杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。Mail:578708965@qq.com 备注信息：本作品采用知识共享署名-非商业性使用 4.0 国际许可协议进行许可。]]></content>
@@ -106,9 +121,9 @@
       </categories>
       <tags>
         <tag>R语言</tag>
-        <tag>ggplot2</tag>
         <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
+        <tag>ggplot2</tag>
         <tag>mini柱形/条形图</tag>
       </tags>
   </entry>
@@ -121,9 +136,9 @@
       </categories>
       <tags>
         <tag>R语言</tag>
-        <tag>ggplot2</tag>
         <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
+        <tag>ggplot2</tag>
         <tag>mini饼图</tag>
       </tags>
   </entry>
@@ -136,8 +151,8 @@
       </categories>
       <tags>
         <tag>R语言</tag>
-        <tag>ggplot2</tag>
         <tag>数据可视化</tag>
+        <tag>ggplot2</tag>
         <tag>爬虫</tag>
         <tag>国产电影</tag>
         <tag>rvest</tag>
@@ -152,8 +167,8 @@
       </categories>
       <tags>
         <tag>R语言</tag>
-        <tag>ggplot2</tag>
         <tag>数据可视化</tag>
+        <tag>ggplot2</tag>
         <tag>爬虫</tag>
         <tag>空气质量可视化</tag>
       </tags>
@@ -167,8 +182,8 @@
       </categories>
       <tags>
         <tag>R语言</tag>
-        <tag>ggplot2</tag>
         <tag>数据可视化</tag>
+        <tag>ggplot2</tag>
         <tag>路径图</tag>
       </tags>
   </entry>
@@ -181,8 +196,8 @@
       </categories>
       <tags>
         <tag>R语言</tag>
-        <tag>ggplot2</tag>
         <tag>数据可视化</tag>
+        <tag>ggplot2</tag>
         <tag>热力地图</tag>
       </tags>
   </entry>
@@ -195,8 +210,8 @@
       </categories>
       <tags>
         <tag>R语言</tag>
-        <tag>ggplot2</tag>
         <tag>数据可视化</tag>
+        <tag>ggplot2</tag>
         <tag>信息图</tag>
         <tag>版面设计</tag>
         <tag>图层控制</tag>
@@ -211,8 +226,8 @@
       </categories>
       <tags>
         <tag>R语言</tag>
-        <tag>ggplot2</tag>
         <tag>数据可视化</tag>
+        <tag>ggplot2</tag>
         <tag>信息图</tag>
       </tags>
   </entry>
@@ -225,8 +240,8 @@
       </categories>
       <tags>
         <tag>R语言</tag>
-        <tag>ggplot2</tag>
         <tag>数据可视化</tag>
+        <tag>ggplot2</tag>
         <tag>gif</tag>
         <tag>动态图表</tag>
       </tags>
@@ -240,8 +255,8 @@
       </categories>
       <tags>
         <tag>R语言</tag>
-        <tag>ggplot2</tag>
         <tag>数据可视化</tag>
+        <tag>ggplot2</tag>
         <tag>gif</tag>
         <tag>动态地图</tag>
       </tags>
@@ -255,8 +270,8 @@
       </categories>
       <tags>
         <tag>R语言</tag>
-        <tag>ggplot2</tag>
         <tag>数据可视化</tag>
+        <tag>ggplot2</tag>
         <tag>仪表盘</tag>
         <tag>排版</tag>
       </tags>
@@ -270,8 +285,8 @@
       </categories>
       <tags>
         <tag>R语言</tag>
-        <tag>ggplot2</tag>
         <tag>数据可视化</tag>
+        <tag>ggplot2</tag>
         <tag>信息图</tag>
       </tags>
   </entry>
@@ -284,8 +299,8 @@
       </categories>
       <tags>
         <tag>R语言</tag>
-        <tag>ggplot2</tag>
         <tag>数据可视化</tag>
+        <tag>ggplot2</tag>
         <tag>爬虫</tag>
         <tag>emoji</tag>
       </tags>
@@ -299,8 +314,8 @@
       </categories>
       <tags>
         <tag>R语言</tag>
-        <tag>ggplot2</tag>
         <tag>数据可视化</tag>
+        <tag>ggplot2</tag>
       </tags>
   </entry>
   <entry>
@@ -312,8 +327,8 @@
       </categories>
       <tags>
         <tag>R语言</tag>
-        <tag>ggplot2</tag>
         <tag>数据可视化</tag>
+        <tag>ggplot2</tag>
         <tag>爬虫</tag>
       </tags>
   </entry>
@@ -340,8 +355,8 @@
       </categories>
       <tags>
         <tag>R语言</tag>
-        <tag>ggplot2</tag>
         <tag>数据可视化</tag>
+        <tag>ggplot2</tag>
       </tags>
   </entry>
   <entry>
@@ -353,8 +368,8 @@
       </categories>
       <tags>
         <tag>R语言</tag>
-        <tag>ggplot2</tag>
         <tag>数据可视化</tag>
+        <tag>ggplot2</tag>
       </tags>
   </entry>
   <entry>
@@ -366,8 +381,8 @@
       </categories>
       <tags>
         <tag>R语言</tag>
-        <tag>ggplot2</tag>
         <tag>数据可视化</tag>
+        <tag>ggplot2</tag>
       </tags>
   </entry>
 </search>

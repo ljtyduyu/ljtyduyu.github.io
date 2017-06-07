@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="R语言,ggplot2,数据可视化,信息图," />
+  <meta name="keywords" content="R语言,数据可视化,ggplot2,信息图," />
 
 
 
@@ -93,7 +93,7 @@
 
 
 <meta name="description" content="该图表案例来源于某财经杂志，我是从刘万祥老师那里看来的，之后又在知乎上发现有人发帖求做法。我就抱着试一试的心态，用ggplot2尝试着做，没想到真的让我给弄出来了。 这里分享给大家我的做法和思路：">
-<meta name="keywords" content="R语言,ggplot2,数据可视化,信息图">
+<meta name="keywords" content="R语言,数据可视化,ggplot2,信息图">
 <meta property="og:type" content="article">
 <meta property="og:title" content="鱼眼百分比信息图">
 <meta property="og:url" content="http://www.raindu.com/2017/05/27/鱼眼百分比信息图/index.html">
@@ -128,9 +128,9 @@
       author: '博主'
     },
     algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
+      applicationID: 'applicationID',
+      apiKey: 'apiKey',
+      indexName: 'indexName',
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     }
@@ -268,9 +268,47 @@
       
 
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
     </ul>
   
 
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
   
 </nav>
 
@@ -473,9 +511,9 @@
           
             <a href="/tags/R语言/" rel="tag"># R语言</a>
           
-            <a href="/tags/ggplot2/" rel="tag"># ggplot2</a>
-          
             <a href="/tags/数据可视化/" rel="tag"># 数据可视化</a>
+          
+            <a href="/tags/ggplot2/" rel="tag"># ggplot2</a>
           
             <a href="/tags/信息图/" rel="tag"># 信息图</a>
           
@@ -576,7 +614,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -598,7 +636,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -860,6 +898,19 @@
   
 
 
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
 
 
 
