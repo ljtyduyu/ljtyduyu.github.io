@@ -105,10 +105,10 @@
 <meta property="og:image" content="http://or6biw7ir.bkt.clouddn.com/image4.png">
 <meta property="og:image" content="http://or6biw7ir.bkt.clouddn.com/image5.png">
 <meta property="og:image" content="http://or6biw7ir.bkt.clouddn.com/image6.png">
-<meta property="og:image" content="http://or6biw7ir.bkt.clouddn.com/image8.png">
+<meta property="og:image" content="http://or6biw7ir.bkt.clouddn.com/image8.gif">
 <meta property="og:image" content="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-06-07T11:02:35.359Z">
+<meta property="og:updated_time" content="2017-06-07T11:10:47.829Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="R语言可视化——REmap(路径图)">
 <meta name="twitter:description" content="今天紧接昨天的内容，跟大家分享如何使用REmap函数制作路径图。 路径图所需要的数据结构非常简单，两列数据，左侧是起点，右侧是终点，并且每一行的终点是下一行的起点，这样最终才可以制作出连接在一起的路径图。">
@@ -446,7 +446,7 @@
 <p><img src="http://or6biw7ir.bkt.clouddn.com/image6.png" alt=""></p>
 <p>你可以用这种方法，结合自己的数据来表达多个地域之间的流动方向：比如一打一路、长征、贸易路线、铁路路线图等都非常适合这种表达。</p>
 <p>gif效果：</p>
-<p><img src="http://or6biw7ir.bkt.clouddn.com/image8.png" alt=""></p>
+<p><img src="http://or6biw7ir.bkt.clouddn.com/image8.gif" alt=""></p>
 <p>如果想要存储该HTML对象，需要设定临时目录：</p>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">setwd(<span class="string">"D:/R/Rscript"</span>)      <span class="comment">#保存图片的位置，不做修改默认为R的工作路径</span></div><div class="line">options(remap.js.web=<span class="literal">T</span>)    <span class="comment">#动态网页图保存命令</span></div><div class="line">plot(map_out5)             <span class="comment">#保存的同时自动调用浏览器窗口</span></div></pre></td></tr></table></figure>
 <hr>
