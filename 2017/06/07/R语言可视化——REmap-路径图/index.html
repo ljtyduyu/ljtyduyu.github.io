@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="R语言,数据可视化,ggplot2," />
+  <meta name="keywords" content="R语言,数据可视化,地理信息可视化,在线地图,REmap,路径图," />
 
 
 
@@ -92,24 +92,27 @@
 
 
 
-<meta name="description" content="该案例取自刘万祥老师的博客——EexclPro。最初使用Excel完成，相当复杂，我自己是没有那个水平了，所以本例使用R语言完成。 还原度相对来说比较高，但是该图实用性确实不很高，经济学人也只是偶尔亮出来装点门面而已。">
-<meta name="keywords" content="R语言,数据可视化,ggplot2">
+<meta name="description" content="今天紧接昨天的内容，跟大家分享如何使用REmap函数制作路径图。 路径图所需要的数据结构非常简单，两列数据，左侧是起点，右侧是终点，并且每一行的终点是下一行的起点，这样最终才可以制作出连接在一起的路径图。">
+<meta name="keywords" content="R语言,数据可视化,地理信息可视化,在线地图,REmap,路径图">
 <meta property="og:type" content="article">
-<meta property="og:title" content="仿ECO事件圆环图">
-<meta property="og:url" content="http://www.raindu.com/2017/05/26/仿ECO事件圆环图/index.html">
+<meta property="og:title" content="R语言可视化——REmap(路径图)">
+<meta property="og:url" content="http://www.raindu.com/2017/06/07/R语言可视化——REmap-路径图/index.html">
 <meta property="og:site_name" content="raindu&#39;s home">
-<meta property="og:description" content="该案例取自刘万祥老师的博客——EexclPro。最初使用Excel完成，相当复杂，我自己是没有那个水平了，所以本例使用R语言完成。 还原度相对来说比较高，但是该图实用性确实不很高，经济学人也只是偶尔亮出来装点门面而已。">
-<meta property="og:image" content="http://oqjxwq9ix.bkt.clouddn.com/one.png">
-<meta property="og:image" content="http://oqjxwq9ix.bkt.clouddn.com/two.png">
-<meta property="og:image" content="http://oqjxwq9ix.bkt.clouddn.com/three.png">
-<meta property="og:image" content="http://oqjxwq9ix.bkt.clouddn.com/four.png">
+<meta property="og:description" content="今天紧接昨天的内容，跟大家分享如何使用REmap函数制作路径图。 路径图所需要的数据结构非常简单，两列数据，左侧是起点，右侧是终点，并且每一行的终点是下一行的起点，这样最终才可以制作出连接在一起的路径图。">
+<meta property="og:image" content="http://or6biw7ir.bkt.clouddn.com/image1.png">
+<meta property="og:image" content="http://or6biw7ir.bkt.clouddn.com/image2.png">
+<meta property="og:image" content="http://or6biw7ir.bkt.clouddn.com/image3.png">
+<meta property="og:image" content="http://or6biw7ir.bkt.clouddn.com/image4.png">
+<meta property="og:image" content="http://or6biw7ir.bkt.clouddn.com/image5.png">
+<meta property="og:image" content="http://or6biw7ir.bkt.clouddn.com/image6.png">
+<meta property="og:image" content="http://or6biw7ir.bkt.clouddn.com/image8.png">
 <meta property="og:image" content="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-05-26T09:13:35.614Z">
+<meta property="og:updated_time" content="2017-06-07T11:02:35.359Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="仿ECO事件圆环图">
-<meta name="twitter:description" content="该案例取自刘万祥老师的博客——EexclPro。最初使用Excel完成，相当复杂，我自己是没有那个水平了，所以本例使用R语言完成。 还原度相对来说比较高，但是该图实用性确实不很高，经济学人也只是偶尔亮出来装点门面而已。">
-<meta name="twitter:image" content="http://oqjxwq9ix.bkt.clouddn.com/one.png">
+<meta name="twitter:title" content="R语言可视化——REmap(路径图)">
+<meta name="twitter:description" content="今天紧接昨天的内容，跟大家分享如何使用REmap函数制作路径图。 路径图所需要的数据结构非常简单，两列数据，左侧是起点，右侧是终点，并且每一行的终点是下一行的起点，这样最终才可以制作出连接在一起的路径图。">
+<meta name="twitter:image" content="http://or6biw7ir.bkt.clouddn.com/image1.png">
 
 
 
@@ -137,13 +140,13 @@
 
 
 
-  <link rel="canonical" href="http://www.raindu.com/2017/05/26/仿ECO事件圆环图/"/>
+  <link rel="canonical" href="http://www.raindu.com/2017/06/07/R语言可视化——REmap-路径图/"/>
 
 
 
 
 
-  <title>仿ECO事件圆环图 | raindu's home</title>
+  <title>R语言可视化——REmap(路径图) | raindu's home</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -331,7 +334,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/05/26/仿ECO事件圆环图/">
+    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/06/07/R语言可视化——REmap-路径图/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="RainDu">
@@ -348,7 +351,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">仿ECO事件圆环图</h1>
+          <h1 class="post-title" itemprop="name headline">R语言可视化——REmap(路径图)</h1>
         
 
         <div class="post-meta">
@@ -360,8 +363,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-26T16:40:55+08:00">
-                2017-05-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-07T18:49:51+08:00">
+                2017-06-07
               </time>
             
 
@@ -383,8 +386,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据可视化/" itemprop="url" rel="index">
-                    <span itemprop="name">数据可视化</span>
+                  <a href="/categories/地理信息可视化/" itemprop="url" rel="index">
+                    <span itemprop="name">地理信息可视化</span>
                   </a>
                 </span>
 
@@ -417,29 +420,35 @@
       
 
       
-        <p>该案例取自刘万祥老师的博客——EexclPro。最初使用Excel完成，相当复杂，我自己是没有那个水平了，所以本例使用R语言完成。</p>
-<p>还原度相对来说比较高，但是该图实用性确实不很高，经济学人也只是偶尔亮出来装点门面而已。</p>
+        <p>今天紧接昨天的内容，跟大家分享如何使用REmap函数制作路径图。</p>
+<p>路径图所需要的数据结构非常简单，两列数据，左侧是起点，右侧是终点，并且每一行的终点是下一行的起点，这样最终才可以制作出连接在一起的路径图。</p>
 <a id="more"></a>
-<h3 id="加载包："><a href="#加载包：" class="headerlink" title="加载包："></a>加载包：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(<span class="string">"ggplot2"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"Cairo"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"ggmap"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"xlsx"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"lubridate"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"reshape2"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"showtext"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"grid"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"plyr"</span>)</div></pre></td></tr></table></figure>
-<h3 id="案例图"><a href="#案例图" class="headerlink" title="案例图:"></a>案例图:</h3><p><strong>经济学人版</strong></p>
-<p><img src="http://oqjxwq9ix.bkt.clouddn.com/one.png" alt="one"></p>
-<p><strong>刘老师版</strong></p>
-<p><img src="http://oqjxwq9ix.bkt.clouddn.com/two.png" alt="two"></p>
-<blockquote>
-<p>关键步骤：</p>
-</blockquote>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">setwd(<span class="string">"F:/微信公众号/公众号——数据小魔方/2017年4月/20170403"</span>)</div><div class="line">ECOdata&lt;-read.xlsx(<span class="string">"ECOCircle.xlsx"</span>,sheetName=<span class="string">"Sheet1"</span>,header=<span class="literal">T</span>,encoding=<span class="string">"UTF-8"</span>,stringsAsFactors=<span class="literal">FALSE</span>)</div></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">f&lt;-c(<span class="number">99</span>,<span class="number">91</span>,<span class="number">84</span>,<span class="number">77</span>)</div><div class="line"><span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1</span>:nrow(ECOdata))&#123;</div><div class="line">m&lt;-sum(ECOdata[i,<span class="number">3</span>:<span class="number">6</span>]==<span class="number">1</span>)</div><div class="line">h&lt;-grep(<span class="number">1</span>,ECOdata[i,<span class="number">3</span>:<span class="number">6</span>])</div><div class="line">ECOdata[i,h+<span class="number">2</span>]&lt;-f[<span class="number">1</span>:m]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="创建时间轴："><a href="#创建时间轴：" class="headerlink" title="创建时间轴："></a>创建时间轴：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">newdate&lt;-seq(from=as.Date(<span class="string">"2014-01-01"</span>),to=as.Date(<span class="string">"2014-12-31"</span>),by=<span class="string">"1 day"</span>)</div><div class="line">newmonth&lt;-month(newdate)</div></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mydata&lt;-data.frame(newdate,newmonth);mydata$ID&lt;-<span class="number">1</span>:nrow(mydata)</div><div class="line">mydata$Type&lt;-ifelse(mydata$newmonth%%<span class="number">2</span>==<span class="number">0</span>,<span class="string">"A"</span>,<span class="string">"B"</span>)</div><div class="line">mydata$Scale&lt;-<span class="number">100</span></div><div class="line">a&lt;-seq(from=<span class="number">90</span>,to=-<span class="number">90</span>,length=<span class="number">181</span>);b&lt;-seq(from=<span class="number">90</span>,to=-<span class="number">90</span>,length=<span class="number">184</span>)</div><div class="line">mydata$Circle&lt;-c(a,b)</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="合并数据："><a href="#合并数据：" class="headerlink" title="合并数据："></a>合并数据：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mynewdata&lt;-merge(mydata,ECOdata,by.x=<span class="string">"newdate"</span>,by.y=<span class="string">"date"</span>,all.x=<span class="literal">T</span>)</div><div class="line">mynewdataone&lt;-melt(na.omit(mynewdata), id.vars =names(mynewdata)[<span class="number">1</span>:<span class="number">7</span>],variable.name = <span class="string">"Class"</span>, value.name = <span class="string">"Fact"</span>)</div></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">circlemonth&lt;-seq(<span class="number">15</span>,<span class="number">345</span>,length=<span class="number">12</span>)</div><div class="line">circlebj&lt;-rep(c(-circlemonth[<span class="number">1</span>:<span class="number">3</span>],rev(circlemonth[<span class="number">1</span>:<span class="number">3</span>])),<span class="number">2</span>)</div></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mynewdataoneA&lt;-mynewdataone[mynewdataone$Fact!=<span class="number">0</span>&amp;mynewdataone$ID&lt;<span class="number">180</span>,]</div><div class="line">mynewdataoneA&lt;-mynewdataoneA[!duplicated(mynewdataoneA[,<span class="number">1</span>]),]</div><div class="line">mynewdataoneB&lt;-mynewdataone[mynewdataone$Fact!=<span class="number">0</span>&amp;mynewdataone$ID&gt;<span class="number">180</span>,]</div><div class="line">mynewdataoneB&lt;-mynewdataoneB[!duplicated(mynewdataoneB[,<span class="number">1</span>]),]</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="可视化图形："><a href="#可视化图形：" class="headerlink" title="可视化图形："></a>可视化图形：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">font.add(<span class="string">"myfont"</span>,<span class="string">"msyhl.ttc"</span>)</div><div class="line">CairoPNG(file=<span class="string">"ECOCircle.png"</span>,width=<span class="number">1000</span>,height=<span class="number">1050</span>)</div><div class="line">showtext.begin()</div><div class="line">ggplot()+</div><div class="line">geom_bar(data=mydata[mydata$Type==<span class="string">"A"</span>,],aes(x=ID,y=Scale),stat=<span class="string">"identity"</span>,width=<span class="number">1</span>,fill=<span class="string">"#ECEDD1"</span>,col=<span class="string">"#ECEDD1"</span>)+</div><div class="line">geom_bar(data=mydata[mydata$Type==<span class="string">"B"</span>,],aes(x=ID,y=Scale),stat=<span class="string">"identity"</span>,width=<span class="number">1</span>,fill=<span class="string">"#DFE0B1"</span>,col=<span class="string">"#DFE0B1"</span>)+</div><div class="line">geom_point(data=mynewdataone[mynewdataone$Fact!=<span class="number">0</span>,],aes(x=ID,y=Fact,fill=Class),size=<span class="number">5</span>,shape=<span class="number">21</span>,col=<span class="string">"white"</span>)+</div><div class="line">ylim(-<span class="number">90</span>,<span class="number">130</span>)+</div><div class="line">scale_fill_manual(limits=c(<span class="string">"Legislative"</span>,<span class="string">"Referendum"</span>,<span class="string">"President"</span>,<span class="string">"Primary"</span>),values=c(<span class="string">"#93A299"</span>,<span class="string">"#CF543F"</span>,<span class="string">"#B5AE53"</span>,<span class="string">"#86825B"</span>),labels=c(<span class="string">"立法"</span>,<span class="string">"公投"</span>,<span class="string">"总统"</span>,<span class="string">"初选"</span>))+</div><div class="line">geom_text(data=mynewdataoneA,aes(x=ID,y=max(mynewdataoneA$Fact)+<span class="number">20</span>,label=State,angle=Circle),family=<span class="string">"sans"</span>,size=<span class="number">5</span>,hjust=<span class="number">0</span>)+</div><div class="line">geom_text(data=mynewdataoneB,aes(x=ID,y=max(mynewdataoneB$Fact)+<span class="number">20</span>,label=State,angle=Circle),family=<span class="string">"sans"</span>,size=<span class="number">5</span>,hjust=<span class="number">1</span>)+</div><div class="line">geom_text(data=<span class="literal">NULL</span>,aes(x=circlemonth,y=<span class="number">30</span>,label=paste0(<span class="number">1</span>:<span class="number">12</span>,<span class="string">"月"</span>),angle=circlebj),family=<span class="string">"myfont"</span>,size=<span class="number">7</span>,hjust=<span class="number">.5</span>,vjust=<span class="number">.5</span>)+</div><div class="line">guides(colour=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">coord_polar(theta=<span class="string">"x"</span>)+</div><div class="line">labs(title=<span class="string">"2014年全球选举事件图"</span>,subtitle=<span class="string">"这是一幅用心良苦的好图"</span>,caption=<span class="string">"Source：Economics\nMake:EasyCharts"</span>,x=<span class="string">""</span>,y=<span class="string">""</span>,fill=<span class="string">""</span>)+</div><div class="line">theme(</div><div class="line">text=element_text(family=<span class="string">"myfont"</span>),</div><div class="line">axis.text=element_blank(),</div><div class="line">axis.ticks=element_blank(),</div><div class="line">panel.background=element_blank(),</div><div class="line">panel.grid=element_blank(),</div><div class="line">panel.border=element_blank(),</div><div class="line">legend.position=c(<span class="number">0.03</span>,<span class="number">0.92</span>),</div><div class="line">legend.background=element_blank(),</div><div class="line">legend.key=element_blank(),</div><div class="line">legend.key.size=unit(<span class="number">1.55</span>,<span class="string">'cm'</span>),</div><div class="line">legend.key.height=unit(<span class="number">1.2</span>,<span class="string">'cm'</span>),</div><div class="line">legend.text=element_text(size=<span class="number">20</span>,hjust=<span class="number">3</span>,vjust=<span class="number">3</span>,face=<span class="string">"bold"</span>),</div><div class="line">plot.background=element_blank(),</div><div class="line">plot.title=element_text(size=<span class="number">50</span>),</div><div class="line">plot.subtitle=element_text(size=<span class="number">35</span>),</div><div class="line">plot.caption=element_text(size=<span class="number">25</span>,hjust=<span class="number">0</span>),</div><div class="line">plot.margin=unit(c(<span class="number">.5</span>,<span class="number">.5</span>,<span class="number">.5</span>,<span class="number">.5</span>),<span class="string">"lines"</span>),</div><div class="line">)</div><div class="line">showtext.end()</div><div class="line">dev.off()</div></pre></td></tr></table></figure>
-<p><img src="http://oqjxwq9ix.bkt.clouddn.com/three.png" alt="three"></p>
-<p><img src="http://oqjxwq9ix.bkt.clouddn.com/four.png" alt="four"></p>
+<p><strong>首先我们来构造所需的数据：</strong></p>
+<h3 id="构造数据："><a href="#构造数据：" class="headerlink" title="构造数据："></a>构造数据：</h3><p><strong>起点数据：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">origin&lt;- c(<span class="string">"beijing"</span>,<span class="string">"shijiazhuang"</span>,<span class="string">"zhengzhou"</span>,<span class="string">"hefei"</span>,<span class="string">"nanjing"</span>,<span class="string">"济南"</span>,<span class="string">"dalian"</span>)</div></pre></td></tr></table></figure></p>
+<p><strong>终点数据：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">destination&lt;- c(origin[-<span class="number">1</span>],origin[<span class="number">1</span>]) <span class="comment">#将起点数据首尾互换，并构造终点数据</span></div></pre></td></tr></table></figure></p>
+<p><strong>将终点数据、起点数据合并为数据框格式的作图数据：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">map_data&lt;- data.frame(origin,destination)</div></pre></td></tr></table></figure></p>
+<p><img src="http://or6biw7ir.bkt.clouddn.com/image1.png" alt=""></p>
+<h3 id="绘图过程："><a href="#绘图过程：" class="headerlink" title="绘图过程："></a>绘图过程：</h3><p><strong>绘图：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">map_out1&lt;- remap(mapdata=map_data,        </div><div class="line">          title =<span class="string">"我是主标题"</span>,</div><div class="line">          subtitle =<span class="string">"我是副标题"</span>,</div><div class="line">          theme =get_theme(theme=<span class="string">'Dark'</span>)</div><div class="line">          )</div><div class="line">plot(map_out1)  <span class="comment">#在web上展示图形</span></div></pre></td></tr></table></figure></p>
+<p><img src="http://or6biw7ir.bkt.clouddn.com/image2.png" alt=""></p>
+<p>上面的例子中，为了使得路径图首尾相连，终点数据是起点数据调换首尾行而得到的。</p>
+<p><strong>那么如果不要求路径图首尾相连的话可以设置如下结构：</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">map_data1&lt;-map_data[-<span class="number">7</span>,]</div><div class="line"></div><div class="line">map_out2&lt;- remap(mapdata=map_data1,        </div><div class="line">          title =<span class="string">"我是主标题"</span>,</div><div class="line">          subtitle =<span class="string">"我是副标题"</span>,</div><div class="line">          theme =get_theme(theme=<span class="string">'Dark'</span>)</div><div class="line">          )</div><div class="line">plot(map_out2)  <span class="comment">#在web上展示图形</span></div></pre></td></tr></table></figure>
+<p><img src="http://or6biw7ir.bkt.clouddn.com/image3.png" alt=""></p>
+<p>这种路径图的形式非常适合用于表达带有很多中间节点的动态路线。</p>
+<p><strong>当然如果你也可以将数据源设置成两条毫不相干的路线：</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">data1&lt;-c(<span class="string">"西安"</span>,<span class="string">"zhengzhou"</span>,<span class="string">"shijiazhuang"</span>,<span class="string">"beijing"</span>,<span class="string">"shenyang"</span>,<span class="string">"changhcun"</span>,<span class="string">"哈尔滨"</span>) </div><div class="line">data2&lt;-c(<span class="string">"nanyang"</span>,<span class="string">"wuhan"</span>,<span class="string">"changsha"</span>,<span class="string">"南昌"</span>,<span class="string">"guangzhou"</span>,<span class="string">"南宁"</span>,<span class="string">"贵阳"</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">origin&lt;-c(data1[<span class="number">1</span>:<span class="number">6</span>],data2[<span class="number">1</span>:<span class="number">6</span>])</div><div class="line">destination&lt;-c(data1[<span class="number">2</span>:<span class="number">7</span>],data2[<span class="number">2</span>:<span class="number">7</span>])</div><div class="line">map_data1&lt;- data.frame(origin,destination)</div></pre></td></tr></table></figure>
+<p><img src="http://or6biw7ir.bkt.clouddn.com/image4.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">map_out3&lt;- remap(mapdata=map_data1,        </div><div class="line">          title =<span class="string">"我是主标题"</span>,</div><div class="line">          subtitle =<span class="string">"我是副标题"</span>,</div><div class="line">          theme =get_theme(theme=<span class="string">'Dark'</span>)</div><div class="line">          )</div><div class="line">plot(map_out3)</div></pre></td></tr></table></figure>
+<p><img src="http://or6biw7ir.bkt.clouddn.com/image5.png" alt=""></p>
+<p><strong>随机生成的线条和气泡颜色看着挺别扭，我们可以将其修改为自定义颜色：</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">map_out4&lt;- remap(mapdata=map_data1,        </div><div class="line">          title =<span class="string">"我是主标题"</span>,</div><div class="line">          subtitle =<span class="string">"我是副标题"</span>,</div><div class="line">          theme =get_theme(theme=<span class="string">'none'</span>,</div><div class="line">          lineColor = <span class="string">"white"</span>,    </div><div class="line">          backgroundColor=<span class="string">"black"</span>      </div><div class="line">          )</div><div class="line">           )</div><div class="line">plot(map_out4)</div></pre></td></tr></table></figure>
+<p><img src="http://or6biw7ir.bkt.clouddn.com/image6.png" alt=""></p>
+<p>你可以用这种方法，结合自己的数据来表达多个地域之间的流动方向：比如一打一路、长征、贸易路线、铁路路线图等都非常适合这种表达。</p>
+<p>gif效果：</p>
+<p><img src="http://or6biw7ir.bkt.clouddn.com/image8.png" alt=""></p>
+<p>如果想要存储该HTML对象，需要设定临时目录：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">setwd(<span class="string">"D:/R/Rscript"</span>)      <span class="comment">#保存图片的位置，不做修改默认为R的工作路径</span></div><div class="line">options(remap.js.web=<span class="literal">T</span>)    <span class="comment">#动态网页图保存命令</span></div><div class="line">plot(map_out5)             <span class="comment">#保存的同时自动调用浏览器窗口</span></div></pre></td></tr></table></figure>
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
@@ -501,7 +510,13 @@
           
             <a href="/tags/数据可视化/" rel="tag"># 数据可视化</a>
           
-            <a href="/tags/ggplot2/" rel="tag"># ggplot2</a>
+            <a href="/tags/地理信息可视化/" rel="tag"># 地理信息可视化</a>
+          
+            <a href="/tags/在线地图/" rel="tag"># 在线地图</a>
+          
+            <a href="/tags/REmap/" rel="tag"># REmap</a>
+          
+            <a href="/tags/路径图/" rel="tag"># 路径图</a>
           
         </div>
       
@@ -514,8 +529,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/26/中国经管类核心期刊地域分布数据可视化/" rel="next" title="中国经管类核心期刊地域分布数据可视化">
-                <i class="fa fa-chevron-left"></i> 中国经管类核心期刊地域分布数据可视化
+              <a href="/2017/06/07/R语言可视化——REmap动态地图/" rel="next" title="R语言可视化——REmap动态地图">
+                <i class="fa fa-chevron-left"></i> R语言可视化——REmap动态地图
               </a>
             
           </div>
@@ -523,10 +538,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/05/27/北京历史天气emoji表情包可视化/" rel="prev" title="北京历史天气emoji表情包可视化">
-                北京历史天气emoji表情包可视化 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -702,7 +713,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#加载包："><span class="nav-number">1.</span> <span class="nav-text">加载包：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#案例图"><span class="nav-number">2.</span> <span class="nav-text">案例图:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建时间轴："><span class="nav-number">3.</span> <span class="nav-text">创建时间轴：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并数据："><span class="nav-number">4.</span> <span class="nav-text">合并数据：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可视化图形："><span class="nav-number">5.</span> <span class="nav-text">可视化图形：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#构造数据："><span class="nav-number">1.</span> <span class="nav-text">构造数据：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绘图过程："><span class="nav-number">2.</span> <span class="nav-text">绘图过程：</span></a></li></ol></div>
             
 
           </div>
