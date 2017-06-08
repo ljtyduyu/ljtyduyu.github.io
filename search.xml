@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[R语言可视化——REmapH(中心热度图)]]></title>
+    <url>%2F2017%2F06%2F08%2FR%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94REmapH-%E4%B8%AD%E5%BF%83%E7%83%AD%E5%BA%A6%E5%9B%BE%2F</url>
+    <content type="text"><![CDATA[今天是REmap系列的最后一篇——REmapH函数。 这个函数的特色是可以做中心辐射的热力图，这种热力图在气象、人口密度、海拔测绘领域有诸多运用，当然也可以上当用在商务场合——特别是跟地理信息有关的数据呈现方面。 加载包：12library("baidumap")library("REmap") 语法简介：123456789?remapHremapH(data, maptype = 'china', theme = get_theme("Dark"), blurSize = 30, color = c('blue', 'cyan', 'lime', 'yellow', 'red'), minAlpha = 0.05, opacity = 1, ...) data为要传入的数据，数据为三列，第一列为lon(经度)，第二列为lat(维度)，第三列为prob(密度/概率)； maptype为要绘制的地图类型，可选有：”china”，”world”或中国各省份名字； theme为绘制的地图主题类型，可由get_theme函数传入； blurSize为热力效果的泛化范围，可调整热力点中心的扩散程度； color为热力的渐变颜色； minAlpha为热力点的展示阈值，对应data中的prob列，作图时各点密度会对比minAlpha，以凸显不同密度所展示的不同热力分布； opacity为透明度，调整热力图的透明度。 12345678910get_theme(theme = "Dark", lineColor = "Random", backgroundColor = "#1b1b1b", titleColor = "#fff", borderColor = "rgba(100,149,237,1)", regionColor = "#1b1b1b", labelShow = T, pointShow = F, pointColor = "gold" ) theme为主题，设置该参数后无需设置get_theme里其他参数，可选有”Dark”、”Sky”、”blue”和”none”四种 lineColoe为线条颜色，对应为map图里面迁徙线条的颜色 backgroundColor为图片的背景色，支持16进制颜色输入，也支持rgb()函数和rgba() titleColor为标题的颜色，设置同上 borderColor为地图中各省、市边界颜色 regionColor为地图中各区域颜色，各省份和市 labelShow为是否展示各省、市名字，设置为True时展示 pointShow为是否展示各省会城市所在点，设置为True时展示 pointColor设置上述点的颜色 接下来首先通过两个案例进行讲解： 案例1：1options(remap.js.web=T) 这里有一个包含经纬度信息及对应密度的数据集，通过该数据集我们可以看到看到REmapH函数制作热力图的大致效果：1data&lt;- read.csv(file="D:\\R\\map\\MoveChart\\cityvaluetop10.csv",header=T) 数据结构如下：12345678910111213head(data) lon lat prob1 114.3948 23.40800 0.852 115.3948 24.40800 0.853 114.3948 23.40800 0.854 113.3948 23.40800 0.855 114.7307 27.69586 0.806 110.5066 28.69586 0.80'data.frame': 48 obs. of 3 variables: $ lon : num 114 115 114 113 115 ... $ lat : num 23.4 24.4 23.4 23.4 27.7 ... $ prob: num 0.85 0.85 0.85 0.85 0.8 0.8 0.8 0.8 0.75 0.75 ... 123456789map_out&lt;-remapH(data, maptype = 'china', theme =get_theme(theme = "Dark"), blurSize = 70, color = "red", minAlpha = 10, opacity = 1, )plot(map_out) 接下来制作辽宁省省域热力图数据集： 案例2：首先使用mapNames函数获取辽宁省市级行政单位：1234city_ln&lt;-mapNames("liaoning") [1] "大连市" "朝阳市" "丹东市" "铁岭市" "沈阳市" "抚顺市" "葫芦岛市" "阜新市" "锦州市" [10] "鞍山市" "本溪市" "营口市" "辽阳市" "盘锦市" 获取各市级行政单位经纬度信息：123456789101112131415161718city_list&lt;-get_geo_position(city_ln)&gt; city_list lon lat city1 121.6214 38.91934 大连市2 120.4573 41.57949 朝阳市3 124.3626 40.00569 丹东市4 123.8488 42.29257 铁岭市5 123.4390 41.81134 沈阳市6 123.9636 41.88608 抚顺市7 120.8434 40.71736 葫芦岛市8 121.6765 42.02798 阜新市9 121.1336 41.10087 锦州市10 123.0010 41.11412 鞍山市11 123.7735 41.29985 本溪市12 122.2415 40.67256 营口市13 123.2437 41.27445 辽阳市14 122.0773 41.12594 盘锦市 生成一列密度数据：12point&lt;-round(runif(14,min=0.3,max=0.95),2) [1] 0.89 0.82 0.91 0.87 0.90 0.90 0.85 0.89 0.87 0.94 0.90 0.85 0.88 0.88 合成数据框格式的热力图作图数据：1234567891011121314151617newdata&lt;-data.frame(city_list[,1:2],point) lon lat point1 121.6214 38.91934 0.892 120.4573 41.57949 0.823 124.3626 40.00569 0.914 123.8488 42.29257 0.875 123.4390 41.81134 0.906 123.9636 41.88608 0.907 120.8434 40.71736 0.858 121.6765 42.02798 0.899 121.1336 41.10087 0.8710 123.0010 41.11412 0.9411 123.7735 41.29985 0.9012 122.2415 40.67256 0.8513 123.2437 41.27445 0.8814 122.0773 41.12594 0.88 作图函数：123456789map_out1&lt;-remapH(newdata, maptype = "辽宁", theme =get_theme(theme = "Dark"), blurSize = 70, color = "red", minAlpha = 10, opacity = 1, )plot(map_out1) 因为以上数据集中使用的各市中心城市的密度数据，所以整体密度太过分散，看不出渐变效果，当然密度图的数据记录是不受数量限制的，在有较多数据点呈现密集分布的地方，可以看到非常明显的颜色热度渐变效果。 这里我通过添加一列分类数据，将以上密度图数据进行改造： 123newdata$perA&lt;-rep("A",14)newdata$perB&lt;-rep("B",14)newdata$perC&lt;-rep("C",14) 使用Reshape2包对数据进行一维转化：123456789101112131415161718192021222324252627282930313233343536373839404142434445mydata &lt;- melt(newdata, id.vars=c("lon","lat","point")) lon lat point variable value1 121.6214 38.91934 0.85 perA A2 120.4573 41.57949 0.81 perA A3 124.3626 40.00569 0.91 perA A4 123.8488 42.29257 0.90 perA A5 123.4390 41.81134 0.91 perA A6 123.9636 41.88608 0.93 perA A7 120.8434 40.71736 0.91 perA A8 121.6765 42.02798 0.87 perA A9 121.1336 41.10087 0.89 perA A10 123.0010 41.11412 0.82 perA A11 123.7735 41.29985 0.88 perA A12 122.2415 40.67256 0.95 perA A13 123.2437 41.27445 0.90 perA A14 122.0773 41.12594 0.84 perA A15 121.6214 38.91934 0.85 perB B16 120.4573 41.57949 0.81 perB B17 124.3626 40.00569 0.91 perB B18 123.8488 42.29257 0.90 perB B19 123.4390 41.81134 0.91 perB B20 123.9636 41.88608 0.93 perB B21 120.8434 40.71736 0.91 perB B22 121.6765 42.02798 0.87 perB B23 121.1336 41.10087 0.89 perB B24 123.0010 41.11412 0.82 perB B25 123.7735 41.29985 0.88 perB B26 122.2415 40.67256 0.95 perB B27 123.2437 41.27445 0.90 perB B28 122.0773 41.12594 0.84 perB B29 121.6214 38.91934 0.85 perC C30 120.4573 41.57949 0.81 perC C31 124.3626 40.00569 0.91 perC C32 123.8488 42.29257 0.90 perC C33 123.4390 41.81134 0.91 perC C34 123.9636 41.88608 0.93 perC C35 120.8434 40.71736 0.91 perC C36 121.6765 42.02798 0.87 perC C37 121.1336 41.10087 0.89 perC C38 123.0010 41.11412 0.82 perC C39 123.7735 41.29985 0.88 perC C40 122.2415 40.67256 0.95 perC C41 123.2437 41.27445 0.90 perC C42 122.0773 41.12594 0.84 perC C 从新运行图表函数：123456789map_out2&lt;-remapH(newdata[,1:3], maptype = "辽宁", theme =get_theme(theme = "Dark"), blurSize = 70, color = "red", minAlpha = 10, opacity = 1, )plot(map_out2) 联系方式：wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]553270834 个人简介：杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。Mail:578708965@qq.com 备注信息：本作品采用知识共享署名-非商业性使用 4.0 国际许可协议进行许可。]]></content>
+      <categories>
+        <category>地理信息可视化</category>
+      </categories>
+      <tags>
+        <tag>R语言</tag>
+        <tag>数据可视化</tag>
+        <tag>地理信息可视化</tag>
+        <tag>REmap</tag>
+        <tag>热力密度地图</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[R语言可视化——REmapC(填充地图)]]></title>
     <url>%2F2017%2F06%2F08%2FR%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94REmapC-%E5%A1%AB%E5%85%85%E5%9C%B0%E5%9B%BE%2F</url>
     <content type="text"><![CDATA[今天跟大家介绍REmap函数家族中的第三个函数——REmapC。 REmapC函数允许我们同时在一张地图上制作填充图和点图、线图。 加载包：12library(REmap)library(baidumap) 语法简介：1234567891011121314?remapCremapC(data, maptype = 'china', markLineData = NULL, markPointData = NULL, color = c('#1e90ff','#f0ffff'), theme = get_theme("Bright"), title = "", subtitle = "", markLineTheme = markLineControl(), markPointTheme = markPointControl(), geoData = NA, mindata = NA, maxdata = NA) 四个主要参数说明： 参数一：data为需要的原始数据框格式数据，共2列，第一列为省份或者城市名称，第二列为对应的数值，数值大小将决定地图颜色深浅。 参数二：maptype为地图类型设置，可选world、china或者中国省份名称 参数三：color为热力图渐变颜色，默认为2个颜色，第一个为终止色，第二个为初始色。如果只有一个颜色，系统会自动以白色补充为初始铯色。 参数四：mindata与maxdata可以设置颜色极端点对应数据的上下限（默认是使用data中的数据最大值最小值作为两端极值）。 一、全国热力图首先利用mapnames函数提取全国各省份名称：1234province &lt;- mapNames("china") #全国省份value &lt;- rnorm(34,100,30) #随机生成分省值mydata &lt;- data.frame(province,value) #合成数据框作图数据remapC(mydata,color=c("yellow","red"),title="全国分省热地图",subtitle="我是副标题") #制作热力图 默认的颜色标度是从最小值到最大值。以上函数中省略了markLineData，markPointData 两个参数，所以并未显示点线图。 1234ad_ln &lt;- mapNames("liaoning") [1] "大连市" "朝阳市" "丹东市" "铁岭市" "沈阳市" "抚顺市" "葫芦岛市" "阜新市" "锦州市" [10] "鞍山市" "本溪市" "营口市" "辽阳市" "盘锦市" 123456789101112131415161718value_ln&lt;-rnorm(14,100,30)data_ln &lt;-data.frame(ad_ln,value_ln) ad_ln value_ln1 大连市 79.676302 朝阳市 41.931983 丹东市 173.315864 铁岭市 106.019905 沈阳市 119.402566 抚顺市 79.548207 葫芦岛市 155.629938 阜新市 122.995999 锦州市 94.1739510 鞍山市 82.1894411 本溪市 98.7097212 营口市 115.5995713 辽阳市 104.8919914 盘锦市 92.92975 画图：12345678map_out &lt;- remapC(data_ln, maptype = "liaoning", color=c("green"), title="辽宁省热力地图", theme = get_theme("Sky"), maxdata=180 ) plot(map_out) 接下来做一个案例：每年春运，广东省人口会大批回流原住地，形成壮观的春运人流大军，我们模拟出广东省回流各省的人口数，使用填色地图表示人流规模，使用动态流向线表示回流最大的前10个省份。 因为没有实际的数据，这里我用函数模拟数据（非真实数据）： 12345678province &lt;- mapNames("china") #全国省份value &lt;- round(rnorm(34,1000,30),0) #随机生成分省值mydata &lt;- data.frame(province,value) #合并数据labelper&lt;-mydata[order(mydata[,"value"],decreasing=T),][1:10,]origin&lt;-rep("广州",length(labelper))destination&lt;-labelper$provinceline_data&lt;-data.frame(origin,destination) 画图：1234567891011121314151617181920map_out1 &lt;- remapC(mydata, maptype = "china", title="人口迁徙地图", theme = get_theme("Drak"), color=c("#CD0000","#FFEC8B"), markLineData=line_data, markLineTheme=markLineControl( color="white", lineWidth=2, lineType="dashed" ), markPointData=line_data[2], markPointTheme=markPointControl( symbolSize=13, effect=T, effectType="scale", color="white" ) ) plot(map_out1) 因为假设广东是人口迁出地，给广东填色是没有任何意义的，所以mydata数据中需要忽略 广东的数据123456789101112131415161718192021mydata1 &lt;- mydata[-12,]map_out2 &lt;- remapC(mydata1, maptype = "china", title="人口迁徙地图", theme = get_theme("Drak"), color=c("#CD0000","#FFEC8B"), markLineData=line_data, markLineTheme=markLineControl( color="white", lineWidth=2, lineType="dashed" ), markPointData=line_data[2], markPointTheme=markPointControl( symbolSize=13, effect=T, effectType="scale", color="white" ) ) plot(map_out2) 联系方式：wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]553270834 个人简介：杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。Mail:578708965@qq.com 备注信息：本作品采用知识共享署名-非商业性使用 4.0 国际许可协议进行许可。]]></content>
@@ -11,8 +26,8 @@
         <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
-        <tag>REmap</tag>
         <tag>填充地图</tag>
+        <tag>REmap</tag>
       </tags>
   </entry>
   <entry>
@@ -87,9 +102,9 @@
       <tags>
         <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>json</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
-        <tag>json</tag>
         <tag>leaflet</tag>
       </tags>
   </entry>
@@ -121,8 +136,8 @@
         <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
-        <tag>路径图</tag>
         <tag>leaflet</tag>
+        <tag>路径图</tag>
         <tag>mini柱形/条形图</tag>
       </tags>
   </entry>
