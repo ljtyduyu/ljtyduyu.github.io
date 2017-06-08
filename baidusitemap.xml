@@ -5,7 +5,7 @@
     
   <url>
     <loc>http://www.raindu.com/2017/06/08/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94REmapC-%E5%A1%AB%E5%85%85%E5%9C%B0%E5%9B%BE/</loc>
-    <lastmod>2017-06-08T05:13:47.464Z</lastmod>
+    <lastmod>2017-06-08T05:17:42.596Z</lastmod>
     <data>
         <display>
         <title>R语言可视化——REmapC(填充地图)</title>
@@ -159,11 +159,11 @@
          
         <tag>数据可视化</tag>
          
-        <tag>json</tag>
-         
         <tag>地理信息可视化</tag>
          
         <tag>在线地图</tag>
+         
+        <tag>json</tag>
          
         <tag>leaflet</tag>
          
@@ -223,9 +223,9 @@
          
         <tag>在线地图</tag>
          
-        <tag>leaflet</tag>
-         
         <tag>路径图</tag>
+         
+        <tag>leaflet</tag>
          
         <tag>mini柱形/条形图</tag>
          
