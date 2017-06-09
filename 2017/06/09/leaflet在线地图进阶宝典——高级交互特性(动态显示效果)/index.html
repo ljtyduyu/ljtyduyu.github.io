@@ -104,7 +104,7 @@
 <meta property="og:image" content="http://or9afbo77.bkt.clouddn.com/image3.png">
 <meta property="og:image" content="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-06-09T02:20:16.452Z">
+<meta property="og:updated_time" content="2017-06-09T02:22:46.824Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="leaflet在线地图进阶宝典——高级交互特性">
 <meta name="twitter:description" content="本文针对leaflet的高级交互特性进行展开，主要涉及到leaflet中等值线地图的鼠标悬浮效果及点击效果的动态呈现。这也是leaflet的天然HTML属性所具有的强大优势。 在制作高质量在线数据地图的项目中，leaflet结合扩展的HTML性能，可以呈现非常人性化的动态效果，如能结合css、shiny等装饰器和交互框架，几乎可以胜任常见的动态交互网站的制作。">
@@ -436,8 +436,7 @@
 
 <h3 id="增加图例："><a href="#增加图例：" class="headerlink" title="增加图例："></a>增加图例：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">m %&gt;% addLegend(pal = pal, values = ~density, opacity = <span class="number">0.7</span>, title = <span class="literal">NULL</span>,</div><div class="line">  position = <span class="string">"bottomright"</span>)</div></pre></td></tr></table></figure>
 <p><img src="http://or9afbo77.bkt.clouddn.com/image3.png" alt=""></p>
-<p>以下是该案例的完整代码：</p>
-<h1 id="From-http-leafletjs-com-examples-choropleth-us-states-js"><a href="#From-http-leafletjs-com-examples-choropleth-us-states-js" class="headerlink" title="From http://leafletjs.com/examples/choropleth/us-states.js"></a>From <a href="http://leafletjs.com/examples/choropleth/us-states.js" target="_blank" rel="external">http://leafletjs.com/examples/choropleth/us-states.js</a></h1><p>（数据源，js格式记得保存为geojson格式）<br>```r<br>bins &lt;- c(0, 10, 20, 50, 100, 200, 500, 1000, Inf)<br>pal &lt;- colorBin(“YlOrRd”, domain = states$density, bins = bins)</p>
+<p>以下是该案例的完整代码：<br><code>From http://leafletjs.com/examples/choropleth/us-states.js</code><br>（数据源，js格式记得保存为geojson格式）<br>```r<br>bins &lt;- c(0, 10, 20, 50, 100, 200, 500, 1000, Inf)<br>pal &lt;- colorBin(“YlOrRd”, domain = states$density, bins = bins)</p>
 <p>labels &lt;- sprintf(<br>  “<strong>%s</strong><br>%g people / mi<sup>2</sup>“,<br>  states$name, states$density<br>) %&gt;% lapply(htmltools::HTML)</p>
 <p>leaflet(states) %&gt;%<br>  setView(-96, 37.8, 4) %&gt;%<br>  addProviderTiles(“MapBox”, options = providerTileOptions(<br>    id = “mapbox.light”,<br>    accessToken = Sys.getenv(‘MAPBOX_ACCESS_TOKEN’))) %&gt;%<br>  addPolygons(<br>    fillColor = ~pal(density),<br>    weight = 2,<br>    opacity = 1,<br>    color = “white”,<br>    dashArray = “3”,<br>    fillOpacity = 0.7,<br>    highlight = highlightOptions(<br>      weight = 5,<br>      color = “#666”,<br>      dashArray = “”,<br>      fillOpacity = 0.7,<br>      bringToFront = TRUE),<br>    label = labels,<br>    labelOptions = labelOptions(<br>      style = list(“font-weight” = “normal”, padding = “3px 8px”),<br>      textsize = “15px”,<br>      direction = “auto”)) %&gt;%<br>  addLegend(pal = pal, values = ~density, opacity = 0.7, title = NULL,<br>    position = “bottomright”)<br>```r</p>
 <hr>
@@ -702,7 +701,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#加载包："><span class="nav-number">1.</span> <span class="nav-text">加载包：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#案例2："><span class="nav-number">2.</span> <span class="nav-text">案例2：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置鼠标点击事件："><span class="nav-number">3.</span> <span class="nav-text">设置鼠标点击事件：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增加图例："><span class="nav-number">4.</span> <span class="nav-text">增加图例：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#From-http-leafletjs-com-examples-choropleth-us-states-js"><span class="nav-number"></span> <span class="nav-text">From http://leafletjs.com/examples/choropleth/us-states.js</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#加载包："><span class="nav-number">1.</span> <span class="nav-text">加载包：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#案例2："><span class="nav-number">2.</span> <span class="nav-text">案例2：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置鼠标点击事件："><span class="nav-number">3.</span> <span class="nav-text">设置鼠标点击事件：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增加图例："><span class="nav-number">4.</span> <span class="nav-text">增加图例：</span></a></li></ol></div>
             
 
           </div>
