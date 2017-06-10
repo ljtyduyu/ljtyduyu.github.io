@@ -109,7 +109,7 @@
     <link href="http://www.raindu.com/2017/06/09/leaflet%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE%E8%BF%9B%E9%98%B6%E5%AE%9D%E5%85%B8%E2%80%94%E2%80%94%E9%AB%98%E7%BA%A7%E4%BA%A4%E4%BA%92%E7%89%B9%E6%80%A7(%E5%8A%A8%E6%80%81%E6%98%BE%E7%A4%BA%E6%95%88%E6%9E%9C)/"/>
     <id>http://www.raindu.com/2017/06/09/leaflet在线地图进阶宝典——高级交互特性(动态显示效果)/</id>
     <published>2017-06-09T02:10:09.000Z</published>
-    <updated>2017-06-09T02:24:10.588Z</updated>
+    <updated>2017-06-10T11:12:29.642Z</updated>
     
     <content type="html"><![CDATA[<p>本文针对leaflet的高级交互特性进行展开，主要涉及到leaflet中等值线地图的鼠标悬浮效果及点击效果的动态呈现。这也是leaflet的天然HTML属性所具有的强大优势。</p>
 <p>在制作高质量在线数据地图的项目中，leaflet结合扩展的HTML性能，可以呈现非常人性化的动态效果，如能结合css、shiny等装饰器和交互框架，几乎可以胜任常见的动态交互网站的制作。</p>
@@ -136,8 +136,6 @@
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
-
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
 ]]></content>
@@ -169,7 +167,7 @@
     <link href="http://www.raindu.com/2017/06/08/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94REmapH-%E4%B8%AD%E5%BF%83%E7%83%AD%E5%BA%A6%E5%9B%BE/"/>
     <id>http://www.raindu.com/2017/06/08/R语言可视化——REmapH-中心热度图/</id>
     <published>2017-06-08T09:36:37.000Z</published>
-    <updated>2017-06-08T09:48:51.699Z</updated>
+    <updated>2017-06-10T11:11:59.882Z</updated>
     
     <content type="html"><![CDATA[<p>今天是REmap系列的最后一篇——REmapH函数。</p>
 <p>这个函数的特色是可以做中心辐射的热力图，这种热力图在气象、人口密度、海拔测绘领域有诸多运用，当然也可以上当用在商务场合——特别是跟地理信息有关的数据呈现方面。</p>
@@ -219,8 +217,6 @@
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
-
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
 ]]></content>
@@ -252,7 +248,7 @@
     <link href="http://www.raindu.com/2017/06/08/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94REmapC-%E5%A1%AB%E5%85%85%E5%9C%B0%E5%9B%BE/"/>
     <id>http://www.raindu.com/2017/06/08/R语言可视化——REmapC-填充地图/</id>
     <published>2017-06-08T05:03:50.000Z</published>
-    <updated>2017-06-08T05:17:42.596Z</updated>
+    <updated>2017-06-10T11:12:06.960Z</updated>
     
     <content type="html"><![CDATA[<p>今天跟大家介绍REmap函数家族中的第三个函数——REmapC。</p>
 <p>REmapC函数允许我们同时在一张地图上制作填充图和点图、线图。</p>
@@ -283,8 +279,6 @@
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
-
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
 ]]></content>
@@ -316,7 +310,7 @@
     <link href="http://www.raindu.com/2017/06/08/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94%E6%A1%88%E4%BE%8B%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8/"/>
     <id>http://www.raindu.com/2017/06/08/R语言可视化——案例综合运用/</id>
     <published>2017-06-08T01:36:58.000Z</published>
-    <updated>2017-06-08T01:49:16.145Z</updated>
+    <updated>2017-06-10T11:11:34.710Z</updated>
     
     <content type="html"><![CDATA[<p>今天跟大家介绍一个REmap包的新函数——REmapB。</p>
 <p>它是REmap包中诸多组函数中的一位，功能上要强大于之前介绍的REmap函数，不仅可以完成REmap函数的所有图表效果，而且可以做出前者没有的地图效果。</p>
@@ -378,8 +372,6 @@
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
-
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
 ]]></content>
@@ -411,7 +403,7 @@
     <link href="http://www.raindu.com/2017/06/07/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94REmap-%E8%B7%AF%E5%BE%84%E5%9B%BE/"/>
     <id>http://www.raindu.com/2017/06/07/R语言可视化——REmap-路径图/</id>
     <published>2017-06-07T10:49:51.000Z</published>
-    <updated>2017-06-07T11:10:47.829Z</updated>
+    <updated>2017-06-10T11:11:43.757Z</updated>
     
     <content type="html"><![CDATA[<p>今天紧接昨天的内容，跟大家分享如何使用REmap函数制作路径图。</p>
 <p>路径图所需要的数据结构非常简单，两列数据，左侧是起点，右侧是终点，并且每一行的终点是下一行的起点，这样最终才可以制作出连接在一起的路径图。</p>
@@ -445,8 +437,6 @@
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
-
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
 ]]></content>
@@ -480,7 +470,7 @@
     <link href="http://www.raindu.com/2017/06/07/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94REmap%E5%8A%A8%E6%80%81%E5%9C%B0%E5%9B%BE/"/>
     <id>http://www.raindu.com/2017/06/07/R语言可视化——REmap动态地图/</id>
     <published>2017-06-07T01:27:05.000Z</published>
-    <updated>2017-06-07T11:10:55.187Z</updated>
+    <updated>2017-06-10T11:11:51.602Z</updated>
     
     <content type="html"><![CDATA[<p>今天开始，要跟着大家学习一个新的可视化R包——REmap包。</p>
 <p>说起来，这个包要归功于百度的可视化开源项目——echarts,它是国内为数不多的高水平开源可视化js库，在业界地位首屈一指。</p>
@@ -546,8 +536,6 @@
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
-
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
 ]]></content>
@@ -580,7 +568,7 @@
     <link href="http://www.raindu.com/2017/06/06/leaflet%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE%E8%BF%9B%E9%98%B6%E5%AE%9D%E5%85%B8%E4%B9%8B%E2%80%94%E2%80%94%E9%AB%98%E7%BA%A7%E8%BE%85%E5%8A%A9%E7%89%B9%E6%80%A7/"/>
     <id>http://www.raindu.com/2017/06/06/leaflet在线地图进阶宝典之——高级辅助特性/</id>
     <published>2017-06-06T01:27:27.000Z</published>
-    <updated>2017-06-06T02:50:34.274Z</updated>
+    <updated>2017-06-10T11:12:22.212Z</updated>
     
     <content type="html"><![CDATA[<p>本文跟大家分享leaflet在线地图的高级附加属性，这些属性通常来讲仅仅作为我们数据额可视化项目的修饰元素，而并不会影响数据元素。</p>
 <p>但是有了这些辅助修饰元素，往往可以使你的数据可视化项目变得更具人性化。</p>
@@ -663,8 +651,6 @@
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
-
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
 ]]></content>
@@ -698,7 +684,7 @@
     <link href="http://www.raindu.com/2017/06/05/Leaflet%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE%E8%BF%9B%E9%98%B6%E5%AE%9D%E5%85%B8%E2%80%94%E2%80%94json%E7%B4%A0%E6%9D%90%E6%93%8D%E7%BA%B5%E4%B8%8E%E5%9B%BE%E5%B1%82%E9%9D%A2%E6%9D%BF%E6%8E%A7%E5%88%B6/"/>
     <id>http://www.raindu.com/2017/06/05/Leaflet在线地图进阶宝典——json素材操纵与图层面板控制/</id>
     <published>2017-06-05T13:52:37.000Z</published>
-    <updated>2017-06-06T01:47:40.178Z</updated>
+    <updated>2017-06-10T11:12:37.038Z</updated>
     
     <content type="html"><![CDATA[<p>这篇教程憋了很久，其实算是3个月前leaflet在线地图系列的进阶篇，但是因为当时对于leaflet地图的数据源结构理解有限，技能勉强操控shp数据源，对于json数据源所知甚少，一直拖了这么久才更新。</p>
 <p>随着近期在json数据结构的理解不断加深，对于list结构和向量化运算的掌握也多有提高，这才能熟练的在leaflet系统中操控json数据。</p>
@@ -757,8 +743,6 @@
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
-
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
 ]]></content>
@@ -777,11 +761,11 @@
     
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
-      <category term="json" scheme="http://www.raindu.com/tags/json/"/>
-    
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
+    
+      <category term="json" scheme="http://www.raindu.com/tags/json/"/>
     
       <category term="leaflet" scheme="http://www.raindu.com/tags/leaflet/"/>
     
@@ -792,7 +776,7 @@
     <link href="http://www.raindu.com/2017/06/05/%E5%8A%A8%E6%80%81%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94leaflet%E5%A1%AB%E5%85%85%E5%9C%B0%E5%9B%BE/"/>
     <id>http://www.raindu.com/2017/06/05/动态地理信息可视化——leaflet填充地图/</id>
     <published>2017-06-05T01:11:51.000Z</published>
-    <updated>2017-06-05T01:26:41.644Z</updated>
+    <updated>2017-06-10T11:10:25.742Z</updated>
     
     <content type="html"><![CDATA[<p>这一篇是leaflet动态地图的第四篇，也是最值得推荐的一篇，这一篇涉及到热力地图填充，通过该篇内容，大家可以体会大leaflet在线地图的R借口在处理热力地图上面颜色标度映射的强大优势。</p>
 <a id="more"></a>
@@ -835,8 +819,6 @@
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
-
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
 ]]></content>
@@ -869,7 +851,7 @@
     <link href="http://www.raindu.com/2017/06/04/%E5%8A%A8%E6%80%81%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94leaflet%E6%9E%84%E9%80%A0%E8%B7%AF%E5%BE%84%E5%9B%BE/"/>
     <id>http://www.raindu.com/2017/06/04/动态地理信息可视化——leaflet构造路径图/</id>
     <published>2017-06-04T01:56:20.000Z</published>
-    <updated>2017-06-04T02:08:15.814Z</updated>
+    <updated>2017-06-10T11:10:32.630Z</updated>
     
     <content type="html"><![CDATA[<p>根据先前几篇内容的框架，今天介绍leaflet在线地图的第三篇，以线条元素构造的路径图。</p>
 <a id="more"></a>
@@ -953,8 +935,6 @@
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
-
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
 ]]></content>
@@ -976,9 +956,9 @@
     
       <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
     
-      <category term="leaflet" scheme="http://www.raindu.com/tags/leaflet/"/>
-    
       <category term="路径图" scheme="http://www.raindu.com/tags/%E8%B7%AF%E5%BE%84%E5%9B%BE/"/>
+    
+      <category term="leaflet" scheme="http://www.raindu.com/tags/leaflet/"/>
     
       <category term="mini柱形/条形图" scheme="http://www.raindu.com/tags/mini%E6%9F%B1%E5%BD%A2-%E6%9D%A1%E5%BD%A2%E5%9B%BE/"/>
     
@@ -989,7 +969,7 @@
     <link href="http://www.raindu.com/2017/06/03/%E5%8A%A8%E6%80%81%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94%E6%95%A3%E7%82%B9%E5%9C%B0%E5%9B%BE%E7%B3%BB%E5%88%97/"/>
     <id>http://www.raindu.com/2017/06/03/动态地理信息可视化——散点地图系列/</id>
     <published>2017-06-03T01:44:35.000Z</published>
-    <updated>2017-06-03T02:12:01.630Z</updated>
+    <updated>2017-06-10T11:10:08.975Z</updated>
     
     <content type="html"><![CDATA[<p>这是一篇拖了好久的稿子，因为过年玩high了，一直放着没写，今天得空，赶快得空，赶紧整理一下。</p>
 <p>本篇主讲leaflet在线地图系列中的散点系列，包含颜色映射规则（离散和连续）、大小映射规则。</p>
@@ -1021,8 +1001,6 @@
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
-
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
 ]]></content>
@@ -1057,7 +1035,7 @@
     <link href="http://www.raindu.com/2017/06/02/%E5%8A%A8%E6%80%81%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94leaflet%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE%E7%AE%80%E4%BB%8B/"/>
     <id>http://www.raindu.com/2017/06/02/动态地理信息可视化——leaflet在线地图简介/</id>
     <published>2017-06-02T07:14:53.000Z</published>
-    <updated>2017-06-02T07:37:17.316Z</updated>
+    <updated>2017-06-10T11:10:17.756Z</updated>
     
     <content type="html"><![CDATA[<p>最近稍微涉猎了一下leaflet这个包，突然感到发现了动态可视化的新大门，这个包所提供的地图类型、动态效果、图层展示方式都大大扩展了ggplot作图系统的在数据地图上的缺陷。</p>
 <p>leaflet是业界比较流行的JS开源交互式地图包，它支持直接调用OpenStreetMap, Mapbox, and CartoDB等主流地图数据作为辅助图层来进行地理信息数据的可视化操作。</p>
@@ -1127,8 +1105,6 @@
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
-
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
 ]]></content>
@@ -1162,7 +1138,7 @@
     <link href="http://www.raindu.com/2017/06/02/%E7%8E%A9%E8%BD%AC%E6%95%B0%E6%8D%AE%E5%9C%B0%E5%9B%BE%E7%B3%BB%E5%88%97%E4%B9%8B%E2%80%94%E2%80%94%E5%9C%B0%E5%9B%BE%E4%B8%8A%E7%9A%84%E8%BF%B7%E4%BD%A0%E6%9D%A1%E5%BD%A2%E5%9B%BE/"/>
     <id>http://www.raindu.com/2017/06/02/玩转数据地图系列之——地图上的迷你条形图/</id>
     <published>2017-06-02T07:01:58.000Z</published>
-    <updated>2017-06-02T07:13:21.251Z</updated>
+    <updated>2017-06-10T11:09:19.851Z</updated>
     
     <content type="html"><![CDATA[<p>最近忙的厉害，产量下降的有点严重，感谢各位还没取关的小伙伴儿。</p>
 <p>一周前更新了一篇数据地图上的气泡散点图的内容，不知怎地，这段时间就是跟地图死磕上了，今天还是数据地图，不过是在数据地图上呈现条形图、柱形图。</p>
@@ -1198,8 +1174,6 @@
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
-
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
 ]]></content>
@@ -1231,7 +1205,7 @@
     <link href="http://www.raindu.com/2017/06/02/%E7%8E%A9%E8%BD%ACR%E8%AF%AD%E8%A8%80%E6%95%B0%E6%8D%AE%E5%9C%B0%E5%9B%BE%E2%80%94%E2%80%94%E5%9C%B0%E5%9B%BE%E4%B8%8A%E7%9A%84%E8%BF%B7%E4%BD%A0%E6%9F%B1%E5%BD%A2%E9%A5%BC%E5%9B%BE/"/>
     <id>http://www.raindu.com/2017/06/02/玩转R语言数据地图——地图上的迷你柱形饼图/</id>
     <published>2017-06-02T01:33:33.747Z</published>
-    <updated>2017-06-02T07:02:49.852Z</updated>
+    <updated>2017-06-10T11:09:27.366Z</updated>
     
     <content type="html"><![CDATA[<p>这个周末刷微信的时候，偶然看到一篇关于R语言12月更新包的介绍，翻到底部看了一眼，刚好看到一个关于ggplot2的一个图层插件——geom_scatterpie。</p>
 <p>这个包安装之后，可以提供给ggplot新的图层函数，并制作出气泡状饼图，饼图可以分类填色，饼图大小可以映射数值变量，特别是将这种图表形式引入地图之中，那么最终呈现的地图上的气泡饼图非常炫酷。</p>
@@ -1258,8 +1232,6 @@
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
-
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
 ]]></content>
@@ -1292,7 +1264,7 @@
     <link href="http://www.raindu.com/2017/06/01/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94%E7%94%A8%E6%95%B0%E6%8D%AE%E6%9D%A5%E8%81%8A%E8%81%8A%E5%9B%BD%E4%BA%A7%E7%94%B5%E5%BD%B1/"/>
     <id>http://www.raindu.com/2017/06/01/R语言可视化——用数据来聊聊国产电影/</id>
     <published>2017-06-01T00:57:19.000Z</published>
-    <updated>2017-06-01T08:11:45.387Z</updated>
+    <updated>2017-06-10T11:11:26.758Z</updated>
     
     <content type="html"><![CDATA[<p>最近国产电影评分风波引起了很多人的关注，豆瓣和猫眼因国产电影评分过低此被电影局约谈了，猫眼电影还因此下线了自己的电影评分系统，作为好奇宝宝，小魔方也来凑一波热闹。</p>
 <p>当然今天不是要谈政治啦，刚好最近在学爬虫，那就爬一点儿官产电影的数据，用数据告诉大家，国产电影的真实处境。。（受限于技术手段和代码水平，数据不全，分析过程不敢保证精准，仅作为个人练习使用，请谨慎使用）。</p>
@@ -1378,8 +1350,6 @@
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
-
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
 ]]></content>
@@ -1413,7 +1383,7 @@
     <link href="http://www.raindu.com/2017/05/31/R%E8%AF%AD%E8%A8%80%E7%88%AC%E8%99%AB%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94%E7%94%A8%E6%95%B0%E6%8D%AE%E6%9D%A5%E8%81%8A%E8%81%8A2017%E5%B9%B4%E9%A6%96%E5%91%A8%E5%90%84%E5%A4%A7%E5%9F%8E%E5%B8%82%E7%A9%BA%E6%B0%94%E8%B4%A8%E9%87%8F/"/>
     <id>http://www.raindu.com/2017/05/31/R语言爬虫可视化——用数据来聊聊2017年首周各大城市空气质量/</id>
     <published>2017-05-31T08:03:36.000Z</published>
-    <updated>2017-05-31T08:13:36.306Z</updated>
+    <updated>2017-06-10T11:11:06.751Z</updated>
     
     <content type="html"><![CDATA[<p>最近学了些revst包的基础知识，勉强能爬到一些有用的数据，刚好趁着周末，捂着脸跟大家分享。</p>
 <a id="more"></a>
@@ -1442,8 +1412,6 @@
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
-
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
 ]]></content>
@@ -1474,7 +1442,7 @@
     <link href="http://www.raindu.com/2017/05/31/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94%E4%B8%AD%E5%BF%83%E6%94%BE%E5%B0%84%E7%8A%B6%E8%B7%AF%E5%BE%84%E5%9B%BE/"/>
     <id>http://www.raindu.com/2017/05/31/R语言可视化——中心放射状路径图/</id>
     <published>2017-05-31T01:26:55.000Z</published>
-    <updated>2017-05-31T01:36:10.211Z</updated>
+    <updated>2017-06-10T11:11:16.506Z</updated>
     
     <content type="html"><![CDATA[<p>最近一直在研究ggplot剩余还没有涉略过的图表类型，试图挖掘出一些新的图表形式，就像是该包的作者所暗示的那样，ggplot2只是给你搭建了一个图层语法环境，至于具体能创造出何种图形，全凭自己的想象力。</p>
 <p>慢慢的我发现还有一类geom_segment对象自己一直没有尝试过，于是满心欢喜的尝试了一下，果然还是有收获的，我发现通过这个segment图层，可以批量的创建放射状线条图，也就是路径图，这解决了我一直以来的难题，今天顺便分享给大家。</p>
@@ -1510,8 +1478,6 @@
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
-
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
 ]]></content>
@@ -1541,7 +1507,7 @@
     <link href="http://www.raindu.com/2017/05/30/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94ggplot%E7%BB%98%E5%88%B6%E4%B8%AD%E5%BF%83%E5%AF%86%E5%BA%A6%E8%BE%90%E5%B0%84%E5%9B%BE/"/>
     <id>http://www.raindu.com/2017/05/30/R语言可视化——ggplot绘制中心密度辐射图/</id>
     <published>2017-05-30T08:05:43.000Z</published>
-    <updated>2017-05-30T08:30:27.628Z</updated>
+    <updated>2017-06-10T11:12:14.078Z</updated>
     
     <content type="html"><![CDATA[<p>今天这篇算是之前ggplot2图表系列的增补。</p>
 <p>因为在ggplot2中一直没有看到好的关于密度辐射图（或者称它为热力辐射图，就是那种PowerMap中可以通过颜色色度探查区域指标分布密度的图表类型）的合适解决方案，最近在看github官网上ggmap的介绍帖，看到作者在ggmap函数中嵌套了geom_polygon图层并并使用fill=..level..参数和stat=”density_2d”来来制作类似的热度辐射图。</p>
@@ -1574,8 +1540,6 @@
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
-
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
 ]]></content>
@@ -1606,7 +1570,7 @@
     <link href="http://www.raindu.com/2017/05/30/%E7%94%A8ggplot2%E5%88%B6%E4%BD%9C%E9%9D%99%E6%80%81%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E6%8A%A5%E5%91%8A/"/>
     <id>http://www.raindu.com/2017/05/30/用ggplot2制作静态数据可视化报告/</id>
     <published>2017-05-30T00:58:46.000Z</published>
-    <updated>2017-05-30T01:08:06.343Z</updated>
+    <updated>2017-06-10T11:09:04.710Z</updated>
     
     <content type="html"><![CDATA[<p>对于可视化呈现来说，一个图表呈现的数据信息是有限的，更多时候，我们需要呈现的是多角度多维度的数据信息。</p>
 <p>这时候，就需要用在同一个版面上容纳多副相关的图表形成一个版面的可视化报告，今天是网易数独的一个数据报告，使用ggplot还原了（其中用到的国旗出现了点儿小bug，至今没有解决，有知情的的大神还望赐教！）</p>
@@ -1631,8 +1595,6 @@
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<div align="center"><br><img src="http://oqbxptw4f.bkt.clouddn.com/FontMap-of-China/resume.png" width="550" height="300" alt="resume" align="center"><br></div>
-
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
 ]]></content>
