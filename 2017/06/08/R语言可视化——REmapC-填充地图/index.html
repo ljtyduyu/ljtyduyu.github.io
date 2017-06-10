@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="R语言,数据可视化,地理信息可视化,REmap,填充地图," />
+  <meta name="keywords" content="R语言,数据可视化,地理信息可视化,填充地图,REmap," />
 
 
 
@@ -93,7 +93,7 @@
 
 
 <meta name="description" content="今天跟大家介绍REmap函数家族中的第三个函数——REmapC。 REmapC函数允许我们同时在一张地图上制作填充图和点图、线图。">
-<meta name="keywords" content="R语言,数据可视化,地理信息可视化,REmap,填充地图">
+<meta name="keywords" content="R语言,数据可视化,地理信息可视化,填充地图,REmap">
 <meta property="og:type" content="article">
 <meta property="og:title" content="R语言可视化——REmapC(填充地图)">
 <meta property="og:url" content="http://www.raindu.com/2017/06/08/R语言可视化——REmapC-填充地图/index.html">
@@ -283,26 +283,22 @@
   
     <div class="site-search">
       
-  
-  <div class="algolia-popup popup search-popup">
-    <div class="algolia-search">
-      <div class="algolia-search-input-icon">
-        <i class="fa fa-search"></i>
-      </div>
-      <div class="algolia-search-input" id="algolia-search-input"></div>
-    </div>
-
-    <div class="algolia-results">
-      <div id="algolia-stats"></div>
-      <div id="algolia-hits"></div>
-      <div id="algolia-pagination" class="algolia-pagination"></div>
-    </div>
-
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
     <span class="popup-btn-close">
       <i class="fa fa-times-circle"></i>
     </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
   </div>
-
+  <div id="local-search-result"></div>
+</div>
 
 
 
@@ -558,9 +554,9 @@
           
             <a href="/tags/地理信息可视化/" rel="tag"># 地理信息可视化</a>
           
-            <a href="/tags/REmap/" rel="tag"># REmap</a>
-          
             <a href="/tags/填充地图/" rel="tag"># 填充地图</a>
+          
+            <a href="/tags/REmap/" rel="tag"># REmap</a>
           
         </div>
       
@@ -1297,19 +1293,6 @@
   </script>
 
 
-
-
-  
-  
-  
-  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
-
-  
-  
-  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
-  
-
-  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
 
 
 
