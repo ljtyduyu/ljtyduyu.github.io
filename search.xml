@@ -39,8 +39,8 @@
         <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
-        <tag>热力密度地图</tag>
         <tag>REmap</tag>
+        <tag>热力密度地图</tag>
       </tags>
   </entry>
   <entry>
@@ -69,8 +69,8 @@
         <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
-        <tag>REmap</tag>
         <tag>在线地图</tag>
+        <tag>REmap</tag>
       </tags>
   </entry>
   <entry>
@@ -84,8 +84,8 @@
         <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
-        <tag>REmap</tag>
         <tag>在线地图</tag>
+        <tag>REmap</tag>
         <tag>路径图</tag>
       </tags>
   </entry>
@@ -100,8 +100,8 @@
         <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
-        <tag>REmap</tag>
         <tag>在线地图</tag>
+        <tag>REmap</tag>
       </tags>
   </entry>
   <entry>
@@ -130,9 +130,9 @@
       <tags>
         <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>json</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
-        <tag>json</tag>
         <tag>leaflet</tag>
       </tags>
   </entry>
@@ -164,8 +164,8 @@
         <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
-        <tag>路径图</tag>
         <tag>leaflet</tag>
+        <tag>路径图</tag>
         <tag>mini柱形/条形图</tag>
       </tags>
   </entry>
