@@ -1,0 +1,1047 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="R语言,数据可视化,ggplot2," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="raindu's home" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="图表的优化布局在Excel中一直都是个大难题，难在Excel软件固有的限制。 特别是在制作多序列多分类图表的时候，放在一个图中显得序列过于拥挤，影响视觉效果，做出分面表达又耗时费力，需要掌握诸多技巧，（版式设计呀、单元格锚定呀等等、照相机呀什么的）是在是有心无力。">
+<meta name="keywords" content="R语言,数据可视化,ggplot2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R语言图表美化——巧用分面表达优化图表布局，做出堪比杂志级视觉体验的商务图表">
+<meta property="og:url" content="http://www.raindu.com/2017/06/10/R语言图表美化——巧用分面表达优化图表布局，做出堪比杂志级视觉体验的商务图表/index.html">
+<meta property="og:site_name" content="raindu&#39;s home">
+<meta property="og:description" content="图表的优化布局在Excel中一直都是个大难题，难在Excel软件固有的限制。 特别是在制作多序列多分类图表的时候，放在一个图中显得序列过于拥挤，影响视觉效果，做出分面表达又耗时费力，需要掌握诸多技巧，（版式设计呀、单元格锚定呀等等、照相机呀什么的）是在是有心无力。">
+<meta property="og:image" content="http://orb53xpn8.bkt.clouddn.com/image1.png">
+<meta property="og:image" content="http://orb53xpn8.bkt.clouddn.com/image2.png">
+<meta property="og:image" content="http://orb53xpn8.bkt.clouddn.com/image3.png">
+<meta property="og:image" content="http://orb53xpn8.bkt.clouddn.com/image4.png">
+<meta property="og:image" content="http://orb53xpn8.bkt.clouddn.com/image5.png">
+<meta property="og:image" content="http://orb53xpn8.bkt.clouddn.com/image6.png">
+<meta property="og:image" content="http://orb53xpn8.bkt.clouddn.com/image7.png">
+<meta property="og:image" content="http://orb53xpn8.bkt.clouddn.com/image8.png">
+<meta property="og:image" content="http://orb53xpn8.bkt.clouddn.com/image9.png">
+<meta property="og:image" content="http://orb53xpn8.bkt.clouddn.com/21.jpg">
+<meta property="og:image" content="http://orb53xpn8.bkt.clouddn.com/image16.png">
+<meta property="og:image" content="http://orb53xpn8.bkt.clouddn.com/image17.png">
+<meta property="og:image" content="http://orb53xpn8.bkt.clouddn.com/image10.png">
+<meta property="og:image" content="http://orb53xpn8.bkt.clouddn.com/image11.png">
+<meta property="og:image" content="http://orb53xpn8.bkt.clouddn.com/image12.png">
+<meta property="og:image" content="http://orb53xpn8.bkt.clouddn.com/image19.png">
+<meta property="og:image" content="http://orb53xpn8.bkt.clouddn.com/image18.png">
+<meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
+<meta property="og:updated_time" content="2017-06-10T01:54:32.725Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="R语言图表美化——巧用分面表达优化图表布局，做出堪比杂志级视觉体验的商务图表">
+<meta name="twitter:description" content="图表的优化布局在Excel中一直都是个大难题，难在Excel软件固有的限制。 特别是在制作多序列多分类图表的时候，放在一个图中显得序列过于拥挤，影响视觉效果，做出分面表达又耗时费力，需要掌握诸多技巧，（版式设计呀、单元格锚定呀等等、照相机呀什么的）是在是有心无力。">
+<meta name="twitter:image" content="http://orb53xpn8.bkt.clouddn.com/image1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.raindu.com/2017/06/10/R语言图表美化——巧用分面表达优化图表布局，做出堪比杂志级视觉体验的商务图表/"/>
+
+
+
+
+
+  <title>R语言图表美化——巧用分面表达优化图表布局，做出堪比杂志级视觉体验的商务图表 | raindu's home</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">raindu's home</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">A lifelong learner!!!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/06/10/R语言图表美化——巧用分面表达优化图表布局，做出堪比杂志级视觉体验的商务图表/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RainDu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="raindu's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">R语言图表美化——巧用分面表达优化图表布局，做出堪比杂志级视觉体验的商务图表</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-10T09:15:55+08:00">
+                2017-06-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/R语言/" itemprop="url" rel="index">
+                    <span itemprop="name">R语言</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/06/10/R语言图表美化——巧用分面表达优化图表布局，做出堪比杂志级视觉体验的商务图表/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2,076 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  10 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>图表的优化布局在Excel中一直都是个大难题，难在Excel软件固有的限制。</p>
+<p>特别是在制作多序列多分类图表的时候，放在一个图中显得序列过于拥挤，影响视觉效果，做出分面表达又耗时费力，需要掌握诸多技巧，（版式设计呀、单元格锚定呀等等、照相机呀什么的）是在是有心无力。</p>
+<a id="more"></a>
+<p>但是像R语言这样依靠图形语法来控制的作图形式，却不存在这样的问题。</p>
+<p>今天跟大家分享如何在R语言中巧用分面表达来优化多系列多分类图表的版式布局！</p>
+<p>其实这一篇在不久前曾经发过的，当时还处于摸索阶段，写的很粗糙，今天重发一遍，所有的代码和图表都是优化过的，不仔细观察，还真看不出来，仔细对比一下就能发现了！</p>
+<p>我是分割线~</p>
+<hr>
+<p>当数据序列比较多的时候，特别是超过四个以后，还用堆积柱形图（条形图）、或者簇状柱形图的话，图表必然会因为系列太多而受到挤压或者变形，整体就会不协调、不美观。</p>
+<p>还有ggplot不支持次坐标轴功能，它的作图思维基本源于塔夫脱的可视化理念，而且作者个人的审美也比较抵触次坐标轴，但是他留给大家解决多序列图表的方案是——图形分面</p>
+<p>以下仅以常用的柱形图、条形图为例进行讲解（所有的图形对象几乎都支持分面）</p>
+<h3 id="构造作图数据集："><a href="#构造作图数据集：" class="headerlink" title="构造作图数据集："></a>构造作图数据集：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">data&lt;-data.frame(Name = c(<span class="string">"苹果"</span>,<span class="string">"谷歌"</span>,<span class="string">"脸书"</span>,<span class="string">"亚马逊"</span>,<span class="string">"腾讯"</span>),</div><div class="line">Conpany = c(<span class="string">"Apple"</span>,<span class="string">"Google"</span>,<span class="string">"Facebook"</span>,<span class="string">"Amozon"</span>,<span class="string">"Tencent"</span>),</div><div class="line">Sale2013 = c(<span class="number">5000</span>,<span class="number">3500</span>,<span class="number">2300</span>,<span class="number">2100</span>,<span class="number">3100</span>),</div><div class="line">Sale2014 = c(<span class="number">5050</span>,<span class="number">3800</span>,<span class="number">2900</span>,<span class="number">2500</span>,<span class="number">3300</span>),</div><div class="line">Sale2015 = c(<span class="number">5050</span>,<span class="number">3800</span>,<span class="number">2900</span>,<span class="number">2500</span>,<span class="number">3300</span>),</div><div class="line">Sale2016 = c(<span class="number">5050</span>,<span class="number">3800</span>,<span class="number">2900</span>,<span class="number">2500</span>,<span class="number">3300</span>))</div></pre></td></tr></table></figure>
+<p><img src="http://orb53xpn8.bkt.clouddn.com/image1.png" alt=""></p>
+<h3 id="数据重塑（宽转长）："><a href="#数据重塑（宽转长）：" class="headerlink" title="数据重塑（宽转长）："></a>数据重塑（宽转长）：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mydata&lt;-melt(mydata,id.vars=<span class="string">"Conpany"</span>,variable.name=<span class="string">"Year"</span>,value.name=<span class="string">"Sale"</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://orb53xpn8.bkt.clouddn.com/image2.png" alt=""></p>
+<h3 id="作图函数："><a href="#作图函数：" class="headerlink" title="作图函数："></a>作图函数：</h3><p><strong>默认输出图表：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(Conpany,Sale,fill=Year))+</div><div class="line">geom_bar(stat=<span class="string">"identity"</span>,position=<span class="string">"dodge"</span>)</div></pre></td></tr></table></figure></p>
+<p><img src="http://orb53xpn8.bkt.clouddn.com/image3.png" alt=""></p>
+<p>默认图表的配色确实挺难看的，这里我使用华尔街日报、经济学人的主题、及配色模板进行适度美化。</p>
+<p><strong>华尔街日报：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(Conpany,Sale,fill=Year))+</div><div class="line">geom_bar(stat=<span class="string">"identity"</span>,position=<span class="string">"dodge"</span>)+</div><div class="line">theme_wsj()+</div><div class="line">scale_fill_wsj(<span class="string">"rgby"</span>, <span class="string">""</span>)+</div><div class="line">guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">ggtitle(<span class="string">"The Financial Performance of Five Giant"</span>)+</div><div class="line">theme(axis.title = element_blank())</div></pre></td></tr></table></figure></p>
+<p><img src="http://orb53xpn8.bkt.clouddn.com/image4.png" alt=""></p>
+<p><strong>经济学人</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(Conpany,Sale,fill=Year))+</div><div class="line">geom_bar(stat=<span class="string">"identity"</span>,position=<span class="string">"dodge"</span>)+</div><div class="line">theme_economist(base_size=<span class="number">14</span>)+</div><div class="line">scale_fill_economist()+</div><div class="line">guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">ggtitle(<span class="string">"The Financial Performance of Five Giant"</span>)+</div><div class="line">theme(axis.title = element_blank())</div></pre></td></tr></table></figure></p>
+<p><img src="http://orb53xpn8.bkt.clouddn.com/image5.png" alt=""></p>
+<p>以上是我们使用传统的方法通过将颜色映射到不同类别的年度收入变量上，达到了区分效果，可是这样终究不是办法，五个序列实在是有点多，已经让然有点儿眼花缭乱了，如果有8个序列、10个序列呢，那又该怎么办呢~</p>
+<p>下面跟大家分享其中一种比较有效的解决办法——通过分面表达解决多序列图表呈现问题</p>
+<h3 id="横排分面："><a href="#横排分面：" class="headerlink" title="横排分面："></a>横排分面：</h3><p><strong>柱形分面（横排）：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(Conpany,Sale,fill=Year))+</div><div class="line">geom_bar(stat=<span class="string">"identity"</span>,position=<span class="string">"dodge"</span>)+</div><div class="line">theme_wsj()+</div><div class="line">scale_fill_wsj(<span class="string">"rgby"</span>, <span class="string">""</span>)+</div><div class="line">guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">ggtitle(<span class="string">"The Financial Performance of Five Giant"</span>)+</div><div class="line">theme(axis.title = element_blank(),legend.position=<span class="string">'none'</span>)+</div><div class="line">facet_grid(.~Year)</div></pre></td></tr></table></figure></p>
+<p><img src="http://orb53xpn8.bkt.clouddn.com/image6.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(Conpany,Sale,fill=Year))+</div><div class="line">geom_bar(stat=<span class="string">"identity"</span>,position=<span class="string">"dodge"</span>)+</div><div class="line">facet_grid(.~Year)+</div><div class="line">theme_economist(base_size=<span class="number">14</span>)+</div><div class="line">scale_fill_economist()+</div><div class="line">guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">ggtitle(<span class="string">"The Financial Performance of Five Giant"</span>)+</div><div class="line">theme(</div><div class="line">           axis.title = element_blank(),</div><div class="line">          legend.position=<span class="string">'none'</span>,</div><div class="line">          axis.text.x=element_text(size=<span class="number">7.5</span>)</div><div class="line">         )</div></pre></td></tr></table></figure>
+<p><img src="http://orb53xpn8.bkt.clouddn.com/image7.png" alt=""></p>
+<p><strong>条形分面（横排）：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(Conpany,Sale,fill=Year))+</div><div class="line">geom_bar(stat=<span class="string">"identity"</span>,position=<span class="string">"dodge"</span>)+</div><div class="line">theme_wsj()+</div><div class="line">scale_fill_wsj(<span class="string">"rgby"</span>, <span class="string">""</span>)+</div><div class="line">guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">facet_grid(.~Year)+</div><div class="line">coord_flip()+</div><div class="line">ggtitle(<span class="string">"The Financial Performance of Five Giant"</span>)+</div><div class="line">theme(</div><div class="line">      axis.title = element_blank(),</div><div class="line">      legend.position=<span class="string">'none'</span>,</div><div class="line">      axis.text.y=element_text(size=<span class="number">10</span>),</div><div class="line">      axis.text.x=element_text(size=<span class="number">7.5</span>),</div><div class="line">      axis.ticks.x=element_blank(),</div><div class="line">      axis.ticks.y=element_line(),</div><div class="line">     axis.ticks.length=unit(<span class="number">0.5</span>,<span class="string">'cm'</span>),</div><div class="line">     axis.line.y=element_line(),</div><div class="line">     axis.line.x=element_blank(),</div><div class="line">      panel.grid.major.x=element_line(linetype=<span class="string">"dashed"</span>,colour=<span class="string">"grey60"</span>),</div><div class="line">      panel.grid.major.y=element_blank()</div><div class="line">      )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orb53xpn8.bkt.clouddn.com/image8.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(Conpany,Sale,fill=Year))+</div><div class="line">geom_bar(stat=<span class="string">"identity"</span>,position=<span class="string">"dodge"</span>)+</div><div class="line">theme_economist(base_size=<span class="number">14</span>)+</div><div class="line">facet_grid(.~Year)+</div><div class="line">coord_flip()+</div><div class="line">scale_fill_economist()+</div><div class="line">theme(axis.ticks.length=unit(<span class="number">0.5</span>,<span class="string">'cm'</span>))+</div><div class="line">guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">ggtitle(<span class="string">"The Financial Performance of Five Giant"</span>)+</div><div class="line">theme(</div><div class="line">      axis.title = element_blank(),</div><div class="line">      legend.position=<span class="string">'none'</span>,</div><div class="line">      axis.text.y=element_text(size=<span class="number">10</span>),</div><div class="line">      axis.text.x=element_text(size=<span class="number">7.5</span>),</div><div class="line">      axis.line.x=element_blank(),</div><div class="line">      axis.line.y=element_line(),</div><div class="line">      axis.ticks.x=element_blank(),</div><div class="line">      axis.ticks.y=element_line(),</div><div class="line">     axis.ticks.length=unit(<span class="number">0.5</span>,<span class="string">'cm'</span>),</div><div class="line">      panel.grid.major.x=element_line(linetype=<span class="string">"solid"</span>,colour=<span class="string">"white"</span>,size=<span class="number">1.1</span>),</div><div class="line">      panel.grid.major.y=element_blank()</div><div class="line">      )</div></pre></td></tr></table></figure>
+<p><img src="http://orb53xpn8.bkt.clouddn.com/image9.png" alt=""></p>
+<h3 id="竖排分面："><a href="#竖排分面：" class="headerlink" title="竖排分面："></a>竖排分面：</h3><p><strong>柱形分面（竖排）：</strong></p>
+<p>左<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">p1&lt;-ggplot(mydata,aes(Conpany,Sale,fill=Year))+</div><div class="line">geom_bar(stat=<span class="string">"identity"</span>,position=<span class="string">"dodge"</span>)+</div><div class="line">theme_wsj()+</div><div class="line">scale_fill_wsj(<span class="string">"rgby"</span>, <span class="string">""</span>)+</div><div class="line">theme(axis.ticks.length=unit(<span class="number">0.3</span>,<span class="string">'cm'</span>))+</div><div class="line">guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">ggtitle(<span class="string">"The Financial Performance of Five Giant"</span>)+</div><div class="line">theme(axis.title = element_blank(),legend.position=<span class="string">'none'</span>)+</div><div class="line">facet_grid(Year~.)</div><div class="line">右</div><div class="line">p2&lt;-ggplot(mydata,aes(Conpany,Sale,fill=Year))+</div><div class="line">geom_bar(stat=<span class="string">"identity"</span>,position=<span class="string">"dodge"</span>)+</div><div class="line">theme_economist(base_size=<span class="number">14</span>)+</div><div class="line">facet_grid(Year~.)+</div><div class="line">scale_fill_economist()+</div><div class="line">theme(axis.ticks.length=unit(<span class="number">0.3</span>,<span class="string">'cm'</span>))+</div><div class="line">guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">ggtitle(<span class="string">"The Financial Performance of Five Giant"</span>)+</div><div class="line">theme(</div><div class="line">      axis.title = element_blank(),</div><div class="line">      legend.position=<span class="string">'none'</span>,</div><div class="line">      axis.text.y=element_text(size=<span class="number">7.5</span>),</div><div class="line">      axis.text.x=element_text(size=<span class="number">7.5</span>,face=<span class="string">"bold"</span>),</div><div class="line">      strip.text=element_text(size=<span class="number">10</span>)</div><div class="line">      )</div></pre></td></tr></table></figure></p>
+<p>使用multiplot函数进行版面合并：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">require</span>(grid)</div><div class="line"><span class="keyword">library</span>(<span class="string">"Rmisc"</span>)</div><div class="line">multiplot(p1,p2,cols=<span class="number">2</span>)</div></pre></td></tr></table></figure></p>
+<p><img src="http://orb53xpn8.bkt.clouddn.com/21.jpg" alt=""></p>
+<p><strong>条形分面（竖排）：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(Conpany,Sale,fill=Year))+</div><div class="line">geom_bar(stat=<span class="string">"identity"</span>,position=<span class="string">"dodge"</span>)+</div><div class="line">theme_wsj()+</div><div class="line">facet_grid(Year~.)+</div><div class="line">coord_flip()+</div><div class="line">scale_fill_wsj(<span class="string">"rgby"</span>, <span class="string">""</span>)+</div><div class="line">theme(axis.ticks.length=unit(<span class="number">0.5</span>,<span class="string">'cm'</span>))+</div><div class="line">guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">ggtitle(<span class="string">"The Financial Performance of Five Giant"</span>)+</div><div class="line">theme(</div><div class="line">      axis.title = element_blank(),</div><div class="line">      legend.position=<span class="string">'none'</span>,</div><div class="line">      panel.grid.major.x=element_line(linetype=<span class="string">"dashed"</span>,colour=<span class="string">"grey60"</span>),</div><div class="line">      panel.grid.major.y=element_blank(),</div><div class="line">      axis.ticks.x=element_blank(),</div><div class="line">      axis.ticks.y=element_line(),</div><div class="line">      axis.ticks.length=unit(<span class="number">0.3</span>,<span class="string">'cm'</span>),</div><div class="line">      axis.line.x=element_blank(),</div><div class="line">      axis.line.y=element_line(),</div><div class="line">      axis.text.x=element_text(size=<span class="number">10</span>),</div><div class="line">      )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orb53xpn8.bkt.clouddn.com/image16.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(Conpany,Sale,fill=Year))+</div><div class="line">geom_bar(stat=<span class="string">"identity"</span>,position=<span class="string">"dodge"</span>)+</div><div class="line">facet_grid(Year~.)+</div><div class="line">coord_flip()+</div><div class="line">theme_economist(base_size=<span class="number">14</span>)+</div><div class="line">scale_fill_economist()+</div><div class="line">guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">ggtitle(<span class="string">"The Financial Performance of Five Giant"</span>)+</div><div class="line">theme(</div><div class="line">      axis.title = element_blank(),</div><div class="line">      legend.position=<span class="string">'none'</span>,</div><div class="line">      panel.grid.major.x=element_line(linetype=<span class="number">1</span>,colour=<span class="string">"white"</span>,size=<span class="number">1.1</span>),</div><div class="line">      panel.grid.major.y=element_blank(),</div><div class="line">      axis.ticks.x=element_blank(),</div><div class="line">      axis.ticks.y=element_line(),</div><div class="line">      axis.ticks.length=unit(<span class="number">0.2</span>,<span class="string">'cm'</span>),</div><div class="line">      axis.line.x=element_blank(),</div><div class="line">      axis.line.y=element_line(),</div><div class="line">      axis.text.x=element_text(size=<span class="number">10</span>),</div><div class="line">      strip.text=element_text(size=<span class="number">10</span>),</div><div class="line">      axis.text.y=element_text(size=<span class="number">10</span>)</div><div class="line">      )</div></pre></td></tr></table></figure>
+<p><img src="http://orb53xpn8.bkt.clouddn.com/image17.png" alt=""></p>
+<h3 id="关于簇状、分面图表数据标签问题："><a href="#关于簇状、分面图表数据标签问题：" class="headerlink" title="关于簇状、分面图表数据标签问题："></a>关于簇状、分面图表数据标签问题：</h3><p><strong>簇状图数据标签处理：</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(Conpany,Sale,fill=Year,label =Sale))+</div><div class="line">geom_bar(stat=<span class="string">"identity"</span>,position=<span class="string">"dodge"</span>)+</div><div class="line">theme_wsj()+</div><div class="line">scale_fill_wsj(<span class="string">"rgby"</span>, <span class="string">""</span>)+</div><div class="line">guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">ggtitle(<span class="string">"The Financial Performance of Five Giant"</span>)+</div><div class="line">geom_text(aes(y = Sale + <span class="number">0.05</span>), position =position_dodge(<span class="number">0.9</span>),fontface=<span class="string">"bold"</span>, vjust =<span class="number">1</span>,colour=<span class="string">"white"</span>,size=<span class="number">2</span>)+</div><div class="line">theme(</div><div class="line">      axis.title = element_blank(),</div><div class="line">      axis.ticks.length=unit(<span class="number">0.3</span>,<span class="string">'cm'</span>),</div><div class="line">      axis.text.x=element_text(size=<span class="number">10</span>),</div><div class="line">      axis.text.y=element_text(size=<span class="number">10</span>),</div><div class="line">      )</div></pre></td></tr></table></figure>
+<p><img src="http://orb53xpn8.bkt.clouddn.com/image10.png" alt=""></p>
+<p><strong>横向分面柱图数据标签问题：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(Conpany,Sale,fill=Year,label =Sale))+</div><div class="line">geom_bar(stat=<span class="string">"identity"</span>,position=<span class="string">"dodge"</span>)+</div><div class="line">theme_wsj()+</div><div class="line">facet_grid(.~Year)+</div><div class="line">scale_fill_wsj(<span class="string">"rgby"</span>, <span class="string">""</span>)+</div><div class="line">guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">ggtitle(<span class="string">"The Financial Performance of Five Giant"</span>)+</div><div class="line">geom_text(aes(y = Sale + <span class="number">0.05</span>), position =position_dodge(<span class="number">0.9</span>),fontface=<span class="string">"bold"</span>, vjust =<span class="number">1</span>,colour=<span class="string">"white"</span>,size=<span class="number">2</span>)+</div><div class="line">theme(</div><div class="line">      axis.title = element_blank(),</div><div class="line">      legend.position=<span class="string">'none'</span>,</div><div class="line">      axis.ticks.length=unit(<span class="number">0.3</span>,<span class="string">'cm'</span>),</div><div class="line">      axis.line.x=element_line(),</div><div class="line">      axis.text.x=element_text(size=<span class="number">5</span>),</div><div class="line">      axis.text.y=element_text(size=<span class="number">7.5</span>)</div><div class="line">      )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orb53xpn8.bkt.clouddn.com/image11.png" alt=""></p>
+<p><strong>横向分面条形图数据标签问题：</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(Conpany,Sale,fill=Year,label =Sale))+</div><div class="line">geom_bar(stat=<span class="string">"identity"</span>,position=<span class="string">"dodge"</span>)+</div><div class="line">coord_flip()+facet_grid(.~Year)+</div><div class="line">theme_wsj()+scale_fill_wsj(<span class="string">"rgby"</span>, <span class="string">""</span>)+</div><div class="line">guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">ggtitle(<span class="string">"The Financial Performance of Five Giant"</span>)+</div><div class="line">geom_text(aes(y = Sale + <span class="number">0.05</span>), position = position_dodge(<span class="number">0.9</span>),hjust=<span class="number">1.2</span>,vjust=<span class="number">0.5</span>,colour=<span class="string">"white"</span>,size=<span class="number">4</span>)+</div><div class="line">theme(</div><div class="line">      axis.title = element_blank(),</div><div class="line">      legend.position=<span class="string">'none'</span>,</div><div class="line">      panel.grid.major.x=element_line(linetype=<span class="string">"dashed"</span>,colour=<span class="string">"grey60"</span>),</div><div class="line">      panel.grid.major.y=element_blank(),</div><div class="line">      axis.ticks.x=element_blank(),</div><div class="line">      axis.ticks.y=element_line(),</div><div class="line">      axis.ticks.length=unit(<span class="number">0.3</span>,<span class="string">'cm'</span>),</div><div class="line">      axis.line.x=element_blank(),</div><div class="line">      axis.line.y=element_line(),</div><div class="line">      axis.text.x=element_text(size=<span class="number">8</span>),</div><div class="line">      axis.text.y=element_text(size=<span class="number">10</span>)</div><div class="line">      )</div></pre></td></tr></table></figure>
+<p><img src="http://orb53xpn8.bkt.clouddn.com/image12.png" alt=""></p>
+<p><strong>竖向分面柱形图数据标签问题：</strong></p>
+<p><img src="http://orb53xpn8.bkt.clouddn.com/image19.png" alt=""></p>
+<p><strong>竖向分面条形图数据标签问题：</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(Conpany,Sale,fill=Year,label =Sale))+</div><div class="line">geom_bar(stat=<span class="string">"identity"</span>,position=<span class="string">"dodge"</span>)+</div><div class="line">theme_wsj()+scale_fill_wsj(<span class="string">"rgby"</span>, <span class="string">""</span>)+</div><div class="line">facet_grid(Year~.)+coord_flip()+</div><div class="line">guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">ggtitle(<span class="string">"The Financial Performance of Five Giant"</span>)+</div><div class="line">geom_text(aes(y = Sale + <span class="number">0.05</span>), position = position_dodge(<span class="number">0.9</span>),hjust=<span class="number">1.1</span>,colour=<span class="string">"white"</span>,size=<span class="number">3.5</span>)+</div><div class="line">theme(</div><div class="line">      axis.title = element_blank(),</div><div class="line">      legend.position=<span class="string">'none'</span>,</div><div class="line">      panel.grid.major.x=element_line(linetype=<span class="string">"dashed"</span>,colour=<span class="string">"grey60"</span>),</div><div class="line">      panel.grid.major.y=element_blank(),</div><div class="line">      axis.ticks.x=element_blank(),</div><div class="line">      axis.ticks.y=element_line(),</div><div class="line">      axis.ticks.length=unit(<span class="number">0.25</span>,<span class="string">'cm'</span>),</div><div class="line">      axis.line.x=element_blank(),</div><div class="line">      axis.line.y=element_line(),</div><div class="line">      axis.text.y=element_text(size=<span class="number">10</span>),</div><div class="line">      axis.text.x=element_text(size=<span class="number">10</span>)</div><div class="line">      )</div></pre></td></tr></table></figure>
+<p><img src="http://orb53xpn8.bkt.clouddn.com/image18.png" alt=""></p>
+<p>以上是本人在学习ggplot函数过程中的一些练习案例，当然要是仔细琢磨，里面的瑕疵还不少，改进空间还有很多，以后有机会慢慢跟大家补充，过几天再跟大家继续分享关于ggplot更加精深的用法技巧！</p>
+<hr>
+<p><strong>联系方式：</strong></p>
+<p>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834  </p>
+<p><strong>个人简介：</strong></p>
+<p><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
+<hr>
+<p><strong>备注信息：</strong></p>
+<p><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://oqbxptw4f.bkt.clouddn.com/dashang/wechat.jpg" alt="RainDu WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://oqbxptw4f.bkt.clouddn.com/dashang/Alipay.png" alt="RainDu Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/R语言/" rel="tag"># R语言</a>
+          
+            <a href="/tags/数据可视化/" rel="tag"># 数据可视化</a>
+          
+            <a href="/tags/ggplot2/" rel="tag"># ggplot2</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/09/leaflet在线地图进阶宝典——高级交互特性(动态显示效果)/" rel="next" title="leaflet在线地图进阶宝典——高级交互特性">
+                <i class="fa fa-chevron-left"></i> leaflet在线地图进阶宝典——高级交互特性
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="RainDu" />
+          <p class="site-author-name" itemprop="name">RainDu</p>
+           
+              <p class="site-description motion-element" itemprop="description">身体和心灵，总有一个在路上！</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ljtyduyu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/1676935144" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.zhihu.com/people/du-yu-48-94/activities" title="知乎" target="_blank">知乎</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jianshu.com/u/29dbe4c85801" title="简书" target="_blank">简书</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#构造作图数据集："><span class="nav-number">1.</span> <span class="nav-text">构造作图数据集：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据重塑（宽转长）："><span class="nav-number">2.</span> <span class="nav-text">数据重塑（宽转长）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作图函数："><span class="nav-number">3.</span> <span class="nav-text">作图函数：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#横排分面："><span class="nav-number">4.</span> <span class="nav-text">横排分面：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#竖排分面："><span class="nav-number">5.</span> <span class="nav-text">竖排分面：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于簇状、分面图表数据标签问题："><span class="nav-number">6.</span> <span class="nav-text">关于簇状、分面图表数据标签问题：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RainDu</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共49.6k字</span>
+</div>
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "f1e7f17c2ee543bdae216f9b2a74bc91",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cyt3stKEE';
+      var conf = '8581e784b1dd8f7f3e1d1388a5e8995c';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
