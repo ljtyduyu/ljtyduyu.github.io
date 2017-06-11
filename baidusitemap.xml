@@ -4,6 +4,30 @@
 
     
   <url>
+    <loc>http://www.raindu.com/2017/06/11/R%E9%A2%84%E8%AE%BE%E9%85%8D%E8%89%B2%E7%B3%BB%E7%BB%9F%E5%8F%8A%E8%87%AA%E5%AE%9A%E4%B9%89%E8%89%B2%E6%9D%BF/</loc>
+    <lastmod>2017-06-11T13:23:41.600Z</lastmod>
+    <data>
+        <display>
+        <title>R预设配色系统及自定义色板</title>
+        <pubTime>2017-06-11T13:11:15.000Z</pubTime>
+        
+        <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
+         
+        <tag>配色</tag>
+         
+         
+           
+             
+              <breadCrumb title="图表配色" url="http://www.raindu.com/categories/%E5%9B%BE%E8%A1%A8%E9%85%8D%E8%89%B2/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.raindu.com/2017/06/11/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94%E6%9E%81%E5%9D%90%E6%A0%87%E5%8F%98%E6%8D%A2%E4%B8%8E%E8%A1%8D%E7%94%9F%E5%9B%BE%E8%A1%A8%E7%B1%BB%E5%9E%8B/</loc>
     <lastmod>2017-06-11T01:35:54.937Z</lastmod>
     <data>
@@ -71,11 +95,11 @@
          
         <tag>数据可视化</tag>
          
-        <tag>json</tag>
-         
         <tag>地理信息可视化</tag>
          
         <tag>在线地图</tag>
+         
+        <tag>json</tag>
          
         <tag>leaflet</tag>
          
@@ -187,9 +211,9 @@
          
         <tag>地理信息可视化</tag>
          
-        <tag>REmap</tag>
-         
         <tag>填充地图</tag>
+         
+        <tag>REmap</tag>
          
          
            
@@ -243,9 +267,9 @@
          
         <tag>地理信息可视化</tag>
          
-        <tag>在线地图</tag>
-         
         <tag>REmap</tag>
+         
+        <tag>在线地图</tag>
          
          
            
@@ -271,9 +295,9 @@
          
         <tag>地理信息可视化</tag>
          
-        <tag>在线地图</tag>
-         
         <tag>REmap</tag>
+         
+        <tag>在线地图</tag>
          
         <tag>路径图</tag>
          
@@ -301,9 +325,9 @@
          
         <tag>地理信息可视化</tag>
          
-        <tag>在线地图</tag>
-         
         <tag>REmap</tag>
+         
+        <tag>在线地图</tag>
          
          
            
@@ -469,9 +493,9 @@
          
         <tag>在线地图</tag>
          
-        <tag>leaflet</tag>
-         
         <tag>路径图</tag>
+         
+        <tag>leaflet</tag>
          
         <tag>mini柱形/条形图</tag>
          

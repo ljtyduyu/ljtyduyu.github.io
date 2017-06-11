@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[R预设配色系统及自定义色板]]></title>
+    <url>%2F2017%2F06%2F11%2FR%E9%A2%84%E8%AE%BE%E9%85%8D%E8%89%B2%E7%B3%BB%E7%BB%9F%E5%8F%8A%E8%87%AA%E5%AE%9A%E4%B9%89%E8%89%B2%E6%9D%BF%2F</url>
+    <content type="text"><![CDATA[关于配色的话题，已经聊过很多次了，但是就像是之前说过的，对于图形可视化而言，配色决定着作品的“颜值”,谈再多次都不嫌多。 今天是R语言配色系统综合篇的上篇（当然是有下篇啦，下篇将会教你如何优雅的提取各种高大上配色主题，作为己用。经过几天的研究，小魔方已经发现了如果将各种高质量配色包中的主题色板通过函数的形式在高级绘图系统和低级绘图系统之间相互共享）。 今天的内容主要包含两部分： R预置色彩系统的色板 R语言自定义颜色调用 其实在R语言的色彩系统中，有两大类颜色系统，一类是预设的调色盘，通过调色盘，你可以获取任意数量的色彩组合。 R预置色彩系统的色板R语言的预设调色板一共有五个： rainbow heat.colors terrain.colors topo.colors cm.colors 这五个调色板就像是一个大染缸一样，排列着无数的色彩组合。取色也很简单，就是使用预设色盘名称+色彩数据即可： 1234rainbow(10) [1] "#FF0000FF" "#FF9900FF" "#CCFF00FF" "#33FF00FF" "#00FF66FF" "#00FFFFFF" [7] "#0066FFFF" "#3300FFFF" "#CC00FFFF" "#FF0099FF" 以上既是通过名称+数量的方式获取的一组10个颜色，同样我们可以通过scales包中show_col函数查看具体的颜色效果： 12library(scales)show_col(rainbow(10),labels=T)#labels控制是否显示HEX格式的色值信息. 接下来我用一个版面矩阵将五个色盘颜色全部显示出来： 12345678par(mfrow=c(1,5),mar=c(0.5,0.5,2,0.5),xaxs="i",yaxs="i")n&lt;-1000barplot(rep(1,times=n),col=rainbow(n),border=rainbow(n),horiz=T,axes=F,main="Rainbow Color")barplot(rep(1,times=n),col=heat.colors(n),border=heat.colors(n),horiz=T,axes=F,main="Heat.Colors")barplot(rep(1,times=n),col=terrain.colors(n),border=terrain.colors(n),horiz=T,axes=F,main="Terrain.Colors")barplot(rep(1,times=n),col=topo.colors(n),border=topo.colors(n),horiz=T,axes=F,main="Topo.Colors")barplot(rep(1,times=n),col=cm.colors(n),border=cm.colors(n),horiz=T,axes=F,main="Cm.Colors")dev.off()#关闭上次的绘图面板 运行以上代码之后，你会看到绘图面板上出现的五个色板色彩过渡效果，第一个rainbow是运用最为频繁的的色板，也是我们所熟知的彩虹七色，其余四个是截取rainbow色斑的某一段暖色系、冷色系或者单色做的渐变过渡。 五种颜色调用方法非常简单，名称+数量就可以。而且你也可以通过文本函数将不同色盘中截取的颜色相互混合使用。 123456par(mfrow=c(2,1),mar=c(0.5,0.5,2,0.5),xaxs="i",yaxs="i")a&lt;-heat.colors(10)b&lt;-topo.colors(10)barplot(rep(1,times=10),col=b,border=b,main="Topo.Colors10",axes=F)barplot(rep(1,times=10),col=a,border=a,main="Heat.Colors10",axes=F)dev.off() 12c&lt;-c(a[c(1,3,5,7,9)],b[c(2,4,6,8,10)])barplot(rep(1,times=10),col=c,border=c,axes=F,main="topo&amp;heat 10");box() 以上通过将两个色板提取出来的颜色进行组合，创造出了新的色彩组合。 R语言自定义颜色调用接下来介绍R语言的第二大色彩系统，自定义颜色。 R语言系统中内置了657中带有自定义名称的颜色（就是我们平时所熟知的blue、red、grey等）。 通过colors()函数可以查看这657种颜色的色值及名称类别信息： 1234head(colors(),10) [1] "white" "aliceblue" "antiquewhite" "antiquewhite1" [5] "antiquewhite2" "antiquewhite3" "antiquewhite4" "aquamarine" [9] "aquamarine1" "aquamarine2" 12library(plyr)count(cl) count函数列出了所有657中颜色名称。 使用show_col函数可以查看所有657中颜色的图形显示效果 show_col(cl,labels=F)#因为颜色数量太多，使用labels=F参数略去颜色色值信息。 使用colorRampPalette函数可以自由调用任何一种自定义颜色。 12colorRamp(colors, bias = 1, space = c("rgb", "Lab"), interpolate = c("linear", "spline"))colorRampPalette(colors, ...) color函数的介绍如上，具体的参数解释可以通过？colorRampPalette查看他的官方文档，这里我们直接取色。1234567891011par(mfrow=c(1,4),mar=c(0.5,0.5,2,0.5),xaxs="i", yaxs="i")n &lt;- 1000mycolors &lt;- colorRampPalette(c("red", "green"))(n)barplot(rep(1,times=n),col=mycolors,border=mycolors,horiz=T,axes=FALSE)mycolors &lt;- colorRampPalette(c("blue", "yellow", "orange"))(n)barplot(rep(1,times=n),col=mycolors,border=mycolors,horiz=T,axes=FALSE)mycolors &lt;- colorRampPalette(c( "white", "gold", "yellow", "brown"), bias=1.2)(n)barplot(rep(1,times=n),col=mycolors,border=mycolors,horiz=T,axes=FALSE)mycolors &lt;- colorRampPalette(c("red","gold", "yellow", "grey","orange"), bias=1.2)(n)barplot(rep(1,times=n),col=mycolors,border=mycolors,horiz=T,axes=FALSE)dev.off() 除了这两大色彩系统系统之外，R语言也支持直接以色值（HEX）形式输入的颜色，只需使用c()函数生成色值组成的字符向量，R语言就可自动识别。 还有一些特殊用途的grey函数，hsv函数等等可以通过设定灰度或者色调、饱和度、亮度等等方式获取颜色使用，这些由于过于繁琐，这里就略去了，甘感兴趣的小盆友可以自己探索。 当然，这里还没有讲解到那些已经做得很成熟的主题配色包，比如ggthemes（专为ggplot2开发的主题包）、RColorbrewer（里面存放着大量高质量的配色方案）、以及ggtech（是一个科技主题的配色包，主要供ggplot函数调用）。 通过scales包中的brewer.col，我们可以提取出以上各包的配色主题，来用于我们的可视化图表中，不光是ggplot绘图系统，即便是在基础绘图系统（base::plot）中也是可以调用这些色彩方案的，好了这里先放个彩蛋，下期再见！ 联系方式： wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]553270834 个人简介： 杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。 Mail:578708965@qq.com 备注信息： 本作品采用知识共享署名-非商业性使用 4.0 国际许可协议进行许可。]]></content>
+      <categories>
+        <category>图表配色</category>
+      </categories>
+      <tags>
+        <tag>R语言</tag>
+        <tag>数据可视化</tag>
+        <tag>配色</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[R语言可视化——极坐标变换与衍生图表类型]]></title>
     <url>%2F2017%2F06%2F11%2FR%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94%E6%9E%81%E5%9D%90%E6%A0%87%E5%8F%98%E6%8D%A2%E4%B8%8E%E8%A1%8D%E7%94%9F%E5%9B%BE%E8%A1%A8%E7%B1%BB%E5%9E%8B%2F</url>
     <content type="text"><![CDATA[今天这篇内容会比较杂乱一点，因为会讲到ggplot函数中的一大类通过极坐标支持才能呈现出来的图表效果。 ggplot作图背后的图表哲学，没有给予饼图（以及衍生出的圆环图、玫瑰图等放射状图表类型）存在的空间（主要是该包的开发者个人的审美观，比较反感次坐标轴以及功能类型雷同的重复性图层函数，所以它宁可开发出分面图层原理也不愿意增加次坐标轴，不愿意为原本柱形图可以表达的图表形式再单独开发一种功能雷同的饼图函数）。 但是巧的是，在常见的三种坐标形式中，极坐标转换可以非常轻松的将常见的柱形图（条形图）、堆积柱形图通过只一句极坐标函数就神奇的转化为饼图、玫瑰图、圆环图等（不知道是有意为之还是偶然的巧合）。 饼图的实现原理：饼图需要借助柱形图结合极坐标进行转化： 12ggplot(diamonds,aes(x=factor(1),fill=cut))+geom_bar() 当使用一个因子变量作为横轴，使用分类变量进行填充时，该柱形图变成了单条堆积柱形图。 接下来我们通过以上函数添加极坐标（注意极坐标的设定是如何影响最终的图表形式的） 123ggplot(diamonds,aes(x=factor(1),fill=cut))+geom_bar()+coord_polar(theta = "y") 123ggplot(diamonds,aes(x=factor(1),fill=cut))+geom_bar()+coord_polar(theta = "x") 123ggplot(diamonds,aes(x=factor(1),fill=cut))+geom_bar()+coord_polar() 从做出的图表以及极坐标函数内的参数我们可以看出来，当参数指定为x时，最终柱形图的x轴会被指定为极坐标的x轴（圆周），而柱形图的y轴则会成为极坐标的y轴（半径）。当指定为y轴时，柱形图的y轴为成为极坐标的x轴（圆周），柱形图的x轴会成为极坐标的y轴（半径）。 同时极坐标状态下，饼图的半径是由柱形图（条形图）宽度决定的，以上图表中圆心有个空白，如果我们将柱形图柱形图宽度定义为1,则会成为正圆。 123ggplot(diamonds,aes(x=factor(1),fill=cut))+geom_bar(width=1)+coord_polar(theta = "y") 极坐标系下图表元素控制：图中其他的元素控制方式与往常的柱形图做法一样： 去掉极坐标轴的轴刻度标签，去掉两个轴标题、更换配色： 123456789101112ggplot(diamonds,aes(x=factor(1),fill=cut))+geom_bar(width=1)+coord_polar(theta = "y",start=0)+theme( panel.grid = element_blank(), panel.background = element_blank(), axis.text = element_blank(), axis.ticks = element_blank(), axis.title = element_blank() )+scale_fill_brewer(palette="Blues")+guides(fill=guide_legend(reverse=TRUE,title=NULL)) 当有多个序列时：12ggplot(diamonds,aes(cut))+geom_bar(width=1) 通过极坐标转换可以实现圆环图、圆条图效果： 12345678ggplot(diamonds,aes(cut))+geom_bar(width=1,fill="steelblue",colour="white")+coord_polar(theta = "y",start=0)+theme( panel.grid = element_blank(), panel.background = element_blank(), axis.text.x = element_blank(), axis.title = element_blank()) 改变极坐标轴参数设置，可以模拟南丁格尔玫瑰图效果： 12345678910ggplot(diamonds,aes(cut))+geom_bar(width=0.95,fill="#3182BD")+coord_polar(theta = "x",start=0)+theme( panel.grid = element_blank(), panel.background = element_blank(), axis.text.y = element_blank(), axis.ticks= element_blank(), axis.title = element_blank())+ylim(c(-3000,22500)) 极坐标系下多序列图表：当然如果你使用的原始柱形图数据中添加了分类序列（也就是堆积柱形图），按照上面的方式可以制作更加复杂的圆环图、堆叠玫瑰图 12345678910ggplot(diamonds,aes(x=color,fill=cut))+geom_bar(width=0.95,colour="white")+coord_polar(theta = "y",start=0)+theme( panel.grid = element_blank(), panel.background = element_blank(), axis.text.x = element_blank(), axis.title = element_blank())+scale_fill_brewer(palette="Blues")+guides(fill=guide_legend(reverse=TRUE,title=NULL)) 12345678910ggplot(diamonds,aes(x=color,fill=cut))+geom_bar(width=0.95,colour="white")+coord_polar(theta = "x",start=0)+theme( axis.text.y = element_blank(), axis.title = element_blank())+scale_fill_brewer(palette="Blues")+guides(fill=guide_legend(reverse=TRUE,title=NULL))+ylim(c(-2000,12000))+theme_bw() 尝试着用分面来解决多序列问题：1234567891011ggplot(diamonds,aes(x=color,fill=cut))+geom_bar(width=0.95,colour="white")+coord_polar(theta = "x",start=0)+theme( axis.text.y = element_blank(), axis.title = element_blank())+scale_fill_brewer(palette="Blues")+guides(fill=guide_legend(reverse=TRUE,title=NULL))+ylim(c(-2000,6000))+theme_bw()+facet_grid(.~cut) 联系方式： wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]553270834 个人简介： 杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。 Mail:578708965@qq.com 备注信息： 本作品采用知识共享署名-非商业性使用 4.0 国际许可协议进行许可。]]></content>
@@ -71,8 +84,8 @@
         <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
-        <tag>REmap</tag>
         <tag>填充地图</tag>
+        <tag>REmap</tag>
       </tags>
   </entry>
   <entry>
@@ -86,8 +99,8 @@
         <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
-        <tag>在线地图</tag>
         <tag>REmap</tag>
+        <tag>在线地图</tag>
       </tags>
   </entry>
   <entry>
@@ -101,8 +114,8 @@
         <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
-        <tag>在线地图</tag>
         <tag>REmap</tag>
+        <tag>在线地图</tag>
         <tag>路径图</tag>
       </tags>
   </entry>
@@ -117,8 +130,8 @@
         <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
-        <tag>在线地图</tag>
         <tag>REmap</tag>
+        <tag>在线地图</tag>
       </tags>
   </entry>
   <entry>
@@ -147,9 +160,9 @@
       <tags>
         <tag>R语言</tag>
         <tag>数据可视化</tag>
-        <tag>json</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
+        <tag>json</tag>
         <tag>leaflet</tag>
       </tags>
   </entry>
@@ -181,8 +194,8 @@
         <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
-        <tag>leaflet</tag>
         <tag>路径图</tag>
+        <tag>leaflet</tag>
         <tag>mini柱形/条形图</tag>
       </tags>
   </entry>

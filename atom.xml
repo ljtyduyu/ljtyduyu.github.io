@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.raindu.com/"/>
-  <updated>2017-06-11T01:35:54.937Z</updated>
+  <updated>2017-06-11T13:23:41.600Z</updated>
   <id>http://www.raindu.com/</id>
   
   <author>
@@ -14,6 +14,90 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>R预设配色系统及自定义色板</title>
+    <link href="http://www.raindu.com/2017/06/11/R%E9%A2%84%E8%AE%BE%E9%85%8D%E8%89%B2%E7%B3%BB%E7%BB%9F%E5%8F%8A%E8%87%AA%E5%AE%9A%E4%B9%89%E8%89%B2%E6%9D%BF/"/>
+    <id>http://www.raindu.com/2017/06/11/R预设配色系统及自定义色板/</id>
+    <published>2017-06-11T13:11:15.000Z</published>
+    <updated>2017-06-11T13:23:41.600Z</updated>
+    
+    <content type="html"><![CDATA[<p>关于配色的话题，已经聊过很多次了，但是就像是之前说过的，对于图形可视化而言，配色决定着作品的“颜值”,谈再多次都不嫌多。</p>
+<p>今天是R语言配色系统综合篇的上篇（当然是有下篇啦，下篇将会教你如何优雅的提取各种高大上配色主题，作为己用。经过几天的研究，小魔方已经发现了如果将各种高质量配色包中的主题色板通过函数的形式在高级绘图系统和低级绘图系统之间相互共享）。</p>
+<a id="more"></a>
+<p>今天的内容主要包含两部分：</p>
+<ul>
+<li>R预置色彩系统的色板</li>
+<li>R语言自定义颜色调用</li>
+</ul>
+<p>其实在R语言的色彩系统中，有两大类颜色系统，一类是预设的调色盘，通过调色盘，你可以获取任意数量的色彩组合。</p>
+<h3 id="R预置色彩系统的色板"><a href="#R预置色彩系统的色板" class="headerlink" title="R预置色彩系统的色板"></a>R预置色彩系统的色板</h3><p>R语言的预设调色板一共有五个：</p>
+<ul>
+<li>rainbow</li>
+<li>heat.colors</li>
+<li>terrain.colors</li>
+<li>topo.colors</li>
+<li>cm.colors</li>
+</ul>
+<p>这五个调色板就像是一个大染缸一样，排列着无数的色彩组合。取色也很简单，就是使用预设色盘名称+色彩数据即可：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">rainbow(<span class="number">10</span>)</div><div class="line"></div><div class="line"> [<span class="number">1</span>] <span class="string">"#FF0000FF"</span> <span class="string">"#FF9900FF"</span> <span class="string">"#CCFF00FF"</span> <span class="string">"#33FF00FF"</span> <span class="string">"#00FF66FF"</span> <span class="string">"#00FFFFFF"</span></div><div class="line"> [<span class="number">7</span>] <span class="string">"#0066FFFF"</span> <span class="string">"#3300FFFF"</span> <span class="string">"#CC00FFFF"</span> <span class="string">"#FF0099FF"</span></div></pre></td></tr></table></figure>
+<p>以上既是通过名称+数量的方式获取的一组10个颜色，同样我们可以通过scales包中show_col函数查看具体的颜色效果：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(scales)</div><div class="line">show_col(rainbow(<span class="number">10</span>),labels=<span class="literal">T</span>)<span class="comment">#labels控制是否显示HEX格式的色值信息.</span></div></pre></td></tr></table></figure>
+<p><img src="http://ordw0vyu9.bkt.clouddn.com/image1.png" alt=""></p>
+<p>接下来我用一个版面矩阵将五个色盘颜色全部显示出来：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">par(mfrow=c(<span class="number">1</span>,<span class="number">5</span>),mar=c(<span class="number">0.5</span>,<span class="number">0.5</span>,<span class="number">2</span>,<span class="number">0.5</span>),xaxs=<span class="string">"i"</span>,yaxs=<span class="string">"i"</span>)</div><div class="line">n&lt;-<span class="number">1000</span></div><div class="line">barplot(rep(<span class="number">1</span>,times=n),col=rainbow(n),border=rainbow(n),horiz=<span class="literal">T</span>,axes=<span class="literal">F</span>,main=<span class="string">"Rainbow Color"</span>)</div><div class="line">barplot(rep(<span class="number">1</span>,times=n),col=heat.colors(n),border=heat.colors(n),horiz=<span class="literal">T</span>,axes=<span class="literal">F</span>,main=<span class="string">"Heat.Colors"</span>)</div><div class="line">barplot(rep(<span class="number">1</span>,times=n),col=terrain.colors(n),border=terrain.colors(n),horiz=<span class="literal">T</span>,axes=<span class="literal">F</span>,main=<span class="string">"Terrain.Colors"</span>)</div><div class="line">barplot(rep(<span class="number">1</span>,times=n),col=topo.colors(n),border=topo.colors(n),horiz=<span class="literal">T</span>,axes=<span class="literal">F</span>,main=<span class="string">"Topo.Colors"</span>)</div><div class="line">barplot(rep(<span class="number">1</span>,times=n),col=cm.colors(n),border=cm.colors(n),horiz=<span class="literal">T</span>,axes=<span class="literal">F</span>,main=<span class="string">"Cm.Colors"</span>)</div><div class="line">dev.off()<span class="comment">#关闭上次的绘图面板</span></div></pre></td></tr></table></figure>
+<p><img src="http://ordw0vyu9.bkt.clouddn.com/image2.png" alt=""></p>
+<p>运行以上代码之后，你会看到绘图面板上出现的五个色板色彩过渡效果，第一个rainbow是运用最为频繁的的色板，也是我们所熟知的彩虹七色，其余四个是截取rainbow色斑的某一段暖色系、冷色系或者单色做的渐变过渡。</p>
+<p>五种颜色调用方法非常简单，名称+数量就可以。而且你也可以通过文本函数将不同色盘中截取的颜色相互混合使用。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">par(mfrow=c(<span class="number">2</span>,<span class="number">1</span>),mar=c(<span class="number">0.5</span>,<span class="number">0.5</span>,<span class="number">2</span>,<span class="number">0.5</span>),xaxs=<span class="string">"i"</span>,yaxs=<span class="string">"i"</span>)</div><div class="line">a&lt;-heat.colors(<span class="number">10</span>)</div><div class="line">b&lt;-topo.colors(<span class="number">10</span>)</div><div class="line">barplot(rep(<span class="number">1</span>,times=<span class="number">10</span>),col=b,border=b,main=<span class="string">"Topo.Colors10"</span>,axes=<span class="literal">F</span>)</div><div class="line">barplot(rep(<span class="number">1</span>,times=<span class="number">10</span>),col=a,border=a,main=<span class="string">"Heat.Colors10"</span>,axes=<span class="literal">F</span>)</div><div class="line">dev.off()</div></pre></td></tr></table></figure>
+<p><img src="http://ordw0vyu9.bkt.clouddn.com/image3.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">c&lt;-c(a[c(<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>)],b[c(<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">10</span>)])</div><div class="line">barplot(rep(<span class="number">1</span>,times=<span class="number">10</span>),col=c,border=c,axes=<span class="literal">F</span>,main=<span class="string">"topo&amp;heat 10"</span>);box()</div></pre></td></tr></table></figure>
+<p><img src="http://ordw0vyu9.bkt.clouddn.com/image4.png" alt=""></p>
+<p>以上通过将两个色板提取出来的颜色进行组合，创造出了新的色彩组合。</p>
+<h3 id="R语言自定义颜色调用"><a href="#R语言自定义颜色调用" class="headerlink" title="R语言自定义颜色调用"></a>R语言自定义颜色调用</h3><p>接下来介绍R语言的第二大色彩系统，自定义颜色。</p>
+<p>R语言系统中内置了657中带有自定义名称的颜色（就是我们平时所熟知的blue、red、grey等）。</p>
+<p>通过colors()函数可以查看这657种颜色的色值及名称类别信息：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">head(colors(),<span class="number">10</span>)</div><div class="line"> [<span class="number">1</span>] <span class="string">"white"</span>         <span class="string">"aliceblue"</span>     <span class="string">"antiquewhite"</span>  <span class="string">"antiquewhite1"</span></div><div class="line"> [<span class="number">5</span>] <span class="string">"antiquewhite2"</span> <span class="string">"antiquewhite3"</span> <span class="string">"antiquewhite4"</span> <span class="string">"aquamarine"</span>   </div><div class="line"> [<span class="number">9</span>] <span class="string">"aquamarine1"</span>   <span class="string">"aquamarine2"</span></div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(plyr)</div><div class="line">count(cl)</div></pre></td></tr></table></figure>
+<p><img src="http://ordw0vyu9.bkt.clouddn.com/image5.png" alt=""></p>
+<p>count函数列出了所有657中颜色名称。</p>
+<p>使用show_col函数可以查看所有657中颜色的图形显示效果</p>
+<p>show_col(cl,labels=F)#因为颜色数量太多，使用labels=F参数略去颜色色值信息。<br><img src="http://ordw0vyu9.bkt.clouddn.com/image6.png" alt=""></p>
+<p>使用colorRampPalette函数可以自由调用任何一种自定义颜色。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">colorRamp(colors, bias = <span class="number">1</span>, space = c(<span class="string">"rgb"</span>, <span class="string">"Lab"</span>), interpolate = c(<span class="string">"linear"</span>, <span class="string">"spline"</span>))</div><div class="line">colorRampPalette(colors, <span class="keyword">...</span>)</div></pre></td></tr></table></figure>
+<p>color函数的介绍如上，具体的参数解释可以通过？colorRampPalette查看他的官方文档，这里我们直接取色。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">par(mfrow=c(<span class="number">1</span>,<span class="number">4</span>),mar=c(<span class="number">0.5</span>,<span class="number">0.5</span>,<span class="number">2</span>,<span class="number">0.5</span>),xaxs=<span class="string">"i"</span>, yaxs=<span class="string">"i"</span>)</div><div class="line">n &lt;- <span class="number">1000</span></div><div class="line">mycolors &lt;- colorRampPalette(c(<span class="string">"red"</span>, <span class="string">"green"</span>))(n)</div><div class="line">barplot(rep(<span class="number">1</span>,times=n),col=mycolors,border=mycolors,horiz=<span class="literal">T</span>,axes=<span class="literal">FALSE</span>)</div><div class="line">mycolors &lt;- colorRampPalette(c(<span class="string">"blue"</span>, <span class="string">"yellow"</span>, <span class="string">"orange"</span>))(n)</div><div class="line">barplot(rep(<span class="number">1</span>,times=n),col=mycolors,border=mycolors,horiz=<span class="literal">T</span>,axes=<span class="literal">FALSE</span>)</div><div class="line">mycolors &lt;- colorRampPalette(c( <span class="string">"white"</span>, <span class="string">"gold"</span>, <span class="string">"yellow"</span>, <span class="string">"brown"</span>), bias=<span class="number">1.2</span>)(n)</div><div class="line">barplot(rep(<span class="number">1</span>,times=n),col=mycolors,border=mycolors,horiz=<span class="literal">T</span>,axes=<span class="literal">FALSE</span>)</div><div class="line">mycolors &lt;- colorRampPalette(c(<span class="string">"red"</span>,<span class="string">"gold"</span>, <span class="string">"yellow"</span>, <span class="string">"grey"</span>,<span class="string">"orange"</span>), bias=<span class="number">1.2</span>)(n)</div><div class="line">barplot(rep(<span class="number">1</span>,times=n),col=mycolors,border=mycolors,horiz=<span class="literal">T</span>,axes=<span class="literal">FALSE</span>)</div><div class="line">dev.off()</div></pre></td></tr></table></figure></p>
+<p><img src="http://ordw0vyu9.bkt.clouddn.com/image7.png" alt=""></p>
+<p>除了这两大色彩系统系统之外，R语言也支持直接以色值（HEX）形式输入的颜色，只需使用c()函数生成色值组成的字符向量，R语言就可自动识别。</p>
+<p>还有一些特殊用途的grey函数，hsv函数等等可以通过设定灰度或者色调、饱和度、亮度等等方式获取颜色使用，这些由于过于繁琐，这里就略去了，甘感兴趣的小盆友可以自己探索。</p>
+<p>当然，这里还没有讲解到那些已经做得很成熟的主题配色包，比如ggthemes（专为ggplot2开发的主题包）、RColorbrewer（里面存放着大量高质量的配色方案）、以及ggtech（是一个科技主题的配色包，主要供ggplot函数调用）。</p>
+<p>通过scales包中的brewer.col，我们可以提取出以上各包的配色主题，来用于我们的可视化图表中，不光是ggplot绘图系统，即便是在基础绘图系统（base::plot）中也是可以调用这些色彩方案的，好了这里先放个彩蛋，下期再见！</p>
+<hr>
+<p><strong>联系方式：</strong></p>
+<p>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834  </p>
+<p><strong>个人简介：</strong></p>
+<p><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。 <br><br>Mail:578708965@qq.com </p>
+<hr>
+<p><strong>备注信息：</strong></p>
+<p><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;关于配色的话题，已经聊过很多次了，但是就像是之前说过的，对于图形可视化而言，配色决定着作品的“颜值”,谈再多次都不嫌多。&lt;/p&gt;
+&lt;p&gt;今天是R语言配色系统综合篇的上篇（当然是有下篇啦，下篇将会教你如何优雅的提取各种高大上配色主题，作为己用。经过几天的研究，小魔方已经发现了如果将各种高质量配色包中的主题色板通过函数的形式在高级绘图系统和低级绘图系统之间相互共享）。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="图表配色" scheme="http://www.raindu.com/categories/%E5%9B%BE%E8%A1%A8%E9%85%8D%E8%89%B2/"/>
+    
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="配色" scheme="http://www.raindu.com/tags/%E9%85%8D%E8%89%B2/"/>
+    
+  </entry>
   
   <entry>
     <title>R语言可视化——极坐标变换与衍生图表类型</title>
@@ -381,9 +465,9 @@
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
-      <category term="REmap" scheme="http://www.raindu.com/tags/REmap/"/>
-    
       <category term="填充地图" scheme="http://www.raindu.com/tags/%E5%A1%AB%E5%85%85%E5%9C%B0%E5%9B%BE/"/>
+    
+      <category term="REmap" scheme="http://www.raindu.com/tags/REmap/"/>
     
   </entry>
   
@@ -474,9 +558,9 @@
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
-      <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
-    
       <category term="REmap" scheme="http://www.raindu.com/tags/REmap/"/>
+    
+      <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
     
   </entry>
   
@@ -539,9 +623,9 @@
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
-      <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
-    
       <category term="REmap" scheme="http://www.raindu.com/tags/REmap/"/>
+    
+      <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
     
       <category term="路径图" scheme="http://www.raindu.com/tags/%E8%B7%AF%E5%BE%84%E5%9B%BE/"/>
     
@@ -639,9 +723,9 @@
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
-      <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
-    
       <category term="REmap" scheme="http://www.raindu.com/tags/REmap/"/>
+    
+      <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
     
   </entry>
   
@@ -843,11 +927,11 @@
     
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
-      <category term="json" scheme="http://www.raindu.com/tags/json/"/>
-    
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
+    
+      <category term="json" scheme="http://www.raindu.com/tags/json/"/>
     
       <category term="leaflet" scheme="http://www.raindu.com/tags/leaflet/"/>
     
@@ -1038,9 +1122,9 @@
     
       <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
     
-      <category term="leaflet" scheme="http://www.raindu.com/tags/leaflet/"/>
-    
       <category term="路径图" scheme="http://www.raindu.com/tags/%E8%B7%AF%E5%BE%84%E5%9B%BE/"/>
+    
+      <category term="leaflet" scheme="http://www.raindu.com/tags/leaflet/"/>
     
       <category term="mini柱形/条形图" scheme="http://www.raindu.com/tags/mini%E6%9F%B1%E5%BD%A2-%E6%9D%A1%E5%BD%A2%E5%9B%BE/"/>
     
@@ -1581,69 +1665,6 @@
       <category term="路径图" scheme="http://www.raindu.com/tags/%E8%B7%AF%E5%BE%84%E5%9B%BE/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>R语言可视化——ggplot绘制中心密度辐射图</title>
-    <link href="http://www.raindu.com/2017/05/30/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94ggplot%E7%BB%98%E5%88%B6%E4%B8%AD%E5%BF%83%E5%AF%86%E5%BA%A6%E8%BE%90%E5%B0%84%E5%9B%BE/"/>
-    <id>http://www.raindu.com/2017/05/30/R语言可视化——ggplot绘制中心密度辐射图/</id>
-    <published>2017-05-30T08:05:43.000Z</published>
-    <updated>2017-06-10T11:12:14.078Z</updated>
-    
-    <content type="html"><![CDATA[<p>今天这篇算是之前ggplot2图表系列的增补。</p>
-<p>因为在ggplot2中一直没有看到好的关于密度辐射图（或者称它为热力辐射图，就是那种PowerMap中可以通过颜色色度探查区域指标分布密度的图表类型）的合适解决方案，最近在看github官网上ggmap的介绍帖，看到作者在ggmap函数中嵌套了geom_polygon图层并并使用fill=..level..参数和stat=”density_2d”来来制作类似的热度辐射图。</p>
-<p>我就突发奇想，如果不是通过ggmap而是通过ggplot函数是否也可以呢，果然也是可以出效果的，先将方法介绍如下：</p>
-<a id="more"></a>
-<h3 id="加载包："><a href="#加载包：" class="headerlink" title="加载包："></a>加载包：</h3><p>首先需要加载如下包：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(ggplot2)      </div><div class="line"><span class="keyword">library</span>(plyr)         </div><div class="line"><span class="keyword">library</span>(maptools) </div><div class="line"><span class="keyword">library</span>(ggmap)</div></pre></td></tr></table></figure></p>
-<h3 id="导入数据集："><a href="#导入数据集：" class="headerlink" title="导入数据集："></a>导入数据集：</h3><p>接下来导入两个数据集：</p>
-<p>其中一个是中国省级边界轮廓图，早期关注过数据小魔方的用户大概都知道，我曾经共享过一个名为rstudy的文件包（我在刘万祥老师的公众号里发现的，现在应该也还可以获取），如果手上没有数据可以添加魔方学院的QQ群，在群共享里查找R语言资料。（共享文件比较多，可能需要找一阵子）</p>
-<p>另一个是之前在讲解REmap热度辐射图时用过的城市价值指标数据集，推送后会共享在魔方学院的QQ群里。</p>
-<p><strong>导入数据集：</strong></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">china_map&lt;-readShapePoly(<span class="string">"c:/rstudy/bou2_4p.shp"</span>)  <span class="comment">#地图数据 </span></div><div class="line">china_map1 &lt;- fortify(china_map)                   <span class="comment">#转换为数据框</span></div><div class="line">data&lt;- read.csv(file=<span class="string">"D:\\R\\map\\MoveChart\\cityvaluetop10.csv"</span>,header=<span class="literal">T</span>)  <span class="comment">#城市指标数据</span></div></pre></td></tr></table></figure>
-<p>因为这里使用地图仅仅是作为底图用作定位信息，可以说是陪衬，所以无需对地图和城市指标进行合并。</p>
-<h3 id="图表的正式生成过程："><a href="#图表的正式生成过程：" class="headerlink" title="图表的正式生成过程："></a>图表的正式生成过程：</h3><h4 id="画底图："><a href="#画底图：" class="headerlink" title="画底图："></a>画底图：</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">p&lt;-ggplot()+</div><div class="line">geom_polygon(data=china_map1,aes(x=long,y=lat,group=group),fill=<span class="string">"#005A32"</span>,col=<span class="string">"white"</span>);p</div></pre></td></tr></table></figure>
-<p><img src="http://oqrauaruh.bkt.clouddn.com/image1.png" alt="image1"></p>
-<h4 id="添加热度图层"><a href="#添加热度图层" class="headerlink" title="添加热度图层"></a>添加热度图层</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">p&lt;-p+geom_polygon(data=data,aes(x=lon,y=lat,fill = ..level..), stat=<span class="string">"density_2d"</span>, alpha = <span class="number">.3</span>, color = <span class="literal">NA</span>)+</div><div class="line">coord_map(<span class="string">"polyconic"</span>);p</div></pre></td></tr></table></figure>
-<p><img src="http://oqrauaruh.bkt.clouddn.com/image22.jpg" alt="image2"></p>
-<h4 id="调整热度图层"><a href="#调整热度图层" class="headerlink" title="调整热度图层"></a>调整热度图层</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(p&lt;-p+scale_fill_gradient2( low = <span class="string">"white"</span>,mid=<span class="string">"yellow"</span>, high = <span class="string">"red"</span>)）</div></pre></td></tr></table></figure>
-<p><img src="http://oqrauaruh.bkt.clouddn.com/image2.png" alt="image3"></p>
-<h4 id="清楚冗余元素"><a href="#清楚冗余元素" class="headerlink" title="清楚冗余元素"></a>清楚冗余元素</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(p&lt;-p+theme_nothing())</div></pre></td></tr></table></figure>
-<p><img src="http://oqrauaruh.bkt.clouddn.com/image3.png" alt="image4"></p>
-<h4 id="可以给以上热图添加散点辅助观测"><a href="#可以给以上热图添加散点辅助观测" class="headerlink" title="可以给以上热图添加散点辅助观测"></a>可以给以上热图添加散点辅助观测</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(p&lt;-p+geom_point(data=data,aes(x=lon,y=lat),col=<span class="string">"white"</span>))</div></pre></td></tr></table></figure>
-<p><img src="http://oqrauaruh.bkt.clouddn.com/image4.png" alt="image5"></p>
-<h4 id="当然，你也可以给三点指定城市的指标数据使其变成气泡图"><a href="#当然，你也可以给三点指定城市的指标数据使其变成气泡图" class="headerlink" title="当然，你也可以给三点指定城市的指标数据使其变成气泡图"></a>当然，你也可以给三点指定城市的指标数据使其变成气泡图</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(p&lt;-p+geom_point(data=data,aes(x=lon,y=lat,size=prob),col=<span class="string">"white"</span>)+scale_size_area(max_size=<span class="number">6</span>))</div></pre></td></tr></table></figure>
-<p><img src="http://oqrauaruh.bkt.clouddn.com/image5.png" alt="image6"></p>
-<p><strong>记得清除掉第5步，即从第四步开始</strong></p>
-<p>至于实际的数据标签，指标名称和区域名称，酌情添加，但是针对地图类图表，数据展示到位即可，不建议添加太多标签，影响美观性。</p>
-<p>针对本图表类型，核心参数是第二个geom_polygon()中的fill = ..level..和stat=”density_2d”统计变换，使得多边形图转换成为二维水平密度图，但是至今我还没有搞懂里面的算法是什么样的，只能大概模仿出来，至于怎么用，看大家自由发挥了，效果跟真正的热力辐射图还是有些差别，但是勉强能用。</p>
-<p>总结下，用到的所有代码如下：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">ggplot()+</div><div class="line">geom_polygon(data=china_map1,aes(x=long,y=lat,group=group),fill=<span class="string">"#005A32"</span>,col=<span class="string">"white"</span>)+</div><div class="line">geom_polygon(data=data,aes(x=lon,y=lat,fill = ..level..), stat=<span class="string">"density_2d"</span>, alpha = <span class="number">.3</span>, color = <span class="literal">NA</span>)+</div><div class="line">coord_map(<span class="string">"polyconic"</span>) +</div><div class="line">geom_point(data=data,aes(x=lon,y=lat,size=prob),col=<span class="string">"white"</span>)+</div><div class="line">scale_size_area(max_size=<span class="number">6</span>)+</div><div class="line">scale_fill_gradient2( low = <span class="string">"white"</span>,mid=<span class="string">"yellow"</span>, high = <span class="string">"red"</span>)+</div><div class="line">theme_nothing()  <span class="comment">#这一句清空主题的代码是ggmap包中的，必须加载才能用</span></div></pre></td></tr></table></figure></p>
-<p>感兴趣的小伙伴儿可以移步去github官网上搜索ggmap官方介绍，里面使用ggmap调用谷歌地图做的热度图，效果很棒。</p>
-<hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
-<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<hr>
-<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;今天这篇算是之前ggplot2图表系列的增补。&lt;/p&gt;
-&lt;p&gt;因为在ggplot2中一直没有看到好的关于密度辐射图（或者称它为热力辐射图，就是那种PowerMap中可以通过颜色色度探查区域指标分布密度的图表类型）的合适解决方案，最近在看github官网上ggmap的介绍帖，看到作者在ggmap函数中嵌套了geom_polygon图层并并使用fill=..level..参数和stat=”density_2d”来来制作类似的热度辐射图。&lt;/p&gt;
-&lt;p&gt;我就突发奇想，如果不是通过ggmap而是通过ggplot函数是否也可以呢，果然也是可以出效果的，先将方法介绍如下：&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
-    
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
-      <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
-    
-      <category term="热力地图" scheme="http://www.raindu.com/tags/%E7%83%AD%E5%8A%9B%E5%9C%B0%E5%9B%BE/"/>
     
   </entry>
   
