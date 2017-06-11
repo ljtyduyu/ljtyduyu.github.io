@@ -1,0 +1,1465 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="raindu's home" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="今天这篇主要讲解R语言颜色综合运用，主要跟大家介绍如何提取那些专业色彩包中的颜色搭配用于在基础绘图系统和高级绘图系统中共享。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R语言颜色综合运用与色彩方案共享">
+<meta property="og:url" content="http://www.raindu.com/2017/06/11/R语言颜色综合运用与色彩方案共享/index.html">
+<meta property="og:site_name" content="raindu&#39;s home">
+<meta property="og:description" content="今天这篇主要讲解R语言颜色综合运用，主要跟大家介绍如何提取那些专业色彩包中的颜色搭配用于在基础绘图系统和高级绘图系统中共享。">
+<meta property="og:image" content="http://ordxl0ss6.bkt.clouddn.com/image4.png">
+<meta property="og:image" content="http://ordxl0ss6.bkt.clouddn.com/image5.png">
+<meta property="og:image" content="http://ordxl0ss6.bkt.clouddn.com/image6.png">
+<meta property="og:image" content="http://ordxl0ss6.bkt.clouddn.com/image7.png">
+<meta property="og:image" content="http://ordxl0ss6.bkt.clouddn.com/image8.png">
+<meta property="og:image" content="http://ordxl0ss6.bkt.clouddn.com/image9.png">
+<meta property="og:image" content="http://ordxl0ss6.bkt.clouddn.com/image1.png">
+<meta property="og:image" content="http://ordxl0ss6.bkt.clouddn.com/image10.png">
+<meta property="og:image" content="http://ordxl0ss6.bkt.clouddn.com/image11.png">
+<meta property="og:image" content="http://ordxl0ss6.bkt.clouddn.com/image12.png">
+<meta property="og:image" content="http://ordxl0ss6.bkt.clouddn.com/image13.png">
+<meta property="og:image" content="http://ordxl0ss6.bkt.clouddn.com/image14.png">
+<meta property="og:image" content="http://ordxl0ss6.bkt.clouddn.com/image15.png">
+<meta property="og:image" content="http://ordxl0ss6.bkt.clouddn.com/image16.png">
+<meta property="og:image" content="http://ordxl0ss6.bkt.clouddn.com/image17.png">
+<meta property="og:image" content="http://ordxl0ss6.bkt.clouddn.com/image18.png">
+<meta property="og:image" content="http://ordxl0ss6.bkt.clouddn.com/image19.png">
+<meta property="og:image" content="http://ordxl0ss6.bkt.clouddn.com/image20.png">
+<meta property="og:image" content="http://ordxl0ss6.bkt.clouddn.com/image21.png">
+<meta property="og:image" content="http://ordxl0ss6.bkt.clouddn.com/image22.png">
+<meta property="og:image" content="http://ordxl0ss6.bkt.clouddn.com/image3.png">
+<meta property="og:image" content="http://ordxl0ss6.bkt.clouddn.com/image25.png">
+<meta property="og:image" content="http://ordxl0ss6.bkt.clouddn.com/image26.png">
+<meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
+<meta property="og:updated_time" content="2017-06-11T13:48:20.902Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="R语言颜色综合运用与色彩方案共享">
+<meta name="twitter:description" content="今天这篇主要讲解R语言颜色综合运用，主要跟大家介绍如何提取那些专业色彩包中的颜色搭配用于在基础绘图系统和高级绘图系统中共享。">
+<meta name="twitter:image" content="http://ordxl0ss6.bkt.clouddn.com/image4.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.raindu.com/2017/06/11/R语言颜色综合运用与色彩方案共享/"/>
+
+
+
+
+
+  <title>R语言颜色综合运用与色彩方案共享 | raindu's home</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">raindu's home</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">A lifelong learner!!!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/06/11/R语言颜色综合运用与色彩方案共享/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RainDu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="raindu's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">R语言颜色综合运用与色彩方案共享</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-11T21:26:08+08:00">
+                2017-06-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/06/11/R语言颜色综合运用与色彩方案共享/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/06/11/R语言颜色综合运用与色彩方案共享/" class="leancloud_visitors" data-flag-title="R语言颜色综合运用与色彩方案共享">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2,476 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  11 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>今天这篇主要讲解R语言颜色综合运用，主要跟大家介绍如何提取那些专业色彩包中的颜色搭配用于在基础绘图系统和高级绘图系统中共享。</p>
+<a id="more"></a>
+<p>其实无论是R语言的预设配色系统、自定义颜色表还是哪些专属配色包，我们所使用（或者R语言识别的）的仅仅就是一组字符向量所代表的色值而已，并不神秘。</p>
+<p>通过scales中的色彩获取函数，我们可以将专属配色主题（RColorBrewer、ggthemes）中的配色主题提取出来，以函数的形式传递给基础绘图系统（plot）以及ggplot绘图系统。</p>
+<h3 id="主要内容："><a href="#主要内容：" class="headerlink" title="主要内容："></a>主要内容：</h3><ul>
+<li>RColorBrewer部分：</li>
+<li>ggthemes部分：</li>
+<li>scales：（brewer.pal运用：）</li>
+</ul>
+<h3 id="RColorBrewer部分"><a href="#RColorBrewer部分" class="headerlink" title="RColorBrewer部分"></a>RColorBrewer部分</h3><p>关于RColorBrewer包之前在写ggplot函数系统的时候已经有所涉猎，其中专门讲解过它的官方配色网站：<a href="http://colorbrewer2.org/#" target="_blank" rel="external">colorbrewer</a></p>
+<p>这是一个非常神奇的网站，RColorBrewer包中的配色方案全部来源于此，而且网站上允许自定义色彩序列和类型，衍生出来的颜色要比该包中的配色资源多出很多倍。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(RColorBrewer)</div><div class="line">display.brewer.pal(n, name)</div><div class="line">display.brewer.all(type=<span class="string">"all"</span>)</div></pre></td></tr></table></figure>
+<p>ColorBrewer设计团队将配色方案分为三种：</p>
+<ul>
+<li>seq:连续渐变色</li>
+<li>div:双向渐变色</li>
+<li>qual:分类色</li>
+</ul>
+<p>通过display函数可以查看不同类型的色板：</p>
+<p>颜色查看：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">display.brewer.all(type = <span class="string">"all"</span>)  <span class="comment">#查看所有色板</span></div><div class="line">display.brewer.all(type = <span class="string">"seq"</span>)  <span class="comment">#查看单色渐变色板</span></div><div class="line">display.brewer.all(type = <span class="string">"div"</span>)  <span class="comment">#查看双色渐变色板</span></div><div class="line">display.brewer.all(type = <span class="string">"qual"</span>) <span class="comment">#查看离散（分类）色板</span></div></pre></td></tr></table></figure></p>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image4.png" alt=""><br><img src="http://ordxl0ss6.bkt.clouddn.com/image5.png" alt=""><br><img src="http://ordxl0ss6.bkt.clouddn.com/image6.png" alt=""><br><img src="http://ordxl0ss6.bkt.clouddn.com/image7.png" alt=""></p>
+<p>以上通过display四个函数成功显示了全部色板、单色渐变色板、双色渐变色板、离散（分类）色板</p>
+<p>当然你也可以通过display.brewer.pal(n, name)函数显示指定名称的颜色主题：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">display.brewer.pal(<span class="number">9</span>, <span class="string">"BuGn"</span>)</div></pre></td></tr></table></figure></p>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image8.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">par(mfrow=c(<span class="number">1</span>,<span class="number">5</span>),mar=c(<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>),xaxs=<span class="string">"i"</span>, yaxs=<span class="string">"i"</span>)</div><div class="line">mycolors&lt;-brewer.pal(<span class="number">9</span>, <span class="string">"BuGn"</span>)</div><div class="line">barplot(rep(<span class="number">1</span>,times=<span class="number">9</span>),col=mycolors,border=mycolors,axes=<span class="literal">FALSE</span>, horiz=<span class="literal">T</span>,main=<span class="string">"MyColors of BuGn "</span>)</div><div class="line">mycolors&lt;-brewer.pal(<span class="number">9</span>, <span class="string">"OrRd"</span>)</div><div class="line">barplot(rep(<span class="number">1</span>,times=<span class="number">9</span>),col=mycolors,border=mycolors,axes=<span class="literal">FALSE</span>, horiz=<span class="literal">T</span>,main=<span class="string">"MyColors of OrRd"</span>)</div><div class="line">mycolors&lt;-brewer.pal(<span class="number">9</span>, <span class="string">"YlGn"</span>)</div><div class="line">barplot(rep(<span class="number">1</span>,times=<span class="number">9</span>),col=mycolors,border=mycolors,axes=<span class="literal">FALSE</span>, horiz=<span class="literal">T</span>,main=<span class="string">"MyColors of YlGn"</span>)</div><div class="line">mycolors&lt;-brewer.pal(<span class="number">9</span>, <span class="string">"Oranges"</span>)</div><div class="line">barplot(rep(<span class="number">1</span>,times=<span class="number">9</span>),col=mycolors,border=mycolors,axes=<span class="literal">FALSE</span>, horiz=<span class="literal">T</span>,main=<span class="string">"MyColors of Oranges"</span>)</div><div class="line">mycolors&lt;-brewer.pal(<span class="number">9</span>, <span class="string">"Blues"</span>)</div><div class="line">barplot(rep(<span class="number">1</span>,times=<span class="number">9</span>),col=mycolors,border=mycolors,axes=<span class="literal">FALSE</span>, horiz=<span class="literal">T</span>,main=<span class="string">"MyColors of Blues"</span>)</div><div class="line">dev.off()</div></pre></td></tr></table></figure>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image9.png" alt=""></p>
+<p>大家已经看到了，通过brewer.pal(n, “name”)函数，可以很轻松的提取出你想要的配色主题。</p>
+<p>如果你想要某个配色主题的其中几个色值，可使用如下方式提取：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">display.brewer.pal(<span class="number">6</span>, <span class="string">"BuGn"</span>)<span class="comment">#按顺序提取前六个</span></div></pre></td></tr></table></figure></p>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image1.png" alt=""></p>
+<p>如果想要提取某一组色彩主题不连续的颜色，可以使用文本函数：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(scales)</div><div class="line">a&lt;-brewer.pal(<span class="number">9</span>, <span class="string">"BuGn"</span>)</div><div class="line">show_col(a[c(<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>)],labels=<span class="literal">F</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image10.png" alt=""></p>
+<p>通过向量合并，你还可以自己从色彩包中自定义色彩方案。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">b1&lt;-brewer.pal(<span class="number">9</span>, <span class="string">"BuGn"</span>);b2&lt;-brewer.pal(<span class="number">9</span>,<span class="string">"Blues"</span>)</div><div class="line">c&lt;-c(b1[c(<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>)],b2[c(<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">8</span>)])</div><div class="line">show_col(c,labels=<span class="literal">F</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image11.png" alt=""></p>
+<p>其实都是些很简单的文本函数组合，毕竟色彩方案在软件中也就是一组字符向量而已。</p>
+<p>以上这些色彩方案可以很容易的应用到基础绘图系统和ggplot绘图系统中。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">c&lt;-c(<span class="number">50</span>,<span class="number">30</span>,<span class="number">50</span>,<span class="number">70</span>,<span class="number">90</span>,<span class="number">40</span>)</div><div class="line">names(c)&lt;-LETTERS[<span class="number">1</span>:<span class="number">6</span>]</div><div class="line">mycolor&lt;-brewer.pal(<span class="number">9</span>,<span class="string">"Greens"</span>)</div><div class="line">pie(sort(c,decreasing=<span class="literal">T</span>),labels=names(c),col=mycolor[c(<span class="number">3</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">9</span>)],clockwise=<span class="literal">T</span>,radius=<span class="number">1</span>,border=<span class="literal">F</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image12.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(ggplot2)</div><div class="line"><span class="keyword">library</span>(plyr)</div><div class="line">mydata&lt;-data.frame(c)</div><div class="line">ggplot(data=mydata,aes(x=factor(<span class="number">1</span>),y=c,fill=factor(c),order=desc(c)))+</div><div class="line">    geom_bar(stat=<span class="string">"identity"</span>,width=<span class="number">1</span>,col=<span class="string">"white"</span>)+</div><div class="line">    coord_polar(theta = <span class="string">"y"</span>,start=<span class="number">0</span>)+</div><div class="line">    theme(panel.grid = element_blank(),</div><div class="line">    panel.background = element_blank(),</div><div class="line">    axis.text = element_blank(),</div><div class="line">    axis.ticks = element_blank(),</div><div class="line">    axis.title = element_blank())+</div><div class="line">    scale_fill_brewer(palette=<span class="string">"Greens"</span>,labels=c(<span class="string">"E"</span>, <span class="string">"D"</span>, <span class="string">"A"</span>,<span class="string">"C"</span>,<span class="string">"F"</span>,<span class="string">"B"</span>))+</div><div class="line">    guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))</div></pre></td></tr></table></figure>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image13.png" alt=""></p>
+<h3 id="ggthemes部分："><a href="#ggthemes部分：" class="headerlink" title="ggthemes部分："></a>ggthemes部分：</h3><p>接下来讲解ggthemes部分，其实ggthemes包原本是转为ggplot2包开发的辅助包（前面加的前缀——gg就可以看出来，这种包还有很多），里面提供了大量高质量的主题、颜色方案。其中就有我们所熟知的economist主题方案以及wsj方案，还有诸如stata、excel、tableau、solarized、tufte等主题方案。</p>
+<p>ggthemes包中的色彩方案都是打包好，命名过的，所以我们引用的时候，只需赋值即可。</p>
+<p>这里以economist和WSJ为例：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(ggthemes)</div><div class="line">m1&lt;-economist_pal()(<span class="number">6</span>)</div><div class="line">show_col(m1)</div></pre></td></tr></table></figure></p>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image14.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mycolor&lt;-m1&lt;-economist_pal()(<span class="number">5</span>)</div><div class="line">pie(sort(c,decreasing=<span class="literal">T</span>),labels=names(<span class="number">6</span>),col=mycolor,border=<span class="literal">F</span>,clockwise=<span class="literal">T</span>,init.angle=<span class="number">90</span>,radius=<span class="number">1</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image15.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">ggplot(data=mydata,aes(x=factor(<span class="number">1</span>),y=c,fill=factor(c),order=desc(c)))+</div><div class="line">    geom_bar(stat=<span class="string">"identity"</span>,width=<span class="number">1</span>,col=<span class="string">"white"</span>)+</div><div class="line">    coord_polar(theta = <span class="string">"y"</span>,start=<span class="number">0</span>)+</div><div class="line">    theme(panel.grid = element_blank(),</div><div class="line">    panel.background = element_blank(),</div><div class="line">    axis.text = element_blank(),</div><div class="line">    axis.ticks = element_blank(),</div><div class="line">    axis.title = element_blank())+</div><div class="line">    scale_fill_economist(labels=c(<span class="string">"E"</span>, <span class="string">"D"</span>, <span class="string">"A"</span>,<span class="string">"C"</span>,<span class="string">"F"</span>,<span class="string">"B"</span>))+</div><div class="line">    guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))</div></pre></td></tr></table></figure>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image16.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">m2&lt;-wsj_pal()(<span class="number">6</span>)</div><div class="line">show_col(m2)</div></pre></td></tr></table></figure>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image17.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mycolor&lt;-m1&lt;-wsj_pal()(<span class="number">6</span>)</div><div class="line">pie(sort(c,decreasing=<span class="literal">T</span>),labels=names(c),col=mycolor,border=<span class="literal">F</span>,clockwise=<span class="literal">T</span>,init.angle=<span class="number">90</span>,radius=<span class="number">1</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image18.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">ggplot(data=mydata,aes(x=factor(<span class="number">1</span>),y=c,fill=factor(c),order=desc(c)))+</div><div class="line">    geom_bar(stat=<span class="string">"identity"</span>,width=<span class="number">1</span>,col=<span class="string">"white"</span>)+</div><div class="line">    coord_polar(theta = <span class="string">"y"</span>,start=<span class="number">0</span>)+</div><div class="line">    theme(panel.grid = element_blank(),</div><div class="line">    panel.background = element_blank(),</div><div class="line">    axis.text = element_blank(),</div><div class="line">    axis.ticks = element_blank(),</div><div class="line">    axis.title = element_blank())+</div><div class="line">    scale_fill_wsj(labels=names(c))+</div><div class="line">    guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))</div></pre></td></tr></table></figure>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image19.png" alt=""></p>
+<p>其实关于economist和wsj的配色主题远不止这些元素，里面规定了详细的序列用色标准、线条用色标准、形状标准和背景色参考方案，这些信息，你可以通过使用ggthemes_data函数进行查看：</p>
+<p><strong>WSJ背景色</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ggthemes_data$wsj$bg         </div><div class="line">     gray     green      blue     brown </div><div class="line"><span class="string">"#efefef"</span> <span class="string">"#e9f3ea"</span> <span class="string">"#d4dee7"</span> <span class="string">"#f8f2e4"</span></div></pre></td></tr></table></figure></p>
+<p><strong>WSJ主题色</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">ggthemes_data$wsj$palettes   <span class="comment">#主题色</span></div><div class="line">$rgby</div><div class="line">   yellow       red      blue     green </div><div class="line"><span class="string">"#d3ba68"</span> <span class="string">"#d5695d"</span> <span class="string">"#5d8ca8"</span> <span class="string">"#65a479"</span> </div><div class="line"></div><div class="line">$red_green</div><div class="line">    green       red </div><div class="line"><span class="string">"#088158"</span> <span class="string">"#ba2f2a"</span> </div><div class="line"></div><div class="line">$black_green</div><div class="line">    black      gray   ltgreen     green </div><div class="line">  <span class="string">"#000000"</span> <span class="string">"#595959"</span> <span class="string">"#59a77f"</span> <span class="string">"#008856"</span> </div><div class="line"></div><div class="line">$dem_rep</div><div class="line">     blue       red      gray </div><div class="line">   <span class="string">"#006a8e"</span> <span class="string">"#b1283a"</span> <span class="string">"#a8a6a7"</span> </div><div class="line"></div><div class="line">$colors6</div><div class="line">      red      blue      gold     green    orange     black </div><div class="line">   <span class="string">"#c72e29"</span> <span class="string">"#016392"</span> <span class="string">"#be9c2e"</span> <span class="string">"#098154"</span> <span class="string">"#fb832d"</span> <span class="string">"#000000"</span></div></pre></td></tr></table></figure></p>
+<p><strong>economist背景色：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggthemes_data$economist$bg</div></pre></td></tr></table></figure></p>
+<p><strong>economist主题色：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggthemes_data$economist$fg</div></pre></td></tr></table></figure></p>
+<p>也可以使用scales包中的show_col函数进行颜色的图形化输出：<br>显示主题颜色：</p>
+<p><strong>《华尔街日报》</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">show_col(ggthemes_data$wsj$bg)                      <span class="comment">#背景色</span></div><div class="line">show_col(ggthemes_data$wsj$palettes$rgby)           <span class="comment">#rgby</span></div><div class="line">show_col(ggthemes_data$wsj$palettes$red_green)      <span class="comment">#red_green</span></div><div class="line">show_col(ggthemes_data$wsj$palettes$black_green)    <span class="comment">#black_green</span></div><div class="line">show_col(ggthemes_data$wsj$palettes$dem_rep)        <span class="comment">#dem_rep</span></div><div class="line">show_col(ggthemes_data$wsj$palettes$colors6)        <span class="comment">#colors6</span></div></pre></td></tr></table></figure></p>
+<p><strong>《经济学人》</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">show_col(ggthemes_data$economist$bg)                <span class="comment">#背景色</span></div><div class="line">show_col(ggthemes_data$economist$fg)                <span class="comment">#主题色</span></div><div class="line">show_col(ggthemes_data$economist$stata)             <span class="comment">#基于stata的配色方案</span></div></pre></td></tr></table></figure></p>
+<p>以上ggthemes包中的所有颜色，你都可以通过names_pal()(n)的格式进行提取，然后使用文本函数进行抽取、转化、合并，自由搭配出属于自己的专属配色方案</p>
+<h3 id="scales包的brewer-pal函数："><a href="#scales包的brewer-pal函数：" class="headerlink" title="scales包的brewer_pal函数："></a>scales包的brewer_pal函数：</h3><p>接下来的时间我会将全部精力放在brewer_pal函数上，告诉你为什么，因为这个函数是scales专门为图形标度所设置的颜色设置函数，而以上我们所述的RColorBrewer里面的brewer.pal以及ggthemes包中的names_pal函数，是用于提取自己的配色方案，适用范围较小。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(<span class="string">"scales"</span>)</div><div class="line">brewer_pal(type = <span class="string">"seq"</span>, palette = <span class="number">1</span>, direction = <span class="number">1</span>)</div></pre></td></tr></table></figure></p>
+<p>该函数直接对接RColorBrewer包中的配色主题，但是增加了一些输出参数，可以对输出的主题进行更加灵活的自定义操作。</p>
+<p>type设置颜色种类，palette设置色板（可以是字符名称，也可以是编号），direction设置颜色输出顺序（默认为原始顺序，-1代表倒序，对于连续渐变类型的色板比较重要）。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">show_col(brewer_pal()(<span class="number">10</span>))</div><div class="line">show_col(brewer_pal(<span class="string">"div"</span>)(<span class="number">5</span>))</div><div class="line">show_col(brewer_pal(palette = <span class="string">"Greens"</span>)(<span class="number">5</span>))</div></pre></td></tr></table></figure>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image20.png" alt=""><br><img src="http://ordxl0ss6.bkt.clouddn.com/image21.png" alt=""><br><img src="http://ordxl0ss6.bkt.clouddn.com/image22.png" alt=""></p>
+<p>可以看出来，brewer_pal()函数允许通过色板类型、色彩数据、主题类型进行筛选输出。</p>
+<p>我们可以通过brewer_pal函数将色彩信息传递给指定向量，或者直接将brewer_pal指定给col或者fill等图表中的标度参数。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">par(mfrow=c(<span class="number">1</span>,<span class="number">2</span>),mar=c(<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>),xaxs=<span class="string">"i"</span>, yaxs=<span class="string">"i"</span>)</div><div class="line">pie(rep(<span class="number">1</span>,times=<span class="number">6</span>),labels=<span class="string">""</span>,col=brewer_pal(palette=<span class="string">"Greens"</span>)(<span class="number">6</span>),border=<span class="literal">F</span>,radius=<span class="number">1</span>,clockwise=<span class="literal">T</span>)</div><div class="line">pie(rep(<span class="number">1</span>,times=<span class="number">6</span>),labels=<span class="string">""</span>,col=brewer_pal(palette=<span class="string">"Greens"</span>,direction =-<span class="number">1</span>)(<span class="number">6</span>),border=<span class="literal">F</span>,radius=<span class="number">1</span>,clockwise=<span class="literal">T</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image3.png" alt=""></p>
+<p>因为ggplot中有专用于RColorBrewer的色彩主题函数scale_fill(colour)_brewer(），用于对接RColorBrewer中的色彩库，所以我们想要在ggplot图表系统中使用RColorBrewer中的配色主题，不必使用brewer_pal进行提取。</p>
+<p>并且，brewer_pal函数内的参数，在scale_fill(colour)_brewer(）函数内也可以使用，对色彩方案进行筛选、抽取。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(Rmisc)</div><div class="line"><span class="keyword">library</span>(lattice)</div><div class="line">p1&lt;- ggplot(data=mydata,aes(x=factor(<span class="number">1</span>),y=c,fill=factor(c),order=desc(c)))+</div><div class="line">    geom_bar(stat=<span class="string">"identity"</span>,width=<span class="number">1</span>,col=<span class="string">"white"</span>)+</div><div class="line">    coord_polar(theta = <span class="string">"y"</span>,start=<span class="number">0</span>)+</div><div class="line">    theme(panel.grid = element_blank(),</div><div class="line">    panel.background = element_blank(),</div><div class="line">    axis.text = element_blank(),</div><div class="line">    axis.ticks = element_blank(),</div><div class="line">    axis.title = element_blank(),</div><div class="line">    legend.position=<span class="string">"top"</span>)+</div><div class="line">    scale_fill_brewer(palette=<span class="string">"Greens"</span>,labels=names(c))+</div><div class="line">    guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))</div><div class="line">p2&lt;- ggplot(data=mydata,aes(x=factor(<span class="number">1</span>),y=c,fill=factor(c),order=desc(c)))+</div><div class="line">    geom_bar(stat=<span class="string">"identity"</span>,width=<span class="number">1</span>,col=<span class="string">"white"</span>)+</div><div class="line">    coord_polar(theta = <span class="string">"y"</span>,start=<span class="number">0</span>)+</div><div class="line">    theme(panel.grid = element_blank(),</div><div class="line">    panel.background = element_blank(),</div><div class="line">    axis.text = element_blank(),</div><div class="line">    axis.ticks = element_blank(),</div><div class="line">    axis.title = element_blank(),</div><div class="line">    legend.position=<span class="string">"top"</span>)+</div><div class="line">    scale_fill_brewer(palette=<span class="string">"Greens"</span>,direction =-<span class="number">1</span>,labels=names(c))+</div><div class="line">    guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))</div><div class="line">multiplot(p1,p2,cols=<span class="number">2</span>)</div></pre></td></tr></table></figure></p>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image25.png" alt=""></p>
+<p>除此之外，还有一个叫ggtech的包，专门为ggplot2包提供科技公司风格配色方案。仔细看了包，没有取色函数，但是提供了全部的色值信息。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(ggtech)</div><div class="line">tech_key = list(airbnb = c(<span class="string">"#FF5A5F"</span>,<span class="string">"#FFB400"</span>, <span class="string">"#007A87"</span>, <span class="string">"#FFAA91"</span>, <span class="string">"#7B0051"</span>), </div><div class="line">facebook = c(<span class="string">"#3b5998"</span>,<span class="string">"#6d84b4"</span>, <span class="string">"#afbdd4"</span>, <span class="string">"#d8dfea"</span>), </div><div class="line">google = c(<span class="string">"#5380E4"</span>, <span class="string">"#E12A3C"</span>, <span class="string">"#FFBF03"</span>,<span class="string">"#00B723"</span>), </div><div class="line">etsy = c(<span class="string">"#F14000"</span>, <span class="string">"#67B6C3"</span>, <span class="string">"#F0DA47"</span>, <span class="string">"#EBEBE6"</span>, <span class="string">"#D0D0CB"</span>),</div><div class="line">twitter = c(<span class="string">"#55ACEE"</span>, <span class="string">"#292f33"</span>, <span class="string">"#8899a6"</span>, <span class="string">"#e1e8ed"</span>))</div><div class="line">show_col(tech_key$airbnb)</div><div class="line">show_col(tech_key$facebook)</div><div class="line">show_col(tech_key$google)</div><div class="line">show_col(tech_key$etsy)</div><div class="line">show_col(tech_key$twitter)</div></pre></td></tr></table></figure>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image26.png" alt=""></p>
+<p>以上是今天所要讲的主要内容，因为关于这块儿的内容，非常丰富，我也只能涉略一点儿，想要了解更多的R语言配色知识，可以参考详细的官方文档。</p>
+<hr>
+<p><strong>联系方式：</strong></p>
+<p>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834  </p>
+<p><strong>个人简介：</strong></p>
+<p><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。 <br><br>Mail:578708965@qq.com </p>
+<hr>
+<p><strong>备注信息：</strong></p>
+<p><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://oqbxptw4f.bkt.clouddn.com/dashang/wechat.jpg" alt="RainDu WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://oqbxptw4f.bkt.clouddn.com/dashang/Alipay.png" alt="RainDu Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/11/R预设配色系统及自定义色板/" rel="next" title="R预设配色系统及自定义色板">
+                <i class="fa fa-chevron-left"></i> R预设配色系统及自定义色板
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="RainDu" />
+          <p class="site-author-name" itemprop="name">RainDu</p>
+           
+              <p class="site-description motion-element" itemprop="description">身体和心灵，总有一个在路上！</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ljtyduyu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/1676935144" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.zhihu.com/people/du-yu-48-94/activities" title="知乎" target="_blank">知乎</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jianshu.com/u/29dbe4c85801" title="简书" target="_blank">简书</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#主要内容："><span class="nav-number">1.</span> <span class="nav-text">主要内容：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RColorBrewer部分"><span class="nav-number">2.</span> <span class="nav-text">RColorBrewer部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ggthemes部分："><span class="nav-number">3.</span> <span class="nav-text">ggthemes部分：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scales包的brewer-pal函数："><span class="nav-number">4.</span> <span class="nav-text">scales包的brewer_pal函数：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RainDu</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共54.9k字</span>
+</div>
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "f1e7f17c2ee543bdae216f9b2a74bc91",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cyt3stKEE';
+      var conf = '8581e784b1dd8f7f3e1d1388a5e8995c';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("ahxpwVkWOTN8iHFlEU9FPDLs-gzGzoHsz", "kK1qsVzeyCcB01Sw2RP2MvIs");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+  
+</body>
+</html>

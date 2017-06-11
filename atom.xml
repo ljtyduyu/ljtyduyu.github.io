@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.raindu.com/"/>
-  <updated>2017-06-11T13:23:41.600Z</updated>
+  <updated>2017-06-11T13:48:20.902Z</updated>
   <id>http://www.raindu.com/</id>
   
   <author>
@@ -14,6 +14,112 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>R语言颜色综合运用与色彩方案共享</title>
+    <link href="http://www.raindu.com/2017/06/11/R%E8%AF%AD%E8%A8%80%E9%A2%9C%E8%89%B2%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%E4%B8%8E%E8%89%B2%E5%BD%A9%E6%96%B9%E6%A1%88%E5%85%B1%E4%BA%AB/"/>
+    <id>http://www.raindu.com/2017/06/11/R语言颜色综合运用与色彩方案共享/</id>
+    <published>2017-06-11T13:26:08.000Z</published>
+    <updated>2017-06-11T13:48:20.902Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天这篇主要讲解R语言颜色综合运用，主要跟大家介绍如何提取那些专业色彩包中的颜色搭配用于在基础绘图系统和高级绘图系统中共享。</p>
+<a id="more"></a>
+<p>其实无论是R语言的预设配色系统、自定义颜色表还是哪些专属配色包，我们所使用（或者R语言识别的）的仅仅就是一组字符向量所代表的色值而已，并不神秘。</p>
+<p>通过scales中的色彩获取函数，我们可以将专属配色主题（RColorBrewer、ggthemes）中的配色主题提取出来，以函数的形式传递给基础绘图系统（plot）以及ggplot绘图系统。</p>
+<h3 id="主要内容："><a href="#主要内容：" class="headerlink" title="主要内容："></a>主要内容：</h3><ul>
+<li>RColorBrewer部分：</li>
+<li>ggthemes部分：</li>
+<li>scales：（brewer.pal运用：）</li>
+</ul>
+<h3 id="RColorBrewer部分"><a href="#RColorBrewer部分" class="headerlink" title="RColorBrewer部分"></a>RColorBrewer部分</h3><p>关于RColorBrewer包之前在写ggplot函数系统的时候已经有所涉猎，其中专门讲解过它的官方配色网站：<a href="http://colorbrewer2.org/#" target="_blank" rel="external">colorbrewer</a></p>
+<p>这是一个非常神奇的网站，RColorBrewer包中的配色方案全部来源于此，而且网站上允许自定义色彩序列和类型，衍生出来的颜色要比该包中的配色资源多出很多倍。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(RColorBrewer)</div><div class="line">display.brewer.pal(n, name)</div><div class="line">display.brewer.all(type=<span class="string">"all"</span>)</div></pre></td></tr></table></figure>
+<p>ColorBrewer设计团队将配色方案分为三种：</p>
+<ul>
+<li>seq:连续渐变色</li>
+<li>div:双向渐变色</li>
+<li>qual:分类色</li>
+</ul>
+<p>通过display函数可以查看不同类型的色板：</p>
+<p>颜色查看：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">display.brewer.all(type = <span class="string">"all"</span>)  <span class="comment">#查看所有色板</span></div><div class="line">display.brewer.all(type = <span class="string">"seq"</span>)  <span class="comment">#查看单色渐变色板</span></div><div class="line">display.brewer.all(type = <span class="string">"div"</span>)  <span class="comment">#查看双色渐变色板</span></div><div class="line">display.brewer.all(type = <span class="string">"qual"</span>) <span class="comment">#查看离散（分类）色板</span></div></pre></td></tr></table></figure></p>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image4.png" alt=""><br><img src="http://ordxl0ss6.bkt.clouddn.com/image5.png" alt=""><br><img src="http://ordxl0ss6.bkt.clouddn.com/image6.png" alt=""><br><img src="http://ordxl0ss6.bkt.clouddn.com/image7.png" alt=""></p>
+<p>以上通过display四个函数成功显示了全部色板、单色渐变色板、双色渐变色板、离散（分类）色板</p>
+<p>当然你也可以通过display.brewer.pal(n, name)函数显示指定名称的颜色主题：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">display.brewer.pal(<span class="number">9</span>, <span class="string">"BuGn"</span>)</div></pre></td></tr></table></figure></p>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image8.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">par(mfrow=c(<span class="number">1</span>,<span class="number">5</span>),mar=c(<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>),xaxs=<span class="string">"i"</span>, yaxs=<span class="string">"i"</span>)</div><div class="line">mycolors&lt;-brewer.pal(<span class="number">9</span>, <span class="string">"BuGn"</span>)</div><div class="line">barplot(rep(<span class="number">1</span>,times=<span class="number">9</span>),col=mycolors,border=mycolors,axes=<span class="literal">FALSE</span>, horiz=<span class="literal">T</span>,main=<span class="string">"MyColors of BuGn "</span>)</div><div class="line">mycolors&lt;-brewer.pal(<span class="number">9</span>, <span class="string">"OrRd"</span>)</div><div class="line">barplot(rep(<span class="number">1</span>,times=<span class="number">9</span>),col=mycolors,border=mycolors,axes=<span class="literal">FALSE</span>, horiz=<span class="literal">T</span>,main=<span class="string">"MyColors of OrRd"</span>)</div><div class="line">mycolors&lt;-brewer.pal(<span class="number">9</span>, <span class="string">"YlGn"</span>)</div><div class="line">barplot(rep(<span class="number">1</span>,times=<span class="number">9</span>),col=mycolors,border=mycolors,axes=<span class="literal">FALSE</span>, horiz=<span class="literal">T</span>,main=<span class="string">"MyColors of YlGn"</span>)</div><div class="line">mycolors&lt;-brewer.pal(<span class="number">9</span>, <span class="string">"Oranges"</span>)</div><div class="line">barplot(rep(<span class="number">1</span>,times=<span class="number">9</span>),col=mycolors,border=mycolors,axes=<span class="literal">FALSE</span>, horiz=<span class="literal">T</span>,main=<span class="string">"MyColors of Oranges"</span>)</div><div class="line">mycolors&lt;-brewer.pal(<span class="number">9</span>, <span class="string">"Blues"</span>)</div><div class="line">barplot(rep(<span class="number">1</span>,times=<span class="number">9</span>),col=mycolors,border=mycolors,axes=<span class="literal">FALSE</span>, horiz=<span class="literal">T</span>,main=<span class="string">"MyColors of Blues"</span>)</div><div class="line">dev.off()</div></pre></td></tr></table></figure>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image9.png" alt=""></p>
+<p>大家已经看到了，通过brewer.pal(n, “name”)函数，可以很轻松的提取出你想要的配色主题。</p>
+<p>如果你想要某个配色主题的其中几个色值，可使用如下方式提取：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">display.brewer.pal(<span class="number">6</span>, <span class="string">"BuGn"</span>)<span class="comment">#按顺序提取前六个</span></div></pre></td></tr></table></figure></p>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image1.png" alt=""></p>
+<p>如果想要提取某一组色彩主题不连续的颜色，可以使用文本函数：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(scales)</div><div class="line">a&lt;-brewer.pal(<span class="number">9</span>, <span class="string">"BuGn"</span>)</div><div class="line">show_col(a[c(<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>)],labels=<span class="literal">F</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image10.png" alt=""></p>
+<p>通过向量合并，你还可以自己从色彩包中自定义色彩方案。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">b1&lt;-brewer.pal(<span class="number">9</span>, <span class="string">"BuGn"</span>);b2&lt;-brewer.pal(<span class="number">9</span>,<span class="string">"Blues"</span>)</div><div class="line">c&lt;-c(b1[c(<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>)],b2[c(<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">8</span>)])</div><div class="line">show_col(c,labels=<span class="literal">F</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image11.png" alt=""></p>
+<p>其实都是些很简单的文本函数组合，毕竟色彩方案在软件中也就是一组字符向量而已。</p>
+<p>以上这些色彩方案可以很容易的应用到基础绘图系统和ggplot绘图系统中。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">c&lt;-c(<span class="number">50</span>,<span class="number">30</span>,<span class="number">50</span>,<span class="number">70</span>,<span class="number">90</span>,<span class="number">40</span>)</div><div class="line">names(c)&lt;-LETTERS[<span class="number">1</span>:<span class="number">6</span>]</div><div class="line">mycolor&lt;-brewer.pal(<span class="number">9</span>,<span class="string">"Greens"</span>)</div><div class="line">pie(sort(c,decreasing=<span class="literal">T</span>),labels=names(c),col=mycolor[c(<span class="number">3</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">9</span>)],clockwise=<span class="literal">T</span>,radius=<span class="number">1</span>,border=<span class="literal">F</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image12.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(ggplot2)</div><div class="line"><span class="keyword">library</span>(plyr)</div><div class="line">mydata&lt;-data.frame(c)</div><div class="line">ggplot(data=mydata,aes(x=factor(<span class="number">1</span>),y=c,fill=factor(c),order=desc(c)))+</div><div class="line">    geom_bar(stat=<span class="string">"identity"</span>,width=<span class="number">1</span>,col=<span class="string">"white"</span>)+</div><div class="line">    coord_polar(theta = <span class="string">"y"</span>,start=<span class="number">0</span>)+</div><div class="line">    theme(panel.grid = element_blank(),</div><div class="line">    panel.background = element_blank(),</div><div class="line">    axis.text = element_blank(),</div><div class="line">    axis.ticks = element_blank(),</div><div class="line">    axis.title = element_blank())+</div><div class="line">    scale_fill_brewer(palette=<span class="string">"Greens"</span>,labels=c(<span class="string">"E"</span>, <span class="string">"D"</span>, <span class="string">"A"</span>,<span class="string">"C"</span>,<span class="string">"F"</span>,<span class="string">"B"</span>))+</div><div class="line">    guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))</div></pre></td></tr></table></figure>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image13.png" alt=""></p>
+<h3 id="ggthemes部分："><a href="#ggthemes部分：" class="headerlink" title="ggthemes部分："></a>ggthemes部分：</h3><p>接下来讲解ggthemes部分，其实ggthemes包原本是转为ggplot2包开发的辅助包（前面加的前缀——gg就可以看出来，这种包还有很多），里面提供了大量高质量的主题、颜色方案。其中就有我们所熟知的economist主题方案以及wsj方案，还有诸如stata、excel、tableau、solarized、tufte等主题方案。</p>
+<p>ggthemes包中的色彩方案都是打包好，命名过的，所以我们引用的时候，只需赋值即可。</p>
+<p>这里以economist和WSJ为例：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(ggthemes)</div><div class="line">m1&lt;-economist_pal()(<span class="number">6</span>)</div><div class="line">show_col(m1)</div></pre></td></tr></table></figure></p>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image14.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mycolor&lt;-m1&lt;-economist_pal()(<span class="number">5</span>)</div><div class="line">pie(sort(c,decreasing=<span class="literal">T</span>),labels=names(<span class="number">6</span>),col=mycolor,border=<span class="literal">F</span>,clockwise=<span class="literal">T</span>,init.angle=<span class="number">90</span>,radius=<span class="number">1</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image15.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">ggplot(data=mydata,aes(x=factor(<span class="number">1</span>),y=c,fill=factor(c),order=desc(c)))+</div><div class="line">    geom_bar(stat=<span class="string">"identity"</span>,width=<span class="number">1</span>,col=<span class="string">"white"</span>)+</div><div class="line">    coord_polar(theta = <span class="string">"y"</span>,start=<span class="number">0</span>)+</div><div class="line">    theme(panel.grid = element_blank(),</div><div class="line">    panel.background = element_blank(),</div><div class="line">    axis.text = element_blank(),</div><div class="line">    axis.ticks = element_blank(),</div><div class="line">    axis.title = element_blank())+</div><div class="line">    scale_fill_economist(labels=c(<span class="string">"E"</span>, <span class="string">"D"</span>, <span class="string">"A"</span>,<span class="string">"C"</span>,<span class="string">"F"</span>,<span class="string">"B"</span>))+</div><div class="line">    guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))</div></pre></td></tr></table></figure>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image16.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">m2&lt;-wsj_pal()(<span class="number">6</span>)</div><div class="line">show_col(m2)</div></pre></td></tr></table></figure>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image17.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mycolor&lt;-m1&lt;-wsj_pal()(<span class="number">6</span>)</div><div class="line">pie(sort(c,decreasing=<span class="literal">T</span>),labels=names(c),col=mycolor,border=<span class="literal">F</span>,clockwise=<span class="literal">T</span>,init.angle=<span class="number">90</span>,radius=<span class="number">1</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image18.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">ggplot(data=mydata,aes(x=factor(<span class="number">1</span>),y=c,fill=factor(c),order=desc(c)))+</div><div class="line">    geom_bar(stat=<span class="string">"identity"</span>,width=<span class="number">1</span>,col=<span class="string">"white"</span>)+</div><div class="line">    coord_polar(theta = <span class="string">"y"</span>,start=<span class="number">0</span>)+</div><div class="line">    theme(panel.grid = element_blank(),</div><div class="line">    panel.background = element_blank(),</div><div class="line">    axis.text = element_blank(),</div><div class="line">    axis.ticks = element_blank(),</div><div class="line">    axis.title = element_blank())+</div><div class="line">    scale_fill_wsj(labels=names(c))+</div><div class="line">    guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))</div></pre></td></tr></table></figure>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image19.png" alt=""></p>
+<p>其实关于economist和wsj的配色主题远不止这些元素，里面规定了详细的序列用色标准、线条用色标准、形状标准和背景色参考方案，这些信息，你可以通过使用ggthemes_data函数进行查看：</p>
+<p><strong>WSJ背景色</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ggthemes_data$wsj$bg         </div><div class="line">     gray     green      blue     brown </div><div class="line"><span class="string">"#efefef"</span> <span class="string">"#e9f3ea"</span> <span class="string">"#d4dee7"</span> <span class="string">"#f8f2e4"</span></div></pre></td></tr></table></figure></p>
+<p><strong>WSJ主题色</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">ggthemes_data$wsj$palettes   <span class="comment">#主题色</span></div><div class="line">$rgby</div><div class="line">   yellow       red      blue     green </div><div class="line"><span class="string">"#d3ba68"</span> <span class="string">"#d5695d"</span> <span class="string">"#5d8ca8"</span> <span class="string">"#65a479"</span> </div><div class="line"></div><div class="line">$red_green</div><div class="line">    green       red </div><div class="line"><span class="string">"#088158"</span> <span class="string">"#ba2f2a"</span> </div><div class="line"></div><div class="line">$black_green</div><div class="line">    black      gray   ltgreen     green </div><div class="line">  <span class="string">"#000000"</span> <span class="string">"#595959"</span> <span class="string">"#59a77f"</span> <span class="string">"#008856"</span> </div><div class="line"></div><div class="line">$dem_rep</div><div class="line">     blue       red      gray </div><div class="line">   <span class="string">"#006a8e"</span> <span class="string">"#b1283a"</span> <span class="string">"#a8a6a7"</span> </div><div class="line"></div><div class="line">$colors6</div><div class="line">      red      blue      gold     green    orange     black </div><div class="line">   <span class="string">"#c72e29"</span> <span class="string">"#016392"</span> <span class="string">"#be9c2e"</span> <span class="string">"#098154"</span> <span class="string">"#fb832d"</span> <span class="string">"#000000"</span></div></pre></td></tr></table></figure></p>
+<p><strong>economist背景色：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggthemes_data$economist$bg</div></pre></td></tr></table></figure></p>
+<p><strong>economist主题色：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggthemes_data$economist$fg</div></pre></td></tr></table></figure></p>
+<p>也可以使用scales包中的show_col函数进行颜色的图形化输出：<br>显示主题颜色：</p>
+<p><strong>《华尔街日报》</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">show_col(ggthemes_data$wsj$bg)                      <span class="comment">#背景色</span></div><div class="line">show_col(ggthemes_data$wsj$palettes$rgby)           <span class="comment">#rgby</span></div><div class="line">show_col(ggthemes_data$wsj$palettes$red_green)      <span class="comment">#red_green</span></div><div class="line">show_col(ggthemes_data$wsj$palettes$black_green)    <span class="comment">#black_green</span></div><div class="line">show_col(ggthemes_data$wsj$palettes$dem_rep)        <span class="comment">#dem_rep</span></div><div class="line">show_col(ggthemes_data$wsj$palettes$colors6)        <span class="comment">#colors6</span></div></pre></td></tr></table></figure></p>
+<p><strong>《经济学人》</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">show_col(ggthemes_data$economist$bg)                <span class="comment">#背景色</span></div><div class="line">show_col(ggthemes_data$economist$fg)                <span class="comment">#主题色</span></div><div class="line">show_col(ggthemes_data$economist$stata)             <span class="comment">#基于stata的配色方案</span></div></pre></td></tr></table></figure></p>
+<p>以上ggthemes包中的所有颜色，你都可以通过names_pal()(n)的格式进行提取，然后使用文本函数进行抽取、转化、合并，自由搭配出属于自己的专属配色方案</p>
+<h3 id="scales包的brewer-pal函数："><a href="#scales包的brewer-pal函数：" class="headerlink" title="scales包的brewer_pal函数："></a>scales包的brewer_pal函数：</h3><p>接下来的时间我会将全部精力放在brewer_pal函数上，告诉你为什么，因为这个函数是scales专门为图形标度所设置的颜色设置函数，而以上我们所述的RColorBrewer里面的brewer.pal以及ggthemes包中的names_pal函数，是用于提取自己的配色方案，适用范围较小。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(<span class="string">"scales"</span>)</div><div class="line">brewer_pal(type = <span class="string">"seq"</span>, palette = <span class="number">1</span>, direction = <span class="number">1</span>)</div></pre></td></tr></table></figure></p>
+<p>该函数直接对接RColorBrewer包中的配色主题，但是增加了一些输出参数，可以对输出的主题进行更加灵活的自定义操作。</p>
+<p>type设置颜色种类，palette设置色板（可以是字符名称，也可以是编号），direction设置颜色输出顺序（默认为原始顺序，-1代表倒序，对于连续渐变类型的色板比较重要）。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">show_col(brewer_pal()(<span class="number">10</span>))</div><div class="line">show_col(brewer_pal(<span class="string">"div"</span>)(<span class="number">5</span>))</div><div class="line">show_col(brewer_pal(palette = <span class="string">"Greens"</span>)(<span class="number">5</span>))</div></pre></td></tr></table></figure>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image20.png" alt=""><br><img src="http://ordxl0ss6.bkt.clouddn.com/image21.png" alt=""><br><img src="http://ordxl0ss6.bkt.clouddn.com/image22.png" alt=""></p>
+<p>可以看出来，brewer_pal()函数允许通过色板类型、色彩数据、主题类型进行筛选输出。</p>
+<p>我们可以通过brewer_pal函数将色彩信息传递给指定向量，或者直接将brewer_pal指定给col或者fill等图表中的标度参数。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">par(mfrow=c(<span class="number">1</span>,<span class="number">2</span>),mar=c(<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>),xaxs=<span class="string">"i"</span>, yaxs=<span class="string">"i"</span>)</div><div class="line">pie(rep(<span class="number">1</span>,times=<span class="number">6</span>),labels=<span class="string">""</span>,col=brewer_pal(palette=<span class="string">"Greens"</span>)(<span class="number">6</span>),border=<span class="literal">F</span>,radius=<span class="number">1</span>,clockwise=<span class="literal">T</span>)</div><div class="line">pie(rep(<span class="number">1</span>,times=<span class="number">6</span>),labels=<span class="string">""</span>,col=brewer_pal(palette=<span class="string">"Greens"</span>,direction =-<span class="number">1</span>)(<span class="number">6</span>),border=<span class="literal">F</span>,radius=<span class="number">1</span>,clockwise=<span class="literal">T</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image3.png" alt=""></p>
+<p>因为ggplot中有专用于RColorBrewer的色彩主题函数scale_fill(colour)_brewer(），用于对接RColorBrewer中的色彩库，所以我们想要在ggplot图表系统中使用RColorBrewer中的配色主题，不必使用brewer_pal进行提取。</p>
+<p>并且，brewer_pal函数内的参数，在scale_fill(colour)_brewer(）函数内也可以使用，对色彩方案进行筛选、抽取。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(Rmisc)</div><div class="line"><span class="keyword">library</span>(lattice)</div><div class="line">p1&lt;- ggplot(data=mydata,aes(x=factor(<span class="number">1</span>),y=c,fill=factor(c),order=desc(c)))+</div><div class="line">    geom_bar(stat=<span class="string">"identity"</span>,width=<span class="number">1</span>,col=<span class="string">"white"</span>)+</div><div class="line">    coord_polar(theta = <span class="string">"y"</span>,start=<span class="number">0</span>)+</div><div class="line">    theme(panel.grid = element_blank(),</div><div class="line">    panel.background = element_blank(),</div><div class="line">    axis.text = element_blank(),</div><div class="line">    axis.ticks = element_blank(),</div><div class="line">    axis.title = element_blank(),</div><div class="line">    legend.position=<span class="string">"top"</span>)+</div><div class="line">    scale_fill_brewer(palette=<span class="string">"Greens"</span>,labels=names(c))+</div><div class="line">    guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))</div><div class="line">p2&lt;- ggplot(data=mydata,aes(x=factor(<span class="number">1</span>),y=c,fill=factor(c),order=desc(c)))+</div><div class="line">    geom_bar(stat=<span class="string">"identity"</span>,width=<span class="number">1</span>,col=<span class="string">"white"</span>)+</div><div class="line">    coord_polar(theta = <span class="string">"y"</span>,start=<span class="number">0</span>)+</div><div class="line">    theme(panel.grid = element_blank(),</div><div class="line">    panel.background = element_blank(),</div><div class="line">    axis.text = element_blank(),</div><div class="line">    axis.ticks = element_blank(),</div><div class="line">    axis.title = element_blank(),</div><div class="line">    legend.position=<span class="string">"top"</span>)+</div><div class="line">    scale_fill_brewer(palette=<span class="string">"Greens"</span>,direction =-<span class="number">1</span>,labels=names(c))+</div><div class="line">    guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))</div><div class="line">multiplot(p1,p2,cols=<span class="number">2</span>)</div></pre></td></tr></table></figure></p>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image25.png" alt=""></p>
+<p>除此之外，还有一个叫ggtech的包，专门为ggplot2包提供科技公司风格配色方案。仔细看了包，没有取色函数，但是提供了全部的色值信息。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(ggtech)</div><div class="line">tech_key = list(airbnb = c(<span class="string">"#FF5A5F"</span>,<span class="string">"#FFB400"</span>, <span class="string">"#007A87"</span>, <span class="string">"#FFAA91"</span>, <span class="string">"#7B0051"</span>), </div><div class="line">facebook = c(<span class="string">"#3b5998"</span>,<span class="string">"#6d84b4"</span>, <span class="string">"#afbdd4"</span>, <span class="string">"#d8dfea"</span>), </div><div class="line">google = c(<span class="string">"#5380E4"</span>, <span class="string">"#E12A3C"</span>, <span class="string">"#FFBF03"</span>,<span class="string">"#00B723"</span>), </div><div class="line">etsy = c(<span class="string">"#F14000"</span>, <span class="string">"#67B6C3"</span>, <span class="string">"#F0DA47"</span>, <span class="string">"#EBEBE6"</span>, <span class="string">"#D0D0CB"</span>),</div><div class="line">twitter = c(<span class="string">"#55ACEE"</span>, <span class="string">"#292f33"</span>, <span class="string">"#8899a6"</span>, <span class="string">"#e1e8ed"</span>))</div><div class="line">show_col(tech_key$airbnb)</div><div class="line">show_col(tech_key$facebook)</div><div class="line">show_col(tech_key$google)</div><div class="line">show_col(tech_key$etsy)</div><div class="line">show_col(tech_key$twitter)</div></pre></td></tr></table></figure>
+<p><img src="http://ordxl0ss6.bkt.clouddn.com/image26.png" alt=""></p>
+<p>以上是今天所要讲的主要内容，因为关于这块儿的内容，非常丰富，我也只能涉略一点儿，想要了解更多的R语言配色知识，可以参考详细的官方文档。</p>
+<hr>
+<p><strong>联系方式：</strong></p>
+<p>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834  </p>
+<p><strong>个人简介：</strong></p>
+<p><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。 <br><br>Mail:578708965@qq.com </p>
+<hr>
+<p><strong>备注信息：</strong></p>
+<p><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今天这篇主要讲解R语言颜色综合运用，主要跟大家介绍如何提取那些专业色彩包中的颜色搭配用于在基础绘图系统和高级绘图系统中共享。&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>R预设配色系统及自定义色板</title>
@@ -558,9 +664,9 @@
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
-      <category term="REmap" scheme="http://www.raindu.com/tags/REmap/"/>
-    
       <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
+    
+      <category term="REmap" scheme="http://www.raindu.com/tags/REmap/"/>
     
   </entry>
   
@@ -623,9 +729,9 @@
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
-      <category term="REmap" scheme="http://www.raindu.com/tags/REmap/"/>
-    
       <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
+    
+      <category term="REmap" scheme="http://www.raindu.com/tags/REmap/"/>
     
       <category term="路径图" scheme="http://www.raindu.com/tags/%E8%B7%AF%E5%BE%84%E5%9B%BE/"/>
     
@@ -723,9 +829,9 @@
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
-      <category term="REmap" scheme="http://www.raindu.com/tags/REmap/"/>
-    
       <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
+    
+      <category term="REmap" scheme="http://www.raindu.com/tags/REmap/"/>
     
   </entry>
   
@@ -927,11 +1033,11 @@
     
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
+      <category term="json" scheme="http://www.raindu.com/tags/json/"/>
+    
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
-    
-      <category term="json" scheme="http://www.raindu.com/tags/json/"/>
     
       <category term="leaflet" scheme="http://www.raindu.com/tags/leaflet/"/>
     
@@ -1122,9 +1228,9 @@
     
       <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
     
-      <category term="路径图" scheme="http://www.raindu.com/tags/%E8%B7%AF%E5%BE%84%E5%9B%BE/"/>
-    
       <category term="leaflet" scheme="http://www.raindu.com/tags/leaflet/"/>
+    
+      <category term="路径图" scheme="http://www.raindu.com/tags/%E8%B7%AF%E5%BE%84%E5%9B%BE/"/>
     
       <category term="mini柱形/条形图" scheme="http://www.raindu.com/tags/mini%E6%9F%B1%E5%BD%A2-%E6%9D%A1%E5%BD%A2%E5%9B%BE/"/>
     
@@ -1600,71 +1706,6 @@
       <category term="爬虫" scheme="http://www.raindu.com/tags/%E7%88%AC%E8%99%AB/"/>
     
       <category term="空气质量可视化" scheme="http://www.raindu.com/tags/%E7%A9%BA%E6%B0%94%E8%B4%A8%E9%87%8F%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>R语言可视化——中心放射状路径图</title>
-    <link href="http://www.raindu.com/2017/05/31/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94%E4%B8%AD%E5%BF%83%E6%94%BE%E5%B0%84%E7%8A%B6%E8%B7%AF%E5%BE%84%E5%9B%BE/"/>
-    <id>http://www.raindu.com/2017/05/31/R语言可视化——中心放射状路径图/</id>
-    <published>2017-05-31T01:26:55.000Z</published>
-    <updated>2017-06-10T11:11:16.506Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近一直在研究ggplot剩余还没有涉略过的图表类型，试图挖掘出一些新的图表形式，就像是该包的作者所暗示的那样，ggplot2只是给你搭建了一个图层语法环境，至于具体能创造出何种图形，全凭自己的想象力。</p>
-<p>慢慢的我发现还有一类geom_segment对象自己一直没有尝试过，于是满心欢喜的尝试了一下，果然还是有收获的，我发现通过这个segment图层，可以批量的创建放射状线条图，也就是路径图，这解决了我一直以来的难题，今天顺便分享给大家。</p>
-<a id="more"></a>
-<h3 id="加载包："><a href="#加载包：" class="headerlink" title="加载包："></a>加载包：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(ggplot2)</div><div class="line"><span class="keyword">library</span>(ggmap)</div><div class="line"><span class="keyword">library</span>(plyr)</div><div class="line"><span class="keyword">library</span>(maptools)</div></pre></td></tr></table></figure>
-<h3 id="加载中国省份行政地图："><a href="#加载中国省份行政地图：" class="headerlink" title="加载中国省份行政地图："></a>加载中国省份行政地图：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">china_map&lt;-readShapePoly(<span class="string">"c:/rstudy/bou2_4p.shp"</span>)</div><div class="line">x &lt;- china_map@data      </div><div class="line">xs &lt;- data.frame(id=row.names(x),x)</div></pre></td></tr></table></figure>
-<p><strong>转换为数据框并合并城市数据：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">china_map1 &lt;- fortify(china_map) </div><div class="line">china_map_data &lt;- join(china_map1, xs, type = <span class="string">"full"</span>) </div><div class="line">mydata &lt;- read.csv(<span class="string">"c:/rstudy/geshengzhibiao.csv"</span>)</div><div class="line">china_data &lt;- join(china_map_data, mydata, type=<span class="string">"full"</span>)</div><div class="line">province_city &lt;- read.csv(<span class="string">"c:/rstudy/chinaprovincecity.csv"</span>)</div></pre></td></tr></table></figure></p>
-<p><strong>拆分兰州数据：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">newdata&lt;-subset(province_city,city==<span class="string">"兰州"</span>)</div><div class="line">newdata1&lt;-subset(province_city,city!=<span class="string">"兰州"</span>)</div><div class="line">sourcex&lt;-rep(newdata$jd,<span class="number">33</span>)</div><div class="line">sourcey&lt;-rep(newdata$wd,<span class="number">33</span>)</div></pre></td></tr></table></figure></p>
-<p><strong>制作以兰州为中心的点对点作图数据：</strong>（可以类比之前REmap路径图数据源）</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">tagetx&lt;-newdata1$jd</div><div class="line">tagety&lt;-newdata1$wd</div><div class="line"></div><div class="line">dataA&lt;-data.frame(sourcex,sourcey,tagetx,tagety)</div><div class="line">dataB&lt;-newdata1[,<span class="number">1</span>:<span class="number">2</span>]</div><div class="line">dataC&lt;-cbind(dataB,dataA)</div><div class="line">dataC$point&lt;-round(runif(<span class="number">33</span>,<span class="number">10</span>,<span class="number">50</span>))</div></pre></td></tr></table></figure>
-<h3 id="图形可视化过程"><a href="#图形可视化过程" class="headerlink" title="图形可视化过程"></a>图形可视化过程</h3><p><strong>利用geom_segment（）图层制作放射路径图：</strong></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">ggplot()+</div><div class="line">geom_polygon(data=china_data,aes(x=long,y=lat,group=group),fill=<span class="string">"white"</span>,colour=<span class="string">"grey60"</span>)+</div><div class="line">geom_point(data =province_city,aes(x=jd,y=wd),colour=<span class="string">"red"</span>)+</div><div class="line">coord_map(<span class="string">"polyconic"</span>) + </div><div class="line">geom_segment(data=dataC,aes(x=sourcex,y=sourcey,xend=tagetx,yend=tagety,colour=<span class="string">"red"</span>))+</div><div class="line">theme_nothing()</div></pre></td></tr></table></figure>
-<p><img src="http://oqsmlm3sr.bkt.clouddn.com/image1.png" alt="image1"></p>
-<p>这里再稍微的扩展一下，其实以上你看到的放射状线条是兰州与其他城市之间的直线，之所以变的有弧度，只是因为加了地图投影的缘故，这里我可以取消投影参数，看下效果。</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ggplot()+</div><div class="line">geom_polygon(data=china_data,aes(x=long,y=lat,group=group),fill=<span class="string">"white"</span>,colour=<span class="string">"grey60"</span>)+</div><div class="line">geom_point(data =province_city,aes(x=jd,y=wd),colour=<span class="string">"red"</span>)+</div><div class="line">geom_segment(data=dataC,aes(x=sourcex,y=sourcey,xend=tagetx,yend=tagety,colour=<span class="string">"red"</span>))+</div><div class="line">theme_nothing()</div></pre></td></tr></table></figure>
-<p><img src="http://oqsmlm3sr.bkt.clouddn.com/image2.png" alt="image2"></p>
-<p>这里取消投影参数之后，线条变成了点间直线，但是默认的不带投影的地图看起来与我们认知中的中国地图形状有些不一样，好像被压扁了一样。</p>
-<p>其实这里还有一个图层函数也可以做出来这种放射状线条，geom_curve（）,图层，不过它本身就是有弧度的曲线，曲率可以通过参数进行微调。</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ggplot()+</div><div class="line">geom_polygon(data=china_data,aes(x=long,y=lat,group=group),fill=<span class="string">"white"</span>,colour=<span class="string">"grey60"</span>)+</div><div class="line">geom_point(data =province_city,aes(x=jd,y=wd),colour=<span class="string">"red"</span>)+</div><div class="line">geom_curve(data=dataC,aes(x=sourcex,y=sourcey,xend=tagetx,yend=tagety,colour=<span class="string">"red"</span>))+</div><div class="line">theme_nothing()</div></pre></td></tr></table></figure>
-<p><img src="http://oqsmlm3sr.bkt.clouddn.com/image3.png" alt="image3"></p>
-<p><strong>曲率调整：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ggplot()+</div><div class="line">geom_polygon(data=china_data,aes(x=long,y=lat,group=group),fill=<span class="string">"white"</span>,colour=<span class="string">"grey60"</span>)+</div><div class="line">geom_point(data =province_city,aes(x=jd,y=wd),colour=<span class="string">"red"</span>)+</div><div class="line">geom_curve(data=dataC,aes(x=sourcex,y=sourcey,xend=tagetx,yend=tagety,colour=<span class="string">"red"</span>),curvature = <span class="number">0.8</span>)+ <span class="comment">#用于调整曲率，范围在-1~1之间。</span></div><div class="line">theme_nothing()</div></pre></td></tr></table></figure></p>
-<p><img src="http://oqsmlm3sr.bkt.clouddn.com/image4.png" alt="image4"></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ggplot()+</div><div class="line">geom_polygon(data=china_data,aes(x=long,y=lat,group=group),fill=<span class="string">"white"</span>,colour=<span class="string">"grey60"</span>)+</div><div class="line">geom_point(data =province_city,aes(x=jd,y=wd),colour=<span class="string">"red"</span>)+</div><div class="line">geom_curve(data=dataC,aes(x=sourcex,y=sourcey,xend=tagetx,yend=tagety,colour=<span class="string">"red"</span>),curvature =-<span class="number">0.5</span>)+</div><div class="line">theme_nothing()</div></pre></td></tr></table></figure>
-<p><img src="http://oqsmlm3sr.bkt.clouddn.com/image5.png" alt="image5"></p>
-<p><strong>当然，通过图形叠加，我们还可以重复多次这样的放射状线条图。</strong></p>
-<blockquote>
-<p>以下以北京为例：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">newdataA&lt;-subset(province_city,city==<span class="string">"北京"</span>)</div><div class="line">newdataB&lt;-subset(province_city,city!=<span class="string">"北京"</span>)</div><div class="line">soux&lt;-rep(newdataA$jd,<span class="number">33</span>)</div><div class="line">souy&lt;-rep(newdataA$wd,<span class="number">33</span>)</div><div class="line">tagx&lt;-newdataB$jd</div><div class="line">tagy&lt;-newdataB$wd</div><div class="line">dataD&lt;-data.frame(soux,souy,tagx,tagy)</div><div class="line">dataE&lt;-newdataB[,<span class="number">1</span>:<span class="number">2</span>]</div><div class="line">dataF&lt;-cbind(dataD,dataE)</div><div class="line">dataF$point&lt;-round(runif(<span class="number">33</span>,<span class="number">10</span>,<span class="number">50</span>))</div></pre></td></tr></table></figure></p>
-<p>两个中心的路径图（兰州、北京）</p>
-</blockquote>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ggplot()+</div><div class="line">geom_polygon(data=china_data,aes(x=long,y=lat,group=group),fill=<span class="string">"white"</span>,colour=<span class="string">"grey60"</span>)+</div><div class="line">coord_map(<span class="string">"polyconic"</span>) + </div><div class="line">geom_segment(data=dataC,aes(x=sourcex,y=sourcey,xend=tagetx,yend=tagety,colour=<span class="string">"red"</span>))+</div><div class="line">geom_segment(data=dataF,aes(x=soux,y=souy,xend=tagx,yend=tagy,colour=<span class="string">"blue"</span>))+</div><div class="line">geom_point(data =province_city,aes(x=jd,y=wd),colour=<span class="string">"red"</span>)+</div><div class="line">theme_nothing()</div></pre></td></tr></table></figure>
-<p><img src="http://oqsmlm3sr.bkt.clouddn.com/image6.png" alt="image6"></p>
-<p>当然，根据实际需要，你也可以将图层叠加N次，从而制作出与业务需求一致的多中心放射状路径图，这里只给出思路和大致步骤，感兴趣的小伙伴可以自己尝试。</p>
-<hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
-<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<hr>
-<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最近一直在研究ggplot剩余还没有涉略过的图表类型，试图挖掘出一些新的图表形式，就像是该包的作者所暗示的那样，ggplot2只是给你搭建了一个图层语法环境，至于具体能创造出何种图形，全凭自己的想象力。&lt;/p&gt;
-&lt;p&gt;慢慢的我发现还有一类geom_segment对象自己一直没有尝试过，于是满心欢喜的尝试了一下，果然还是有收获的，我发现通过这个segment图层，可以批量的创建放射状线条图，也就是路径图，这解决了我一直以来的难题，今天顺便分享给大家。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
-    
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
-      <category term="路径图" scheme="http://www.raindu.com/tags/%E8%B7%AF%E5%BE%84%E5%9B%BE/"/>
-    
-      <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
   </entry>
   
