@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="R语言,数据可视化,地理信息可视化,填充地图,REmap," />
+  <meta name="keywords" content="R语言,数据可视化,地理信息可视化,多边形填充," />
 
 
 
@@ -92,23 +92,28 @@
 
 
 
-<meta name="description" content="今天跟大家介绍REmap函数家族中的第三个函数——REmapC。 REmapC函数允许我们同时在一张地图上制作填充图和点图、线图。">
-<meta name="keywords" content="R语言,数据可视化,地理信息可视化,填充地图,REmap">
+<meta name="description" content="ggplot函数中有一类特殊的图表类型叫做多边形，很难用传统的视角来定义它属于哪一类图表，因为它能够呈现信息多种多样。 特别是在做某些比较高阶的图表——地图时，这种多边形函数便能够大显神通。">
+<meta name="keywords" content="R语言,数据可视化,地理信息可视化,多边形填充">
 <meta property="og:type" content="article">
-<meta property="og:title" content="R语言可视化——REmapC(填充地图)">
-<meta property="og:url" content="http://www.raindu.com/2017/06/08/R语言可视化——REmapC-填充地图/index.html">
+<meta property="og:title" content="R语言可视化——多边形与数据地图填充">
+<meta property="og:url" content="http://www.raindu.com/2017/06/12/R语言可视化——多边形与数据地图填充/index.html">
 <meta property="og:site_name" content="raindu&#39;s home">
-<meta property="og:description" content="今天跟大家介绍REmap函数家族中的第三个函数——REmapC。 REmapC函数允许我们同时在一张地图上制作填充图和点图、线图。">
-<meta property="og:image" content="http://or7qctnpz.bkt.clouddn.com/GIF1.gif">
-<meta property="og:image" content="http://or7qctnpz.bkt.clouddn.com/GIF2.png">
-<meta property="og:image" content="http://or7qctnpz.bkt.clouddn.com/GIF3.gif">
-<meta property="og:image" content="http://or7qctnpz.bkt.clouddn.com/GIF4.gif">
+<meta property="og:description" content="ggplot函数中有一类特殊的图表类型叫做多边形，很难用传统的视角来定义它属于哪一类图表，因为它能够呈现信息多种多样。 特别是在做某些比较高阶的图表——地图时，这种多边形函数便能够大显神通。">
+<meta property="og:image" content="http://oreu76dnk.bkt.clouddn.com/image1.png">
+<meta property="og:image" content="http://oreu76dnk.bkt.clouddn.com/image2.png">
+<meta property="og:image" content="http://oreu76dnk.bkt.clouddn.com/image3.png">
+<meta property="og:image" content="http://oreu76dnk.bkt.clouddn.com/image4.png">
+<meta property="og:image" content="http://oreu76dnk.bkt.clouddn.com/image5.png">
+<meta property="og:image" content="http://oreu76dnk.bkt.clouddn.com/image6.png">
+<meta property="og:image" content="http://oreu76dnk.bkt.clouddn.com/image7.png">
+<meta property="og:image" content="http://oreu76dnk.bkt.clouddn.com/image8.png">
+<meta property="og:image" content="http://oreu76dnk.bkt.clouddn.com/image9.png">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-06-10T11:12:06.960Z">
+<meta property="og:updated_time" content="2017-06-12T01:22:55.418Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="R语言可视化——REmapC(填充地图)">
-<meta name="twitter:description" content="今天跟大家介绍REmap函数家族中的第三个函数——REmapC。 REmapC函数允许我们同时在一张地图上制作填充图和点图、线图。">
-<meta name="twitter:image" content="http://or7qctnpz.bkt.clouddn.com/GIF1.gif">
+<meta name="twitter:title" content="R语言可视化——多边形与数据地图填充">
+<meta name="twitter:description" content="ggplot函数中有一类特殊的图表类型叫做多边形，很难用传统的视角来定义它属于哪一类图表，因为它能够呈现信息多种多样。 特别是在做某些比较高阶的图表——地图时，这种多边形函数便能够大显神通。">
+<meta name="twitter:image" content="http://oreu76dnk.bkt.clouddn.com/image1.png">
 
 
 
@@ -136,13 +141,13 @@
 
 
 
-  <link rel="canonical" href="http://www.raindu.com/2017/06/08/R语言可视化——REmapC-填充地图/"/>
+  <link rel="canonical" href="http://www.raindu.com/2017/06/12/R语言可视化——多边形与数据地图填充/"/>
 
 
 
 
 
-  <title>R语言可视化——REmapC(填充地图) | raindu's home</title>
+  <title>R语言可视化——多边形与数据地图填充 | raindu's home</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -326,7 +331,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/06/08/R语言可视化——REmapC-填充地图/">
+    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/06/12/R语言可视化——多边形与数据地图填充/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="RainDu">
@@ -343,7 +348,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">R语言可视化——REmapC(填充地图)</h1>
+          <h1 class="post-title" itemprop="name headline">R语言可视化——多边形与数据地图填充</h1>
         
 
         <div class="post-meta">
@@ -355,8 +360,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-08T13:03:50+08:00">
-                2017-06-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-12T09:11:36+08:00">
+                2017-06-12
               </time>
             
 
@@ -378,8 +383,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/地理信息可视化/" itemprop="url" rel="index">
-                    <span itemprop="name">地理信息可视化</span>
+                  <a href="/categories/数据可视化/" itemprop="url" rel="index">
+                    <span itemprop="name">数据可视化</span>
                   </a>
                 </span>
 
@@ -396,7 +401,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2017/06/08/R语言可视化——REmapC-填充地图/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2017/06/12/R语言可视化——多边形与数据地图填充/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -405,7 +410,7 @@
 
           
           
-             <span id="/2017/06/08/R语言可视化——REmapC-填充地图/" class="leancloud_visitors" data-flag-title="R语言可视化——REmapC(填充地图)">
+             <span id="/2017/06/12/R语言可视化——多边形与数据地图填充/" class="leancloud_visitors" data-flag-title="R语言可视化——多边形与数据地图填充">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -430,7 +435,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,005 字
+                  986 字
                 </span>
               
 
@@ -464,37 +469,41 @@
       
 
       
-        <p>今天跟大家介绍REmap函数家族中的第三个函数——REmapC。</p>
-<p>REmapC函数允许我们同时在一张地图上制作填充图和点图、线图。</p>
+        <p>ggplot函数中有一类特殊的图表类型叫做多边形，很难用传统的视角来定义它属于哪一类图表，因为它能够呈现信息多种多样。</p>
+<p>特别是在做某些比较高阶的图表——地图时，这种多边形函数便能够大显神通。</p>
 <a id="more"></a>
-<h3 id="加载包："><a href="#加载包：" class="headerlink" title="加载包："></a>加载包：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(REmap)</div><div class="line"><span class="keyword">library</span>(baidumap)</div></pre></td></tr></table></figure>
-<h3 id="语法简介："><a href="#语法简介：" class="headerlink" title="语法简介："></a>语法简介：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">?remapC</div><div class="line">remapC(data,</div><div class="line">       maptype = <span class="string">'china'</span>,</div><div class="line">      markLineData = <span class="literal">NULL</span>,</div><div class="line">      markPointData = <span class="literal">NULL</span>,</div><div class="line">      color = c(<span class="string">'#1e90ff'</span>,<span class="string">'#f0ffff'</span>),</div><div class="line">      theme = get_theme(<span class="string">"Bright"</span>),</div><div class="line">      title = <span class="string">""</span>,</div><div class="line">      subtitle = <span class="string">""</span>,</div><div class="line">      markLineTheme = markLineControl(),</div><div class="line">      markPointTheme = markPointControl(),</div><div class="line">      geoData = <span class="literal">NA</span>,</div><div class="line">      mindata = <span class="literal">NA</span>,</div><div class="line">      maxdata = <span class="literal">NA</span>)</div></pre></td></tr></table></figure>
-<p><strong>四个主要参数说明：</strong></p>
-<ul>
-<li>参数一：data为需要的原始数据框格式数据，共2列，第一列为省份或者城市名称，第二列为对应的数值，数值大小将决定地图颜色深浅。</li>
-<li>参数二：maptype为地图类型设置，可选world、china或者中国省份名称</li>
-<li>参数三：color为热力图渐变颜色，默认为2个颜色，第一个为终止色，第二个为初始色。如果只有一个颜色，系统会自动以白色补充为初始铯色。</li>
-<li>参数四：mindata与maxdata可以设置颜色极端点对应数据的上下限（默认是使用data中的数据最大值最小值作为两端极值）。</li>
-</ul>
-<h3 id="一、全国热力图"><a href="#一、全国热力图" class="headerlink" title="一、全国热力图"></a>一、全国热力图</h3><p>首先利用mapnames函数提取全国各省份名称：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">province &lt;- mapNames(<span class="string">"china"</span>)           <span class="comment">#全国省份</span></div><div class="line">value &lt;- rnorm(<span class="number">34</span>,<span class="number">100</span>,<span class="number">30</span>)               <span class="comment">#随机生成分省值</span></div><div class="line">mydata &lt;- data.frame(province,value)    <span class="comment">#合成数据框作图数据</span></div><div class="line">remapC(mydata,color=c(<span class="string">"yellow"</span>,<span class="string">"red"</span>),title=<span class="string">"全国分省热地图"</span>,subtitle=<span class="string">"我是副标题"</span>) <span class="comment">#制作热力图</span></div></pre></td></tr></table></figure></p>
-<p><img src="http://or7qctnpz.bkt.clouddn.com/GIF1.gif" alt=""></p>
-<p>默认的颜色标度是从最小值到最大值。以上函数中省略了markLineData，markPointData 两个参数，所以并未显示点线图。</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ad_ln &lt;- mapNames(<span class="string">"liaoning"</span>) </div><div class="line"></div><div class="line">[<span class="number">1</span>] <span class="string">"大连市"</span>   <span class="string">"朝阳市"</span>   <span class="string">"丹东市"</span>   <span class="string">"铁岭市"</span>   <span class="string">"沈阳市"</span>   <span class="string">"抚顺市"</span>   <span class="string">"葫芦岛市"</span> <span class="string">"阜新市"</span>   <span class="string">"锦州市"</span>  </div><div class="line">[<span class="number">10</span>] <span class="string">"鞍山市"</span>   <span class="string">"本溪市"</span>   <span class="string">"营口市"</span>   <span class="string">"辽阳市"</span>   <span class="string">"盘锦市"</span></div></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">value_ln&lt;-rnorm(<span class="number">14</span>,<span class="number">100</span>,<span class="number">30</span>)</div><div class="line">data_ln &lt;-data.frame(ad_ln,value_ln) </div><div class="line"></div><div class="line">      ad_ln  value_ln</div><div class="line"><span class="number">1</span>    大连市  <span class="number">79.67630</span></div><div class="line"><span class="number">2</span>    朝阳市  <span class="number">41.93198</span></div><div class="line"><span class="number">3</span>    丹东市 <span class="number">173.31586</span></div><div class="line"><span class="number">4</span>    铁岭市 <span class="number">106.01990</span></div><div class="line"><span class="number">5</span>    沈阳市 <span class="number">119.40256</span></div><div class="line"><span class="number">6</span>    抚顺市  <span class="number">79.54820</span></div><div class="line"><span class="number">7</span>  葫芦岛市 <span class="number">155.62993</span></div><div class="line"><span class="number">8</span>    阜新市 <span class="number">122.99599</span></div><div class="line"><span class="number">9</span>    锦州市  <span class="number">94.17395</span></div><div class="line"><span class="number">10</span>   鞍山市  <span class="number">82.18944</span></div><div class="line"><span class="number">11</span>   本溪市  <span class="number">98.70972</span></div><div class="line"><span class="number">12</span>   营口市 <span class="number">115.59957</span></div><div class="line"><span class="number">13</span>   辽阳市 <span class="number">104.89199</span></div><div class="line"><span class="number">14</span>   盘锦市  <span class="number">92.92975</span></div></pre></td></tr></table></figure>
-<p>画图：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">map_out &lt;- remapC(data_ln,</div><div class="line">                   maptype = <span class="string">"liaoning"</span>,</div><div class="line">                   color=c(<span class="string">"green"</span>),</div><div class="line">                   title=<span class="string">"辽宁省热力地图"</span>,</div><div class="line">                   theme = get_theme(<span class="string">"Sky"</span>),</div><div class="line">                   maxdata=<span class="number">180</span></div><div class="line">                   )                             </div><div class="line">plot(map_out)</div></pre></td></tr></table></figure></p>
-<p><img src="http://or7qctnpz.bkt.clouddn.com/GIF2.png" alt=""></p>
-<h3 id="接下来做一个案例："><a href="#接下来做一个案例：" class="headerlink" title="接下来做一个案例："></a>接下来做一个案例：</h3><p>每年春运，广东省人口会大批回流原住地，形成壮观的春运人流大军，我们模拟出广东省回流各省的人口数，使用填色地图表示人流规模，使用动态流向线表示回流最大的前10个省份。</p>
-<p>因为没有实际的数据，这里我用函数模拟数据（非真实数据）：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">province &lt;- mapNames(<span class="string">"china"</span>)            <span class="comment">#全国省份</span></div><div class="line">value &lt;- round(rnorm(<span class="number">34</span>,<span class="number">1000</span>,<span class="number">30</span>),<span class="number">0</span>)      <span class="comment">#随机生成分省值</span></div><div class="line">mydata &lt;- data.frame(province,value)     <span class="comment">#合并数据</span></div><div class="line"></div><div class="line">labelper&lt;-mydata[order(mydata[,<span class="string">"value"</span>],decreasing=<span class="literal">T</span>),][<span class="number">1</span>:<span class="number">10</span>,]</div><div class="line">origin&lt;-rep(<span class="string">"广州"</span>,length(labelper))</div><div class="line">destination&lt;-labelper$province</div><div class="line">line_data&lt;-data.frame(origin,destination)</div></pre></td></tr></table></figure>
-<p>画图：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">map_out1 &lt;- remapC(mydata,</div><div class="line">                  maptype = <span class="string">"china"</span>,</div><div class="line">                  title=<span class="string">"人口迁徙地图"</span>,</div><div class="line">                  theme = get_theme(<span class="string">"Drak"</span>),</div><div class="line">                  color=c(<span class="string">"#CD0000"</span>,<span class="string">"#FFEC8B"</span>),   </div><div class="line">                  markLineData=line_data,   </div><div class="line">                  markLineTheme=markLineControl(</div><div class="line">                  color=<span class="string">"white"</span>, </div><div class="line">                  lineWidth=<span class="number">2</span>, </div><div class="line">                  lineType=<span class="string">"dashed"</span>  </div><div class="line">                  ),</div><div class="line">                  markPointData=line_data[<span class="number">2</span>],</div><div class="line">                  markPointTheme=markPointControl(</div><div class="line">                  symbolSize=<span class="number">13</span>,  </div><div class="line">                  effect=<span class="literal">T</span>,           </div><div class="line">                  effectType=<span class="string">"scale"</span>,    </div><div class="line">                  color=<span class="string">"white"</span></div><div class="line">                  )</div><div class="line">                   )                             </div><div class="line">plot(map_out1)</div></pre></td></tr></table></figure></p>
-<p><img src="http://or7qctnpz.bkt.clouddn.com/GIF3.gif" alt=""></p>
-<p>因为假设广东是人口迁出地，给广东填色是没有任何意义的，所以mydata数据中需要忽略 广东的数据<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">mydata1 &lt;- mydata[-<span class="number">12</span>,]</div><div class="line">map_out2 &lt;- remapC(mydata1,</div><div class="line">                  maptype = <span class="string">"china"</span>,</div><div class="line">                  title=<span class="string">"人口迁徙地图"</span>,</div><div class="line">                  theme = get_theme(<span class="string">"Drak"</span>),</div><div class="line">                  color=c(<span class="string">"#CD0000"</span>,<span class="string">"#FFEC8B"</span>),   </div><div class="line">                  markLineData=line_data,   </div><div class="line">                  markLineTheme=markLineControl(</div><div class="line">                  color=<span class="string">"white"</span>, </div><div class="line">                  lineWidth=<span class="number">2</span>, </div><div class="line">                  lineType=<span class="string">"dashed"</span>  </div><div class="line">                  ),</div><div class="line">                  markPointData=line_data[<span class="number">2</span>],</div><div class="line">                  markPointTheme=markPointControl(</div><div class="line">                  symbolSize=<span class="number">13</span>,  </div><div class="line">                  effect=<span class="literal">T</span>,           </div><div class="line">                  effectType=<span class="string">"scale"</span>,    </div><div class="line">                  color=<span class="string">"white"</span></div><div class="line">                  )</div><div class="line">                   )                             </div><div class="line">plot(map_out2)</div></pre></td></tr></table></figure></p>
-<p><img src="http://or7qctnpz.bkt.clouddn.com/GIF4.gif" alt=""></p>
+<p>之前本公众号所推送的所有涉及地图图表绘制所使用的技巧，几乎全部都依赖多边形函数的支持。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(ggplot2)</div><div class="line"><span class="keyword">library</span>(plyr)</div><div class="line"><span class="keyword">library</span>(<span class="string">"maptools"</span>)</div></pre></td></tr></table></figure></p>
+<p>这里以之前推送过的全球地图为例：</p>
+<h3 id="传统做法（shp形状）"><a href="#传统做法（shp形状）" class="headerlink" title="传统做法（shp形状）"></a>传统做法（shp形状）</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">world_map &lt;-readShapePoly(<span class="string">"c:/rstudy/wold_map/World_region.shp"</span>)</div></pre></td></tr></table></figure>
+<p>使用路径图进行区域轮廓描边：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ggplot(world_map,aes(x=long,y=lat,group=group)) +</div><div class="line">geom_path()</div></pre></td></tr></table></figure></p>
+<p><img src="http://oreu76dnk.bkt.clouddn.com/image1.png" alt=""></p>
+<p>更改路径线为白色，清除掉背景和网格线以及坐标轴：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ggplot(world_map,aes(x=long,y=lat,group=group)) +</div><div class="line">geom_path(colour=<span class="string">"steelblue"</span>)+ theme(               </div><div class="line">          panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank())</div></pre></td></tr></table></figure></p>
+<p><img src="http://oreu76dnk.bkt.clouddn.com/image2.png" alt=""></p>
+<p>使用多边形进行描边并填充：（在多边形中是可以进行线条与形状分别填色的）<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ggplot(world_map,aes(x=long,y=lat,group=group)) +geom_polygon(fill=<span class="string">"white"</span>,colour=<span class="string">"grey"</span>) + theme( panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank())</div></pre></td></tr></table></figure></p>
+<p><img src="http://oreu76dnk.bkt.clouddn.com/image3.png" alt=""></p>
+<p>这就是我们之前所制作的填色地图的主体代码语句，数据集是从shp文件导入，可以看出，其实只需要三列字段信息，就可以画出一幅地图来：经纬度（二维坐标信息，也可以看作是一组代表X、Y轴的散点），另外的一列变量group其实是一个分类变量，将同一个单位区域轮廓（一个国家或者地区、岛屿等）用一组相同的编号表示。</p>
+<p>如果再加上一列连续数值变量，可以将其指定为fill渐变填充的参考指标，那么最终完成的图表就是一幅按照不同地区指标大小对应渐变填色地图。</p>
+<h3 id="内置地图素材包："><a href="#内置地图素材包：" class="headerlink" title="内置地图素材包："></a>内置地图素材包：</h3><p>其实这种不带任何实质数据信息的地图，很多R包中都有提供：（这里以maps包为例）<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(maps)</div><div class="line">states&lt;-map_data(<span class="string">"state"</span>)</div><div class="line">ggplot(states,aes(long,lat,group=group))+geom_polygon(fill=<span class="string">"white"</span>,colour=<span class="string">"steelblue"</span>)+ theme(panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank())</div></pre></td></tr></table></figure></p>
+<p><img src="http://oreu76dnk.bkt.clouddn.com/image4.png" alt=""></p>
+<p>map包是一个专门用来做地图的加载包，里面存有几个可以用的地图数据包：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">states&lt;-map_data(<span class="string">"world"</span>) <span class="comment">#全球地图</span></div><div class="line">ggplot(world,aes(long,lat,group=group))+geom_polygon(fill=<span class="string">"white"</span>,colour=<span class="string">"steelblue"</span>)+ theme(panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank())</div></pre></td></tr></table></figure></p>
+<p><img src="http://oreu76dnk.bkt.clouddn.com/image5.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">france&lt;-map_data(<span class="string">"france"</span>) <span class="comment">#法国地图</span></div><div class="line">ggplot(france,aes(long,lat,group=group))+geom_polygon(fill=<span class="string">"white"</span>,colour=<span class="string">"steelblue"</span>)+ theme(panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank())</div></pre></td></tr></table></figure>
+<p><img src="http://oreu76dnk.bkt.clouddn.com/image6.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">county&lt;-map_data(<span class="string">"county"</span>) <span class="comment">#美国郡级</span></div><div class="line">ggplot(county,aes(long,lat,group=group))+geom_polygon(fill=<span class="string">"white"</span>,colour=<span class="string">"steelblue"</span>)+ theme(panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank())</div></pre></td></tr></table></figure>
+<p><img src="http://oreu76dnk.bkt.clouddn.com/image7.png" alt=""></p>
+<h3 id="添加地图投影："><a href="#添加地图投影：" class="headerlink" title="添加地图投影："></a>添加地图投影：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">france&lt;-map_data(<span class="string">"france"</span>) <span class="comment">#法国地图</span></div><div class="line">ggplot(france,aes(long,lat,group=group))+geom_polygon(fill=<span class="string">"white"</span>,colour=<span class="string">"steelblue"</span>)+coord_map(<span class="string">"polyconic"</span>)+theme(</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank())</div></pre></td></tr></table></figure>
+<p><img src="http://oreu76dnk.bkt.clouddn.com/image8.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">county&lt;-map_data(<span class="string">"county"</span>) <span class="comment">#美国郡级</span></div><div class="line">ggplot(county,aes(long,lat,group=group))+geom_polygon(fill=<span class="string">"white"</span>,colour=<span class="string">"steelblue"</span>)+coord_map(<span class="string">"polyconic"</span>)+theme(</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank())</div></pre></td></tr></table></figure>
+<p><img src="http://oreu76dnk.bkt.clouddn.com/image9.png" alt=""></p>
+<p>地图图表作为ggplot函数中一大类比较高阶的图表，可以做出很多让人眼花缭乱、令人尖叫的作品来，感兴趣的小伙伴儿赶快学起来。</p>
 <hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
-<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
+<p><strong>联系方式：</strong></p>
+<p>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834  </p>
+<p><strong>个人简介：</strong></p>
+<p><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。 <br><br>Mail:578708965@qq.com </p>
 <hr>
-<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+<p><strong>备注信息：</strong></p>
+<p><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
 
       
     </div>
@@ -551,9 +560,7 @@
           
             <a href="/tags/地理信息可视化/" rel="tag"># 地理信息可视化</a>
           
-            <a href="/tags/填充地图/" rel="tag"># 填充地图</a>
-          
-            <a href="/tags/REmap/" rel="tag"># REmap</a>
+            <a href="/tags/多边形填充/" rel="tag"># 多边形填充</a>
           
         </div>
       
@@ -566,8 +573,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/08/R语言可视化——案例综合运用/" rel="next" title="R语言可视化——案例综合运用">
-                <i class="fa fa-chevron-left"></i> R语言可视化——案例综合运用
+              <a href="/2017/06/11/R语言颜色综合运用与色彩方案共享/" rel="next" title="R语言颜色综合运用与色彩方案共享">
+                <i class="fa fa-chevron-left"></i> R语言颜色综合运用与色彩方案共享
               </a>
             
           </div>
@@ -575,10 +582,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/08/R语言可视化——REmapH-中心热度图/" rel="prev" title="R语言可视化——REmapH(中心热度图)">
-                R语言可视化——REmapH(中心热度图) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -777,7 +780,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#加载包："><span class="nav-number">1.</span> <span class="nav-text">加载包：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法简介："><span class="nav-number">2.</span> <span class="nav-text">语法简介：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一、全国热力图"><span class="nav-number">3.</span> <span class="nav-text">一、全国热力图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接下来做一个案例："><span class="nav-number">4.</span> <span class="nav-text">接下来做一个案例：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#传统做法（shp形状）"><span class="nav-number">1.</span> <span class="nav-text">传统做法（shp形状）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内置地图素材包："><span class="nav-number">2.</span> <span class="nav-text">内置地图素材包：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加地图投影："><span class="nav-number">3.</span> <span class="nav-text">添加地图投影：</span></a></li></ol></div>
             
 
           </div>

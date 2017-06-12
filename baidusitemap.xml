@@ -4,6 +4,32 @@
 
     
   <url>
+    <loc>http://www.raindu.com/2017/06/12/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94%E5%A4%9A%E8%BE%B9%E5%BD%A2%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%9C%B0%E5%9B%BE%E5%A1%AB%E5%85%85/</loc>
+    <lastmod>2017-06-12T01:22:55.418Z</lastmod>
+    <data>
+        <display>
+        <title>R语言可视化——多边形与数据地图填充</title>
+        <pubTime>2017-06-12T01:11:36.000Z</pubTime>
+        
+        <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
+         
+        <tag>地理信息可视化</tag>
+         
+        <tag>多边形填充</tag>
+         
+         
+           
+             
+              <breadCrumb title="数据可视化" url="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.raindu.com/2017/06/11/R%E8%AF%AD%E8%A8%80%E9%A2%9C%E8%89%B2%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%E4%B8%8E%E8%89%B2%E5%BD%A9%E6%96%B9%E6%A1%88%E5%85%B1%E4%BA%AB/</loc>
     <lastmod>2017-06-11T13:48:20.902Z</lastmod>
     <data>
@@ -110,9 +136,9 @@
          
         <tag>数据可视化</tag>
          
-        <tag>json</tag>
-         
         <tag>地理信息可视化</tag>
+         
+        <tag>json</tag>
          
         <tag>在线地图</tag>
          
@@ -282,9 +308,9 @@
          
         <tag>地理信息可视化</tag>
          
-        <tag>在线地图</tag>
-         
         <tag>REmap</tag>
+         
+        <tag>在线地图</tag>
          
          
            
@@ -310,9 +336,9 @@
          
         <tag>地理信息可视化</tag>
          
-        <tag>在线地图</tag>
-         
         <tag>REmap</tag>
+         
+        <tag>在线地图</tag>
          
         <tag>路径图</tag>
          
@@ -340,9 +366,9 @@
          
         <tag>地理信息可视化</tag>
          
-        <tag>在线地图</tag>
-         
         <tag>REmap</tag>
+         
+        <tag>在线地图</tag>
          
          
            
