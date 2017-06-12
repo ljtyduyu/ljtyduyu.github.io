@@ -635,9 +635,9 @@
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
-      <category term="填充地图" scheme="http://www.raindu.com/tags/%E5%A1%AB%E5%85%85%E5%9C%B0%E5%9B%BE/"/>
-    
       <category term="REmap" scheme="http://www.raindu.com/tags/REmap/"/>
+    
+      <category term="填充地图" scheme="http://www.raindu.com/tags/%E5%A1%AB%E5%85%85%E5%9C%B0%E5%9B%BE/"/>
     
   </entry>
   
@@ -728,9 +728,9 @@
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
-      <category term="REmap" scheme="http://www.raindu.com/tags/REmap/"/>
-    
       <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
+    
+      <category term="REmap" scheme="http://www.raindu.com/tags/REmap/"/>
     
   </entry>
   
@@ -793,9 +793,9 @@
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
-      <category term="REmap" scheme="http://www.raindu.com/tags/REmap/"/>
-    
       <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
+    
+      <category term="REmap" scheme="http://www.raindu.com/tags/REmap/"/>
     
       <category term="路径图" scheme="http://www.raindu.com/tags/%E8%B7%AF%E5%BE%84%E5%9B%BE/"/>
     
@@ -893,9 +893,9 @@
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
-      <category term="REmap" scheme="http://www.raindu.com/tags/REmap/"/>
-    
       <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
+    
+      <category term="REmap" scheme="http://www.raindu.com/tags/REmap/"/>
     
   </entry>
   
@@ -1097,9 +1097,9 @@
     
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
-      <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="json" scheme="http://www.raindu.com/tags/json/"/>
+    
+      <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
     

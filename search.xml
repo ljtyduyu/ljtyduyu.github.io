@@ -103,8 +103,8 @@
         <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
-        <tag>填充地图</tag>
         <tag>REmap</tag>
+        <tag>填充地图</tag>
       </tags>
   </entry>
   <entry>
@@ -118,8 +118,8 @@
         <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
-        <tag>REmap</tag>
         <tag>在线地图</tag>
+        <tag>REmap</tag>
       </tags>
   </entry>
   <entry>
@@ -133,8 +133,8 @@
         <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
-        <tag>REmap</tag>
         <tag>在线地图</tag>
+        <tag>REmap</tag>
         <tag>路径图</tag>
       </tags>
   </entry>
@@ -149,8 +149,8 @@
         <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
-        <tag>REmap</tag>
         <tag>在线地图</tag>
+        <tag>REmap</tag>
       </tags>
   </entry>
   <entry>
@@ -179,8 +179,8 @@
       <tags>
         <tag>R语言</tag>
         <tag>数据可视化</tag>
-        <tag>地理信息可视化</tag>
         <tag>json</tag>
+        <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
       </tags>
