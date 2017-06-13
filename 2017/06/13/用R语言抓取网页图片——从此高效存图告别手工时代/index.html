@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="R语言,爬虫,revst,网络抓取," />
 
 
 
@@ -92,15 +92,28 @@
 
 
 
-<meta name="description" content="身体和心灵，总有一个在路上！">
-<meta property="og:type" content="website">
-<meta property="og:title" content="raindu&#39;s home">
-<meta property="og:url" content="http://www.raindu.com/categories/图表配色/index.html">
+<meta name="description" content="今天这个标题实在是有点言过其实了，对于R的爬虫知识，我只是领会了一点儿皮毛。 主要看不懂正则表达式，特别是那种一个括号里要匹配多种类型文本的语句，特像火星文，估计短期很难搞懂了。 再加上对于HTML结构没啥感觉，在目标定位上很苦恼。 但是相对于文本信息而言，图片在html中的地址比较好获取，这里仅以图片抓取为例，会Python爬虫的大神还求轻喷~">
+<meta name="keywords" content="R语言,爬虫,revst,网络抓取">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用R语言抓取网页图片——从此高效存图告别手工时代">
+<meta property="og:url" content="http://www.raindu.com/2017/06/13/用R语言抓取网页图片——从此高效存图告别手工时代/index.html">
 <meta property="og:site_name" content="raindu&#39;s home">
-<meta property="og:description" content="身体和心灵，总有一个在路上！">
+<meta property="og:description" content="今天这个标题实在是有点言过其实了，对于R的爬虫知识，我只是领会了一点儿皮毛。 主要看不懂正则表达式，特别是那种一个括号里要匹配多种类型文本的语句，特像火星文，估计短期很难搞懂了。 再加上对于HTML结构没啥感觉，在目标定位上很苦恼。 但是相对于文本信息而言，图片在html中的地址比较好获取，这里仅以图片抓取为例，会Python爬虫的大神还求轻喷~">
+<meta property="og:image" content="http://orh5ym86b.bkt.clouddn.com/image1.png">
+<meta property="og:image" content="http://orh5ym86b.bkt.clouddn.com/image9.png">
+<meta property="og:image" content="http://orh5ym86b.bkt.clouddn.com/image2.png">
+<meta property="og:image" content="http://orh5ym86b.bkt.clouddn.com/image3.png">
+<meta property="og:image" content="http://orh5ym86b.bkt.clouddn.com/image4.png">
+<meta property="og:image" content="http://orh5ym86b.bkt.clouddn.com/image5.png">
+<meta property="og:image" content="http://orh5ym86b.bkt.clouddn.com/image6.png">
+<meta property="og:image" content="http://orh5ym86b.bkt.clouddn.com/image7.png">
+<meta property="og:image" content="http://orh5ym86b.bkt.clouddn.com/image8.png">
+<meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
+<meta property="og:updated_time" content="2017-06-13T07:35:03.850Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="raindu&#39;s home">
-<meta name="twitter:description" content="身体和心灵，总有一个在路上！">
+<meta name="twitter:title" content="用R语言抓取网页图片——从此高效存图告别手工时代">
+<meta name="twitter:description" content="今天这个标题实在是有点言过其实了，对于R的爬虫知识，我只是领会了一点儿皮毛。 主要看不懂正则表达式，特别是那种一个括号里要匹配多种类型文本的语句，特像火星文，估计短期很难搞懂了。 再加上对于HTML结构没啥感觉，在目标定位上很苦恼。 但是相对于文本信息而言，图片在html中的地址比较好获取，这里仅以图片抓取为例，会Python爬虫的大神还求轻喷~">
+<meta name="twitter:image" content="http://orh5ym86b.bkt.clouddn.com/image1.png">
 
 
 
@@ -128,13 +141,13 @@
 
 
 
-  <link rel="canonical" href="http://www.raindu.com/categories/图表配色/"/>
+  <link rel="canonical" href="http://www.raindu.com/2017/06/13/用R语言抓取网页图片——从此高效存图告别手工时代/"/>
 
 
 
 
 
-  <title>分类: 图表配色 | raindu's home</title>
+  <title>用R语言抓取网页图片——从此高效存图告别手工时代 | raindu's home</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -166,7 +179,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -314,45 +327,330 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h1>图表配色<small>分类</small>
-      </h1>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/11/R预设配色系统及自定义色板/" itemprop="url">
-              
-                <span itemprop="name">R预设配色系统及自定义色板</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-11T21:11:15+08:00"
-              content="2017-06-11" >
-          06-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-  </section>
 
   
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/06/13/用R语言抓取网页图片——从此高效存图告别手工时代/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RainDu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="raindu's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">用R语言抓取网页图片——从此高效存图告别手工时代</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-13T15:19:50+08:00">
+                2017-06-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络爬虫/" itemprop="url" rel="index">
+                    <span itemprop="name">网络爬虫</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/06/13/用R语言抓取网页图片——从此高效存图告别手工时代/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/06/13/用R语言抓取网页图片——从此高效存图告别手工时代/" class="leancloud_visitors" data-flag-title="用R语言抓取网页图片——从此高效存图告别手工时代">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2,390 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  9 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>今天这个标题实在是有点言过其实了，对于R的爬虫知识，我只是领会了一点儿皮毛。</p>
+<p>主要看不懂正则表达式，特别是那种一个括号里要匹配多种类型文本的语句，特像火星文，估计短期很难搞懂了。</p>
+<p>再加上对于HTML结构没啥感觉，在目标定位上很苦恼。</p>
+<p>但是相对于文本信息而言，图片在html中的地址比较好获取，这里仅以图片抓取为例，会Python爬虫的大神还求轻喷~</p>
+<a id="more"></a>
+<p>今天要爬取的是一个多图的知乎网页，是一个外拍的帖子，里面介绍了巨多各种外拍技巧，很实用的干货。</p>
+<h3 id="网页分析："><a href="#网页分析：" class="headerlink" title="网页分析："></a>网页分析：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(rvest)</div><div class="line"><span class="keyword">library</span>(downloader)</div><div class="line"><span class="keyword">library</span>(stringr)</div><div class="line"><span class="keyword">library</span>(dplyr)</div></pre></td></tr></table></figure>
+<p><a href="https://www.zhihu.com/question/19647535" target="_blank" rel="external">知乎某外拍帖子</a></p>
+<p>打开网页之后，在帖子内容里随便定位一张图片，然后单击右键——检查元素（Ctrl+Shift+I），页面右侧弹出的网页结构会自动定位到该图片的地址，你会看到该图片在html结构中的名称标签：——（img）;地址标签——（src）。</p>
+<p><img src="http://orh5ym86b.bkt.clouddn.com/image1.png" alt=""><br><img src="http://orh5ym86b.bkt.clouddn.com/image9.png" alt=""></p>
+<p>我们想要获取的就是该图片的地址信息，你可以尝试着使用downlond函数下载单张图片。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">url&lt;-<span class="string">"https://pic4.zhimg.com/2db250e935ca4f1b8b2b546c60104067_b.jpg"</span></div><div class="line">download(url,<span class="string">"D:/R/Image/picturebbb.jpg"</span>, mode = <span class="string">"wb"</span>)</div></pre></td></tr></table></figure>
+<p>这样就完成了自动下载过程，但是图片地址仍然是肉眼观察获取的，显然不够智能，我们想要的效果是通过一个函数自动的批量获取图片地址并下载图片。</p>
+<p>那么下一步的目标就很明确了，如何通过函数批评获取图片地址，然后将包含图片地址的字符串向量传递给下载函数。</p>
+<p>以上就需要我们大致了解html的构建了，知道所有的图片存放在html构建的那一部分里面，通过网址定位到图片存放区间，通过获取图片存放的区间，批量获取图片地址，然后传递给下载函数执行。</p>
+<p>太深入的我也不太了解，但是html的常用结构无非是head/body/,head中存放网页标题和导航栏的信息（我是小白，不要吐槽以上每一句话的准确性哈~），而我们要抓取的目标图片肯定是存放在body中啦。</p>
+<p><img src="http://orh5ym86b.bkt.clouddn.com/image2.png" alt=""></p>
+<p>继续打开body部分，你会被一大摞的<div> </div>结构晃瞎眼，不要担心，我已经瞎了好几回了~—~</p>
+<p><img src="http://orh5ym86b.bkt.clouddn.com/image3.png" alt=""></p>
+<p>div是html里面的分区结构，每一个分区都是以<div>开头,以</div>结尾。（html中几乎所有结构都是这种方式，仔细观察一下其他形式的结构就会发现）。</p>
+<p>当然div分区有N多个，而且div结构本身可以层层嵌套。对于太复杂的网页，在你发现图片存放的div分区之前估计会先被div语句晃瞎眼。</p>
+<p>那怎么办呢，还记得在本文开始部分，说的那个手动定位吗，依靠浏览器的审查元素功能，我们可以先定位要下载的第一张图片，右键——检查，找到该图片的div分支结构。</p>
+<p>我们需要获取的信息是该图片的div分区名称信息（就是div结构中的class属性或者ID属性）</p>
+<p>class和ID获取其中一个就行，如果是class属性，则地址书写规则是：div.class，如果是ID则规则是div#ID。</p>
+<p>如果class和ID中字符较长，且单词间存在空格，空格以英文.号替换。</p>
+<p>以上图片的div分支结构定位信息就可以写作div.zm-editable-content.clearfix</p>
+<p>其实这里有一个简便方法，如果你不确定自己定位的区间是否正确的话，可以查看右下角的html路径（可以自动根据你的鼠标所在的html位置定位父级路径）。</p>
+<p><img src="http://orh5ym86b.bkt.clouddn.com/image4.png" alt=""></p>
+<h3 id="简单爬取测试："><a href="#简单爬取测试：" class="headerlink" title="简单爬取测试："></a>简单爬取测试：</h3><p>接下来使用read_html函数获取网页并一步一步的定位图片地址。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">url &lt;- <span class="string">'https://www.zhihu.com/question/19647535'</span></div><div class="line">link&lt;- read_html(url)%&gt;% html_nodes(<span class="string">"div.zm-editable-content.clearfix"</span>)%&gt;%html_nodes(<span class="string">"img"</span>)%&gt;%html_attr(<span class="string">"src"</span>)</div></pre></td></tr></table></figure>
+<p>我们需要获取的是图片所在div分支结构中的img标签下的src内容（也就是图片地址），那么如果不想抓取一大堆不相干的图片的话，就必须明确目标图片的存放位置，以上代码过程从url(该知乎帖子页面网址)定位到目标图片所在的div分支结构，然后定位到分支结构中的img(图片标签)中的src信息（也就是目标图片网址）。</p>
+<p>运行以上两句代码并以head函数预览link向量的前几行，查看获取的图片地址是否正确。</p>
+<p><img src="http://orh5ym86b.bkt.clouddn.com/image5.png" alt=""></p>
+<p>很遗憾，我们获取的存放图片地址信息的字符串向量中，每隔一行都有一个无效网址，如果不清除掉这些无效网址或者筛选出那些完整的网址的时候，download函数执行到无效网址会终端，下载过程就会失败。</p>
+<p>这里需要使用stringr包来进行条件筛选。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pat = <span class="string">"https"</span></div><div class="line">link&lt;-grep(pat, link,value=<span class="literal">TRUE</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://orh5ym86b.bkt.clouddn.com/image6.png" alt=""></p>
+<p>匹配之后，只保留了完整的图片网址，这就是我们最终要的结果。现在可以使用一个for循环来自动执行图片批量下载任务。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">dir.create(<span class="string">"D:R/Case/"</span>) <span class="comment">#新建文件夹</span></div><div class="line"><span class="keyword">for</span>(i <span class="keyword">in</span> <span class="number">1</span>:length(link)) </div><div class="line">&#123;</div><div class="line"> download(link[i],paste(<span class="string">"D:/R/Case/picture"</span>,i,<span class="string">".jpg"</span>,sep = <span class="string">""</span>), mode = <span class="string">"wb"</span>)</div><div class="line">&#125;  <span class="comment">#一个循环批处理所有下载任务</span></div></pre></td></tr></table></figure>
+<p><img src="http://orh5ym86b.bkt.clouddn.com/image7.png" alt=""></p>
+<p>至此，爬虫的代码部分完成，剩余的时间……嘿嘿，泡一杯咖啡，看会儿美剧，静静地等待软件完成自动下载过程吧（速度视图片原始大小和宽带速度而定）。</p>
+<p>结束之后，到D盘的Case文件夹下浏览下刚才下载的成果：</p>
+<p><img src="http://orh5ym86b.bkt.clouddn.com/image8.png" alt=""></p>
+<p>394张图片全部顺序标号，乖乖的躺在文件夹里了（当然里面还包含各种表情包图片，这个，我真的不太会分辨，暂时木办法）。</p>
+<h3 id="内容总结："><a href="#内容总结：" class="headerlink" title="内容总结："></a>内容总结：</h3><p>下面就今天分享内容总结以下几点：</p>
+<p>用R抓取图片的核心要点是获取html结构中存放图片的div分区中的img标签内的src内容（也就是图片地址，有时候可能需要使用read_src内的地址）。<br>图片的目标div分区结构的选取至关重要（如果你不指定div分区地址、只使用img标签下的src定位的话，很有可能抓取了全网页的图片网址，各种特殊符号和表情包、菜单栏和logo图表都会被抓取）<br>如果不太确定自己定位的div结构是否正确，可以借助鼠标选取+html路径信息来定位；<br>有时候有些网页的图片不是集中存放在单个div分区结构中，而是每张图片都是单独的div结构，这时候如果还是定位的最底层div分区位置的话，那么你可能只能获取单张图片地址。这时候适当的定位父级div分支结构名称（酌情观察，看那个父级结构范围可以涵盖所有目标图片的子div分支结构）<br>还有一种情况，就是有些公开的图片网站图片存储结构非常规则，分页存储，单页中单个div结构下的一组图片名称是按照数字顺序编号的：</p>
+<p>比如：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">http：//<span class="comment">################.1.jpg</span></div><div class="line"> http：//<span class="comment">################.2.jpg</span></div><div class="line"> http：//<span class="comment">################.3.jpg</span></div><div class="line"> http：//<span class="comment">################.4.jpg</span></div><div class="line"> ………………………………………</div><div class="line"> http：//<span class="comment">################.n.jpg</span></div></pre></td></tr></table></figure>
+<p>如果你碰到这种存储方式的图片网页，那你真的太幸运了，不用再傻乎乎的去从网页地址的html结构中一步一步的去定位图片地址了，直接使用for循环遍历完所有的图片网址，然后直接传递给download函数批量下载就OK了。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(n <span class="keyword">in</span> <span class="number">1</span>:<span class="number">50</span>)</div><div class="line">  <span class="comment">#自己定位到网页最后一个子页面，查看下最大的图片编号是多少。</span></div><div class="line">    &#123;   </div><div class="line">  </div><div class="line">     link&lt;- c(paste(<span class="string">"http：//################/"</span>,n,<span class="string">".jpg"</span>,sep=<span class="string">""</span>),link)</div><div class="line">     &#125;</div><div class="line"></div><div class="line"><span class="keyword">for</span>(i <span class="keyword">in</span> <span class="number">1</span>:length(link))</div><div class="line">&#123;</div><div class="line"> download(link[i],paste(<span class="string">"D:/R/Case/picture"</span>,i,<span class="string">".jpg"</span>,sep = <span class="string">""</span>), mode = <span class="string">"wb"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样完全避免了从网址中曾曾定位获取图片地址的麻烦，直接就可以获取全网页所有目标图片的地址，效率就更高了。</p>
+<p>以上是小魔方最近学习过程中的一丁点儿心得，会爬虫的大神别喷我，我真的是个小白~</p>
+<p>声明：</p>
+<p>以上图片爬虫代码仅作个人练习R语言爬虫使用，各位小伙伴儿练习完毕之后，请尊重知乎原答主的版权，勿将所抓取图片商用，或者直接删除。<br>学好技术也要遵守底线，做一个规矩的技术达人。</p>
+<hr>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
+<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
+<hr>
+<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://oqbxptw4f.bkt.clouddn.com/dashang/wechat.jpg" alt="RainDu WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://oqbxptw4f.bkt.clouddn.com/dashang/Alipay.png" alt="RainDu Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/R语言/" rel="tag"># R语言</a>
+          
+            <a href="/tags/爬虫/" rel="tag"># 爬虫</a>
+          
+            <a href="/tags/revst/" rel="tag"># revst</a>
+          
+            <a href="/tags/网络抓取/" rel="tag"># 网络抓取</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/13/当PowerBI遇到R语言/" rel="next" title="当PowerBI遇到R语言">
+                <i class="fa fa-chevron-left"></i> 当PowerBI遇到R语言
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
 
 
           </div>
@@ -360,6 +658,12 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
 
         </div>
         
@@ -379,8 +683,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.png"
@@ -487,6 +800,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#网页分析："><span class="nav-number">1.</span> <span class="nav-text">网页分析：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单爬取测试："><span class="nav-number">2.</span> <span class="nav-text">简单爬取测试：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内容总结："><span class="nav-number">3.</span> <span class="nav-text">内容总结：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -611,6 +940,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
 
   
 
