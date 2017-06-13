@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[当PowerBI遇到R语言]]></title>
+    <url>%2F2017%2F06%2F13%2F%E5%BD%93PowerBI%E9%81%87%E5%88%B0R%E8%AF%AD%E8%A8%80%2F</url>
+    <content type="text"><![CDATA[PowerBI作为微软系最新的商务智能办公系统，自去年发布以来，一直都备受瞩目。 他的更新频次相当之高，功能更新迭代非常迅速。 大概对可视化领域稍有涉猎的朋友们，都明白其中缘由，大数据与云计算的趋势席卷全球，海量数据处理成为了限制各行业发展的掣肘。而受制于编程工具的门槛，大部分数据处理业务人员，可能要严重依赖Excel以及其他无需编程的可视化自助操作软件。 以上需求也称为自助式BI工具，也就是无需IT人员主导的、业务人员可自行操作的商务智能工具。 而目前这个领域，Tableau的成功商业化使其已经赢得先机，广大的用户基础以及多次功能迭代，无论是在可视化呈现形式还是报表的质量上都可圈可点。 微软帝国必须亮出必杀技了（为什么没有盖茨的软件在什么事情上都落后一拍，移动操作系统、搜索、智能终端），前期在office2013版就已推出PowerQuery、PowerPivot、PowerView、PowerMap等四款高质量插件。 在最新的Excel2016版中更是将其封装成内置程序（这样就不用自己配置各种环境啦）,同时将四件套整合，建立了PowerBI的在线平台和桌面端工具PowerBI Desktop。 虽然PowerBI的可视化图表类型和质量（受制于开发周期和市场经验）还不够完善，但是免费呀（Tableau据说几千刀呢）……这一条就够啦…… 当然PowerBI自出生始就含着金汤勺，地图库是对接的BingMap,依靠PowerQuery的支持具备强大的数据源获取能力、依靠PowerPivot的支持又增添了功能强大的数据建模处理能力，PowerView与PowerMap结合基本上可以解决大部分的可视化形式。 除此之外，PowerBI的在线社区允许广大开发者贡献高质量的、令人眼花缭乱的新型可视化对象。（你以为PowerBI只有内置的那几款图表对象吗，去他的社区看一看吧，里面能淘到很多好东西）。 第三方可视化库网址： 这些可视化视觉对象在社区中被划分为两类： Custom visuals R-powered visuals 今天要跟大家分享的内容仅包含内置视觉对象中的R脚本和在线社区的R风格视觉对象。 下面是干货~ 使用体验：最近试用了PowerBI的R语言脚本对象功能，虽然用着很蹩脚，但是作为微软商务智能系统开始尝试对接主流统计学编程语言的开始，这一步还是很有意义的。 接下来就针对我所经历的使用体验跟大家分享一下（其实还是吐槽居多）： PowerBI中支持的R相关的图表有两类： 一类是需要在R中自建脚本代码执行，插入R图形对象来显示输出结果的形式。 另一类是PowerBI线上社区以及官方平台引用并借鉴优秀的R语言可视化包所封装的PowerBI视觉对象。 第一种需要大家有R基础，会书写图形代码。导入数据集后，输入并运行R代码即可在PowerBI页面生成R语言风格的可视化图表。（当然既然是运行的R代码，前提你PC上肯定得事先安装好R的Gui程序，如果有Rstudio的话,PowerBI也是支持调用的。） 这种方式基本相当于把PowerBI作为R的第三方IDE了，不过现在称它为R的第三方IDE确实为时过早，因为…… 它的代码运行效率和操作体验简直不能再烂，别说RStudio,就连R的官方Gui界面都要比它好用好几倍…… 代码时效速度超级慢； 需要事先导入数据集； 只能在数据对象中显示图形对象而无法显示文本信息； 第一类R语言视觉对象案例演示：接下来我运行几段程序作为案例演示： 自建R脚本需要在开始——获取数据——插入RScript对象： 在弹出的执行R脚本输入框中以R代码的形式获取数据： 1data(mtcars) 待连接成功后，导入数据集： 数据模型加载完成后，在PowerBI右侧的字段列表中会列出数据集的所有可用字段，在左侧左上角表格栏目可以展示并预览整个数据观测值。 数据集导入之后，在可视化图表对象中选择R脚本，并插入，同时将右侧字段列表中需要用到的字段拖入值区域。 你发会发现，插入R脚本对象后，执行的所有鼠标操作在R脚本编辑器中都被记录为R代码（很类似Excel中的录制宏啊有木有~）。 现在你可以在R脚本编辑器中自由的编写并执行代码了。（代码与R中的一样，写完一句代码，选中点击编辑器的运营按钮）1234library(ggplot2)library(RColorBrewer)library(ggthemes)ggplot(mtcars,aes(qsec,disp,colour=factor(cyl)))+geom_point()+theme_economist()+scale_colour_economist()+guides(colour=guide_legend(title=NULL)) 1ggplot(mtcars,aes(qsec,disp,size=mpg,colour=factor(cyl)))+geom_point()+scale_size_area()+theme_economist()+scale_colour_economist()+guides(colour=guide_legend(title=NULL)) 接下来我使用diamonds数据集（来自ggplot2包）123library(ggplot2)library(ggthemes)ggplot(diamonds,aes(depth,fill=color))+geom_histogram()+theme_economist()+scale_fill_economist()+guides(fill=guide_legend(title=NULL))+scale_x_discrete(limits=c(50,70)) 虽然以上图表都很完美的输出了结果，但是过程还是很艰辛的，PowerBI无法像在R里面调用数据集那么方便，每次想换一个数据，都要重新建立一个RScript对象。 第二类R语言视觉对象案例演示：下面跟大家介绍关于PowerBI的的第二类R视觉对象，也是个人比较推荐的一类。 因为这些视觉对象是经过开发者努力改造过了，基本上不需要你写代码就可以输出的精美图表（因为是后台调用的R程序，所以依然需要你事前安装R软件）。 这一类图表对象你可以在PowerBI的线上开发者社区下载到图表插件和案例demo。 每一个R图表对象都提供插件下载和Sample独享可供参考。 下载完事儿之后，在可视化菜单中导入视觉对象。 插入刚才导入的相关性可视化图表对象，并将要呈现的相关性的字段拖入Values字段框中。 之后你会发现图表对象会自动相关热力矩阵图。（颜色深浅代表相关性大小，正为蓝，负为红） 该图表对象调用的是R中的corrplot函数。我们在RStudio中使用该函数生成相似的案例图。 1234library(corrplot)data(mtcars)corr &lt;- cor(mtcars[,c(1,3,4,5,6,7)])corrplot(corr) 看吧是不是很像呢~ 和相关性矩阵图一样的R图表视觉对象在社区中一共有6个（包含Correlation plot）。 以上六个图形视觉对象都是包含着统计算法和统计模型的视觉可视化对象，经过设计师的精心设计，复杂的统计算法模型呈现出精美的视觉图表图表对象，决策者可以在不用深入了解模型和算法原理的基础上，很直观的领会模型所表达的决策信息。这就是数据可视化的魅力所在。（当然如果能具备这些模型的理论基础的话，用起来就更加的得心应手啦） 小魔方已经将微软第三方应用平台的所有视觉对象插件打包整理（包含R对象的几款插件），共享在魔方学院的QQ群文件里啦，想要体验的小伙伴儿赶快去下载吧~ 联系方式：wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]553270834 个人简介：杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。Mail:578708965@qq.com 备注信息：本作品采用知识共享署名-非商业性使用 4.0 国际许可协议进行许可。]]></content>
+      <categories>
+        <category>PowerBI</category>
+      </categories>
+      <tags>
+        <tag>R语言</tag>
+        <tag>数据可视化</tag>
+        <tag>在线地图</tag>
+        <tag>PowerBI</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[R语言可视化——多边形与数据地图填充]]></title>
     <url>%2F2017%2F06%2F12%2FR%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94%E5%A4%9A%E8%BE%B9%E5%BD%A2%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%9C%B0%E5%9B%BE%E5%A1%AB%E5%85%85%2F</url>
     <content type="text"><![CDATA[ggplot函数中有一类特殊的图表类型叫做多边形，很难用传统的视角来定义它属于哪一类图表，因为它能够呈现信息多种多样。 特别是在做某些比较高阶的图表——地图时，这种多边形函数便能够大显神通。 之前本公众号所推送的所有涉及地图图表绘制所使用的技巧，几乎全部都依赖多边形函数的支持。123library(ggplot2)library(plyr)library("maptools") 这里以之前推送过的全球地图为例： 传统做法（shp形状）1world_map &lt;-readShapePoly("c:/rstudy/wold_map/World_region.shp") 使用路径图进行区域轮廓描边：12ggplot(world_map,aes(x=long,y=lat,group=group)) +geom_path() 更改路径线为白色，清除掉背景和网格线以及坐标轴：1234567ggplot(world_map,aes(x=long,y=lat,group=group)) +geom_path(colour="steelblue")+ theme( panel.grid = element_blank(), panel.background = element_blank(), axis.text = element_blank(), axis.ticks = element_blank(), axis.title = element_blank()) 使用多边形进行描边并填充：（在多边形中是可以进行线条与形状分别填色的）12345ggplot(world_map,aes(x=long,y=lat,group=group)) +geom_polygon(fill="white",colour="grey") + theme( panel.grid = element_blank(), panel.background = element_blank(), axis.text = element_blank(), axis.ticks = element_blank(), axis.title = element_blank()) 这就是我们之前所制作的填色地图的主体代码语句，数据集是从shp文件导入，可以看出，其实只需要三列字段信息，就可以画出一幅地图来：经纬度（二维坐标信息，也可以看作是一组代表X、Y轴的散点），另外的一列变量group其实是一个分类变量，将同一个单位区域轮廓（一个国家或者地区、岛屿等）用一组相同的编号表示。 如果再加上一列连续数值变量，可以将其指定为fill渐变填充的参考指标，那么最终完成的图表就是一幅按照不同地区指标大小对应渐变填色地图。 内置地图素材包：其实这种不带任何实质数据信息的地图，很多R包中都有提供：（这里以maps包为例）1234567library(maps)states&lt;-map_data("state")ggplot(states,aes(long,lat,group=group))+geom_polygon(fill="white",colour="steelblue")+ theme(panel.grid = element_blank(), panel.background = element_blank(), axis.text = element_blank(), axis.ticks = element_blank(), axis.title = element_blank()) map包是一个专门用来做地图的加载包，里面存有几个可以用的地图数据包：123456states&lt;-map_data("world") #全球地图ggplot(world,aes(long,lat,group=group))+geom_polygon(fill="white",colour="steelblue")+ theme(panel.grid = element_blank(), panel.background = element_blank(), axis.text = element_blank(), axis.ticks = element_blank(), axis.title = element_blank()) 123456france&lt;-map_data("france") #法国地图ggplot(france,aes(long,lat,group=group))+geom_polygon(fill="white",colour="steelblue")+ theme(panel.grid = element_blank(), panel.background = element_blank(), axis.text = element_blank(), axis.ticks = element_blank(), axis.title = element_blank()) 123456county&lt;-map_data("county") #美国郡级ggplot(county,aes(long,lat,group=group))+geom_polygon(fill="white",colour="steelblue")+ theme(panel.grid = element_blank(), panel.background = element_blank(), axis.text = element_blank(), axis.ticks = element_blank(), axis.title = element_blank()) 添加地图投影：12345france&lt;-map_data("france") #法国地图ggplot(france,aes(long,lat,group=group))+geom_polygon(fill="white",colour="steelblue")+coord_map("polyconic")+theme( axis.text = element_blank(), axis.ticks = element_blank(), axis.title = element_blank()) 12345county&lt;-map_data("county") #美国郡级ggplot(county,aes(long,lat,group=group))+geom_polygon(fill="white",colour="steelblue")+coord_map("polyconic")+theme( axis.text = element_blank(), axis.ticks = element_blank(), axis.title = element_blank()) 地图图表作为ggplot函数中一大类比较高阶的图表，可以做出很多让人眼花缭乱、令人尖叫的作品来，感兴趣的小伙伴儿赶快学起来。 联系方式： wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]553270834 个人简介： 杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。 Mail:578708965@qq.com 备注信息： 本作品采用知识共享署名-非商业性使用 4.0 国际许可协议进行许可。]]></content>
@@ -179,9 +193,9 @@
       <tags>
         <tag>R语言</tag>
         <tag>数据可视化</tag>
-        <tag>json</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
+        <tag>json</tag>
         <tag>leaflet</tag>
       </tags>
   </entry>
@@ -213,8 +227,8 @@
         <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
-        <tag>leaflet</tag>
         <tag>路径图</tag>
+        <tag>leaflet</tag>
         <tag>mini柱形/条形图</tag>
       </tags>
   </entry>
