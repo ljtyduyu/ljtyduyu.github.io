@@ -100,7 +100,7 @@
 <meta property="og:site_name" content="raindu&#39;s home">
 <meta property="og:description" content="今天这个标题实在是有点言过其实了，对于R的爬虫知识，我只是领会了一点儿皮毛。 主要看不懂正则表达式，特别是那种一个括号里要匹配多种类型文本的语句，特像火星文，估计短期很难搞懂了。 再加上对于HTML结构没啥感觉，在目标定位上很苦恼。 但是相对于文本信息而言，图片在html中的地址比较好获取，这里仅以图片抓取为例，会Python爬虫的大神还求轻喷~">
 <meta property="og:image" content="http://orh5ym86b.bkt.clouddn.com/image1.png">
-<meta property="og:image" content="http://orh5ym86b.bkt.clouddn.com/image9.png">
+<meta property="og:image" content="http://orh5ym86b.bkt.clouddn.com/image9.jpg">
 <meta property="og:image" content="http://orh5ym86b.bkt.clouddn.com/image2.png">
 <meta property="og:image" content="http://orh5ym86b.bkt.clouddn.com/image3.png">
 <meta property="og:image" content="http://orh5ym86b.bkt.clouddn.com/image4.png">
@@ -109,7 +109,7 @@
 <meta property="og:image" content="http://orh5ym86b.bkt.clouddn.com/image7.png">
 <meta property="og:image" content="http://orh5ym86b.bkt.clouddn.com/image8.png">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-06-13T07:35:03.850Z">
+<meta property="og:updated_time" content="2017-06-13T08:51:52.279Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用R语言抓取网页图片——从此高效存图告别手工时代">
 <meta name="twitter:description" content="今天这个标题实在是有点言过其实了，对于R的爬虫知识，我只是领会了一点儿皮毛。 主要看不懂正则表达式，特别是那种一个括号里要匹配多种类型文本的语句，特像火星文，估计短期很难搞懂了。 再加上对于HTML结构没啥感觉，在目标定位上很苦恼。 但是相对于文本信息而言，图片在html中的地址比较好获取，这里仅以图片抓取为例，会Python爬虫的大神还求轻喷~">
@@ -484,7 +484,7 @@
 <h3 id="网页分析："><a href="#网页分析：" class="headerlink" title="网页分析："></a>网页分析：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(rvest)</div><div class="line"><span class="keyword">library</span>(downloader)</div><div class="line"><span class="keyword">library</span>(stringr)</div><div class="line"><span class="keyword">library</span>(dplyr)</div></pre></td></tr></table></figure>
 <p><a href="https://www.zhihu.com/question/19647535" target="_blank" rel="external">知乎某外拍帖子</a></p>
 <p>打开网页之后，在帖子内容里随便定位一张图片，然后单击右键——检查元素（Ctrl+Shift+I），页面右侧弹出的网页结构会自动定位到该图片的地址，你会看到该图片在html结构中的名称标签：——（img）;地址标签——（src）。</p>
-<p><img src="http://orh5ym86b.bkt.clouddn.com/image1.png" alt=""><br><img src="http://orh5ym86b.bkt.clouddn.com/image9.png" alt=""></p>
+<p><img src="http://orh5ym86b.bkt.clouddn.com/image1.png" alt=""><br><img src="http://orh5ym86b.bkt.clouddn.com/image9.jpg" alt=""></p>
 <p>我们想要获取的就是该图片的地址信息，你可以尝试着使用downlond函数下载单张图片。</p>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">url&lt;-<span class="string">"https://pic4.zhimg.com/2db250e935ca4f1b8b2b546c60104067_b.jpg"</span></div><div class="line">download(url,<span class="string">"D:/R/Image/picturebbb.jpg"</span>, mode = <span class="string">"wb"</span>)</div></pre></td></tr></table></figure>
 <p>这样就完成了自动下载过程，但是图片地址仍然是肉眼观察获取的，显然不够智能，我们想要的效果是通过一个函数自动的批量获取图片地址并下载图片。</p>
