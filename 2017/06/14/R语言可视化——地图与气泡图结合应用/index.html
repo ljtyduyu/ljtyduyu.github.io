@@ -102,7 +102,7 @@
 <meta property="og:image" content="http://orii3gxl2.bkt.clouddn.com/image1.png">
 <meta property="og:image" content="http://orii3gxl2.bkt.clouddn.com/image3.png">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-06-14T00:58:14.720Z">
+<meta property="og:updated_time" content="2017-06-14T10:20:23.718Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="R语言可视化——地图与气泡图结合应用">
 <meta name="twitter:description" content="今天跟大家分享如何在地图上进行散点图、气泡图绘制。 昨天跟大家介绍了ggplot函数进行地图绘制的原理，通过轮廓点和分组来定义每一个地区（国家边界），通过多边形填充来完成区域填色。 ggplot的图层叠加原理允许许我们在坐标系统的叠加多个图层；">
@@ -475,7 +475,7 @@
 <p>所以在地图上叠加散点、甚至气泡可以很容易的实现：</p>
 <h3 id="包的导入："><a href="#包的导入：" class="headerlink" title="包的导入："></a>包的导入：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(maptools)</div><div class="line"><span class="keyword">library</span>(ggplot2)</div><div class="line"><span class="keyword">library</span>(plyr)</div></pre></td></tr></table></figure>
 <h3 id="导入地理信息数据："><a href="#导入地理信息数据：" class="headerlink" title="导入地理信息数据："></a>导入地理信息数据：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">china_map &lt;- readShapePoly(<span class="string">"c:/rstudy/bou2_4p.shp"</span>)            <span class="comment"># 读取地图信息数据</span></div><div class="line">china_map1 &lt;- fortify(china_map)                               <span class="comment">#转化为数据框</span></div></pre></td></tr></table></figure>
-<h3 id="业务数据导入及作图数据合并："><a href="#业务数据导入及作图数据合并：" class="headerlink" title="业务数据导入及作图数据合并："></a>业务数据导入及作图数据合并：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mydata &lt;- read.csv(<span class="string">"c:/rstudy/geshengzhibiao.csv"</span>)             <span class="comment">#读取业务数据</span></div><div class="line">province_city &lt;- read.csv(<span class="string">"c:/rstudy/chinaprovincecity.csv"</span>)   <span class="comment">#读取省会城市坐标</span></div><div class="line">china_data &lt;- join(province_city, mydata, type=<span class="string">"full"</span>)        <span class="comment">#合并两个数据框</span></div></pre></td></tr></table></figure>
+<h3 id="业务数据导入及作图数据合并："><a href="#业务数据导入及作图数据合并：" class="headerlink" title="业务数据导入及作图数据合并："></a>业务数据导入及作图数据合并：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mydata &lt;- read.csv(<span class="string">"c:/rstudy/geshengzhibiao.csv"</span>)             <span class="comment">#读取业务数据</span></div><div class="line">province_city &lt;- read.csv(<span class="string">"c:/rstudy/chinaprovincecity.csv"</span>)   <span class="comment">#读取省会城市坐标</span></div><div class="line">china_data &lt;- join(province_city, mydata, type=<span class="string">"full"</span>)         <span class="comment">#合并两个数据框</span></div></pre></td></tr></table></figure>
 <p><img src="http://orii3gxl2.bkt.clouddn.com/image1.png" alt=""></p>
 <h3 id="地图语法："><a href="#地图语法：" class="headerlink" title="地图语法："></a>地图语法：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">ggplot()+</div><div class="line">     geom_polygon(data=china_map1, aes(x=long, y=lat, group=group), fill=<span class="string">"grey95"</span>, colour=<span class="string">"grey60"</span>)+ </div><div class="line">     geom_point(data=china_data, aes(x = jd,y = wd, size=zhibiao, fill=zhibiao2, alpha=<span class="number">0.3</span>), shape=<span class="number">21</span>, colour=<span class="string">"black"</span>)+ </div><div class="line">     scale_size_area(max_size=<span class="number">8</span>)+         </div><div class="line">scale_fill_gradient2(low=<span class="string">"DarkCyan"</span>, mid=<span class="string">"Azure"</span>, high=<span class="string">"Sienna"</span>, midpoint=median(na.omit</div><div class="line">(china_data$zhibiao2)))+         </div><div class="line">     coord_map(<span class="string">"polyconic"</span>) +ggtitle(<span class="string">"Heat&amp;Bubble plot"</span>)+</div><div class="line">     theme(</div><div class="line">          panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank(),</div><div class="line">          legend.position = <span class="string">"none"</span></div><div class="line">          )</div></pre></td></tr></table></figure>
 <p><img src="http://orii3gxl2.bkt.clouddn.com/image3.png" alt=""></p>
@@ -569,6 +569,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/15/R语言可视化——图表嵌套（母子图）/" rel="prev" title="R语言可视化——图表嵌套（母子图）">
+                R语言可视化——图表嵌套（母子图） <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -665,7 +669,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -687,7 +691,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-count">41</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -812,7 +816,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共61.3k字</span>
+  <span class="post-count">博客全站共62.4k字</span>
 </div>
         
 
