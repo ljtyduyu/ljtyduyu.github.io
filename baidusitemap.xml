@@ -11,9 +11,9 @@
         <title>Excel依然是一款强大的数据可视化利器~</title>
         <pubTime>2017-06-16T01:32:50.000Z</pubTime>
         
-        <tag>Excel</tag>
-         
         <tag>数据可视化</tag>
+         
+        <tag>Excel</tag>
          
         <tag>商务图表</tag>
          
@@ -35,11 +35,11 @@
         <title>学习R语言我都做了那些有趣的事情！！！</title>
         <pubTime>2017-06-16T01:01:29.000Z</pubTime>
         
+        <tag>R语言</tag>
+         
         <tag>数据可视化</tag>
          
         <tag>商务图表</tag>
-         
-        <tag>R语言</tag>
          
          
            
@@ -59,9 +59,9 @@
         <title>R语言可视化——图表嵌套（母子图）</title>
         <pubTime>2017-06-15T00:48:04.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>ggplot2</tag>
          
@@ -87,9 +87,9 @@
         <title>R语言可视化——地图与气泡图结合应用</title>
         <pubTime>2017-06-14T00:50:58.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>地理信息可视化</tag>
          
@@ -141,9 +141,9 @@
         <title>当PowerBI遇到R语言</title>
         <pubTime>2017-06-13T00:31:12.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>在线地图</tag>
          
@@ -167,9 +167,9 @@
         <title>R语言可视化——多边形与数据地图填充</title>
         <pubTime>2017-06-12T01:11:36.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>地理信息可视化</tag>
          
@@ -208,9 +208,9 @@
         <title>R预设配色系统及自定义色板</title>
         <pubTime>2017-06-11T13:11:15.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>配色</tag>
          
@@ -232,9 +232,9 @@
         <title>R语言可视化——极坐标变换与衍生图表类型</title>
         <pubTime>2017-06-11T01:20:45.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>ggplot2</tag>
          
@@ -264,9 +264,9 @@
         <title>emoji表情可视化北京历史天气</title>
         <pubTime>2017-05-23T02:08:40.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>ggplot2</tag>
          
@@ -288,15 +288,15 @@
         <title>Leaflet在线地图进阶宝典——json素材操纵与图层面板控制</title>
         <pubTime>2017-06-05T13:52:37.000Z</pubTime>
         
+        <tag>R语言</tag>
+         
         <tag>数据可视化</tag>
          
-        <tag>R语言</tag>
+        <tag>json</tag>
          
         <tag>地理信息可视化</tag>
          
         <tag>在线地图</tag>
-         
-        <tag>json</tag>
          
         <tag>leaflet</tag>
          
@@ -318,9 +318,9 @@
         <title>leaflet在线地图进阶宝典——高级交互特性</title>
         <pubTime>2017-06-09T02:10:09.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>地理信息可视化</tag>
          
@@ -346,9 +346,9 @@
         <title>leaflet在线地图进阶宝典之——高级辅助特性</title>
         <pubTime>2017-06-06T01:27:27.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>地理信息可视化</tag>
          
@@ -376,9 +376,9 @@
         <title>R语言可视化——ggplot绘制中心密度辐射图</title>
         <pubTime>2017-05-30T08:05:43.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>ggplot2</tag>
          
@@ -402,9 +402,9 @@
         <title>R语言可视化——REmapC(填充地图)</title>
         <pubTime>2017-06-08T05:03:50.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>地理信息可视化</tag>
          
@@ -430,9 +430,9 @@
         <title>R语言可视化——REmapH(中心热度图)</title>
         <pubTime>2017-06-08T09:36:37.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>地理信息可视化</tag>
          
@@ -458,9 +458,9 @@
         <title>R语言可视化——REmap动态地图</title>
         <pubTime>2017-06-07T01:27:05.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>地理信息可视化</tag>
          
@@ -486,9 +486,9 @@
         <title>R语言可视化——REmap(路径图)</title>
         <pubTime>2017-06-07T10:49:51.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>地理信息可视化</tag>
          
@@ -516,9 +516,9 @@
         <title>R语言可视化——案例综合运用</title>
         <pubTime>2017-06-08T01:36:58.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>地理信息可视化</tag>
          
@@ -544,9 +544,9 @@
         <title>R语言可视化——用数据来聊聊国产电影~</title>
         <pubTime>2017-06-01T00:57:19.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>ggplot2</tag>
          
@@ -574,9 +574,9 @@
         <title>R语言可视化——中心放射状路径图</title>
         <pubTime>2017-05-31T01:26:55.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>路径图</tag>
          
@@ -600,9 +600,9 @@
         <title>R语言爬虫可视化——用数据来聊聊2017年首周各大城市空气质量</title>
         <pubTime>2017-05-31T08:03:36.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>ggplot2</tag>
          
@@ -628,9 +628,9 @@
         <title>百分比方块比较图</title>
         <pubTime>2017-05-29T04:08:12.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>ggplot2</tag>
          
@@ -654,9 +654,9 @@
         <title>北京历史天气emoji表情包可视化</title>
         <pubTime>2017-05-27T01:35:27.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>ggplot2</tag>
          
@@ -682,9 +682,9 @@
         <title>动态地理信息可视化——leaflet构造路径图</title>
         <pubTime>2017-06-04T01:56:20.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>地理信息可视化</tag>
          
@@ -714,9 +714,9 @@
         <title>动态地理信息可视化——leaflet填充地图</title>
         <pubTime>2017-06-05T01:11:51.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>地理信息可视化</tag>
          
@@ -744,9 +744,9 @@
         <title>动态地理信息可视化——leaflet在线地图简介</title>
         <pubTime>2017-06-02T07:14:53.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>地理信息可视化</tag>
          
@@ -774,9 +774,9 @@
         <title>动态地理信息可视化——散点地图系列</title>
         <pubTime>2017-06-03T01:44:35.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>地理信息可视化</tag>
          
@@ -804,9 +804,9 @@
         <title>动态世界地图</title>
         <pubTime>2017-05-28T03:30:32.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>ggplot2</tag>
          
@@ -832,9 +832,9 @@
         <title>仿ECO事件圆环图</title>
         <pubTime>2017-05-26T08:40:55.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>ggplot2</tag>
          
@@ -856,9 +856,9 @@
         <title>山东省公共财政预算数据可视化</title>
         <pubTime>2017-05-24T01:08:07.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>ggplot2</tag>
          
@@ -880,9 +880,9 @@
         <title>实习僧招聘网招聘信息爬虫数据可视化</title>
         <pubTime>2017-05-25T08:51:59.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>爬虫</tag>
          
@@ -906,9 +906,9 @@
         <title>玩转R语言数据地图——地图上的迷你气泡饼图</title>
         <pubTime>2017-06-02T01:33:33.747Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>地理信息可视化</tag>
          
@@ -934,9 +934,9 @@
         <title>玩转数据地图系列之——地图上的迷你条形图</title>
         <pubTime>2017-06-02T07:01:58.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>地理信息可视化</tag>
          
@@ -962,9 +962,9 @@
         <title>炫彩仪表盘图表</title>
         <pubTime>2017-05-28T00:55:27.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>ggplot2</tag>
          
@@ -990,9 +990,9 @@
         <title>用ggplot2制作静态数据可视化报告!</title>
         <pubTime>2017-05-30T00:58:46.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>ggplot2</tag>
          
@@ -1020,9 +1020,9 @@
         <title>鱼眼百分比信息图</title>
         <pubTime>2017-05-27T11:11:30.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>ggplot2</tag>
          
@@ -1046,9 +1046,9 @@
         <title>中国经管类核心期刊地域分布数据可视化</title>
         <pubTime>2017-05-26T01:35:37.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>ggplot2</tag>
          
@@ -1072,9 +1072,9 @@
         <title>中国人口金字塔动态图</title>
         <pubTime>2017-05-29T01:48:42.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>ggplot2</tag>
          
@@ -1100,9 +1100,9 @@
         <title>中国字体地图</title>
         <pubTime>2017-05-22T03:02:41.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>ggplot2</tag>
          
@@ -1124,9 +1124,9 @@
         <title>R语言图表美化——巧用分面表达优化图表布局，做出堪比杂志级视觉体验的商务图表</title>
         <pubTime>2017-06-10T01:15:55.000Z</pubTime>
         
-        <tag>数据可视化</tag>
-         
         <tag>R语言</tag>
+         
+        <tag>数据可视化</tag>
          
         <tag>ggplot2</tag>
          
