@@ -1527,11 +1527,11 @@
     
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
-      <category term="json" scheme="http://www.raindu.com/tags/json/"/>
-    
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
+    
+      <category term="json" scheme="http://www.raindu.com/tags/json/"/>
     
       <category term="leaflet" scheme="http://www.raindu.com/tags/leaflet/"/>
     
