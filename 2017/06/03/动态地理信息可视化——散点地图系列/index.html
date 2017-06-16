@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="R语言,数据可视化,地理信息可视化,在线地图,leaflet,mini柱形/条形图," />
+  <meta name="keywords" content="数据可视化,R语言,地理信息可视化,在线地图,leaflet,mini柱形/条形图," />
 
 
 
@@ -98,7 +98,7 @@
 
 
 <meta name="description" content="这是一篇拖了好久的稿子，因为过年玩high了，一直放着没写，今天得空，赶快得空，赶紧整理一下。 本篇主讲leaflet在线地图系列中的散点系列，包含颜色映射规则（离散和连续）、大小映射规则。 其实也就是包含了我们看到的常规的散点图类型和气泡图类型。同时结合leaflet丰富多彩的背景地图主题进行展开。">
-<meta name="keywords" content="R语言,数据可视化,地理信息可视化,在线地图,leaflet,mini柱形&#x2F;条形图">
+<meta name="keywords" content="数据可视化,R语言,地理信息可视化,在线地图,leaflet,mini柱形&#x2F;条形图">
 <meta property="og:type" content="article">
 <meta property="og:title" content="动态地理信息可视化——散点地图系列">
 <meta property="og:url" content="http://www.raindu.com/2017/06/03/动态地理信息可视化——散点地图系列/index.html">
@@ -124,7 +124,7 @@
 <meta property="og:image" content="http://oqy752iiv.bkt.clouddn.com/image18.png">
 <meta property="og:image" content="http://oqy752iiv.bkt.clouddn.com/image19.png">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-06-10T11:10:08.975Z">
+<meta property="og:updated_time" content="2017-06-16T14:17:25.920Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="动态地理信息可视化——散点地图系列">
 <meta name="twitter:description" content="这是一篇拖了好久的稿子，因为过年玩high了，一直放着没写，今天得空，赶快得空，赶紧整理一下。 本篇主讲leaflet在线地图系列中的散点系列，包含颜色映射规则（离散和连续）、大小映射规则。 其实也就是包含了我们看到的常规的散点图类型和气泡图类型。同时结合leaflet丰富多彩的背景地图主题进行展开。">
@@ -512,7 +512,7 @@
 <h3 id="可选择的地图类型："><a href="#可选择的地图类型：" class="headerlink" title="可选择的地图类型："></a>可选择的地图类型：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">addProviderTiles(<span class="string">"Esri.WorldStreetMap"</span>)  <span class="comment">#浅色</span></div><div class="line">addProviderTiles(<span class="string">"Esri.WorldImagery"</span>)    <span class="comment">#深色深色卫星云图</span></div><div class="line">addProviderTiles(<span class="string">"Esri.WorldTerrain"</span>)    <span class="comment">#亮白色</span></div><div class="line">addProviderTiles(<span class="string">"Esri.NatGeoWorldMap"</span>)  <span class="comment">#深沉轮廓色</span></div><div class="line">addProviderTiles(<span class="string">"Stamen.Toner"</span>)         <span class="comment">#Third-Party Tiles</span></div><div class="line">addProviderTiles(<span class="string">"Acetate.terrain"</span>)      <span class="comment">#</span></div><div class="line">addProviderTiles(<span class="string">"CartoDB.Positron"</span>)</div><div class="line">addProviderTiles(<span class="string">"Stamen.TonerLabels"</span>)   <span class="comment">#</span></div></pre></td></tr></table></figure>
 <p>本篇点形状是可以支持自定义的，需要使用网络图标资源，但是鉴于步骤和实用性，就此略过，如果感兴趣，可以私下探讨。</p>
 <hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
@@ -566,9 +566,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/R语言/" rel="tag"># R语言</a>
-          
             <a href="/tags/数据可视化/" rel="tag"># 数据可视化</a>
+          
+            <a href="/tags/R语言/" rel="tag"># R语言</a>
           
             <a href="/tags/地理信息可视化/" rel="tag"># 地理信息可视化</a>
           
@@ -698,7 +698,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">42</span>
+                <span class="site-state-item-count">43</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -720,7 +720,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -845,7 +845,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共64.3k字</span>
+  <span class="post-count">博客全站共65.5k字</span>
 </div>
 
 <div class="theme-info">

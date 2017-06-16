@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.raindu.com/"/>
-  <updated>2017-06-16T01:45:54.815Z</updated>
+  <updated>2017-06-16T14:37:37.267Z</updated>
   <id>http://www.raindu.com/</id>
   
   <author>
@@ -16,11 +16,77 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>R语言可视化——ggplot携手plotly，让你的图表灵动起来！</title>
+    <link href="http://www.raindu.com/2017/06/16/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94ggplot%E6%90%BA%E6%89%8Bplotly%EF%BC%8C%E8%AE%A9%E4%BD%A0%E7%9A%84%E5%9B%BE%E8%A1%A8%E7%81%B5%E5%8A%A8%E8%B5%B7%E6%9D%A5%EF%BC%81/"/>
+    <id>http://www.raindu.com/2017/06/16/R语言可视化——ggplot携手plotly，让你的图表灵动起来！/</id>
+    <published>2017-06-16T14:11:17.000Z</published>
+    <updated>2017-06-16T14:37:37.267Z</updated>
+    
+    <content type="html"><![CDATA[<p>这段时间一直在研究ggplot2这个神奇的可视化利器，可是ggplot2纵然所向披靡，唯独无法呈现动态效果！</p>
+<p>最近发现R语言的官方CRAN中有一款名叫plotly的包，详细了解了下，这个plotly是基于js脚本语言开发的专用于动态交互可视化的利器，开发有在线版和桌面本，而且效果相当不错！</p>
+<a id="more"></a>
+<p>而这里提到的plotly包就是该机构专门针对R语言环境发布的可视化包（具有不仅R语言，给MATLAB和Python都留有接口），不但可以协助ggplot2包将静态图表动态化，而且拥有自己独特的作图函数语法（语法非常精炼，据说是参考ggplot的语法写的，基本上一看就懂）。</p>
+<p>今天只涉及ggplot结合plotly而动态化图表的功能，暂不涉及plotly的独有作图函数。（主要是自己也正摸索中，找个合适的时间再跟大家分享）。</p>
+<p>这个包因为是辅助ggplot2开发的，所以需要ggplot2包同时加载协同工作。</p>
+<h3 id="包下载及加载："><a href="#包下载及加载：" class="headerlink" title="包下载及加载："></a>包下载及加载：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">devtools::install_github(<span class="string">"ropensci/plotly"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"plotly"</span>)</div><div class="line"><span class="keyword">library</span>(ggplot2)</div></pre></td></tr></table></figure>
+<h3 id="数据集预览："><a href="#数据集预览：" class="headerlink" title="数据集预览："></a>数据集预览：</h3><p>这里我将使用ggplot2的内置数据集diamonds先做出图表，然后使用plotly函数进行动态化。</p>
+<p>为了更加明显的看出最终的动效，这里使用随机取样，只抽取500个记录。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">set.seed(<span class="number">2333</span>)</div><div class="line">mydata &lt;- mydata[sample(nrow(mydata), <span class="number">500</span>), ]</div><div class="line">head(mydata)</div></pre></td></tr></table></figure>
+<p><img src="http://orn9f9laz.bkt.clouddn.com/image1.png" alt=""><br><img src="http://orn9f9laz.bkt.clouddn.com/image2.png" alt=""></p>
+<h3 id="plotly动态图表演示："><a href="#plotly动态图表演示：" class="headerlink" title="plotly动态图表演示："></a>plotly动态图表演示：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(carat,price,colour=color))+geom_point()</div></pre></td></tr></table></figure>
+<p><img src="http://orn9f9laz.bkt.clouddn.com/image3.png" alt=""></p>
+<p>接下来是我们要重点关注的地方，以上使用ggplot函数制作的默认的散点图，是一张静态的不带任何交互效果的图表。</p>
+<p>尽管ggplot的作者在图表背后针对默认的图表主题及背景做了深度美化，但是没有动态效果这一点儿着实让人感觉有点儿美中不足：</p>
+<p>我所说的动态效果是指：当鼠标悬浮到任何一个数据点，立马会有弹出文本框显示该数据点的具体指标信息，当鼠标点击图例中的分类标识时，显示对应分类项下的数据点，而其他未被选中的数据点均会自动隐藏或者淡化（变成浅灰色）。这是我所理解的动态图表的最基础属性。</p>
+<p>但是有了plotly包的辅助，ggplot所做出来的图表立马可是实现以上所述的功能：</p>
+<p>而所需要的函数却极其简单：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplotly()</div></pre></td></tr></table></figure>
+<p><img src="http://orn9f9laz.bkt.clouddn.com/image4.png" alt=""></p>
+<p>运行完以上代码，再次zoom你的图表，仔细观察你会发现，图表右上角多出了一行菜单，而且当你将鼠标悬浮在任意一个数据点上时，立马回弹出对应的文本信息对对应数据点进行详细注释。</p>
+<p>更加不可思议的是，当你用鼠标单击右侧图例对应分类项，则图表中会对应只显示选中的分类项目数据点；</p>
+<p>右上角的菜单中你可以自由选择将图表聚焦呈现、放大缩小、保存为图片等多种功能。</p>
+<p><img src="http://orn9f9laz.bkt.clouddn.com/image5.png" alt=""></p>
+<p>下面是我录制的一个动态小视频，可以感受下plotly带给ggplot的动态交互体验：<br><img src="http://orn9f9laz.bkt.clouddn.com/image6.png" alt=""></p>
+<iframe frameborder="0" width="640" height="498" src="https://v.qq.com/iframe/player.html?vid=t13096cfgh5&tiny=0&auto=0" allowfullscreen></iframe>
+
+<p>而且这种动态效果机会不受ggplot图表类型及版面的限制，在分面情况下，动态效果依然如故：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(carat,price,colour=color))+geom_point()+theme_economist()+scale_colour_economist()+facet_wrap(~cut)</div><div class="line">ggplotly()</div></pre></td></tr></table></figure></p>
+<p><img src="http://orn9f9laz.bkt.clouddn.com/image7.png" alt=""></p>
+<p>以上图表中加入了经济学人的主题及配色模板，动态效果依然还在，有了这种动态效果，展示呈现多维数据方面，省去了不少麻烦，特别是分类较多时，一时半会很难弄清楚某种分类的整体分布情况，而通过动态选择，可以很容易的过滤掉暂时无关的分类项对信息获取的障碍。</p>
+<hr>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
+<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
+<hr>
+<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这段时间一直在研究ggplot2这个神奇的可视化利器，可是ggplot2纵然所向披靡，唯独无法呈现动态效果！&lt;/p&gt;
+&lt;p&gt;最近发现R语言的官方CRAN中有一款名叫plotly的包，详细了解了下，这个plotly是基于js脚本语言开发的专用于动态交互可视化的利器，开发有在线版和桌面本，而且效果相当不错！&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
+    
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="动态图表" scheme="http://www.raindu.com/tags/%E5%8A%A8%E6%80%81%E5%9B%BE%E8%A1%A8/"/>
+    
+      <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
+    
+      <category term="版面控制" scheme="http://www.raindu.com/tags/%E7%89%88%E9%9D%A2%E6%8E%A7%E5%88%B6/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Excel依然是一款强大的数据可视化利器~</title>
     <link href="http://www.raindu.com/2017/06/16/Excel%E4%BE%9D%E7%84%B6%E6%98%AF%E4%B8%80%E6%AC%BE%E5%BC%BA%E5%A4%A7%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%A9%E5%99%A8/"/>
     <id>http://www.raindu.com/2017/06/16/Excel依然是一款强大的数据可视化利器/</id>
     <published>2017-06-16T01:32:50.000Z</published>
-    <updated>2017-06-16T01:45:54.815Z</updated>
+    <updated>2017-06-16T14:17:25.610Z</updated>
     
     <content type="html"><![CDATA[<p>早期的数据小魔方用户大概都知道，我最初也是从学习Excel起步的，只是学习的深入了之后，才开开慢慢的迁移到R语言。</p>
 <p>我往R语言转型并不代表自己开始放弃Excel或者觉得Excel不适合做可视化，只是想体验一下Excel外围的可视化世界是什么样子的，毕竟在这个大行业内，还活跃着太多可视化领域的佼佼者，譬如 PowerBI、Tableau等。</p>
@@ -53,7 +119,7 @@
 <p><img src="http://orm967kgl.bkt.clouddn.com/image9.jpg" alt=""><br><img src="http://orm967kgl.bkt.clouddn.com/image10.jpg" alt=""><br><img src="http://orm967kgl.bkt.clouddn.com/image11.jpg" alt=""><br><img src="http://orm967kgl.bkt.clouddn.com/image12.jpg" alt=""></p>
 <p>Excel的强大远不止于此，如果你能习得名称管理器、开发工具与高级查询函数，那么制作动态仪表盘是分分钟的事儿，再将平时里积淀的优秀版式、配色方案等融入其中，那么你的工作价值一定会呈指数级增长。</p>
 <hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
@@ -69,9 +135,9 @@
       <category term="可视化案例呈现" scheme="http://www.raindu.com/categories/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%A1%88%E4%BE%8B%E5%91%88%E7%8E%B0/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="Excel" scheme="http://www.raindu.com/tags/Excel/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="商务图表" scheme="http://www.raindu.com/tags/%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
     
@@ -82,7 +148,7 @@
     <link href="http://www.raindu.com/2017/06/16/%E5%AD%A6%E4%B9%A0R%E8%AF%AD%E8%A8%80%E6%88%91%E9%83%BD%E5%81%9A%E4%BA%86%E9%82%A3%E4%BA%9B%E6%9C%89%E8%B6%A3%E7%9A%84%E4%BA%8B%E6%83%85%EF%BC%81%EF%BC%81%EF%BC%81/"/>
     <id>http://www.raindu.com/2017/06/16/学习R语言我都做了那些有趣的事情！！！/</id>
     <published>2017-06-16T01:01:29.000Z</published>
-    <updated>2017-06-16T01:22:03.571Z</updated>
+    <updated>2017-06-16T14:17:25.937Z</updated>
     
     <content type="html"><![CDATA[<p>学习R语言已经整整一年光景了， 是时候整理一下自己学习以来的收获和成就。</p>
 <p>虽然一直学的很专注（一直埋头在可视化的小圈子了，总感觉这样是停留在舒适区，也许外面的风景会更好），但是专注有专注的好处，就是每一个细节都有机会做的更好！</p>
@@ -101,7 +167,7 @@
 <p>当然这些并不是全部，还有很多案例来不及给大家分享，那些学完爬虫之后，自己能够遍历网页，获取实用数据的时刻，确实非常令人振奋。</p>
 <p>也许学习技能的最好方式，就是立马用起来，做一些有趣的事情，时刻保持着热情，那么总能有所收获！</p>
 <hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
@@ -118,11 +184,11 @@
       <category term="可视化案例呈现" scheme="http://www.raindu.com/categories/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%A1%88%E4%BE%8B%E5%91%88%E7%8E%B0/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="商务图表" scheme="http://www.raindu.com/tags/%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   
@@ -131,7 +197,7 @@
     <link href="http://www.raindu.com/2017/06/15/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94%E5%9B%BE%E8%A1%A8%E5%B5%8C%E5%A5%97%EF%BC%88%E6%AF%8D%E5%AD%90%E5%9B%BE%EF%BC%89/"/>
     <id>http://www.raindu.com/2017/06/15/R语言可视化——图表嵌套（母子图）/</id>
     <published>2017-06-15T00:48:04.000Z</published>
-    <updated>2017-06-15T00:57:17.155Z</updated>
+    <updated>2017-06-16T14:17:25.752Z</updated>
     
     <content type="html"><![CDATA[<p>之前在学习ggplot的时候，一直存在着一个困惑。</p>
 <p>就是这个函数是否允许两个做出来的两个相关图表重叠嵌套（也就是在一个大图（主图）的边缘位置，放置另一个缩小版的小图）。</p>
@@ -159,7 +225,7 @@
 <p><strong>下面我将附图的类型更换为堆积直方图大家看下效果：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">chart1&lt;-ggplot(diamonds,aes(carat,price,colour=cut))+geom_point()+theme(legend.position=c(<span class="number">0.9</span>,<span class="number">0.72</span>),legend.background=element_rect(I(<span class="number">0</span>)))</div><div class="line">chart1</div><div class="line">vie&lt;-viewport(width=<span class="number">0.669</span>,height=<span class="number">0.4</span>,x=<span class="number">0.7</span>,y=<span class="number">0.306</span>)</div><div class="line">chart2 &lt;-ggplot(diamonds,aes(depth,fill=color))+geom_histogram()+xlim(<span class="number">54</span>,<span class="number">70</span>) +</div><div class="line">       theme(axis.text.y=element_text(face=<span class="string">"bold"</span>,colour=<span class="string">"black"</span>),</div><div class="line">             axis.title.y=element_blank(),</div><div class="line">             axis.text.x=element_text(face=<span class="string">"bold"</span>,colour=<span class="string">"black"</span>),</div><div class="line">             plot.background=element_rect(I(<span class="number">0</span>),linetype=<span class="number">0</span>),</div><div class="line">             panel.background=element_rect(I(<span class="number">0</span>)),</div><div class="line">             panel.grid.major=element_line(colour=<span class="literal">NA</span>),</div><div class="line">             panel.grid.minor=element_line(colour=<span class="literal">NA</span>),</div><div class="line">             legend.background=element_rect(I(<span class="number">0</span>),linetype=<span class="number">1</span>),</div><div class="line">             legend.position=c(<span class="number">0.85</span>,<span class="number">0.72</span>))</div><div class="line">print(chart2,vp=vie)</div></pre></td></tr></table></figure></p>
 <p><img src="http://orkcefhda.bkt.clouddn.com/image4.png" alt=""></p>
 <hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
@@ -177,9 +243,9 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -194,7 +260,7 @@
     <link href="http://www.raindu.com/2017/06/14/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94%E5%9C%B0%E5%9B%BE%E4%B8%8E%E6%B0%94%E6%B3%A1%E5%9B%BE%E7%BB%93%E5%90%88%E5%BA%94%E7%94%A8/"/>
     <id>http://www.raindu.com/2017/06/14/R语言可视化——地图与气泡图结合应用/</id>
     <published>2017-06-14T00:50:58.000Z</published>
-    <updated>2017-06-14T10:20:23.718Z</updated>
+    <updated>2017-06-16T14:17:25.761Z</updated>
     
     <content type="html"><![CDATA[<p>今天跟大家分享如何在地图上进行散点图、气泡图绘制。</p>
 <p>昨天跟大家介绍了<code>ggplot</code>函数进行地图绘制的原理，通过轮廓点和分组来定义每一个地区（国家边界），通过多边形填充来完成区域填色。</p>
@@ -213,7 +279,7 @@
 <p><code>scale_fill_gradient2（）</code>定义了一个三色渐变，<code>low</code>、<code>mid</code>、<code>high</code>分别由一个颜色代码控制，同时均值颜色要映射给指标2的平均数。</p>
 <p>最后的<code>ggtitle</code>定义主题，<code>theme</code>内的参数清除掉所有图层上的无关元素（背景、网格系统、横纵轴标签、刻度线、轴标题、图例）</p>
 <hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
@@ -230,9 +296,9 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
@@ -247,7 +313,7 @@
     <link href="http://www.raindu.com/2017/06/13/%E7%94%A8R%E8%AF%AD%E8%A8%80%E6%8A%93%E5%8F%96%E7%BD%91%E9%A1%B5%E5%9B%BE%E7%89%87%E2%80%94%E2%80%94%E4%BB%8E%E6%AD%A4%E9%AB%98%E6%95%88%E5%AD%98%E5%9B%BE%E5%91%8A%E5%88%AB%E6%89%8B%E5%B7%A5%E6%97%B6%E4%BB%A3/"/>
     <id>http://www.raindu.com/2017/06/13/用R语言抓取网页图片——从此高效存图告别手工时代/</id>
     <published>2017-06-13T07:19:50.000Z</published>
-    <updated>2017-06-13T09:00:25.164Z</updated>
+    <updated>2017-06-16T14:17:26.010Z</updated>
     
     <content type="html"><![CDATA[<p>今天这个标题实在是有点言过其实了，对于R的爬虫知识，我只是领会了一点儿皮毛。</p>
 <p>主要看不懂正则表达式，特别是那种一个括号里要匹配多种类型文本的语句，特像火星文，估计短期很难搞懂了。</p>
@@ -304,7 +370,7 @@
 <p>声明：</p>
 <p>以上图片爬虫代码仅作个人练习R语言爬虫使用，各位小伙伴儿练习完毕之后，请尊重知乎原答主的版权，勿将所抓取图片商用，或者直接删除。<br>学好技术也要遵守底线，做一个规矩的技术达人。</p>
 <hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
@@ -337,7 +403,7 @@
     <link href="http://www.raindu.com/2017/06/13/%E5%BD%93PowerBI%E9%81%87%E5%88%B0R%E8%AF%AD%E8%A8%80/"/>
     <id>http://www.raindu.com/2017/06/13/当PowerBI遇到R语言/</id>
     <published>2017-06-13T00:31:12.000Z</published>
-    <updated>2017-06-13T00:47:02.243Z</updated>
+    <updated>2017-06-16T14:17:25.966Z</updated>
     
     <content type="html"><![CDATA[<p>PowerBI作为微软系最新的商务智能办公系统，自去年发布以来，一直都备受瞩目。</p>
 <p>他的更新频次相当之高，功能更新迭代非常迅速。</p>
@@ -418,7 +484,7 @@
 <p>小魔方已经将微软第三方应用平台的所有视觉对象插件打包整理（包含R对象的几款插件），共享在魔方学院的QQ群文件里啦，想要体验的小伙伴儿赶快去下载吧~</p>
 <p><img src="http://orgmkkktc.bkt.clouddn.com/image20.png" alt=""></p>
 <hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
@@ -435,9 +501,9 @@
       <category term="PowerBI" scheme="http://www.raindu.com/categories/PowerBI/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
     
@@ -450,7 +516,7 @@
     <link href="http://www.raindu.com/2017/06/12/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94%E5%A4%9A%E8%BE%B9%E5%BD%A2%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%9C%B0%E5%9B%BE%E5%A1%AB%E5%85%85/"/>
     <id>http://www.raindu.com/2017/06/12/R语言可视化——多边形与数据地图填充/</id>
     <published>2017-06-12T01:11:36.000Z</published>
-    <updated>2017-06-12T01:22:55.418Z</updated>
+    <updated>2017-06-16T14:17:25.769Z</updated>
     
     <content type="html"><![CDATA[<p>ggplot函数中有一类特殊的图表类型叫做多边形，很难用传统的视角来定义它属于哪一类图表，因为它能够呈现信息多种多样。</p>
 <p>特别是在做某些比较高阶的图表——地图时，这种多边形函数便能够大显神通。</p>
@@ -481,7 +547,7 @@
 <p>地图图表作为ggplot函数中一大类比较高阶的图表，可以做出很多让人眼花缭乱、令人尖叫的作品来，感兴趣的小伙伴儿赶快学起来。</p>
 <hr>
 <p><strong>联系方式：</strong></p>
-<p>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834  </p>
+<p>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508  </p>
 <p><strong>个人简介：</strong></p>
 <p><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。 <br><br>Mail:578708965@qq.com </p>
 <hr>
@@ -499,9 +565,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
@@ -514,7 +580,7 @@
     <link href="http://www.raindu.com/2017/06/11/R%E8%AF%AD%E8%A8%80%E9%A2%9C%E8%89%B2%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%E4%B8%8E%E8%89%B2%E5%BD%A9%E6%96%B9%E6%A1%88%E5%85%B1%E4%BA%AB/"/>
     <id>http://www.raindu.com/2017/06/11/R语言颜色综合运用与色彩方案共享/</id>
     <published>2017-06-11T13:26:08.000Z</published>
-    <updated>2017-06-11T13:48:20.902Z</updated>
+    <updated>2017-06-16T14:17:25.827Z</updated>
     
     <content type="html"><![CDATA[<p>今天这篇主要讲解R语言颜色综合运用，主要跟大家介绍如何提取那些专业色彩包中的颜色搭配用于在基础绘图系统和高级绘图系统中共享。</p>
 <a id="more"></a>
@@ -598,7 +664,7 @@
 <p>以上是今天所要讲的主要内容，因为关于这块儿的内容，非常丰富，我也只能涉略一点儿，想要了解更多的R语言配色知识，可以参考详细的官方文档。</p>
 <hr>
 <p><strong>联系方式：</strong></p>
-<p>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834  </p>
+<p>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508  </p>
 <p><strong>个人简介：</strong></p>
 <p><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。 <br><br>Mail:578708965@qq.com </p>
 <hr>
@@ -620,7 +686,7 @@
     <link href="http://www.raindu.com/2017/06/11/R%E9%A2%84%E8%AE%BE%E9%85%8D%E8%89%B2%E7%B3%BB%E7%BB%9F%E5%8F%8A%E8%87%AA%E5%AE%9A%E4%B9%89%E8%89%B2%E6%9D%BF/"/>
     <id>http://www.raindu.com/2017/06/11/R预设配色系统及自定义色板/</id>
     <published>2017-06-11T13:11:15.000Z</published>
-    <updated>2017-06-11T13:23:41.600Z</updated>
+    <updated>2017-06-16T14:17:25.835Z</updated>
     
     <content type="html"><![CDATA[<p>关于配色的话题，已经聊过很多次了，但是就像是之前说过的，对于图形可视化而言，配色决定着作品的“颜值”,谈再多次都不嫌多。</p>
 <p>今天是R语言配色系统综合篇的上篇（当然是有下篇啦，下篇将会教你如何优雅的提取各种高大上配色主题，作为己用。经过几天的研究，小魔方已经发现了如果将各种高质量配色包中的主题色板通过函数的形式在高级绘图系统和低级绘图系统之间相互共享）。</p>
@@ -673,7 +739,7 @@
 <p>通过scales包中的brewer.col，我们可以提取出以上各包的配色主题，来用于我们的可视化图表中，不光是ggplot绘图系统，即便是在基础绘图系统（base::plot）中也是可以调用这些色彩方案的，好了这里先放个彩蛋，下期再见！</p>
 <hr>
 <p><strong>联系方式：</strong></p>
-<p>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834  </p>
+<p>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508  </p>
 <p><strong>个人简介：</strong></p>
 <p><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。 <br><br>Mail:578708965@qq.com </p>
 <hr>
@@ -691,9 +757,9 @@
       <category term="图表配色" scheme="http://www.raindu.com/categories/%E5%9B%BE%E8%A1%A8%E9%85%8D%E8%89%B2/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="配色" scheme="http://www.raindu.com/tags/%E9%85%8D%E8%89%B2/"/>
     
@@ -704,7 +770,7 @@
     <link href="http://www.raindu.com/2017/06/11/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94%E6%9E%81%E5%9D%90%E6%A0%87%E5%8F%98%E6%8D%A2%E4%B8%8E%E8%A1%8D%E7%94%9F%E5%9B%BE%E8%A1%A8%E7%B1%BB%E5%9E%8B/"/>
     <id>http://www.raindu.com/2017/06/11/R语言可视化——极坐标变换与衍生图表类型/</id>
     <published>2017-06-11T01:20:45.000Z</published>
-    <updated>2017-06-11T01:35:54.937Z</updated>
+    <updated>2017-06-16T14:17:25.779Z</updated>
     
     <content type="html"><![CDATA[<p>今天这篇内容会比较杂乱一点，因为会讲到ggplot函数中的一大类通过极坐标支持才能呈现出来的图表效果。</p>
 <p>ggplot作图背后的图表哲学，没有给予饼图（以及衍生出的圆环图、玫瑰图等放射状图表类型）存在的空间（主要是该包的开发者个人的审美观，比较反感次坐标轴以及功能类型雷同的重复性图层函数，所以它宁可开发出分面图层原理也不愿意增加次坐标轴，不愿意为原本柱形图可以表达的图表形式再单独开发一种功能雷同的饼图函数）。</p>
@@ -746,7 +812,7 @@
 <p><img src="http://ord0k5mhu.bkt.clouddn.com/image12.png" alt=""></p>
 <hr>
 <p><strong>联系方式：</strong></p>
-<p>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834  </p>
+<p>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508  </p>
 <p><strong>个人简介：</strong></p>
 <p><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。 <br><br>Mail:578708965@qq.com </p>
 <hr>
@@ -765,9 +831,9 @@
       <category term="R语言" scheme="http://www.raindu.com/categories/R%E8%AF%AD%E8%A8%80/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -786,7 +852,7 @@
     <link href="http://www.raindu.com/2017/06/10/R%E8%AF%AD%E8%A8%80%E5%9B%BE%E8%A1%A8%E7%BE%8E%E5%8C%96%E2%80%94%E2%80%94%E5%B7%A7%E7%94%A8%E5%88%86%E9%9D%A2%E8%A1%A8%E8%BE%BE%E4%BC%98%E5%8C%96%E5%9B%BE%E8%A1%A8%E5%B8%83%E5%B1%80%EF%BC%8C%E5%81%9A%E5%87%BA%E5%A0%AA%E6%AF%94%E6%9D%82%E5%BF%97%E7%BA%A7%E8%A7%86%E8%A7%89%E4%BD%93%E9%AA%8C%E7%9A%84%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
     <id>http://www.raindu.com/2017/06/10/R语言图表美化——巧用分面表达优化图表布局，做出堪比杂志级视觉体验的商务图表/</id>
     <published>2017-06-10T01:15:55.000Z</published>
-    <updated>2017-06-10T01:54:32.725Z</updated>
+    <updated>2017-06-16T14:17:25.808Z</updated>
     
     <content type="html"><![CDATA[<p>图表的优化布局在Excel中一直都是个大难题，难在Excel软件固有的限制。</p>
 <p>特别是在制作多序列多分类图表的时候，放在一个图中显得序列过于拥挤，影响视觉效果，做出分面表达又耗时费力，需要掌握诸多技巧，（版式设计呀、单元格锚定呀等等、照相机呀什么的）是在是有心无力。</p>
@@ -844,7 +910,7 @@
 <p>以上是本人在学习ggplot函数过程中的一些练习案例，当然要是仔细琢磨，里面的瑕疵还不少，改进空间还有很多，以后有机会慢慢跟大家补充，过几天再跟大家继续分享关于ggplot更加精深的用法技巧！</p>
 <hr>
 <p><strong>联系方式：</strong></p>
-<p>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834  </p>
+<p>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508  </p>
 <p><strong>个人简介：</strong></p>
 <p><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
 <hr>
@@ -862,9 +928,9 @@
       <category term="R语言" scheme="http://www.raindu.com/categories/R%E8%AF%AD%E8%A8%80/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -875,7 +941,7 @@
     <link href="http://www.raindu.com/2017/06/09/leaflet%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE%E8%BF%9B%E9%98%B6%E5%AE%9D%E5%85%B8%E2%80%94%E2%80%94%E9%AB%98%E7%BA%A7%E4%BA%A4%E4%BA%92%E7%89%B9%E6%80%A7(%E5%8A%A8%E6%80%81%E6%98%BE%E7%A4%BA%E6%95%88%E6%9E%9C)/"/>
     <id>http://www.raindu.com/2017/06/09/leaflet在线地图进阶宝典——高级交互特性(动态显示效果)/</id>
     <published>2017-06-09T02:10:09.000Z</published>
-    <updated>2017-06-10T11:12:29.642Z</updated>
+    <updated>2017-06-16T14:17:25.629Z</updated>
     
     <content type="html"><![CDATA[<p>本文针对leaflet的高级交互特性进行展开，主要涉及到leaflet中等值线地图的鼠标悬浮效果及点击效果的动态呈现。这也是leaflet的天然HTML属性所具有的强大优势。</p>
 <p>在制作高质量在线数据地图的项目中，leaflet结合扩展的HTML性能，可以呈现非常人性化的动态效果，如能结合css、shiny等装饰器和交互框架，几乎可以胜任常见的动态交互网站的制作。</p>
@@ -900,7 +966,7 @@
 <p>以下是该案例的完整代码：<br><code>From http://leafletjs.com/examples/choropleth/us-states.js</code><br>（数据源，js格式记得保存为geojson格式）</p>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">bins &lt;- c(<span class="number">0</span>, <span class="number">10</span>, <span class="number">20</span>, <span class="number">50</span>, <span class="number">100</span>, <span class="number">200</span>, <span class="number">500</span>, <span class="number">1000</span>, <span class="literal">Inf</span>)</div><div class="line">pal &lt;- colorBin(<span class="string">"YlOrRd"</span>, domain = states$density, bins = bins)</div><div class="line"></div><div class="line">labels &lt;- sprintf(</div><div class="line">  <span class="string">"&lt;strong&gt;%s&lt;/strong&gt;&lt;br/&gt;%g people / mi&lt;sup&gt;2&lt;/sup&gt;"</span>,</div><div class="line">  states$name, states$density</div><div class="line">) %&gt;% lapply(htmltools::HTML)</div><div class="line"></div><div class="line">leaflet(states) %&gt;%</div><div class="line">  setView(-<span class="number">96</span>, <span class="number">37.8</span>, <span class="number">4</span>) %&gt;%</div><div class="line">  addProviderTiles(<span class="string">"MapBox"</span>, options = providerTileOptions(</div><div class="line">    id = <span class="string">"mapbox.light"</span>,</div><div class="line">    accessToken = Sys.getenv(<span class="string">'MAPBOX_ACCESS_TOKEN'</span>))) %&gt;%</div><div class="line">  addPolygons(</div><div class="line">    fillColor = ~pal(density),</div><div class="line">    weight = <span class="number">2</span>,</div><div class="line">    opacity = <span class="number">1</span>,</div><div class="line">    color = <span class="string">"white"</span>,</div><div class="line">    dashArray = <span class="string">"3"</span>,</div><div class="line">    fillOpacity = <span class="number">0.7</span>,</div><div class="line">    highlight = highlightOptions(</div><div class="line">      weight = <span class="number">5</span>,</div><div class="line">      color = <span class="string">"#666"</span>,</div><div class="line">      dashArray = <span class="string">""</span>,</div><div class="line">      fillOpacity = <span class="number">0.7</span>,</div><div class="line">      bringToFront = <span class="literal">TRUE</span>),</div><div class="line">    label = labels,</div><div class="line">    labelOptions = labelOptions(</div><div class="line">      style = list(<span class="string">"font-weight"</span> = <span class="string">"normal"</span>, padding = <span class="string">"3px 8px"</span>),</div><div class="line">      textsize = <span class="string">"15px"</span>,</div><div class="line">      direction = <span class="string">"auto"</span>)) %&gt;%</div><div class="line">  addLegend(pal = pal, values = ~density, opacity = <span class="number">0.7</span>, title = <span class="literal">NULL</span>,</div><div class="line">    position = <span class="string">"bottomright"</span>)</div></pre></td></tr></table></figure>
 <hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
@@ -916,9 +982,9 @@
       <category term="地理信息可视化" scheme="http://www.raindu.com/categories/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
@@ -933,7 +999,7 @@
     <link href="http://www.raindu.com/2017/06/08/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94REmapH-%E4%B8%AD%E5%BF%83%E7%83%AD%E5%BA%A6%E5%9B%BE/"/>
     <id>http://www.raindu.com/2017/06/08/R语言可视化——REmapH-中心热度图/</id>
     <published>2017-06-08T09:36:37.000Z</published>
-    <updated>2017-06-10T11:11:59.882Z</updated>
+    <updated>2017-06-16T14:17:25.724Z</updated>
     
     <content type="html"><![CDATA[<p>今天是REmap系列的最后一篇——REmapH函数。</p>
 <p>这个函数的特色是可以做中心辐射的热力图，这种热力图在气象、人口密度、海拔测绘领域有诸多运用，当然也可以上当用在商务场合——特别是跟地理信息有关的数据呈现方面。</p>
@@ -981,7 +1047,7 @@
 <p><strong>从新运行图表函数：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">map_out2&lt;-remapH(newdata[,<span class="number">1</span>:<span class="number">3</span>],</div><div class="line">       maptype = <span class="string">"辽宁"</span>,</div><div class="line">       theme =get_theme(theme = <span class="string">"Dark"</span>),</div><div class="line">       blurSize = <span class="number">70</span>,</div><div class="line">       color = <span class="string">"red"</span>,</div><div class="line">       minAlpha = <span class="number">10</span>,</div><div class="line">       opacity = <span class="number">1</span>,</div><div class="line">       )</div><div class="line">plot(map_out2)</div></pre></td></tr></table></figure></p>
 <p><img src="http://or82vn70x.bkt.clouddn.com/image3.png" alt=""></p>
 <hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
@@ -997,9 +1063,9 @@
       <category term="地理信息可视化" scheme="http://www.raindu.com/categories/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
@@ -1014,7 +1080,7 @@
     <link href="http://www.raindu.com/2017/06/08/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94REmapC-%E5%A1%AB%E5%85%85%E5%9C%B0%E5%9B%BE/"/>
     <id>http://www.raindu.com/2017/06/08/R语言可视化——REmapC-填充地图/</id>
     <published>2017-06-08T05:03:50.000Z</published>
-    <updated>2017-06-10T11:12:06.960Z</updated>
+    <updated>2017-06-16T14:17:25.714Z</updated>
     
     <content type="html"><![CDATA[<p>今天跟大家介绍REmap函数家族中的第三个函数——REmapC。</p>
 <p>REmapC函数允许我们同时在一张地图上制作填充图和点图、线图。</p>
@@ -1043,7 +1109,7 @@
 <p>因为假设广东是人口迁出地，给广东填色是没有任何意义的，所以mydata数据中需要忽略 广东的数据<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">mydata1 &lt;- mydata[-<span class="number">12</span>,]</div><div class="line">map_out2 &lt;- remapC(mydata1,</div><div class="line">                  maptype = <span class="string">"china"</span>,</div><div class="line">                  title=<span class="string">"人口迁徙地图"</span>,</div><div class="line">                  theme = get_theme(<span class="string">"Drak"</span>),</div><div class="line">                  color=c(<span class="string">"#CD0000"</span>,<span class="string">"#FFEC8B"</span>),   </div><div class="line">                  markLineData=line_data,   </div><div class="line">                  markLineTheme=markLineControl(</div><div class="line">                  color=<span class="string">"white"</span>, </div><div class="line">                  lineWidth=<span class="number">2</span>, </div><div class="line">                  lineType=<span class="string">"dashed"</span>  </div><div class="line">                  ),</div><div class="line">                  markPointData=line_data[<span class="number">2</span>],</div><div class="line">                  markPointTheme=markPointControl(</div><div class="line">                  symbolSize=<span class="number">13</span>,  </div><div class="line">                  effect=<span class="literal">T</span>,           </div><div class="line">                  effectType=<span class="string">"scale"</span>,    </div><div class="line">                  color=<span class="string">"white"</span></div><div class="line">                  )</div><div class="line">                   )                             </div><div class="line">plot(map_out2)</div></pre></td></tr></table></figure></p>
 <p><img src="http://or7qctnpz.bkt.clouddn.com/GIF4.gif" alt=""></p>
 <hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
@@ -1059,15 +1125,15 @@
       <category term="地理信息可视化" scheme="http://www.raindu.com/categories/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
-      <category term="REmap" scheme="http://www.raindu.com/tags/REmap/"/>
-    
       <category term="填充地图" scheme="http://www.raindu.com/tags/%E5%A1%AB%E5%85%85%E5%9C%B0%E5%9B%BE/"/>
+    
+      <category term="REmap" scheme="http://www.raindu.com/tags/REmap/"/>
     
   </entry>
   
@@ -1076,7 +1142,7 @@
     <link href="http://www.raindu.com/2017/06/08/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94%E6%A1%88%E4%BE%8B%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8/"/>
     <id>http://www.raindu.com/2017/06/08/R语言可视化——案例综合运用/</id>
     <published>2017-06-08T01:36:58.000Z</published>
-    <updated>2017-06-10T11:11:34.710Z</updated>
+    <updated>2017-06-16T14:17:25.787Z</updated>
     
     <content type="html"><![CDATA[<p>今天跟大家介绍一个REmap包的新函数——REmapB。</p>
 <p>它是REmap包中诸多组函数中的一位，功能上要强大于之前介绍的REmap函数，不仅可以完成REmap函数的所有图表效果，而且可以做出前者没有的地图效果。</p>
@@ -1136,7 +1202,7 @@
 <p>如果想要存储该HTML对象，需要设定临时目录：</p>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">setwd(<span class="string">"D:/R/Rscript"</span>)      <span class="comment">#保存图片的位置，不做修改默认为R的工作路径</span></div><div class="line">options(remap.js.web=<span class="literal">T</span>)    <span class="comment">#动态网页图保存命令</span></div><div class="line">plot(map_out3)             <span class="comment">#保存的同时自动调用浏览器窗口</span></div></pre></td></tr></table></figure>
 <hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
@@ -1152,9 +1218,9 @@
       <category term="地理信息可视化" scheme="http://www.raindu.com/categories/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
@@ -1169,7 +1235,7 @@
     <link href="http://www.raindu.com/2017/06/07/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94REmap-%E8%B7%AF%E5%BE%84%E5%9B%BE/"/>
     <id>http://www.raindu.com/2017/06/07/R语言可视化——REmap-路径图/</id>
     <published>2017-06-07T10:49:51.000Z</published>
-    <updated>2017-06-10T11:11:43.757Z</updated>
+    <updated>2017-06-16T14:17:25.701Z</updated>
     
     <content type="html"><![CDATA[<p>今天紧接昨天的内容，跟大家分享如何使用REmap函数制作路径图。</p>
 <p>路径图所需要的数据结构非常简单，两列数据，左侧是起点，右侧是终点，并且每一行的终点是下一行的起点，这样最终才可以制作出连接在一起的路径图。</p>
@@ -1201,7 +1267,7 @@
 <p>如果想要存储该HTML对象，需要设定临时目录：</p>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">setwd(<span class="string">"D:/R/Rscript"</span>)      <span class="comment">#保存图片的位置，不做修改默认为R的工作路径</span></div><div class="line">options(remap.js.web=<span class="literal">T</span>)    <span class="comment">#动态网页图保存命令</span></div><div class="line">plot(map_out5)             <span class="comment">#保存的同时自动调用浏览器窗口</span></div></pre></td></tr></table></figure>
 <hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
@@ -1217,9 +1283,9 @@
       <category term="地理信息可视化" scheme="http://www.raindu.com/categories/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
@@ -1236,7 +1302,7 @@
     <link href="http://www.raindu.com/2017/06/07/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94REmap%E5%8A%A8%E6%80%81%E5%9C%B0%E5%9B%BE/"/>
     <id>http://www.raindu.com/2017/06/07/R语言可视化——REmap动态地图/</id>
     <published>2017-06-07T01:27:05.000Z</published>
-    <updated>2017-06-10T11:11:51.602Z</updated>
+    <updated>2017-06-16T14:17:25.733Z</updated>
     
     <content type="html"><![CDATA[<p>今天开始，要跟着大家学习一个新的可视化R包——REmap包。</p>
 <p>说起来，这个包要归功于百度的可视化开源项目——echarts,它是国内为数不多的高水平开源可视化js库，在业界地位首屈一指。</p>
@@ -1300,7 +1366,7 @@
 <p><img src="http://or5l0vdpe.bkt.clouddn.com/image7.png" alt=""></p>
 <p>其实以上所有图表都是带有动态交互效果的！</p>
 <hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
@@ -1317,9 +1383,9 @@
       <category term="地理信息可视化" scheme="http://www.raindu.com/categories/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
@@ -1334,7 +1400,7 @@
     <link href="http://www.raindu.com/2017/06/06/leaflet%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE%E8%BF%9B%E9%98%B6%E5%AE%9D%E5%85%B8%E4%B9%8B%E2%80%94%E2%80%94%E9%AB%98%E7%BA%A7%E8%BE%85%E5%8A%A9%E7%89%B9%E6%80%A7/"/>
     <id>http://www.raindu.com/2017/06/06/leaflet在线地图进阶宝典之——高级辅助特性/</id>
     <published>2017-06-06T01:27:27.000Z</published>
-    <updated>2017-06-10T11:12:22.212Z</updated>
+    <updated>2017-06-16T14:17:25.643Z</updated>
     
     <content type="html"><![CDATA[<p>本文跟大家分享leaflet在线地图的高级附加属性，这些属性通常来讲仅仅作为我们数据额可视化项目的修饰元素，而并不会影响数据元素。</p>
 <p>但是有了这些辅助修饰元素，往往可以使你的数据可视化项目变得更具人性化。</p>
@@ -1415,7 +1481,7 @@
 
 
 <hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
@@ -1431,9 +1497,9 @@
       <category term="地理信息可视化" scheme="http://www.raindu.com/categories/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
@@ -1450,7 +1516,7 @@
     <link href="http://www.raindu.com/2017/06/05/Leaflet%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE%E8%BF%9B%E9%98%B6%E5%AE%9D%E5%85%B8%E2%80%94%E2%80%94json%E7%B4%A0%E6%9D%90%E6%93%8D%E7%BA%B5%E4%B8%8E%E5%9B%BE%E5%B1%82%E9%9D%A2%E6%9D%BF%E6%8E%A7%E5%88%B6/"/>
     <id>http://www.raindu.com/2017/06/05/Leaflet在线地图进阶宝典——json素材操纵与图层面板控制/</id>
     <published>2017-06-05T13:52:37.000Z</published>
-    <updated>2017-06-10T11:12:37.038Z</updated>
+    <updated>2017-06-16T14:17:25.619Z</updated>
     
     <content type="html"><![CDATA[<p>这篇教程憋了很久，其实算是3个月前leaflet在线地图系列的进阶篇，但是因为当时对于leaflet地图的数据源结构理解有限，技能勉强操控shp数据源，对于json数据源所知甚少，一直拖了这么久才更新。</p>
 <p>随着近期在json数据结构的理解不断加深，对于list结构和向量化运算的掌握也多有提高，这才能熟练的在leaflet系统中操控json数据。</p>
@@ -1507,7 +1573,7 @@
 <p><img src="http://or2u6tot7.bkt.clouddn.com/image6.png" alt=""></p>
 <p>动态视频效果来一波！<iframe height="498" width="510" src="http://player.youku.com/embed/XMjgwNjU4OTU4MA==" frameborder="0" 'allowfullscreen'=""></iframe></p>
 <hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
@@ -1523,9 +1589,9 @@
       <category term="地理信息可视化" scheme="http://www.raindu.com/categories/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="json" scheme="http://www.raindu.com/tags/json/"/>
     
@@ -1534,81 +1600,6 @@
       <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
     
       <category term="leaflet" scheme="http://www.raindu.com/tags/leaflet/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>动态地理信息可视化——leaflet填充地图</title>
-    <link href="http://www.raindu.com/2017/06/05/%E5%8A%A8%E6%80%81%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94leaflet%E5%A1%AB%E5%85%85%E5%9C%B0%E5%9B%BE/"/>
-    <id>http://www.raindu.com/2017/06/05/动态地理信息可视化——leaflet填充地图/</id>
-    <published>2017-06-05T01:11:51.000Z</published>
-    <updated>2017-06-10T11:10:25.742Z</updated>
-    
-    <content type="html"><![CDATA[<p>这一篇是leaflet动态地图的第四篇，也是最值得推荐的一篇，这一篇涉及到热力地图填充，通过该篇内容，大家可以体会大leaflet在线地图的R借口在处理热力地图上面颜色标度映射的强大优势。</p>
-<a id="more"></a>
-<h3 id="加载包："><a href="#加载包：" class="headerlink" title="加载包："></a>加载包：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(plyr)</div><div class="line"><span class="keyword">library</span>(maps)</div><div class="line"><span class="keyword">library</span>(mapdata)</div><div class="line"><span class="keyword">library</span>(leaflet)</div><div class="line"><span class="keyword">library</span>(stringi)</div><div class="line"><span class="keyword">library</span>(maptools)</div><div class="line"><span class="keyword">library</span>(htmltools)</div><div class="line"><span class="keyword">library</span>(RColorBrewer)</div><div class="line"><span class="keyword">library</span>(ggplot2)</div><div class="line"><span class="keyword">library</span>(rgdal)</div></pre></td></tr></table></figure>
-<h3 id="地图素材加载："><a href="#地图素材加载：" class="headerlink" title="地图素材加载："></a>地图素材加载：</h3><p><strong>（leaflet支持多种地图素材，比如常见的shapefile格式、json格式以及其他在线地图，但是因为json格式本来还没有很熟练，这里用shp格式地图素材为例进行加讲解）。</strong></p>
-<p>肯定会有小伙伴儿会问，既然leaflet本身就是在线地图，为啥还要费事儿加载shp地图素材就进行映射，因为leaflet在线地图提供的地图底图本身具有多级缩放特性，每一缩放级别都有对应的行政区划界线，但是这些参数和行政区划是封装在底层的js语言中的，我们无法使用R语言直接进行调用，只能作为一个图层素材进行背景修饰，说白了，其实我们想要的仅仅是多级缩放的动态切换效果，这样再结合我们自定义的地图素材，可以呈现出更加完美的效果。（只有热力填充地图需要定义区域界线，而点图和线图都可以直接利用leaflet本身的地图素材，因为只需要坐标点位置即可）。</p>
-<p>我们常用的地图素材资源无非以下三种，R包内置的地图数据、shapefile格式和json格式。以下是三种格式素材导入并在leaflet中制作的地图的基本代码：</p>
-<p><strong>maps包:</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mapStates&lt;-map(<span class="string">"state"</span>,fill=<span class="literal">TRUE</span>,plot=<span class="literal">FALSE</span>)</div><div class="line">leaflet(mapStates) %&gt;% addTiles() %&gt;%addPolygons(fillColor=topo.colors(<span class="number">10</span>,alpha =<span class="literal">NULL</span>), stroke = <span class="literal">FALSE</span>)</div></pre></td></tr></table></figure></p>
-<p><img src="http://or1v6ecv9.bkt.clouddn.com/image1.png" alt=""></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mapWorld&lt;-map(<span class="string">"world"</span>,fill=<span class="literal">TRUE</span>,col=rainbow(<span class="number">200</span>),ylim=c(-<span class="number">60</span>,<span class="number">90</span>),mar=c(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>))</div><div class="line">leaflet(mapWorld) %&gt;% addTiles() %&gt;%addPolygons(fillColor = topo.colors(<span class="number">10</span>, alpha = <span class="literal">NULL</span>), stroke = <span class="literal">FALSE</span>)</div></pre></td></tr></table></figure>
-<p><img src="http://or1v6ecv9.bkt.clouddn.com/image2.png" alt=""></p>
-<p><strong>shapefile:</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">American_map &lt;-readShapePoly(<span class="string">"C:/rstudy/USA_map/STATES.SHP"</span>)</div><div class="line">American_map$STATE_NAME = iconv(American_map$STATE_NAME,<span class="string">"UTF8"</span>,<span class="string">"CP936"</span>) </div><div class="line">leaflet(American_map)%&gt;%addTiles()%&gt;%addPolygons(popup=~STATE_NAME,fillColor=topo.colors(<span class="number">10</span>,alpha=<span class="literal">NULL</span>),stroke=<span class="literal">FALSE</span>)</div></pre></td></tr></table></figure></p>
-<p><img src="http://or1v6ecv9.bkt.clouddn.com/image3.png" alt=""></p>
-<p><strong>json文件：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(jsonlite)</div><div class="line">geoData&lt;-readLines(<span class="string">"D:/R/mapdata/State/USA.json"</span>,warn=<span class="literal">FALSE</span>)%&gt;%paste(collapse=<span class="string">"\n"</span>)%&gt;%fromJSON(simplifyVector=<span class="literal">FALSE</span>)</div><div class="line">geoData$style=list(weight=<span class="number">1</span>,color=<span class="string">"red"</span>,fillColor=<span class="string">"green"</span>,opacity=<span class="number">1</span>,fill=<span class="literal">TRUE</span>,fillOpacity=<span class="number">0.6</span>)</div><div class="line">leaflet()%&gt;%setView(lng=-<span class="number">98.961387</span>,lat=<span class="number">39.708533</span>,zoom=<span class="number">3</span>)%&gt;%addTiles()%&gt;%addGeoJSON(geoData)</div></pre></td></tr></table></figure></p>
-<p><img src="http://or1v6ecv9.bkt.clouddn.com/image4.png" alt=""></p>
-<p>前两种素材作图过程大同小异，特别是一些标度的属性声明很类似ggplot中的函数过程，但是json格式的素材操作起来就不是很友好，他的标度属性是要在数据文件中新建style的list对象进行生命，而且json格式中的list非常多，结构相对复杂，至今我也没完全搞明白如果自由操作。</p>
-<h3 id="几张分类颜色标度填充效果："><a href="#几张分类颜色标度填充效果：" class="headerlink" title="几张分类颜色标度填充效果："></a>几张分类颜色标度填充效果：</h3><p>下面是承接上面shapefile格式素材做展现的四中颜色标度（三种连续性标度和一种分类标度的映射过程）。</p>
-<p><strong>colorQuantile（连续性数值变量的百分比颜色过度）:</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">pal &lt;- colorQuantile(<span class="string">"Greens"</span>,American_map@data$POP1990)</div><div class="line">leaflet(American_map)%&gt;%addTiles()%&gt;%</div><div class="line">addPolygons(color=~pal(American_map@data$POP1990),fillOpacity  = <span class="number">0.8</span>,weight=<span class="number">1</span>)%&gt;%</div><div class="line">addLegend(pal=pal,values=American_map@data$POP1990,position=<span class="string">"bottomleft"</span>,title = <span class="string">"1990年人口数量（万人）"</span>)</div></pre></td></tr></table></figure></p>
-<p><img src="http://or1v6ecv9.bkt.clouddn.com/image5.png" alt=""></p>
-<p><strong>以下两种同属连续性数值变量（使用颜色数量不同）</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">colorNumeric(多色过度):</div><div class="line">pal&lt;-colorNumeric(c(<span class="string">"darkgreen"</span>,<span class="string">"yellow"</span>,<span class="string">"orangered"</span>),American_map@data$POP1990)</div><div class="line">leaflet(American_map)%&gt;%addTiles() %&gt;%</div><div class="line">addPolygons(color=~pal(American_map@data$POP1990),fillOpacity  = <span class="number">0.8</span>,weight=<span class="number">1</span>)%&gt;%</div><div class="line">addLegend(pal=pal,values=American_map@data$POP1990,position=<span class="string">"bottomleft"</span>,title = <span class="string">"1990年人口数量（万人"</span>)</div></pre></td></tr></table></figure></p>
-<p><img src="http://or1v6ecv9.bkt.clouddn.com/image6.png" alt=""></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">colorNumeric（单色过度):</div><div class="line">pal&lt;-colorNumeric(<span class="string">"Greens"</span>,American_map@data$POP1990)</div><div class="line">leaflet(American_map)%&gt;%addTiles()%&gt;%</div><div class="line">addPolygons(color=~pal(American_map@data$POP1990),fillOpacity  = <span class="number">0.8</span>,weight=<span class="number">1</span>)%&gt;%</div><div class="line">addLegend(pal=pal,values=American_map@data$POP1990,position=<span class="string">"bottomleft"</span>,title=<span class="string">"1990年人口数量（万人）"</span>)</div></pre></td></tr></table></figure>
-<p><img src="http://or1v6ecv9.bkt.clouddn.com/image7.png" alt=""></p>
-<p><strong>以下两种也同属连续性数值变量的颜色标度映射</strong></p>
-<blockquote>
-<p>（但是可以自定义分组数量，其实实质上是对变量分割，后以分组形式填充，更准确的说，确实是应用了变量转换的方式（数值转有序因子），但是过程是自动进行的，而不是像在ggplot中一样不需手动转换）</p>
-</blockquote>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">colorBin（单色渐变分组过度):</div><div class="line">pal&lt;-colorBin(<span class="string">"Greens"</span>,American_map@data$POP1990,<span class="number">10</span>)</div><div class="line">leaflet(American_map)%&gt;%addTiles()%&gt;%</div><div class="line">addPolygons(color=~pal(American_map@data$POP1990),fillOpacity=<span class="number">0.8</span>,weight=<span class="number">1</span>)%&gt;%</div><div class="line">addLegend(pal=pal,values=American_map@data$POP1990,position=<span class="string">"bottomleft"</span>,title=<span class="string">"1990年人口数量（万人）"</span>)</div></pre></td></tr></table></figure>
-<p><img src="http://or1v6ecv9.bkt.clouddn.com/image8.png" alt=""></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">colorBin（多色色渐变分组过度):</div><div class="line">pal&lt;-colorBin(c(<span class="string">"darkgreen"</span>,<span class="string">"yellow"</span>,<span class="string">"orangered"</span>),American_map@data$POP1990,<span class="number">8</span>)</div><div class="line">leaflet(American_map) %&gt;% addTiles() %&gt;%</div><div class="line">addPolygons(color=~pal(American_map@data$POP1990),fillOpacity=<span class="number">0.8</span>,weight=<span class="number">1</span>)%&gt;%</div><div class="line">addLegend(pal=pal,values=American_map@data$POP1990,position=<span class="string">"bottomleft"</span>,title=<span class="string">"1990年人口数量（万人）"</span>)</div></pre></td></tr></table></figure>
-<p><img src="http://or1v6ecv9.bkt.clouddn.com/image9.png" alt=""></p>
-<p><strong>离散标度：</strong></p>
-<blockquote>
-<p>（这个例子是用在变量本身就是因子变量的情况下，算是分类变量情况下的颜色标度映射）<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">china_map&lt;-readShapePoly(<span class="string">"c:/rstudy/bou2_4p.shp"</span>)</div><div class="line">mydata&lt;-read.csv(<span class="string">"c:/rstudy/geshengzhibiao.csv"</span>)</div><div class="line">mydata$type&lt;-factor(sample(LETTERS[<span class="number">1</span>:<span class="number">5</span>],<span class="number">33</span>,replace=<span class="literal">TRUE</span>))</div><div class="line">shape &lt;- merge(china_map,mydata,by=<span class="string">"NAME"</span>)</div><div class="line">pal &lt;- colorFactor(c(<span class="string">"green"</span>,<span class="string">"red"</span>,<span class="string">"blue"</span>,<span class="string">"yellow"</span>,<span class="string">"brown"</span>), domain = c(<span class="string">"A"</span>, <span class="string">"B"</span>,<span class="string">"C"</span>,<span class="string">"D"</span>,<span class="string">"E"</span>))<span class="comment">#设置色盘：</span></div><div class="line">i_popup&lt;-paste0(<span class="string">"&lt;strong&gt;Province:&lt;/strong&gt;"</span>,shape$NAME,<span class="string">"&lt;br&gt;"</span>,</div><div class="line"><span class="string">"&lt;strong&gt;Level:&lt;/strong&gt;"</span>,shape$type)</div></pre></td></tr></table></figure></p>
-</blockquote>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">设置弹出窗口</div><div class="line">leaflet(shape)%&gt;%addTiles()%&gt;%</div><div class="line"> setView(<span class="number">116.387021</span>,<span class="number">39.969369</span>,zoom=<span class="number">3</span>)%&gt;%</div><div class="line">addPolygons(fillColor=~pal(shape$type),fillOpacity=<span class="number">0.8</span>,color=<span class="string">"#000000"</span>,weight=<span class="number">1</span>,popup=i_popup)%&gt;%</div><div class="line">addLegend(pal=pal,values=shape@data$type,position=<span class="string">"bottomright"</span>,title=paste0(<span class="string">"小魔方基团2016年"</span>,<span class="string">"&lt;br&gt;"</span>,<span class="string">"营业分布等级"</span>))</div></pre></td></tr></table></figure>
-<p><img src="http://or1v6ecv9.bkt.clouddn.com/image10.png" alt=""></p>
-<p>以上地图效果都支持多节自动缩放和弹窗动态信息显示（需设置popup属性及少量html交互代码）</p>
-<p>leaflet在线地图底层由js源码编写，天然支持html语言，如能结合html搭配使用，可以在动态地图元素中，特别是弹窗中无缝嵌入图片、超链接甚至视频等多类元素，感兴趣的小伙伴儿可以自行探索。</p>
-<hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
-<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<hr>
-<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;这一篇是leaflet动态地图的第四篇，也是最值得推荐的一篇，这一篇涉及到热力地图填充，通过该篇内容，大家可以体会大leaflet在线地图的R借口在处理热力地图上面颜色标度映射的强大优势。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="地理信息可视化" scheme="http://www.raindu.com/categories/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
-    
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
-      <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
-      <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
-    
-      <category term="leaflet" scheme="http://www.raindu.com/tags/leaflet/"/>
-    
-      <category term="填色地图" scheme="http://www.raindu.com/tags/%E5%A1%AB%E8%89%B2%E5%9C%B0%E5%9B%BE/"/>
     
   </entry>
   
