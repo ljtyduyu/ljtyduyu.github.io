@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.raindu.com/"/>
-  <updated>2017-06-16T01:22:03.571Z</updated>
+  <updated>2017-06-16T01:43:04.250Z</updated>
   <id>http://www.raindu.com/</id>
   
   <author>
@@ -14,6 +14,68 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Excel依然是一款强大的数据可视化利器~</title>
+    <link href="http://www.raindu.com/2017/06/16/Excel%E4%BE%9D%E7%84%B6%E6%98%AF%E4%B8%80%E6%AC%BE%E5%BC%BA%E5%A4%A7%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%A9%E5%99%A8/"/>
+    <id>http://www.raindu.com/2017/06/16/Excel依然是一款强大的数据可视化利器/</id>
+    <published>2017-06-16T01:32:50.000Z</published>
+    <updated>2017-06-16T01:43:04.250Z</updated>
+    
+    <content type="html"><![CDATA[<p>早期的数据小魔方用户大概都知道，我最初也是从学习Excel起步的，只是学习的深入了之后，才开开慢慢的迁移到R语言。</p>
+<p>我往R语言转型并不代表自己开始放弃Excel或者觉得Excel不适合做可视化，只是想体验一下Excel外围的可视化世界是什么样子的，毕竟在这个大行业内，还活跃着太多可视化领域的佼佼者，譬如 PowerBI、Tableau等。</p>
+<a id="more"></a>
+<h3 id="对图表的粗浅认识："><a href="#对图表的粗浅认识：" class="headerlink" title="对图表的粗浅认识："></a>对图表的粗浅认识：</h3><p>当然，这些软件各有特点，但是在要划分一个类别的话，我觉得可以划分为三类：</p>
+<ul>
+<li>Excel（以及寄生于Excel平台的各种辅助软件dashboard、Think-cell-chart）</li>
+<li>桌面端可视化工具（以Tableau、PowerBI等）</li>
+<li>编程工具。（以R语言、Python以及各种js开源可视化库）</li>
+</ul>
+<p>但若要继续对其进行简化分类的话，我觉得其实可以分为两类：</p>
+<ul>
+<li>Excel家族；</li>
+<li>非Excel家族。</li>
+</ul>
+<p>也许这里的分类大家会觉得摸不着头脑，我的理由是，数据可视化很重要的一步即是对原始业务数据结构的理解，而在Excel的图表库中，微软所设计的图形库是基于二维表的。（因为Excel自由灵活的表结构不限制变量类型，不识别因子变量（即用于构造模型或者用于图形映射））。</p>
+<p>也许以上解释并不能令你满意，这里我只强调一点，同样制作一个多分类的柱形图（或者条形图），假若你获取的原始数据是三个字段，一个门店名称，一个季度标签，一个销售额，那么这种数据结构你是无法对其进行图表化呈现的，你需要借助Excel的数据透视功能，对其进行维度交叉透析，进而使用汇总表（二维表）进行多分类图表构建。</p>
+<p>以上就是Excel中图表构建原理的大致过程，而除Excel之外的数据可视化产品，基本上都是使用一维表结构（长数据）来构建可视化图形的。其中因子变量（即通常意义上的分类变量）充当着至关重要的作用。</p>
+<p>这也是用惯了Excel的小伙伴儿，如果想要迁移到其他可视化工具上，迈出的第一步往往无比艰难（也不能一概而论，假如你经常使用Excel的数据透视表功能，并且对数据库有所了解，对于数据的长宽转换应该早就烂熟于心了，这道坎不会困扰你太久）。</p>
+<p>二维表有二维表的好处，即所见即所得，因为二表已经具备一定的图形化特征，而不单单是表了，但是二维表作图在效率上有着天然的劣势，即你会淡化对数据数据结构的理解，会被Excel的这种作图理念所吞噬，进而被绑架。（纯属个人愚见）</p>
+<p>又扯远了，今天的主角仍然是Excel，我使用自己学习以来的案例来说明，Excel仍然是一款不折不扣的优秀可视化工具。</p>
+<p>###案例模仿：</p>
+<p>学习的第一步当然是模仿，所以才有了这些积淀很久的案例：</p>
+<p><img src="http://orm967kgl.bkt.clouddn.com/image13.jpg" alt=""><br><img src="http://orm967kgl.bkt.clouddn.com/image14.jpg" alt=""><br><img src="http://orm967kgl.bkt.clouddn.com/image15.jpg" alt=""></p>
+<h3 id="调整高难度案例："><a href="#调整高难度案例：" class="headerlink" title="调整高难度案例："></a>调整高难度案例：</h3><p>模仿可以快速提升你的“图感”，然后你会更大胆的去挑战高难度动作：</p>
+<p><img src="http://orm967kgl.bkt.clouddn.com/image17.jpg" alt=""><br><img src="http://orm967kgl.bkt.clouddn.com/image2.png" alt=""><br><img src="http://orm967kgl.bkt.clouddn.com/image3.png" alt=""><br><img src="http://orm967kgl.bkt.clouddn.com/image4.png" alt=""><br><img src="http://orm967kgl.bkt.clouddn.com/image5.png" alt=""><br><img src="http://orm967kgl.bkt.clouddn.com/image6.png" alt=""><br><img src="http://orm967kgl.bkt.clouddn.com/image7.png" alt=""><br><img src="http://orm967kgl.bkt.clouddn.com/image8.png" alt=""><br><img src="http://orm967kgl.bkt.clouddn.com/image1.jpg" alt=""></p>
+<h3 id="尝试着自己找案例练习："><a href="#尝试着自己找案例练习：" class="headerlink" title="尝试着自己找案例练习："></a>尝试着自己找案例练习：</h3><p>等有了足够的经验和技巧积累，尝试着自己找案例去做：</p>
+<p><img src="http://orm967kgl.bkt.clouddn.com/image16.jpg" alt=""><br><img src="http://orm967kgl.bkt.clouddn.com/image19.jpg" alt=""><br><img src="http://orm967kgl.bkt.clouddn.com/image20.jpg" alt=""></p>
+<h3 id="实习中接触项目锻炼："><a href="#实习中接触项目锻炼：" class="headerlink" title="实习中接触项目锻炼："></a>实习中接触项目锻炼：</h3><p>实习是很好的锻炼机会，可能你不需要做高难度高复杂度的工作，但是你能学到如何平衡技能与实际业务数据，融合并凝练细节。</p>
+<p><img src="http://orm967kgl.bkt.clouddn.com/image9.jpg" alt=""><br><img src="http://orm967kgl.bkt.clouddn.com/image10.jpg" alt=""><br><img src="http://orm967kgl.bkt.clouddn.com/image21.jpg" alt=""><br><img src="http://orm967kgl.bkt.clouddn.com/image12.jpg" alt=""></p>
+<p>Excel的强大远不止于此，如果你能习得名称管理器、开发工具与高级查询函数，那么制作动态仪表盘是分分钟的事儿，再将平时里积淀的优秀版式、配色方案等融入其中，那么你的工作价值一定会呈指数级增长。</p>
+<hr>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
+<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
+<hr>
+<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;早期的数据小魔方用户大概都知道，我最初也是从学习Excel起步的，只是学习的深入了之后，才开开慢慢的迁移到R语言。&lt;/p&gt;
+&lt;p&gt;我往R语言转型并不代表自己开始放弃Excel或者觉得Excel不适合做可视化，只是想体验一下Excel外围的可视化世界是什么样子的，毕竟在这个大行业内，还活跃着太多可视化领域的佼佼者，譬如 PowerBI、Tableau等。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="可视化案例呈现" scheme="http://www.raindu.com/categories/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%A1%88%E4%BE%8B%E5%91%88%E7%8E%B0/"/>
+    
+    
+      <category term="Excel" scheme="http://www.raindu.com/tags/Excel/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="商务图表" scheme="http://www.raindu.com/tags/%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>学习R语言我都做了那些有趣的事情！！！</title>
@@ -56,11 +118,11 @@
       <category term="可视化案例呈现" scheme="http://www.raindu.com/categories/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%A1%88%E4%BE%8B%E5%91%88%E7%8E%B0/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="商务图表" scheme="http://www.raindu.com/tags/%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   
@@ -115,13 +177,13 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
-      <category term="版式设计" scheme="http://www.raindu.com/tags/%E7%89%88%E5%BC%8F%E8%AE%BE%E8%AE%A1/"/>
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
+    
+      <category term="版式设计" scheme="http://www.raindu.com/tags/%E7%89%88%E5%BC%8F%E8%AE%BE%E8%AE%A1/"/>
     
       <category term="grid" scheme="http://www.raindu.com/tags/grid/"/>
     
@@ -168,9 +230,9 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
@@ -373,9 +435,9 @@
       <category term="PowerBI" scheme="http://www.raindu.com/categories/PowerBI/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
     
@@ -437,9 +499,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
@@ -629,9 +691,9 @@
       <category term="图表配色" scheme="http://www.raindu.com/categories/%E5%9B%BE%E8%A1%A8%E9%85%8D%E8%89%B2/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="配色" scheme="http://www.raindu.com/tags/%E9%85%8D%E8%89%B2/"/>
     
@@ -703,9 +765,9 @@
       <category term="R语言" scheme="http://www.raindu.com/categories/R%E8%AF%AD%E8%A8%80/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -800,9 +862,9 @@
       <category term="R语言" scheme="http://www.raindu.com/categories/R%E8%AF%AD%E8%A8%80/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -854,9 +916,9 @@
       <category term="地理信息可视化" scheme="http://www.raindu.com/categories/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
@@ -935,9 +997,9 @@
       <category term="地理信息可视化" scheme="http://www.raindu.com/categories/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
@@ -997,15 +1059,15 @@
       <category term="地理信息可视化" scheme="http://www.raindu.com/categories/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
-      <category term="REmap" scheme="http://www.raindu.com/tags/REmap/"/>
-    
       <category term="填充地图" scheme="http://www.raindu.com/tags/%E5%A1%AB%E5%85%85%E5%9C%B0%E5%9B%BE/"/>
+    
+      <category term="REmap" scheme="http://www.raindu.com/tags/REmap/"/>
     
   </entry>
   
@@ -1090,9 +1152,9 @@
       <category term="地理信息可视化" scheme="http://www.raindu.com/categories/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
@@ -1155,9 +1217,9 @@
       <category term="地理信息可视化" scheme="http://www.raindu.com/categories/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
@@ -1255,9 +1317,9 @@
       <category term="地理信息可视化" scheme="http://www.raindu.com/categories/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
@@ -1369,9 +1431,9 @@
       <category term="地理信息可视化" scheme="http://www.raindu.com/categories/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
@@ -1461,15 +1523,15 @@
       <category term="地理信息可视化" scheme="http://www.raindu.com/categories/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+      <category term="json" scheme="http://www.raindu.com/tags/json/"/>
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
-    
-      <category term="json" scheme="http://www.raindu.com/tags/json/"/>
     
       <category term="leaflet" scheme="http://www.raindu.com/tags/leaflet/"/>
     
@@ -1536,9 +1598,9 @@
       <category term="地理信息可视化" scheme="http://www.raindu.com/categories/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
@@ -1547,124 +1609,6 @@
       <category term="leaflet" scheme="http://www.raindu.com/tags/leaflet/"/>
     
       <category term="填色地图" scheme="http://www.raindu.com/tags/%E5%A1%AB%E8%89%B2%E5%9C%B0%E5%9B%BE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>动态地理信息可视化——leaflet构造路径图</title>
-    <link href="http://www.raindu.com/2017/06/04/%E5%8A%A8%E6%80%81%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94leaflet%E6%9E%84%E9%80%A0%E8%B7%AF%E5%BE%84%E5%9B%BE/"/>
-    <id>http://www.raindu.com/2017/06/04/动态地理信息可视化——leaflet构造路径图/</id>
-    <published>2017-06-04T01:56:20.000Z</published>
-    <updated>2017-06-10T11:10:32.630Z</updated>
-    
-    <content type="html"><![CDATA[<p>根据先前几篇内容的框架，今天介绍leaflet在线地图的第三篇，以线条元素构造的路径图。</p>
-<a id="more"></a>
-<h3 id="加载包："><a href="#加载包：" class="headerlink" title="加载包："></a>加载包：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(leaflet)</div><div class="line"><span class="keyword">library</span>(dplyr)</div></pre></td></tr></table></figure>
-<h3 id="导入数据集："><a href="#导入数据集：" class="headerlink" title="导入数据集："></a>导入数据集：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">data&lt;-read.table(<span class="string">"D:/R/File/subwayline.txt"</span>,header=<span class="literal">TRUE</span>,stringsAsFactors = <span class="literal">FALSE</span>)</div><div class="line">data$Type&lt;-as.factor(data$Type)</div><div class="line">data1&lt;-filter(data,Type==<span class="string">"NO1"</span>)</div><div class="line">data2&lt;-filter(data,Type==<span class="string">"NO5"</span>)</div></pre></td></tr></table></figure>
-<p><img src="http://or029s79c.bkt.clouddn.com/image1.png" alt=""></p>
-<p>以上我用百度地图的坐标拾取平台采点拾取的背景地铁一号线和五号线的车站地理位置信息，（因为没有现成的数据，只能手工采点，可能不是很准确）</p>
-<h3 id="基本语法解释："><a href="#基本语法解释：" class="headerlink" title="基本语法解释："></a>基本语法解释：</h3><p><strong>今天要介绍的leaflet类型是线条，也即addPolylines函数，其基本语法如下：</strong></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">addPolylines(map, lng = <span class="literal">NULL</span>,lat = <span class="literal">NULL</span>, <span class="comment">#指定数据源并做经纬度声明</span></div><div class="line">     layerId = <span class="literal">NULL</span>, </div><div class="line">     group = <span class="literal">NULL</span>,  <span class="comment">#图层分组（制作动态可见性交互时使用）</span></div><div class="line">     stroke = <span class="literal">TRUE</span>, <span class="comment">#是否呈现路径线</span></div><div class="line">     color = <span class="string">"#03F"</span>,weight = <span class="number">5</span>,opacity = <span class="number">0.5</span>, <span class="comment">#关于线条的颜色、宽度、透明度 </span></div><div class="line">     fill = <span class="literal">FALSE</span>, fillColor = color, fillOpacity = <span class="number">0.2</span>, </div><div class="line">     dashArray = <span class="literal">NULL</span>, smoothFactor = <span class="number">1</span>, noClip = <span class="literal">FALSE</span>,  <span class="comment">#线型参数，平滑度等</span></div><div class="line">     popup = <span class="literal">NULL</span>, options = pathOptions(), data = getMapData(map)) <span class="comment">#弹窗、选项控制</span></div></pre></td></tr></table></figure>
-<h3 id="构造色盘："><a href="#构造色盘：" class="headerlink" title="构造色盘："></a>构造色盘：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pal &lt;- colorFactor(topo.colors(<span class="number">2</span>),data$Type)</div></pre></td></tr></table></figure>
-<h3 id="可视化过程："><a href="#可视化过程：" class="headerlink" title="可视化过程："></a>可视化过程：</h3><h4 id="作图函数：使用默认点标识"><a href="#作图函数：使用默认点标识" class="headerlink" title="作图函数：使用默认点标识"></a>作图函数：使用默认点标识</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">leaflet()%&gt;%</div><div class="line">addTiles()%&gt;%</div><div class="line">addPolylines(data=data1,~lon,~lat,color=<span class="string">"blue"</span>)%&gt;%</div><div class="line">addPolylines(data=data2,~lon,~lat,color=<span class="string">"green"</span>)%&gt;%</div><div class="line">addMarkers(data=data,~lon, ~lat,popup = ~address)</div></pre></td></tr></table></figure>
-<p><img src="http://or029s79c.bkt.clouddn.com/image2.png" alt=""></p>
-<h4 id="使用可自定义的圆点标识车站位置"><a href="#使用可自定义的圆点标识车站位置" class="headerlink" title="使用可自定义的圆点标识车站位置"></a>使用可自定义的圆点标识车站位置</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">leaflet()%&gt;%</div><div class="line">addTiles()%&gt;%</div><div class="line">addPolylines(data=data1,~lon,~lat,color=<span class="string">"blue"</span>)%&gt;%</div><div class="line">addPolylines(data=data2,~lon,~lat,color=<span class="string">"green"</span>)%&gt;%</div><div class="line">addCircles(data=data,~lon, ~lat,popup = ~address,color=<span class="string">"red"</span>)</div></pre></td></tr></table></figure>
-<p><img src="http://or029s79c.bkt.clouddn.com/image3.png" alt=""></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">leaflet()%&gt;%</div><div class="line">addTiles()%&gt;%</div><div class="line">addPolylines(data=data1,~lon,~lat,color=<span class="string">"blue"</span>)%&gt;%</div><div class="line">addPolylines(data=data2,~lon,~lat,color=<span class="string">"green"</span>)%&gt;%</div><div class="line">addCircleMarkers(data=data,~lon, ~lat,popup = ~address,color=~Type)</div></pre></td></tr></table></figure>
-<p><img src="http://or029s79c.bkt.clouddn.com/image4.png" alt=""></p>
-<h4 id="以下是几种比较常用的地图背景素材"><a href="#以下是几种比较常用的地图背景素材" class="headerlink" title="以下是几种比较常用的地图背景素材"></a>以下是几种比较常用的地图背景素材</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">addProviderTiles(<span class="string">"Esri.WorldStreetMap"</span>)  </div><div class="line">addProviderTiles(<span class="string">"Esri.WorldImagery"</span>)   </div><div class="line">addProviderTiles(<span class="string">"Esri.WorldTerrain"</span>)    </div><div class="line">addProviderTiles(<span class="string">"Esri.NatGeoWorldMap"</span>)</div></pre></td></tr></table></figure>
-<h4 id="几张常见的素材风格："><a href="#几张常见的素材风格：" class="headerlink" title="几张常见的素材风格："></a>几张常见的素材风格：</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">leaflet()%&gt;%</div><div class="line">addProviderTiles(<span class="string">"Esri.WorldStreetMap"</span>)%&gt;%</div><div class="line">addPolylines(data=data1,~lon,~lat,color=<span class="string">"blue"</span>)%&gt;%</div><div class="line">addPolylines(data=data2,~lon,~lat,color=<span class="string">"green"</span>)%&gt;%</div><div class="line">addCircles(data=data,~lon, ~lat,popup = ~address,color=~Type)</div></pre></td></tr></table></figure>
-<p><img src="http://or029s79c.bkt.clouddn.com/image5.png" alt=""></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">leaflet()%&gt;%</div><div class="line">addProviderTiles(<span class="string">"Esri.WorldImagery"</span>)%&gt;%</div><div class="line">addPolylines(data=data1,~lon,~lat,color=<span class="string">"blue"</span>)%&gt;%</div><div class="line">addPolylines(data=data2,~lon,~lat,color=<span class="string">"green"</span>)%&gt;%</div><div class="line">addCircles(data=data,~lon, ~lat,popup = ~address,color=~Type)</div></pre></td></tr></table></figure>
-<p><img src="http://or029s79c.bkt.clouddn.com/image6.png" alt=""></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">leaflet()%&gt;%</div><div class="line">addProviderTiles(<span class="string">"Esri.WorldGrayCanvas"</span>) %&gt;%</div><div class="line">addPolylines(data=data1,~lon,~lat,color=<span class="string">"blue"</span>)%&gt;%</div><div class="line">addPolylines(data=data2,~lon,~lat,color=<span class="string">"green"</span>)%&gt;%</div><div class="line">addCircles(data=data,~lon, ~lat,popup = ~address,color=~Type)</div></pre></td></tr></table></figure>
-<p><img src="http://or029s79c.bkt.clouddn.com/image7.png" alt=""></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">leaflet()%&gt;%</div><div class="line">addProviderTiles(<span class="string">"Esri.NatGeoWorldMap"</span>)  %&gt;%</div><div class="line">addPolylines(data=data1,~lon,~lat,color=<span class="string">"blue"</span>)%&gt;%</div><div class="line">addPolylines(data=data2,~lon,~lat,color=<span class="string">"green"</span>)%&gt;%</div><div class="line">addCircles(data=data,~lon, ~lat,popup = ~address,color=~Type)</div></pre></td></tr></table></figure>
-<p><img src="http://or029s79c.bkt.clouddn.com/image8.png" alt=""></p>
-<p>是不是觉得花样不够多呀，那好吧，以下这些，全部都送给你，那好不谢！</p>
-<hr>
-<ul>
-<li>OpenStreetMap.Mapnik</li>
-<li>OpenStreetMap.BlackAndWhite</li>
-<li>OpenStreetMap.DE</li>
-<li>OpenStreetMap.France</li>
-<li>OpenStreetMap.HOT</li>
-<li>OpenTopoMap</li>
-<li>Thunderforest.OpenCycleMap</li>
-<li>Thunderforest.Transport</li>
-<li>Thunderforest.TransportDark</li>
-<li>Thunderforest.SpinalMap</li>
-<li>Thunderforest.Landscape</li>
-<li>Thunderforest.Outdoors</li>
-<li>Thunderforest.Pioneer</li>
-<li>OpenMapSurfer.Roads</li>
-<li>OpenMapSurfer.Grayscale</li>
-<li>Hydda.Full</li>
-<li>Stamen.Toner</li>
-<li>Stamen.TonerBackground</li>
-<li>Stamen.TonerLite</li>
-<li>Stamen.Watercolor</li>
-<li>Stamen.Terrain</li>
-<li>Stamen.TerrainBackground</li>
-<li>Stamen.TopOSMRelief</li>
-<li>Esri.WorldStreetMap</li>
-<li>Esri.DeLorme</li>
-<li>Esri.WorldTopoMap</li>
-<li>Esri.WorldImagery</li>
-<li>Esri.WorldTerrain</li>
-<li>Esri.WorldShadedRelief</li>
-<li>Esri.WorldPhysical</li>
-<li>Esri.OceanBasemap</li>
-<li>Esri.NatGeoWorldMap</li>
-<li>Esri.WorldGrayCanvas</li>
-<li>MtbMap</li>
-<li>CartoDB.Positron</li>
-<li>CartoDB.PositronNoLabels</li>
-<li>CartoDB.PositronOnlyLabels</li>
-<li>CartoDB.DarkMatter</li>
-<li>CartoDB.DarkMatterNoLabels</li>
-<li>CartoDB.DarkMatterOnlyLabels</li>
-<li>HikeBike.HikeBike</li>
-<li>HikeBike.HillShading</li>
-<li>NASAGIBS.ModisTerraTrueColorCR</li>
-<li>NASAGIBS.ModisTerraBands367CR</li>
-<li>NASAGIBS.ViirsEarthAtNight2012</li>
-<li>NASAGIBS.ModisTerraLSTDay</li>
-<li>NASAGIBS.ModisTerraSnowCover</li>
-<li>NASAGIBS.ModisTerraAOD</li>
-<li>NASAGIBS.ModisTerraChlorophyll</li>
-</ul>
-<hr>
-<p>细数也有好几十个，够你玩一阵子了，使用方法仅仅是通过设置图层函数进行调用，然后就可以愉快的在图层上面进行可视化操作了。<br>addProviderTiles(“地图类型”)</p>
-<hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]553270834</p>
-<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<hr>
-<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;根据先前几篇内容的框架，今天介绍leaflet在线地图的第三篇，以线条元素构造的路径图。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="地理信息可视化" scheme="http://www.raindu.com/categories/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
-    
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
-      <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
-      <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
-    
-      <category term="路径图" scheme="http://www.raindu.com/tags/%E8%B7%AF%E5%BE%84%E5%9B%BE/"/>
-    
-      <category term="leaflet" scheme="http://www.raindu.com/tags/leaflet/"/>
-    
-      <category term="mini柱形/条形图" scheme="http://www.raindu.com/tags/mini%E6%9F%B1%E5%BD%A2-%E6%9D%A1%E5%BD%A2%E5%9B%BE/"/>
     
   </entry>
   
