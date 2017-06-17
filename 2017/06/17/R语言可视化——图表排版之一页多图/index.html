@@ -109,7 +109,7 @@
 <meta property="og:image" content="http://oro3igf2g.bkt.clouddn.com/image3.png">
 <meta property="og:image" content="http://oro3igf2g.bkt.clouddn.com/image4.png">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-06-17T01:27:07.206Z">
+<meta property="og:updated_time" content="2017-06-17T01:30:13.380Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="R语言可视化——图表排版之一页多图">
 <meta name="twitter:description" content="昨天跟大家分享了关于图表嵌套的函数用法，今天跟大家分享在多图情况下如何正确的进行图表的版面布局。 这里要分享的图表版面设计其实就是指，在做了很多图的情况下，如何将诸多图表合理的布局在一张大的版面上，而不是一幅一幅的导出最后在其他软件中手动拼凑。">
@@ -478,7 +478,7 @@
 <p>R语言中可以实现多图同页布局的函数有很多（我所知道的旧有大概四五种），但是有些参数略微复杂不便记忆，这里只跟大家介绍两种：</p>
 <p><strong>关于多图排版的函数简介：</strong></p>
 <p>一种是grid.layout函数（就是我们昨天所讲到的图表嵌套所用到的是同一个包），另一个是rmisc包中的multiplot函数：</p>
-<h4 id="grid-layout函数："><a href="#grid-layout函数：" class="headerlink" title="grid.layout函数："></a>grid.layout函数：</h4><ul>
+<h3 id="grid-layout函数："><a href="#grid-layout函数：" class="headerlink" title="grid.layout函数："></a>grid.layout函数：</h3><ul>
 <li>require(ggplot2)</li>
 <li>require(grid)</li>
 </ul>
@@ -490,7 +490,7 @@
 <p><img src="http://oro3igf2g.bkt.clouddn.com/image1.png" alt=""><br><img src="http://oro3igf2g.bkt.clouddn.com/image2.png" alt=""><br><img src="http://oro3igf2g.bkt.clouddn.com/image3.png" alt=""></p>
 <p>以上函数将逐步按照之前的位置规则按照对应顺序绘制三幅图表，每打印一次你都可以看到画布上增加一个图表。</p>
 <p>以上是该方法制作一页多图的全部过程，其实因为里面有自定义函数，看起来稍微有点儿麻烦，不过不影响理解。</p>
-<h4 id="multiplot函数："><a href="#multiplot函数：" class="headerlink" title="multiplot函数："></a>multiplot函数：</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(<span class="string">"Rmisc"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"lattice"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"plyr"</span>)</div></pre></td></tr></table></figure>
+<h3 id="multiplot函数："><a href="#multiplot函数：" class="headerlink" title="multiplot函数："></a>multiplot函数：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(<span class="string">"Rmisc"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"lattice"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"plyr"</span>)</div></pre></td></tr></table></figure>
 <p>使用multiplot函数制作一页多图的语法非常简单，过程同样也是先制作出单个图表并命名，然后一句函数就搞定：</p>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">multiplot(chart1,chart2,chart3, cols=<span class="number">2</span>)</div></pre></td></tr></table></figure>
 <p><img src="http://oro3igf2g.bkt.clouddn.com/image4.png" alt=""></p>
@@ -778,7 +778,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#grid-layout函数："><span class="nav-number">1.</span> <span class="nav-text">grid.layout函数：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义图表的布局规则"><span class="nav-number"></span> <span class="nav-text">定义图表的布局规则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#multiplot函数："><span class="nav-number">1.</span> <span class="nav-text">multiplot函数：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#grid-layout函数："><span class="nav-number">1.</span> <span class="nav-text">grid.layout函数：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义图表的布局规则"><span class="nav-number">2.</span> <span class="nav-text">定义图表的布局规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#multiplot函数："><span class="nav-number">3.</span> <span class="nav-text">multiplot函数：</span></a></li></ol></div>
             
 
           </div>
