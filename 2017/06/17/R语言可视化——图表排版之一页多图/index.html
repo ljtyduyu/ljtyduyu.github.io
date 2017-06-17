@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="R语言,数据可视化,ggplot2,版面控制," />
 
 
 
@@ -97,15 +97,23 @@
 
 
 
-<meta name="description" content="身体和心灵，总有一个在路上！">
-<meta property="og:type" content="website">
-<meta property="og:title" content="raindu&#39;s home">
-<meta property="og:url" content="http://www.raindu.com/tags/R语言/index.html">
+<meta name="description" content="昨天跟大家分享了关于图表嵌套的函数用法，今天跟大家分享在多图情况下如何正确的进行图表的版面布局。 这里要分享的图表版面设计其实就是指，在做了很多图的情况下，如何将诸多图表合理的布局在一张大的版面上，而不是一幅一幅的导出最后在其他软件中手动拼凑。">
+<meta name="keywords" content="R语言,数据可视化,ggplot2,版面控制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R语言可视化——图表排版之一页多图">
+<meta property="og:url" content="http://www.raindu.com/2017/06/17/R语言可视化——图表排版之一页多图/index.html">
 <meta property="og:site_name" content="raindu&#39;s home">
-<meta property="og:description" content="身体和心灵，总有一个在路上！">
+<meta property="og:description" content="昨天跟大家分享了关于图表嵌套的函数用法，今天跟大家分享在多图情况下如何正确的进行图表的版面布局。 这里要分享的图表版面设计其实就是指，在做了很多图的情况下，如何将诸多图表合理的布局在一张大的版面上，而不是一幅一幅的导出最后在其他软件中手动拼凑。">
+<meta property="og:image" content="http://oro3igf2g.bkt.clouddn.com/image1.png">
+<meta property="og:image" content="http://oro3igf2g.bkt.clouddn.com/image2.png">
+<meta property="og:image" content="http://oro3igf2g.bkt.clouddn.com/image3.png">
+<meta property="og:image" content="http://oro3igf2g.bkt.clouddn.com/image4.png">
+<meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
+<meta property="og:updated_time" content="2017-06-17T01:22:32.921Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="raindu&#39;s home">
-<meta name="twitter:description" content="身体和心灵，总有一个在路上！">
+<meta name="twitter:title" content="R语言可视化——图表排版之一页多图">
+<meta name="twitter:description" content="昨天跟大家分享了关于图表嵌套的函数用法，今天跟大家分享在多图情况下如何正确的进行图表的版面布局。 这里要分享的图表版面设计其实就是指，在做了很多图的情况下，如何将诸多图表合理的布局在一张大的版面上，而不是一幅一幅的导出最后在其他软件中手动拼凑。">
+<meta name="twitter:image" content="http://oro3igf2g.bkt.clouddn.com/image1.png">
 
 
 
@@ -133,13 +141,13 @@
 
 
 
-  <link rel="canonical" href="http://www.raindu.com/tags/R语言/"/>
+  <link rel="canonical" href="http://www.raindu.com/2017/06/17/R语言可视化——图表排版之一页多图/"/>
 
 
 
 
 
-  <title>标签: R语言 | raindu's home</title>
+  <title>R语言可视化——图表排版之一页多图 | raindu's home</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -165,7 +173,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -313,300 +321,304 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h1>R语言<small>标签</small>
-      </h1>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/17/R语言可视化——图表排版之一页多图/" itemprop="url">
-              
-                <span itemprop="name">R语言可视化——图表排版之一页多图</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-17T09:13:47+08:00"
-              content="2017-06-17" >
-          06-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/16/R语言可视化——ggplot携手plotly，让你的图表灵动起来！/" itemprop="url">
-              
-                <span itemprop="name">R语言可视化——ggplot携手plotly，让你的图表灵动起来！</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-16T22:11:17+08:00"
-              content="2017-06-16" >
-          06-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/16/学习R语言我都做了那些有趣的事情！！！/" itemprop="url">
-              
-                <span itemprop="name">学习R语言我都做了那些有趣的事情！！！</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-16T09:01:29+08:00"
-              content="2017-06-16" >
-          06-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/15/R语言可视化——图表嵌套（母子图）/" itemprop="url">
-              
-                <span itemprop="name">R语言可视化——图表嵌套（母子图）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-15T08:48:04+08:00"
-              content="2017-06-15" >
-          06-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/14/R语言可视化——地图与气泡图结合应用/" itemprop="url">
-              
-                <span itemprop="name">R语言可视化——地图与气泡图结合应用</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-14T08:50:58+08:00"
-              content="2017-06-14" >
-          06-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/13/用R语言抓取网页图片——从此高效存图告别手工时代/" itemprop="url">
-              
-                <span itemprop="name">用R语言抓取网页图片——从此高效存图告别手工时代</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-13T15:19:50+08:00"
-              content="2017-06-13" >
-          06-13
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/13/当PowerBI遇到R语言/" itemprop="url">
-              
-                <span itemprop="name">当PowerBI遇到R语言</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-13T08:31:12+08:00"
-              content="2017-06-13" >
-          06-13
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/12/R语言可视化——多边形与数据地图填充/" itemprop="url">
-              
-                <span itemprop="name">R语言可视化——多边形与数据地图填充</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-12T09:11:36+08:00"
-              content="2017-06-12" >
-          06-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/11/R预设配色系统及自定义色板/" itemprop="url">
-              
-                <span itemprop="name">R预设配色系统及自定义色板</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-11T21:11:15+08:00"
-              content="2017-06-11" >
-          06-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/11/R语言可视化——极坐标变换与衍生图表类型/" itemprop="url">
-              
-                <span itemprop="name">R语言可视化——极坐标变换与衍生图表类型</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-11T09:20:45+08:00"
-              content="2017-06-11" >
-          06-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-  </div>
 
   
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/tags/R语言/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/tags/R语言/page/5/">5</a><a class="extend next" rel="next" href="/tags/R语言/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/06/17/R语言可视化——图表排版之一页多图/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RainDu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="raindu's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">R语言可视化——图表排版之一页多图</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-17T09:13:47+08:00">
+                2017-06-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ggplot2/" itemprop="url" rel="index">
+                    <span itemprop="name">ggplot2</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/06/17/R语言可视化——图表排版之一页多图/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/06/17/R语言可视化——图表排版之一页多图/" class="leancloud_visitors" data-flag-title="R语言可视化——图表排版之一页多图">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,144 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  4 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>昨天跟大家分享了关于图表嵌套的函数用法，今天跟大家分享在多图情况下如何正确的进行图表的版面布局。</p>
+<p>这里要分享的图表版面设计其实就是指，在做了很多图的情况下，如何将诸多图表合理的布局在一张大的版面上，而不是一幅一幅的导出最后在其他软件中手动拼凑。</p>
+<a id="more"></a>
+<p>这个技能在制作多图仪表盘场景下，将会特别有用：</p>
+<p>还需要强调下这里所指的一页多图与我们之前介绍过的分面可是大有不同，分面其实是一幅图表中，将分类变量所构成的分类图表分图呈现，但是本质上所有分面内的单个图表共享标题、图例、坐标轴刻度（虽然可以手动定义）。</p>
+<p>也就是说分面的图表类型与诸多元素都是一样的，但是分面解决不了不同图表的排版布局问题：比如单独绘制而成的一幅散点图、柱形图和一幅饼图，分面将无能为力。</p>
+<p>R语言中可以实现多图同页布局的函数有很多（我所知道的旧有大概四五种），但是有些参数略微复杂不便记忆，这里只跟大家介绍两种：</p>
+<h3 id="关于多图排版的函数简介："><a href="#关于多图排版的函数简介：" class="headerlink" title="关于多图排版的函数简介："></a>关于多图排版的函数简介：</h3><p>一种是grid.layout函数（就是我们昨天所讲到的图表嵌套所用到的是同一个包），另一个是rmisc包中的multiplot函数：</p>
+<p>####grid.layout函数：</p>
+<ul>
+<li>require(ggplot2)</li>
+<li>require(grid)</li>
+</ul>
+<p>绘制备用图表（这里必须给图表命名，因为最后制作汇总图的时候需要引用图表名称）</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">chart1 &lt;- ggplot(mtcars, aes(mpg, wt, colour = factor(cyl))) + geom_point()</div><div class="line">chart2 &lt;- ggplot(diamonds, aes(carat, depth, colour = color)) + geom_point()</div><div class="line">chart3&lt;- ggplot(diamonds, aes(carat, depth, colour = color)) + geom_point() + facet_grid(.~color)</div></pre></td></tr></table></figure>
+<p>以上三个函数定义了三个图表对象，如果想要查看图表则只需给出图表名称然后回车即可：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">grid.newpage()  <span class="comment">###新建图表版面</span></div><div class="line">pushViewport(viewport(layout = grid.layout(<span class="number">2</span>,<span class="number">2</span>))) <span class="comment">####将版面分成2*2矩阵</span></div><div class="line">vplayout &lt;- <span class="keyword">function</span>(x,y)&#123;viewport(layout.pos.row = x, layout.pos.col = y)&#125;</div></pre></td></tr></table></figure>
+<h3 id="定义图表的布局规则"><a href="#定义图表的布局规则" class="headerlink" title="定义图表的布局规则"></a>定义图表的布局规则</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">print(chart3, vp = vplayout(<span class="number">1</span>,<span class="number">1</span>:<span class="number">2</span>))   <span class="comment">###将（1,1)和(1,2)的位置画图chart3</span></div><div class="line">print(chart2, vp = vplayout(<span class="number">2</span>,<span class="number">1</span>))     <span class="comment">###将(2,1)的位置画图chart2          </span></div><div class="line">print(chart1 , vp = vplayout(<span class="number">2</span>,<span class="number">2</span>))    <span class="comment">###将（2,2)的位置画图chart1</span></div></pre></td></tr></table></figure>
+<p><img src="http://oro3igf2g.bkt.clouddn.com/image1.png" alt=""><br><img src="http://oro3igf2g.bkt.clouddn.com/image2.png" alt=""><br><img src="http://oro3igf2g.bkt.clouddn.com/image3.png" alt=""></p>
+<p>以上函数将逐步按照之前的位置规则按照对应顺序绘制三幅图表，每打印一次你都可以看到画布上增加一个图表。</p>
+<p>以上是该方法制作一页多图的全部过程，其实因为里面有自定义函数，看起来稍微有点儿麻烦，不过不影响理解。</p>
+<h4 id="multiplot函数："><a href="#multiplot函数：" class="headerlink" title="multiplot函数："></a>multiplot函数：</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(<span class="string">"Rmisc"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"lattice"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"plyr"</span>)</div></pre></td></tr></table></figure>
+<p>使用multiplot函数制作一页多图的语法非常简单，过程同样也是先制作出单个图表并命名，然后一句函数就搞定：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">multiplot(chart1,chart2,chart3, cols=<span class="number">2</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://oro3igf2g.bkt.clouddn.com/image4.png" alt=""></p>
+<p>虽然使用multiplot函数非常方便高效，但是默认情况下，它不会对单个的图表长宽比例做最优布局，我们的案例中，chart3是一个水平分面图，属于矮款型的，但是multiplot函数将它压缩成长宽近似的矩形，放在四象限的第二个位置。</p>
+<p>整体看上去，第一种方法虽然过程复杂些，但是局部灵活些，可以调整单个图表所占的空间，第二种方式更加高效、快捷，但是布局上欠缺优化（也许是我还没有接触到内部的局部调整参数，有懂的小伙伴儿麻烦指导一下，不胜感激）！</p>
+<p>对了，做完图之后记得使用<br>dev.off() #<br>函数关闭活动版面，否则会影响之后的其他不相关图表！</p>
+<hr>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
+<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
+<hr>
+<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://oqbxptw4f.bkt.clouddn.com/dashang/wechat.jpg" alt="RainDu WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://oqbxptw4f.bkt.clouddn.com/dashang/Alipay.png" alt="RainDu Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/R语言/" rel="tag"># R语言</a>
+          
+            <a href="/tags/数据可视化/" rel="tag"># 数据可视化</a>
+          
+            <a href="/tags/ggplot2/" rel="tag"># ggplot2</a>
+          
+            <a href="/tags/版面控制/" rel="tag"># 版面控制</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/16/R语言可视化——ggplot携手plotly，让你的图表灵动起来！/" rel="next" title="R语言可视化——ggplot携手plotly，让你的图表灵动起来！">
+                <i class="fa fa-chevron-left"></i> R语言可视化——ggplot携手plotly，让你的图表灵动起来！
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
 
 
           </div>
@@ -614,6 +626,12 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
 
         </div>
         
@@ -633,8 +651,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.png"
@@ -741,6 +768,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于多图排版的函数简介："><span class="nav-number">1.</span> <span class="nav-text">关于多图排版的函数简介：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义图表的布局规则"><span class="nav-number">2.</span> <span class="nav-text">定义图表的布局规则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#multiplot函数："><span class="nav-number">2.1.</span> <span class="nav-text">multiplot函数：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -881,6 +924,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
 
   
 
