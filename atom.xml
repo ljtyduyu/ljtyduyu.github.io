@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.raindu.com/"/>
-  <updated>2017-06-17T01:24:53.059Z</updated>
+  <updated>2017-06-17T01:27:07.206Z</updated>
   <id>http://www.raindu.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://www.raindu.com/2017/06/17/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94%E5%9B%BE%E8%A1%A8%E6%8E%92%E7%89%88%E4%B9%8B%E4%B8%80%E9%A1%B5%E5%A4%9A%E5%9B%BE/"/>
     <id>http://www.raindu.com/2017/06/17/R语言可视化——图表排版之一页多图/</id>
     <published>2017-06-17T01:13:47.000Z</published>
-    <updated>2017-06-17T01:24:53.059Z</updated>
+    <updated>2017-06-17T01:27:07.206Z</updated>
     
     <content type="html"><![CDATA[<p>昨天跟大家分享了关于图表嵌套的函数用法，今天跟大家分享在多图情况下如何正确的进行图表的版面布局。</p>
 <p>这里要分享的图表版面设计其实就是指，在做了很多图的情况下，如何将诸多图表合理的布局在一张大的版面上，而不是一幅一幅的导出最后在其他软件中手动拼凑。</p>
@@ -29,9 +29,9 @@
 <p>还需要强调下这里所指的一页多图与我们之前介绍过的分面可是大有不同，分面其实是一幅图表中，将分类变量所构成的分类图表分图呈现，但是本质上所有分面内的单个图表共享标题、图例、坐标轴刻度（虽然可以手动定义）。</p>
 <p>也就是说分面的图表类型与诸多元素都是一样的，但是分面解决不了不同图表的排版布局问题：比如单独绘制而成的一幅散点图、柱形图和一幅饼图，分面将无能为力。</p>
 <p>R语言中可以实现多图同页布局的函数有很多（我所知道的旧有大概四五种），但是有些参数略微复杂不便记忆，这里只跟大家介绍两种：</p>
-<h3 id="关于多图排版的函数简介："><a href="#关于多图排版的函数简介：" class="headerlink" title="关于多图排版的函数简介："></a>关于多图排版的函数简介：</h3><p>一种是grid.layout函数（就是我们昨天所讲到的图表嵌套所用到的是同一个包），另一个是rmisc包中的multiplot函数：</p>
-<p>####grid.layout函数：</p>
-<ul>
+<p><strong>关于多图排版的函数简介：</strong></p>
+<p>一种是grid.layout函数（就是我们昨天所讲到的图表嵌套所用到的是同一个包），另一个是rmisc包中的multiplot函数：</p>
+<h4 id="grid-layout函数："><a href="#grid-layout函数：" class="headerlink" title="grid.layout函数："></a>grid.layout函数：</h4><ul>
 <li>require(ggplot2)</li>
 <li>require(grid)</li>
 </ul>
@@ -39,7 +39,7 @@
 <figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">chart1 &lt;- ggplot(mtcars, aes(mpg, wt, colour = factor(cyl))) + geom_point()</div><div class="line">chart2 &lt;- ggplot(diamonds, aes(carat, depth, colour = color)) + geom_point()</div><div class="line">chart3&lt;- ggplot(diamonds, aes(carat, depth, colour = color)) + geom_point() + facet_grid(.~color)</div></pre></td></tr></table></figure>
 <p>以上三个函数定义了三个图表对象，如果想要查看图表则只需给出图表名称然后回车即可：</p>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">grid.newpage()  <span class="comment">###新建图表版面</span></div><div class="line">pushViewport(viewport(layout = grid.layout(<span class="number">2</span>,<span class="number">2</span>))) <span class="comment">####将版面分成2*2矩阵</span></div><div class="line">vplayout &lt;- <span class="keyword">function</span>(x,y)&#123;viewport(layout.pos.row = x, layout.pos.col = y)&#125;</div></pre></td></tr></table></figure>
-<h4 id="定义图表的布局规则"><a href="#定义图表的布局规则" class="headerlink" title="定义图表的布局规则"></a>定义图表的布局规则</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">print(chart3, vp = vplayout(<span class="number">1</span>,<span class="number">1</span>:<span class="number">2</span>))   <span class="comment">###将（1,1)和(1,2)的位置画图chart3</span></div><div class="line">print(chart2, vp = vplayout(<span class="number">2</span>,<span class="number">1</span>))     <span class="comment">###将(2,1)的位置画图chart2          </span></div><div class="line">print(chart1 , vp = vplayout(<span class="number">2</span>,<span class="number">2</span>))    <span class="comment">###将（2,2)的位置画图chart1</span></div></pre></td></tr></table></figure>
+<h3 id="定义图表的布局规则"><a href="#定义图表的布局规则" class="headerlink" title="定义图表的布局规则"></a>定义图表的布局规则</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">print(chart3, vp = vplayout(<span class="number">1</span>,<span class="number">1</span>:<span class="number">2</span>))   <span class="comment">###将（1,1)和(1,2)的位置画图chart3</span></div><div class="line">print(chart2, vp = vplayout(<span class="number">2</span>,<span class="number">1</span>))     <span class="comment">###将(2,1)的位置画图chart2          </span></div><div class="line">print(chart1 , vp = vplayout(<span class="number">2</span>,<span class="number">2</span>))    <span class="comment">###将（2,2)的位置画图chart1</span></div></pre></td></tr></table></figure>
 <p><img src="http://oro3igf2g.bkt.clouddn.com/image1.png" alt=""><br><img src="http://oro3igf2g.bkt.clouddn.com/image2.png" alt=""><br><img src="http://oro3igf2g.bkt.clouddn.com/image3.png" alt=""></p>
 <p>以上函数将逐步按照之前的位置规则按照对应顺序绘制三幅图表，每打印一次你都可以看到画布上增加一个图表。</p>
 <p>以上是该方法制作一页多图的全部过程，其实因为里面有自定义函数，看起来稍微有点儿麻烦，不过不影响理解。</p>
