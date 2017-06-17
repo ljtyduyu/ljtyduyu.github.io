@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="R语言,数据可视化,地理信息可视化,在线地图,leaflet,minicharts," />
 
 
 
@@ -97,15 +97,26 @@
 
 
 
-<meta name="description" content="身体和心灵，总有一个在路上！">
-<meta property="og:type" content="website">
-<meta property="og:title" content="raindu&#39;s home">
-<meta property="og:url" content="http://www.raindu.com/tags/信息图/index.html">
+<meta name="description" content="本文内容取材自leaflet.minicharts包官方主页的案例介绍，本篇案例虽然是关于leaflet在线地图的辅助包，但是该包的出现对于leaflet生态系统来说，确是有着划时代的意义。 该包大大扩充了leaflet包所能呈现的图表形式，打破了散点图、路径图、热力图三类图表对于传统地图数据呈现形式的垄断地位。 该包为此提供了气泡饼图、玫瑰图、mini柱形图以及时间维度控制器等多种数据可视化元素">
+<meta name="keywords" content="R语言,数据可视化,地理信息可视化,在线地图,leaflet,minicharts">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leaflet的小搭档leaflet.minicharts来了，从此动态地图又多了一些乐趣~~~">
+<meta property="og:url" content="http://www.raindu.com/2017/06/17/leaflet的小搭档leaflet-minicharts来了，从此动态地图又多了一些乐趣/index.html">
 <meta property="og:site_name" content="raindu&#39;s home">
-<meta property="og:description" content="身体和心灵，总有一个在路上！">
+<meta property="og:description" content="本文内容取材自leaflet.minicharts包官方主页的案例介绍，本篇案例虽然是关于leaflet在线地图的辅助包，但是该包的出现对于leaflet生态系统来说，确是有着划时代的意义。 该包大大扩充了leaflet包所能呈现的图表形式，打破了散点图、路径图、热力图三类图表对于传统地图数据呈现形式的垄断地位。 该包为此提供了气泡饼图、玫瑰图、mini柱形图以及时间维度控制器等多种数据可视化元素">
+<meta property="og:image" content="http://oro4ux3mq.bkt.clouddn.com/image1.jpg">
+<meta property="og:image" content="http://oro4ux3mq.bkt.clouddn.com/image3.jpg">
+<meta property="og:image" content="http://oro4ux3mq.bkt.clouddn.com/image2.jpg">
+<meta property="og:image" content="http://oro4ux3mq.bkt.clouddn.com/image5.jpg">
+<meta property="og:image" content="http://oro4ux3mq.bkt.clouddn.com/image4.jpg">
+<meta property="og:image" content="http://oro4ux3mq.bkt.clouddn.com/image6.jpg">
+<meta property="og:image" content="http://oro4ux3mq.bkt.clouddn.com/image7.jpg">
+<meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
+<meta property="og:updated_time" content="2017-06-17T01:47:49.791Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="raindu&#39;s home">
-<meta name="twitter:description" content="身体和心灵，总有一个在路上！">
+<meta name="twitter:title" content="leaflet的小搭档leaflet.minicharts来了，从此动态地图又多了一些乐趣~~~">
+<meta name="twitter:description" content="本文内容取材自leaflet.minicharts包官方主页的案例介绍，本篇案例虽然是关于leaflet在线地图的辅助包，但是该包的出现对于leaflet生态系统来说，确是有着划时代的意义。 该包大大扩充了leaflet包所能呈现的图表形式，打破了散点图、路径图、热力图三类图表对于传统地图数据呈现形式的垄断地位。 该包为此提供了气泡饼图、玫瑰图、mini柱形图以及时间维度控制器等多种数据可视化元素">
+<meta name="twitter:image" content="http://oro4ux3mq.bkt.clouddn.com/image1.jpg">
 
 
 
@@ -133,13 +144,13 @@
 
 
 
-  <link rel="canonical" href="http://www.raindu.com/tags/信息图/"/>
+  <link rel="canonical" href="http://www.raindu.com/2017/06/17/leaflet的小搭档leaflet-minicharts来了，从此动态地图又多了一些乐趣/"/>
 
 
 
 
 
-  <title>标签: 信息图 | raindu's home</title>
+  <title>leaflet的小搭档leaflet.minicharts来了，从此动态地图又多了一些乐趣~~~ | raindu's home</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -165,7 +176,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -313,100 +324,306 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h1>信息图<small>标签</small>
-      </h1>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/05/30/用ggplot2制作静态数据可视化报告/" itemprop="url">
-              
-                <span itemprop="name">用ggplot2制作静态数据可视化报告!</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-05-30T08:58:46+08:00"
-              content="2017-05-30" >
-          05-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/05/29/百分比方块比较图/" itemprop="url">
-              
-                <span itemprop="name">百分比方块比较图</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-05-29T12:08:12+08:00"
-              content="2017-05-29" >
-          05-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/05/27/鱼眼百分比信息图/" itemprop="url">
-              
-                <span itemprop="name">鱼眼百分比信息图</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-05-27T19:11:30+08:00"
-              content="2017-05-27" >
-          05-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-  </div>
 
   
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/06/17/leaflet的小搭档leaflet-minicharts来了，从此动态地图又多了一些乐趣/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RainDu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="raindu's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">leaflet的小搭档leaflet.minicharts来了，从此动态地图又多了一些乐趣~~~</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-17T09:32:31+08:00">
+                2017-06-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/地理信息可视化/" itemprop="url" rel="index">
+                    <span itemprop="name">地理信息可视化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/06/17/leaflet的小搭档leaflet-minicharts来了，从此动态地图又多了一些乐趣/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/06/17/leaflet的小搭档leaflet-minicharts来了，从此动态地图又多了一些乐趣/" class="leancloud_visitors" data-flag-title="leaflet的小搭档leaflet.minicharts来了，从此动态地图又多了一些乐趣~~~">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  983 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  4 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文内容取材自leaflet.minicharts包官方主页的案例介绍，本篇案例虽然是关于leaflet在线地图的辅助包，但是该包的出现对于leaflet生态系统来说，确是有着划时代的意义。</p>
+<p>该包大大扩充了leaflet包所能呈现的图表形式，打破了散点图、路径图、热力图三类图表对于传统地图数据呈现形式的垄断地位。</p>
+<p>该包为此提供了气泡饼图、玫瑰图、mini柱形图以及时间维度控制器等多种数据可视化元素。</p>
+<a id="more"></a>
+<p>以下便是作者对该包的简要介绍及案例演示：</p>
+<h3 id="leaflet-minicharts包简介："><a href="#leaflet-minicharts包简介：" class="headerlink" title="leaflet.minicharts包简介："></a>leaflet.minicharts包简介：</h3><p>一直以来，借助于Rstudio团队开发的交互式地图工具包——leaflet，在R语言中创建交互式地图已非难事。但是该包仅仅提供了很少的集中图表呈现类型，因而在一张单独的地图上呈现的数据信息量被大大限制了。</p>
+<p>倘若你要在地图上呈现一些点数据，你只能需要使用两个变量定位出这些点在地图上的位置，然后更改点的半径和点的填充颜色来呈现数据。<br>然后leaflet.minicharts包的出现大大改变了这一格局。你可以在利用其提供的两个附加函数，在leaflet包的交互地图上增加更多的mini图表。</p>
+<p>这些mini图表可以呈现比之前多得多的变量数据（理论上不受变量数量的限制），目前为止，仅支持三种图表类型：</p>
+<p>barcharts (the default), pie charts and polar area charts.</p>
+<h3 id="数据预览："><a href="#数据预览：" class="headerlink" title="数据预览："></a>数据预览：</h3><p>该包内提供了一个法国自2010~2017年包含电力产品、电力消费及结构变动趋势的数据集。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(<span class="string">"ggplot2"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"leaflet.minicharts"</span>)</div><div class="line"><span class="keyword">library</span>(geojsonio)</div><div class="line"><span class="keyword">library</span>(rgdal)</div><div class="line">data(<span class="string">"eco2mix"</span>)</div><div class="line">head(eco2mix)</div></pre></td></tr></table></figure>
+<p><img src="http://oro4ux3mq.bkt.clouddn.com/image1.jpg" alt=""></p>
+<h3 id="地图数据及作图数据整理："><a href="#地图数据及作图数据整理：" class="headerlink" title="地图数据及作图数据整理："></a>地图数据及作图数据整理：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">geojson &lt;-readOGR(<span class="string">"D:/R/mapdata/State/France.json"</span>,<span class="string">"OGRGeoJSON"</span>,stringsAsFactors=<span class="literal">FALSE</span>)</div><div class="line"><span class="keyword">library</span>(dplyr)</div><div class="line">prod2016 &lt;- eco2mix %&gt;%</div><div class="line">  mutate(</div><div class="line">    renewable = bioenergy + solar + wind + hydraulic,</div><div class="line">    non_renewable = total - bioenergy - solar - wind - hydraulic</div><div class="line">  ) %&gt;%</div><div class="line">  filter(grepl(<span class="string">"2016"</span>,month) &amp; area!= <span class="string">"France"</span>) %&gt;%</div><div class="line">  select(-month) %&gt;%</div><div class="line">  group_by(area,lat,lng) %&gt;%</div><div class="line">  summarise_all(sum) %&gt;%</div><div class="line">  ungroup()</div><div class="line">``` </div><div class="line"></div><div class="line">  </div><div class="line">### 制作背景地图：</div><div class="line"></div><div class="line">抽取了法国2016年的能源消费结构数据信息：</div></pre></td></tr></table></figure>
+<p>library(leaflet)<br>library(leafletCN)<br>basemap &lt;- leaflet(geojson,width =”100%”,height=”400px”) %&gt;% amap() %&gt;%<br>addPolygons(weight=1,color=”#444444”,opacity=1,fillColor =”white”,fillOpacity =0.7,smoothFactor=0.5)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#### 默认图表（柱形图）</div><div class="line"></div><div class="line">```r</div><div class="line">renewable2016 &lt;- prod2016 %&gt;% select(hydraulic,solar,wind)</div><div class="line">colors &lt;- c(&quot;#3093e5&quot;,&quot;#fcba50&quot;,&quot;#a0d9e8&quot;)</div><div class="line">basemap %&gt;%</div><div class="line">  addMinicharts(</div><div class="line">    prod2016$lng, prod2016$lat,</div><div class="line">    chartdata = renewable2016,</div><div class="line">    colorPalette = colors,</div><div class="line">    width = 45, height = 45</div><div class="line">  )</div></pre></td></tr></table></figure></p>
+<p><img src="http://oro4ux3mq.bkt.clouddn.com/image3.jpg" alt=""></p>
+<h4 id="气泡饼图"><a href="#气泡饼图" class="headerlink" title="气泡饼图"></a>气泡饼图</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">colors &lt;- c(<span class="string">"#4fc13c"</span>, <span class="string">"#cccccc"</span>)</div><div class="line">basemap %&gt;% </div><div class="line">  addMinicharts(</div><div class="line">    prod2016$lng, prod2016$lat,</div><div class="line">    type = <span class="string">"pie"</span>,</div><div class="line">    chartdata = prod2016[, c(<span class="string">"renewable"</span>, <span class="string">"non_renewable"</span>)], </div><div class="line">    colorPalette = colors, </div><div class="line">    width = <span class="number">60</span> * sqrt(prod2016$total)/sqrt(max(prod2016$total)),transitionTime=<span class="number">0</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://oro4ux3mq.bkt.clouddn.com/image2.jpg" alt=""></p>
+<h4 id="玫瑰图1："><a href="#玫瑰图1：" class="headerlink" title="玫瑰图1："></a>玫瑰图1：</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">basemap %&gt;%</div><div class="line">addMinicharts(</div><div class="line">prod2016$lng, prod2016$lat,</div><div class="line">type = <span class="string">"polar-radius"</span>,</div><div class="line">chartdata = prod2016[, c(<span class="string">"renewable"</span>, <span class="string">"non_renewable"</span>)],</div><div class="line">colorPalette = colors,</div><div class="line">width = <span class="number">60</span> * sqrt(prod2016$total)/sqrt(max(prod2016$total)),transitionTime=<span class="number">0</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://oro4ux3mq.bkt.clouddn.com/image5.jpg" alt=""></p>
+<h4 id="玫瑰图2："><a href="#玫瑰图2：" class="headerlink" title="玫瑰图2："></a>玫瑰图2：</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">basemap %&gt;%</div><div class="line">addMinicharts(</div><div class="line">prod2016$lng, prod2016$lat,</div><div class="line">type = <span class="string">"polar-area"</span>,</div><div class="line">chartdata = prod2016[, c(<span class="string">"renewable"</span>, <span class="string">"non_renewable"</span>)],</div><div class="line">colorPalette = colors,</div><div class="line">width = <span class="number">60</span> * sqrt(prod2016$total)/sqrt(max(prod2016$total)),transitionTime=<span class="number">0</span>)</div></pre></td></tr></table></figure>
+<h3 id="添加时间趋势："><a href="#添加时间趋势：" class="headerlink" title="添加时间趋势："></a>添加时间趋势：</h3><h3 id="柱形图（带时间趋势）"><a href="#柱形图（带时间趋势）" class="headerlink" title="柱形图（带时间趋势）"></a>柱形图（带时间趋势）</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">prodRegions &lt;- eco2mix %&gt;% filter(area != <span class="string">"France"</span>)</div><div class="line">basemap %&gt;% </div><div class="line">  addMinicharts(</div><div class="line">    prodRegions$lng, prodRegions$lat, </div><div class="line">    chartdata = prodRegions[, c(<span class="string">"hydraulic"</span>, <span class="string">"solar"</span>, <span class="string">"wind"</span>)],</div><div class="line">    time = prodRegions$month,</div><div class="line">    colorPalette = colors,</div><div class="line">    width = <span class="number">45</span>, height = <span class="number">45</span></div><div class="line">  )</div></pre></td></tr></table></figure>
+<p><img src="http://oro4ux3mq.bkt.clouddn.com/image4.jpg" alt=""></p>
+<h3 id="饼图（带时间趋势）"><a href="#饼图（带时间趋势）" class="headerlink" title="饼图（带时间趋势）"></a>饼图（带时间趋势）</h3><p>prodRegions &lt;- eco2mix %&gt;% filter(area != “France”)<br>basemap %&gt;%<br>  addMinicharts(<br>    prodRegions$lng, prodRegions$lat,<br>    chartdata = prodRegions[, c(“hydraulic”, “solar”, “wind”)],<br>    time = prodRegions$month,<br>    colorPalette = colors,<br>    type=”pie”,<br>    width = 45, height = 45<br>  )</p>
+<p><img src="http://oro4ux3mq.bkt.clouddn.com/image6.jpg" alt=""></p>
+<h4 id="玫瑰图（带时间趋势）"><a href="#玫瑰图（带时间趋势）" class="headerlink" title="玫瑰图（带时间趋势）"></a>玫瑰图（带时间趋势）</h4><p>prodRegions &lt;- eco2mix %&gt;% filter(area != “France”)<br>basemap %&gt;%<br>  addMinicharts(<br>    prodRegions$lng, prodRegions$lat,<br>    chartdata = prodRegions[, c(“hydraulic”, “solar”, “wind”)],<br>    time = prodRegions$month,<br>    colorPalette = colors,<br>    type=”pie”,<br>    width = 45, height = 45<br>  )</p>
+<p><img src="http://oro4ux3mq.bkt.clouddn.com/image7.jpg" alt="">  </p>
+<hr>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
+<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
+<hr>
+<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://oqbxptw4f.bkt.clouddn.com/dashang/wechat.jpg" alt="RainDu WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://oqbxptw4f.bkt.clouddn.com/dashang/Alipay.png" alt="RainDu Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/R语言/" rel="tag"># R语言</a>
+          
+            <a href="/tags/数据可视化/" rel="tag"># 数据可视化</a>
+          
+            <a href="/tags/地理信息可视化/" rel="tag"># 地理信息可视化</a>
+          
+            <a href="/tags/在线地图/" rel="tag"># 在线地图</a>
+          
+            <a href="/tags/leaflet/" rel="tag"># leaflet</a>
+          
+            <a href="/tags/minicharts/" rel="tag"># minicharts</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/17/R语言可视化——图表排版之一页多图/" rel="next" title="R语言可视化——图表排版之一页多图">
+                <i class="fa fa-chevron-left"></i> R语言可视化——图表排版之一页多图
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
 
 
           </div>
@@ -414,6 +631,12 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
 
         </div>
         
@@ -433,8 +656,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.png"
@@ -541,6 +773,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#leaflet-minicharts包简介："><span class="nav-number">1.</span> <span class="nav-text">leaflet.minicharts包简介：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据预览："><span class="nav-number">2.</span> <span class="nav-text">数据预览：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#地图数据及作图数据整理："><span class="nav-number">3.</span> <span class="nav-text">地图数据及作图数据整理：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#气泡饼图"><span class="nav-number">3.1.</span> <span class="nav-text">气泡饼图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#玫瑰图1："><span class="nav-number">3.2.</span> <span class="nav-text">玫瑰图1：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#玫瑰图2："><span class="nav-number">3.3.</span> <span class="nav-text">玫瑰图2：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加时间趋势："><span class="nav-number">4.</span> <span class="nav-text">添加时间趋势：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#柱形图（带时间趋势）"><span class="nav-number">5.</span> <span class="nav-text">柱形图（带时间趋势）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#饼图（带时间趋势）"><span class="nav-number">6.</span> <span class="nav-text">饼图（带时间趋势）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#玫瑰图（带时间趋势）"><span class="nav-number">6.1.</span> <span class="nav-text">玫瑰图（带时间趋势）</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -681,6 +929,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
 
   
 
