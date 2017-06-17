@@ -109,7 +109,7 @@
 <meta property="og:image" content="http://oro3igf2g.bkt.clouddn.com/image3.png">
 <meta property="og:image" content="http://oro3igf2g.bkt.clouddn.com/image4.png">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-06-17T01:22:32.921Z">
+<meta property="og:updated_time" content="2017-06-17T01:24:53.059Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="R语言可视化——图表排版之一页多图">
 <meta name="twitter:description" content="昨天跟大家分享了关于图表嵌套的函数用法，今天跟大家分享在多图情况下如何正确的进行图表的版面布局。 这里要分享的图表版面设计其实就是指，在做了很多图的情况下，如何将诸多图表合理的布局在一张大的版面上，而不是一幅一幅的导出最后在其他软件中手动拼凑。">
@@ -486,7 +486,7 @@
 <figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">chart1 &lt;- ggplot(mtcars, aes(mpg, wt, colour = factor(cyl))) + geom_point()</div><div class="line">chart2 &lt;- ggplot(diamonds, aes(carat, depth, colour = color)) + geom_point()</div><div class="line">chart3&lt;- ggplot(diamonds, aes(carat, depth, colour = color)) + geom_point() + facet_grid(.~color)</div></pre></td></tr></table></figure>
 <p>以上三个函数定义了三个图表对象，如果想要查看图表则只需给出图表名称然后回车即可：</p>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">grid.newpage()  <span class="comment">###新建图表版面</span></div><div class="line">pushViewport(viewport(layout = grid.layout(<span class="number">2</span>,<span class="number">2</span>))) <span class="comment">####将版面分成2*2矩阵</span></div><div class="line">vplayout &lt;- <span class="keyword">function</span>(x,y)&#123;viewport(layout.pos.row = x, layout.pos.col = y)&#125;</div></pre></td></tr></table></figure>
-<h3 id="定义图表的布局规则"><a href="#定义图表的布局规则" class="headerlink" title="定义图表的布局规则"></a>定义图表的布局规则</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">print(chart3, vp = vplayout(<span class="number">1</span>,<span class="number">1</span>:<span class="number">2</span>))   <span class="comment">###将（1,1)和(1,2)的位置画图chart3</span></div><div class="line">print(chart2, vp = vplayout(<span class="number">2</span>,<span class="number">1</span>))     <span class="comment">###将(2,1)的位置画图chart2          </span></div><div class="line">print(chart1 , vp = vplayout(<span class="number">2</span>,<span class="number">2</span>))    <span class="comment">###将（2,2)的位置画图chart1</span></div></pre></td></tr></table></figure>
+<h4 id="定义图表的布局规则"><a href="#定义图表的布局规则" class="headerlink" title="定义图表的布局规则"></a>定义图表的布局规则</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">print(chart3, vp = vplayout(<span class="number">1</span>,<span class="number">1</span>:<span class="number">2</span>))   <span class="comment">###将（1,1)和(1,2)的位置画图chart3</span></div><div class="line">print(chart2, vp = vplayout(<span class="number">2</span>,<span class="number">1</span>))     <span class="comment">###将(2,1)的位置画图chart2          </span></div><div class="line">print(chart1 , vp = vplayout(<span class="number">2</span>,<span class="number">2</span>))    <span class="comment">###将（2,2)的位置画图chart1</span></div></pre></td></tr></table></figure>
 <p><img src="http://oro3igf2g.bkt.clouddn.com/image1.png" alt=""><br><img src="http://oro3igf2g.bkt.clouddn.com/image2.png" alt=""><br><img src="http://oro3igf2g.bkt.clouddn.com/image3.png" alt=""></p>
 <p>以上函数将逐步按照之前的位置规则按照对应顺序绘制三幅图表，每打印一次你都可以看到画布上增加一个图表。</p>
 <p>以上是该方法制作一页多图的全部过程，其实因为里面有自定义函数，看起来稍微有点儿麻烦，不过不影响理解。</p>
@@ -778,7 +778,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于多图排版的函数简介："><span class="nav-number">1.</span> <span class="nav-text">关于多图排版的函数简介：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义图表的布局规则"><span class="nav-number">2.</span> <span class="nav-text">定义图表的布局规则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#multiplot函数："><span class="nav-number">2.1.</span> <span class="nav-text">multiplot函数：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于多图排版的函数简介："><span class="nav-number">1.</span> <span class="nav-text">关于多图排版的函数简介：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义图表的布局规则"><span class="nav-number">1.1.</span> <span class="nav-text">定义图表的布局规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#multiplot函数："><span class="nav-number">1.2.</span> <span class="nav-text">multiplot函数：</span></a></li></ol></li></ol></div>
             
 
           </div>
