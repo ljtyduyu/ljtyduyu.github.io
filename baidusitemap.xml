@@ -4,6 +4,32 @@
 
     
   <url>
+    <loc>http://www.raindu.com/2017/06/18/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94ggplot%E5%9B%BE%E8%A1%A8%E9%85%8D%E8%89%B2%E6%8A%80%E5%B7%A7/</loc>
+    <lastmod>2017-06-18T14:22:15.782Z</lastmod>
+    <data>
+        <display>
+        <title>R语言可视化——ggplot图表配色技巧</title>
+        <pubTime>2017-06-18T14:03:45.000Z</pubTime>
+        
+        <tag>数据可视化</tag>
+         
+        <tag>R语言</tag>
+         
+        <tag>图表美化</tag>
+         
+        <tag>配色技巧</tag>
+         
+         
+           
+             
+              <breadCrumb title="ggplot2" url="http://www.raindu.com/categories/ggplot2/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.raindu.com/2017/06/18/%E5%85%B3%E4%BA%8E%E6%95%B0%E6%8D%AE%E5%9C%B0%E5%9B%BE%E7%9A%84%E5%87%A0%E4%B8%AA%E9%81%97%E7%95%99%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</loc>
     <lastmod>2017-06-18T02:01:25.170Z</lastmod>
     <data>
@@ -43,9 +69,9 @@
          
         <tag>R语言</tag>
          
-        <tag>主题定制</tag>
-         
         <tag>图表美化</tag>
+         
+        <tag>主题定制</tag>
          
          
            
@@ -507,9 +533,9 @@
          
         <tag>在线地图</tag>
          
-        <tag>路径图</tag>
-         
         <tag>leaflet</tag>
+         
+        <tag>路径图</tag>
          
         <tag>mini柱形/条形图</tag>
          
@@ -1212,11 +1238,11 @@
          
         <tag>R语言</tag>
          
+        <tag>json</tag>
+         
         <tag>地理信息可视化</tag>
          
         <tag>在线地图</tag>
-         
-        <tag>json</tag>
          
         <tag>leaflet</tag>
          

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.raindu.com/"/>
-  <updated>2017-06-18T02:01:25.170Z</updated>
+  <updated>2017-06-18T14:22:15.782Z</updated>
   <id>http://www.raindu.com/</id>
   
   <author>
@@ -14,6 +14,91 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>R语言可视化——ggplot图表配色技巧</title>
+    <link href="http://www.raindu.com/2017/06/18/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94ggplot%E5%9B%BE%E8%A1%A8%E9%85%8D%E8%89%B2%E6%8A%80%E5%B7%A7/"/>
+    <id>http://www.raindu.com/2017/06/18/R语言可视化——ggplot图表配色技巧/</id>
+    <published>2017-06-18T14:03:45.000Z</published>
+    <updated>2017-06-18T14:22:15.782Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天跟大家分享ggplot图表的配色原理与基本技巧。</p>
+<p>图表配色是一个很深奥的话题，多亏了R语言平台的众多开发者贡献的配色包，让图表的配色不再深不可测。</p>
+<a id="more"></a>
+<h3 id="图表配色常用类型："><a href="#图表配色常用类型：" class="headerlink" title="图表配色常用类型："></a>图表配色常用类型：</h3><p><strong>这里我暂且将所有的配色场景划分为两类：</strong></p>
+<blockquote>
+<p>离散变量配色与连续变量配色</p>
+</blockquote>
+<p><code>ggplot</code>函数的配色机制相对来说比较智能，当你给<code>colour</code>或者<code>fill</code>属性指定给变量映射的时候，该函数就会自动的区分变量属性（是离散变量或者是连续变量），进而给出适用于两种情况的配色风格。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(diamonds,aes(carat,price,colour=cut))+geom_point()</div></pre></td></tr></table></figure></p>
+<p><img src="http://orqx7zr30.bkt.clouddn.com/image1.png" alt=""><br><img src="http://orqx7zr30.bkt.clouddn.com/image2.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(diamonds,aes(carat,price,colour=depth))+geom_point()</div></pre></td></tr></table></figure>
+<p><img src="http://orqx7zr30.bkt.clouddn.com/image3.png" alt=""></p>
+<p>大家可以对比以上两句代码：我并没有指定任何实际的颜色，只是将<code>colour</code>颜色属性指定给离散变量cut或者连续变量<code>depth</code>,而输出的图表已经完成了默认的离散颜色映射和连续颜色渐变映射。</p>
+<p>对于以上两种类型颜色使用场景，如果是要自行修改，则需要自行定义颜色标度：</p>
+<h3 id="常用配色方案简介："><a href="#常用配色方案简介：" class="headerlink" title="常用配色方案简介："></a>常用配色方案简介：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scale_colour_XXX:</div></pre></td></tr></table></figure>
+<p>这里最经常适用的三种情况</p>
+<p>第一种情况，使用<code>ggthemes</code>包中的颜色主题，其中有些非常流行的颜色主题，如经济学人的主题<code>scale_colour_economist()</code>、<code>scale_colour_wsj()</code>,还有<code>excel</code>的主题、<code>tableau</code>主题以及<code>stata</code>主题。</p>
+<p>第二种情况，可以使用<code>RColorBrewer</code>包中的配色卡，以下是该包<code>scale_colour_brewer()</code>函数所允许使用的所有离散颜色色卡。</p>
+<p>该配色系统方案给予我们三种关于分类变量的配色场景：</p>
+<p><img src="http://orqx7zr30.bkt.clouddn.com/image4.png" alt=""></p>
+<ul>
+<li><p>同色系方案，即在同一个色系中均匀取出若干个色段，用于分类变量填充，最终呈现的效果，看起来非常清爽，图中最上面的一排颜色均为此类。（适用于表达有序因子分类变量，比如GDP的分段呈现等）</p>
+</li>
+<li><p>二分色系方案，即两个色系方向平滑过渡，均匀取值，中间色一般为白色或者淡色。（适用于表达含有正负值的分类数量段，譬如增长率指标、利润率等）</p>
+</li>
+<li><p>多分类不同色系方案，取不同色系相对协调的一组颜色，这种情况比较适合用于表达仅作分类，分类项之间没有顺序和大小的普通情况。</p>
+</li>
+</ul>
+<p>以上色卡以及配色包是由一个著名的专做地图可视化配色方案的团队所开发的，网址如下，提供在线配色并免费下载服务。（网站可能被屏蔽，如无法打开需要使用VPN）</p>
+<p><a href="http://colorbrewer2.org/#" target="_blank" rel="external">RColorBrewer</a></p>
+<p>当然第三种就是自己DIY了，R支持直接调用可识别的颜色名称以及颜色代码（16进制代码）。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scale_fill_manual(values=c(<span class="string">"#FB882C"</span>,<span class="string">"#5B88A0"</span>))</div></pre></td></tr></table></figure></p>
+<p>或者<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scale_fill_manual(values=c(&quot;Linen&quot;,&quot;Peru&quot;,&quot;PeachPuff&quot;,&quot;SandyBrown&quot;,&quot;Chocolate&quot;))</div></pre></td></tr></table></figure></p>
+<p>连续型配色方案：</p>
+<p>而针对连续型变量颜色修改的情况，可探讨的余地不多：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">scale_fill_gradient（）</div><div class="line">scale_fill_gradient2（）</div><div class="line">scale_fill_gradient（） <span class="comment">#允许分配一组双色连续渐变，low="white",high="red"</span></div><div class="line">scale_fill_gradient2（）<span class="comment">#允许分配一组三色连续渐变，low="blue",mid="white",high="red"</span></div></pre></td></tr></table></figure>
+<h3 id="配色方案案例演示："><a href="#配色方案案例演示：" class="headerlink" title="配色方案案例演示："></a>配色方案案例演示：</h3><p>接下来针对以上几种情况，我分别演示一个案例：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(<span class="string">"ggthemes"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"RColorBrewer"</span>)</div></pre></td></tr></table></figure>
+<p><strong>离散型配色方案：</strong></p>
+<p>使用ggthemes包中的颜色主题（华尔街日报的主题色模板）<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(diamonds,aes(carat,price,colour=cut))+geom_point()+scale_colour_wsj()</div></pre></td></tr></table></figure></p>
+<p><img src="http://orqx7zr30.bkt.clouddn.com/image5.png" alt=""></p>
+<p>使用RColorBrewer包中的配色卡</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(diamonds,aes(carat,price,colour=cut))+geom_point()+scale_colour_brewer(palette=<span class="string">"Greens"</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://orqx7zr30.bkt.clouddn.com/image6.png" alt=""></p>
+<p>使用DIY方式自己制作配色卡</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(diamonds,aes(carat,price,colour=cut))+geom_point()+scale_colour_manual(values=c(<span class="string">"#84CEFC"</span>,<span class="string">"#ACDAE4"</span>,<span class="string">"#5C9EA4"</span>,<span class="string">"#04FEFC"</span>,<span class="string">"#4CD2CC"</span>))</div></pre></td></tr></table></figure>
+<p><img src="http://orqx7zr30.bkt.clouddn.com/image7.png" alt=""></p>
+<p><strong>连续型：</strong></p>
+<p>双色渐变：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(diamonds,aes(carat,price,colour=depth))+geom_point()+scale_colour_gradient(low=<span class="string">"white"</span>,high=<span class="string">"Blue"</span>)</div></pre></td></tr></table></figure></p>
+<p><img src="http://orqx7zr30.bkt.clouddn.com/image8.png" alt=""></p>
+<p>三色渐变：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(diamonds,aes(carat,price,colour=depth))+geom_point()+scale_colour_gradient2(low=<span class="string">"#8E0F2E"</span>, mid=<span class="string">"#BFBEBE"</span>, high=<span class="string">"#0E4E75"</span>,midpoint=median(na.omit(diamonds$depth)))</div></pre></td></tr></table></figure></p>
+<p><img src="http://orqx7zr30.bkt.clouddn.com/image9.png" alt=""></p>
+<p>以上就是R中最常用到的配色技巧，可以满足我们大部分使用场景的需求。</p>
+<hr>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
+<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
+<hr>
+<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今天跟大家分享ggplot图表的配色原理与基本技巧。&lt;/p&gt;
+&lt;p&gt;图表配色是一个很深奥的话题，多亏了R语言平台的众多开发者贡献的配色包，让图表的配色不再深不可测。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
+    
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="图表美化" scheme="http://www.raindu.com/tags/%E5%9B%BE%E8%A1%A8%E7%BE%8E%E5%8C%96/"/>
+    
+      <category term="配色技巧" scheme="http://www.raindu.com/tags/%E9%85%8D%E8%89%B2%E6%8A%80%E5%B7%A7/"/>
+    
+  </entry>
   
   <entry>
     <title>关于数据地图的几个遗留问题解决方案</title>
@@ -157,9 +242,9 @@
     
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
-      <category term="主题定制" scheme="http://www.raindu.com/tags/%E4%B8%BB%E9%A2%98%E5%AE%9A%E5%88%B6/"/>
-    
       <category term="图表美化" scheme="http://www.raindu.com/tags/%E5%9B%BE%E8%A1%A8%E7%BE%8E%E5%8C%96/"/>
+    
+      <category term="主题定制" scheme="http://www.raindu.com/tags/%E4%B8%BB%E9%A2%98%E5%AE%9A%E5%88%B6/"/>
     
   </entry>
   
@@ -1409,99 +1494,6 @@
       <category term="REmap" scheme="http://www.raindu.com/tags/REmap/"/>
     
       <category term="填充地图" scheme="http://www.raindu.com/tags/%E5%A1%AB%E5%85%85%E5%9C%B0%E5%9B%BE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>R语言可视化——案例综合运用</title>
-    <link href="http://www.raindu.com/2017/06/08/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94%E6%A1%88%E4%BE%8B%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8/"/>
-    <id>http://www.raindu.com/2017/06/08/R语言可视化——案例综合运用/</id>
-    <published>2017-06-08T01:36:58.000Z</published>
-    <updated>2017-06-16T14:17:25.787Z</updated>
-    
-    <content type="html"><![CDATA[<p>今天跟大家介绍一个REmap包的新函数——REmapB。</p>
-<p>它是REmap包中诸多组函数中的一位，功能上要强大于之前介绍的REmap函数，不仅可以完成REmap函数的所有图表效果，而且可以做出前者没有的地图效果。</p>
-<a id="more"></a>
-<h3 id="语法简介："><a href="#语法简介：" class="headerlink" title="语法简介："></a>语法简介：</h3><p><strong>以下是该函数的详细语法及参数：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">?remapB</div><div class="line">remapB(center = c(<span class="number">104.114129</span>,<span class="number">37.550339</span>),</div><div class="line">       zoom = <span class="number">5</span>,</div><div class="line">       color = <span class="string">"Bright"</span>,</div><div class="line">       title = <span class="string">""</span>,</div><div class="line">       subtitle = <span class="string">""</span>,</div><div class="line">       markLineData = <span class="literal">NA</span>,</div><div class="line">       markPointData = <span class="literal">NA</span>,</div><div class="line">       markLineTheme = markLineControl(),</div><div class="line">       markPointTheme = markPointControl(),</div><div class="line">       geoData = <span class="literal">NA</span>)</div></pre></td></tr></table></figure></p>
-<p><strong>参数说明：</strong></p>
-<ul>
-<li>参数一：center为地图中心，经纬度格式；</li>
-<li>参数二：zoom为缩放设置，默认为5，代表全国地图，增大至10可放大至地市</li>
-<li>参数三：color为地图颜色，可选有”Bright”, “Blue”, “light”, “dark”, “redalert”, “googlelite”, “grassgreen”, “midnight”, “pink”, “darkgreen”, “bluish”, “grayscale”, “hardedge”</li>
-<li>参数四：title为地图主标题</li>
-<li>参数五：subtitle为地图副标题</li>
-<li>参数六：markLineData为绘制线条需要的数据，包括起点和终点两列</li>
-<li>参数七：markPointDate为绘制点需要的数据，仅终点一列</li>
-<li>参数八：markLineTheme为线条主题设置，通过markLineControl( )函数设置</li>
-<li>参数九：markPointTheme为点主题设置，通过markPointControl( )函数设置</li>
-<li>参数十：geoData为点、线绘制的地理位置数据存储，可以只是输入经纬度数据，也可通过get_geo_position(‘地点’)获取</li>
-</ul>
-<p>其中以上参数中，markLineTheme和markLineTheme内含有诸多属性设置，类似REmap中的theme设置：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">markLineTheme = markLineControl(symbol = <span class="literal">NA</span>,<span class="comment">#控制线型</span></div><div class="line">symbolSize = c(<span class="number">0</span>,<span class="number">4</span>),    <span class="comment">#线条粗度变动范围</span></div><div class="line">smooth = <span class="literal">T</span>,             <span class="comment">#启用线条平滑度设置</span></div><div class="line">smoothness =<span class="number">0.2</span>,        <span class="comment">#线条平滑度</span></div><div class="line">effect = <span class="literal">T</span>,             <span class="comment">#线条动效</span></div><div class="line">lineWidth = <span class="number">2</span>,          <span class="comment">#线宽</span></div><div class="line">lineType = ‘dotted’,    <span class="comment">#线条类别</span></div><div class="line">color =‘Random’)        <span class="comment">#线条颜色</span></div></pre></td></tr></table></figure></p>
-<p><strong>参数说明：</strong></p>
-<ul>
-<li>参数一：symbol为标记样式，具体指线条两端的标记的形状，两个值分别为起点和终点，经过实际使用symbol参数不可修改</li>
-<li>参数二：symbolSize为线条两端标记大小，对应symbol参数的两个值，实际上第一个值没用，因为开始标记为none</li>
-<li>参数三：smooth为逻辑参数，设置线条是否平滑</li>
-<li>参数四：smoothness为平滑度，smooth参数设置为T时有效，体现线条的弧度，减小到0时为直线</li>
-<li>参数五：effect为逻辑参数，是否显示动态效果</li>
-<li>参数六：lineWidth为线条粗细</li>
-<li>参数七：lineType为线条类型，可选有solid（实线）、dotted（点线）、dashed（虚线）</li>
-<li>参数八：color为线条颜色</li>
-</ul>
-<p>根据以上参数名称，可以大致了解每一个参数的含义：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">markPointTheme = markPointControl(symbol = <span class="string">"heart"</span>, <span class="comment">#点形状</span></div><div class="line">symbolSize = <span class="string">"Random"</span>,   <span class="comment">#点大小</span></div><div class="line">effect = <span class="literal">T</span>,              <span class="comment">#动效启用</span></div><div class="line">effectType = <span class="string">"scale"</span>,    <span class="comment">#动效类型</span></div><div class="line">color = <span class="string">"Random"</span>)        <span class="comment">#颜色</span></div></pre></td></tr></table></figure></p>
-<p><strong>参数说明：</strong></p>
-<ul>
-<li>参数一：symbol为点样式，可选项none、circle、rectangle、triangle、diamond、emptyCirle、emptyRectangle、emptyTriangle、emptyDiamond、heart、droplet、pin、arrow、star</li>
-<li>参数二：symbolSize为点大小</li>
-<li>参数三：effect为逻辑参数，是否显示动态效果</li>
-<li>参数四：effectType为动态效果样式，可选scale（放大）和bounce（跳动）</li>
-<li>参数五：color为点颜色</li>
-</ul>
-<p>解读：effect参数在点太多时，动态效果会失效，这时建议设置为FALSE。在remapB( )函数中通过另外一个参数markPointData也可以设置点颜色，优先级高于color参数。</p>
-<h3 id="案例应用："><a href="#案例应用：" class="headerlink" title="案例应用："></a>案例应用：</h3><h4 id="接下来我们可以根据以上参数说明制作一个一对多的流向图："><a href="#接下来我们可以根据以上参数说明制作一个一对多的流向图：" class="headerlink" title="接下来我们可以根据以上参数说明制作一个一对多的流向图："></a>接下来我们可以根据以上参数说明制作一个一对多的流向图：</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">destination&lt;- c(<span class="string">"shanghai"</span>,<span class="string">"guangzhou"</span>,<span class="string">"济南"</span>,<span class="string">"dalian"</span>,<span class="string">"xian"</span>,<span class="string">"chengdu"</span>,<span class="string">"changchun"</span>,<span class="string">"taiyuan"</span>,<span class="string">"nanyang"</span>,<span class="string">"zhengzhou"</span>)  <span class="comment">#终点</span></div><div class="line">origin&lt;- rep(<span class="string">"nanyang"</span>,length(destination))  <span class="comment">#起点</span></div><div class="line">map_data&lt;- data.frame(origin,destination)  <span class="comment">#合成数据框格式的作图数据</span></div></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">map_out&lt;-remapB(zoom=<span class="number">5</span>, <span class="comment">#参数5绘制省级国家地图</span></div><div class="line">                   color=<span class="string">"dark"</span>,</div><div class="line">                   title=<span class="string">"我是主标题"</span>,</div><div class="line">                   subtitle=<span class="string">"我是副标题"</span>,</div><div class="line">                   markLineData=map_data,</div><div class="line">                   markPointData=destination,</div><div class="line">                   markLineTheme=markLineControl(),</div><div class="line">                   markPointTheme=markPointControl()</div><div class="line">                   )</div><div class="line">plot(map_out)</div></pre></td></tr></table></figure>
-<p><img src="http://or7gx50mg.bkt.clouddn.com/GIF.gif" alt=""></p>
-<p>####通过设置markLineTheme、markPointTheme两个主题内部的详细风格参数，你可以对线条以及数据点的气泡进行个性化设置。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">map_out1&lt;-remapB(zoom=<span class="number">5</span>, </div><div class="line">                 color=<span class="string">"dark"</span>,</div><div class="line">                 title=<span class="string">"我是主标题"</span>,</div><div class="line">                 subtitle=<span class="string">"我是副标题"</span>,</div><div class="line">                 markLineData=map_data,</div><div class="line">                 markPointData=destination,                </div><div class="line">                 markLineTheme = markLineControl(</div><div class="line">                 symbol = <span class="literal">NA</span>,            </div><div class="line">                 symbolSize = c(<span class="number">0</span>,<span class="number">4</span>),   </div><div class="line">                 smooth = <span class="literal">T</span>,             </div><div class="line">                 smoothness =<span class="number">0.2</span>,      </div><div class="line">                 effect = <span class="literal">T</span>,            </div><div class="line">                 lineWidth = <span class="number">2</span>,         </div><div class="line">                 lineType =<span class="string">"dotted"</span>,  </div><div class="line">                 color =<span class="string">"white"</span>),</div><div class="line">                 markPointTheme = markPointControl(</div><div class="line">                 symbol = <span class="string">"heart"</span>, </div><div class="line">                 symbolSize = <span class="string">"Random"</span>,  </div><div class="line">                 effect = <span class="literal">T</span>,              </div><div class="line">                 effectType = <span class="string">"scale"</span>,   </div><div class="line">                 color = <span class="string">"white"</span>) </div><div class="line">                 )</div><div class="line">plot(map_out1)</div></pre></td></tr></table></figure></p>
-<p><img src="http://or7gx50mg.bkt.clouddn.com/GIF1.gif" alt=""></p>
-<p>如果只想要绘制流向线而不需要终点的点的话，直接给markPointData赋值为NA就可以了。</p>
-<h4 id="只要将我们的数据结构重新整理，就可以制作出路径地图："><a href="#只要将我们的数据结构重新整理，就可以制作出路径地图：" class="headerlink" title="只要将我们的数据结构重新整理，就可以制作出路径地图："></a>只要将我们的数据结构重新整理，就可以制作出路径地图：</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">newdata&lt;- c(<span class="string">"shanghai"</span>,<span class="string">"guangzhou"</span>,<span class="string">"chengdu"</span>,<span class="string">"xian"</span>,<span class="string">"taiyuan"</span>,<span class="string">"济南"</span>,<span class="string">"shanghai"</span>) </div><div class="line">origin&lt;-c(newdata[-<span class="number">7</span>])</div><div class="line">destination&lt;-c(newdata[-<span class="number">1</span>])</div><div class="line">map_data&lt;- data.frame(origin,destination)</div><div class="line"></div><div class="line">map_out2&lt;-remapB(zoom=<span class="number">5</span>, </div><div class="line">                 color=<span class="string">"dark"</span>,</div><div class="line">                 title=<span class="string">"我是主标题"</span>,</div><div class="line">                 subtitle=<span class="string">"我是副标题"</span>,</div><div class="line">                 markLineData=map_data,</div><div class="line">                 markPointData=destination,                </div><div class="line">                 markLineTheme = markLineControl(</div><div class="line">                 symbol = <span class="literal">NA</span>,            </div><div class="line">                 symbolSize = c(<span class="number">0</span>,<span class="number">4</span>),   </div><div class="line">                 smooth = <span class="literal">T</span>,             </div><div class="line">                 smoothness =<span class="number">0.2</span>,      </div><div class="line">                 effect = <span class="literal">T</span>,            </div><div class="line">                 lineWidth = <span class="number">2</span>,         </div><div class="line">                 lineType =<span class="string">"dotted"</span>,  </div><div class="line">                 color =<span class="string">"white"</span>),</div><div class="line">                 markPointTheme = markPointControl(</div><div class="line">                 symbol = <span class="string">"heart"</span>, </div><div class="line">                 symbolSize = <span class="string">"Random"</span>,  </div><div class="line">                 effect = <span class="literal">T</span>,              </div><div class="line">                 effectType = <span class="string">"scale"</span>,   </div><div class="line">                 color = <span class="string">"white"</span>) </div><div class="line">                 )</div><div class="line">plot(map_out2)</div></pre></td></tr></table></figure>
-<p><img src="http://or7gx50mg.bkt.clouddn.com/GIF2.gif" alt=""></p>
-<h4 id="最后一个案例使用REmapB函数制作目标分布图："><a href="#最后一个案例使用REmapB函数制作目标分布图：" class="headerlink" title="最后一个案例使用REmapB函数制作目标分布图："></a>最后一个案例使用REmapB函数制作目标分布图：</h4><p>首先搜索大连地区的大学：</p>
-<p>加载百度地图包：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(<span class="string">"baidumap"</span>)</div><div class="line"><span class="comment">#查找大连的所有大学</span></div><div class="line">dl_college &lt;- getPlace(<span class="string">"大学"</span>,<span class="string">"大连"</span>)</div><div class="line">Get <span class="number">125</span> records, <span class="number">7</span> page. </div><div class="line">    Getting  <span class="number">0</span> th page </div><div class="line">    Getting  <span class="number">1</span> th page </div><div class="line">    Getting  <span class="number">2</span> th page </div><div class="line">    Getting  <span class="number">3</span> th page </div><div class="line">    Getting  <span class="number">4</span> th page </div><div class="line">    Getting  <span class="number">5</span> th page </div><div class="line">    Getting  <span class="number">6</span> th page </div><div class="line">Done!</div></pre></td></tr></table></figure></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#预览数据：</span></div><div class="line">head(dl_college)</div><div class="line"></div><div class="line">                        name                                           address      lat      lon</div><div class="line"><span class="number">1</span>               大连工业大学                                         轻工苑<span class="number">1</span>号 <span class="number">38.97890</span> <span class="number">121.5332</span></div><div class="line"><span class="number">2</span>               大连理工大学                     辽宁省大连市甘井子区凌工路<span class="number">2</span>号 <span class="number">38.88868</span> <span class="number">121.5362</span></div><div class="line"><span class="number">3</span>               大连海事大学                             辽宁省大连市凌海路<span class="number">1</span>号 <span class="number">38.87753</span> <span class="number">121.5387</span></div><div class="line"><span class="number">4</span> 大连交通大学（沙河口校区） 沙河口区黄河路<span class="number">794</span>号交通大学小吃一条街内(近西南路) <span class="number">38.91790</span> <span class="number">121.5770</span></div><div class="line"><span class="number">5</span>   大连外国语大学(旅顺校区)                   中国辽宁省大连市旅顺南路西段<span class="number">6</span>号 <span class="number">38.81853</span> <span class="number">121.3154</span></div><div class="line"><span class="number">6</span>                   大连大学                                      学府大街<span class="number">10</span>号 <span class="number">39.10660</span> <span class="number">121.8282</span></div><div class="line">       telephone</div><div class="line"><span class="number">1</span> (<span class="number">0411</span>)<span class="number">86323693</span></div><div class="line"><span class="number">2</span>           &lt;<span class="literal">NA</span>&gt;</div><div class="line"><span class="number">3</span>           &lt;<span class="literal">NA</span>&gt;</div><div class="line"><span class="number">4</span> (<span class="number">0411</span>)<span class="number">84106313</span></div><div class="line"><span class="number">5</span> (<span class="number">0411</span>)<span class="number">86111157</span></div><div class="line"><span class="number">6</span> (<span class="number">0411</span>)<span class="number">87402114</span></div></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">str(dl_college)</div><div class="line"></div><div class="line"><span class="string">'data.frame'</span>:	<span class="number">125</span> obs. of  <span class="number">5</span> variables:</div><div class="line"> $ name     : chr  <span class="string">"大连工业大学"</span> <span class="string">"大连理工大学"</span> <span class="string">"大连海事大学"</span> <span class="string">"大连交通大学（沙河口校区）"</span> <span class="keyword">...</span></div><div class="line"> $ address  : chr  <span class="string">"轻工苑1号"</span> <span class="string">"辽宁省大连市甘井子区凌工路2号"</span> <span class="string">"辽宁省大连市凌海路1号"</span> <span class="string">"沙河口区黄河路794号交通大学小吃一条街内(近西南路)"</span> <span class="keyword">...</span></div><div class="line"> $ lat      : num  <span class="number">39</span> <span class="number">38.9</span> <span class="number">38.9</span> <span class="number">38.9</span> <span class="number">38.8</span> <span class="keyword">...</span></div><div class="line"> $ lon      : num  <span class="number">122</span> <span class="number">122</span> <span class="number">122</span> <span class="number">122</span> <span class="number">121</span> <span class="keyword">...</span></div><div class="line"> $ telephone: chr  <span class="string">"(0411)86323693"</span> <span class="literal">NA</span> <span class="literal">NA</span> <span class="string">"(0411)84106313"</span> <span class="keyword">...</span></div></pre></td></tr></table></figure>
-<p>一共抓取了大连地区的125个带有大学的机构经纬度地址：</p>
-<p><strong>构造作图数据：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">newdata1&lt;-dl_college[,c(<span class="number">3</span>,<span class="number">4</span>,<span class="number">1</span>)]</div><div class="line">head(newdata1)</div><div class="line">                        name      lat      lon</div><div class="line"><span class="number">1</span>               大连工业大学 <span class="number">38.97890</span> <span class="number">121.5332</span></div><div class="line"><span class="number">2</span>               大连理工大学 <span class="number">38.88868</span> <span class="number">121.5362</span></div><div class="line"><span class="number">3</span>               大连海事大学 <span class="number">38.87753</span> <span class="number">121.5387</span></div><div class="line"><span class="number">4</span> 大连交通大学（沙河口校区） <span class="number">38.91790</span> <span class="number">121.5770</span></div><div class="line"><span class="number">5</span>   大连外国语大学(旅顺校区) <span class="number">38.81853</span> <span class="number">121.3154</span></div><div class="line"><span class="number">6</span>                   大连大学 <span class="number">39.10660</span> <span class="number">121.8282</span></div></pre></td></tr></table></figure></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">newdata2&lt;-newdata1[,c(<span class="number">2</span>,<span class="number">1</span>,<span class="number">3</span>)]</div><div class="line">map_out3 &lt;- remapB(center = c(<span class="number">121.62139</span>,<span class="number">38.91934</span>),  </div><div class="line">                zoom = <span class="number">14</span>,</div><div class="line">                color = <span class="string">"Blue"</span>,</div><div class="line">                title = <span class="string">"大连高校分布图"</span>,</div><div class="line">                markPointData =newdata2[<span class="number">3</span>],</div><div class="line">                markPointTheme = markPointControl(</div><div class="line">                symbol = <span class="string">"pin"</span>,</div><div class="line">                symbolSize = <span class="number">3</span>,</div><div class="line">                effect = <span class="literal">T</span>,</div><div class="line">                color = <span class="string">"yellow"</span>),</div><div class="line">                geoData =newdata2 </div><div class="line">               )</div><div class="line">plot(map_out3)</div></pre></td></tr></table></figure>
-<p><img src="http://or7gx50mg.bkt.clouddn.com/GIF3.gif" alt=""></p>
-<p>如果想要存储该HTML对象，需要设定临时目录：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">setwd(<span class="string">"D:/R/Rscript"</span>)      <span class="comment">#保存图片的位置，不做修改默认为R的工作路径</span></div><div class="line">options(remap.js.web=<span class="literal">T</span>)    <span class="comment">#动态网页图保存命令</span></div><div class="line">plot(map_out3)             <span class="comment">#保存的同时自动调用浏览器窗口</span></div></pre></td></tr></table></figure>
-<hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
-<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<hr>
-<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;今天跟大家介绍一个REmap包的新函数——REmapB。&lt;/p&gt;
-&lt;p&gt;它是REmap包中诸多组函数中的一位，功能上要强大于之前介绍的REmap函数，不仅可以完成REmap函数的所有图表效果，而且可以做出前者没有的地图效果。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="地理信息可视化" scheme="http://www.raindu.com/categories/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
-    
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
-      <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
-    
-      <category term="REmap" scheme="http://www.raindu.com/tags/REmap/"/>
     
   </entry>
   
