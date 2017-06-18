@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[关于数据地图的几个遗留问题解决方案]]></title>
+    <url>%2F2017%2F06%2F18%2F%E5%85%B3%E4%BA%8E%E6%95%B0%E6%8D%AE%E5%9C%B0%E5%9B%BE%E7%9A%84%E5%87%A0%E4%B8%AA%E9%81%97%E7%95%99%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%2F</url>
+    <content type="text"><![CDATA[今天跟大家分享三个数据地图的遗留问题，包括以前因为技术手段限制无法解决的问题，以及读者吐槽最多的问题。 如何在一个版面上呈现不同行政级别的地理信息； 如何给版面添加mini导航定位窗口； 关于九段线问题。 问题一：关于第一个问题的解决方案，其实很简单，就是通过两个不同行政级别的图层进行叠加来达到目的。1234567library(maps) library("ggplot2")library("ggthemes")library("dplyr")library("maptools")library("grid")library("ggimage") 1234world_map&lt;-map_data("world")data&lt;-read.csv("D:/R/mapdata/Word_State.csv",stringsAsFactors = FALSE,check.names = FALSE) data1&lt;-filter(data,region=="Russia" | Address=="Asia")mymapdata&lt;-merge(world_map[,1:5],data1,type="right")%&gt;%filter(long&gt;=30 &amp; lat&gt;=10)%&gt;%arrange(group,order) 底层的区域地图：1234ggplot(mymapdata)+geom_polygon(aes(x=long,y=lat,group=group),fill="grey95",col="black")+coord_map("polyconic") +theme_map() 表层的中国省级行政区划地图：12china_map &lt;- readShapePoly("D:/R/rstudy/CHN_adm/bou2_4p.shp") china_map1 &lt;- fortify(china_map) 1234ggplot(china_map1)+geom_polygon(aes(x=long,y=lat,group=group),fill="white",col="black")+coord_map("polyconic") +theme_map() 将两个图层对象放在同一个图形对象中（注意先后顺序）。 12345ggplot()+geom_polygon(data=mymapdata,aes(x=long,y=lat,group=group),fill="grey95",col="grey")+geom_polygon(data=china_map1,aes(x=long,y=lat,group=group),fill="white",col="black")+coord_map("polyconic") +theme_map() minimini导航窗口第二个问题，关于minimini导航窗口。 其实这个问题多少跟第一个问题有些关联，也是旨在给我们要呈现的中心地图一个区域定位的作用。解决方案依然是拼图，不过这次是拼的图表（整个图表对象），而非图表中的图层。 位于中间的中国行政区划地图： 1234p1&lt;-ggplot()+geom_polygon(data=china_map1,aes(x=long,y=lat,group=group),fill="white",col="grey")+coord_map("polyconic") +theme_map();p1 1234p2&lt;-ggplot()+geom_polygon(data=world_map,aes(x=long,y=lat,group=group),fill="grey95",col="grey")+annotate(geom="rect",xmin =30, xmax =155,ymin =10L, ymax = 55,colour="grey",fill="orange",alpha=.3)+theme_map() %+replace% theme(plot.background=element_rect(colour="black"));p2 拼贴合并：12vie&lt;-viewport(width=0.30,height=0.25,x=0.25,y=0.25)p1;print(p2,vp=vie) 第三个问题；也是被吐槽最多的九段线问题，这个问题，其实严格来说，我也没有办法搞定。 关于九段线问题：一般的九段线标识方法有两种，一种是在实际位置框定九段线范围，另一种则是将九段线的实际范围单独移至版面的边缘位置。第一种方法需要精确的九段线经纬点数据，获取不易，第二种则九段线位置过于灵活，然后不好掌握数据。 如果你能获取带有九段线数据的地图素材，那么这是最佳的解决方案，倘若不行，我们就要对图表后期进行处理（大部分人想到的方法是使用PS等软件，当然 这也是一种解决方案，至少清晰度上可以保证）。 但是既然是在R里面写代码，突然跑去玩PS总感觉怪怪的，能用代码解决的问题就不算问题，没错拼图嘛，R依然搞的定。 首先你要有个九段线素材图片。 123456jiuduanxian&lt;-"E:/数据可视化/R/R语言学习笔记/可视化/timg.jpg"ggplot()+geom_polygon(data=china_map1,aes(x=long,y=lat,group=group),fill="white",col="grey")+geom_image(aes(image=jiuduanxian,x=130,y=20),size=.2)+coord_map("polyconic") +theme_map() 我找的这个九段线素材可能跟中国地图风格搭配的不是很好，当然各位使用的时候可以自己去找相对准确、美观的素材使用。 最后提醒大家，关于九段线问题，一定要在报告或者文章末尾进行免责声明，涉及到领土争端问题，不仅仅要意识到，而且要尽可能的做好应对措施，避免不必要的麻烦。 关于数据源问题的说明： 点击博客左下侧的GitHub链接： 进入本人GitHub主页之后，打开名为datawarehouse的数据仓库； 联系方式：wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]298236508 个人简介：杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。Mail:578708965@qq.com 备注信息：本作品采用知识共享署名-非商业性使用 4.0 国际许可协议进行许可。]]></content>
+      <categories>
+        <category>ggplot2</category>
+      </categories>
+      <tags>
+        <tag>数据可视化</tag>
+        <tag>R语言</tag>
+        <tag>数据地图</tag>
+        <tag>九段线</tag>
+        <tag>mini导航窗口</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[R语言可视化——ggplot的theme订制]]></title>
     <url>%2F2017%2F06%2F17%2FR%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94ggplot%E7%9A%84theme%E8%AE%A2%E5%88%B6%2F</url>
     <content type="text"><![CDATA[ggplot作图系统在R预言诸多可视化包中之所以如此的风靡，除了它拥有自己的图层理念之外，我觉得还要归功于它对于图表细节元素的灵活调整。 对于ggplot的初学者而言，可能没有太多的在意图表的主题是否优雅，配色是否美观，仅求能够准确无误的出图就OK了。 但是如果仅限于此，那么使用ggplot作图真的就是杀鸡用了宰牛刀了。 就拿默认的图表来说，虽然你只靠两句代码就可以跑出来一幅还算及格的图表，可是ggplot语法博大精深，背后给你的代码默认匹配的参数不计其数。 其中有一组特别庞大的参数组就是theme（）参数： 默认的图表再不添加任何自定义主题和配色的情况下，软件会给出默认的主题和配色： 默认主题是theme_gray,中一共给出了两套主题，分别是theme_gray、theme_bw 接下来我们来一步步验证： 首先加载包：123library（ggplot2）library（reshape2）library(ggtheme) 构造作图数据：12data&lt;-data.frame(Name = c("苹果","谷歌","脸书","亚马逊","腾讯"),Conpany = c("Apple","Google","Facebook","Amozon","Tencent"),Sale2013 = c(5000,3500,2300,2100,3100),Sale2014 = c(5050,3800,2900,2500,3300),Sale2015 = c(5050,3800,2900,2500,3300),Sale2016 = c(5050,3800,2900,2500,3300))mydata&lt;-melt(data,id.vars=c("Name","Conpany"),variable.name="Year",value.name="Sale") 初始化绘图：1ggplot(mydata,aes(Conpany,Sale,fill=Year))+geom_bar(stat="identity") 以上代码（已经简化的不能再简化了，不夸张的说，再少一个标点符号，就要报错了）跑出来的默认堆积条形图。 添加主题：可是在R预言可视化这个领域内，以上图表绝对是一个烂大街的货色，怎么说呢，因为你不修改主题，它搭配的主题永远都是theme_gray 12ggplot(mydata,aes(Conpany,Sale,fill=Year))+geom_bar(stat="identity")+theme_gray()ggplot(mydata,aes(Conpany,Sale,fill=Year))+geom_bar(stat="identity")+theme_bw() 以上两个图表分别套用了默认主题theme_gray()和备用主题theme_bw()，所以看去来前者与第一幅图无异，后者则差别很大。 虽然看起来修改主题好像很简单的样纸，殊不知，在主题内部，该函数是设定了不计其数、让人眼花缭乱的参数。 主题函数结构：你可以通过theme_gray 查看主题函数内的参数配置： 1theme_gray 1theme_bw 哈哈看傻眼了吧，其实仔细捋一捋，主题函数内的参数虽然繁杂，但是绝对算不上晦涩。 以下是自己整理的主题参数列表： 通过设定主题参数，你也可以制作专属的图表主题模板。 接下来我将设定一个简单的主题模板用于修改以上的图表主题； 1234567891011121314theme_xmf &lt;- function(..., bg='white')&#123; require(grid) theme_classic(...) + theme(rect=element_rect(fill=bg), plot.margin=unit(rep(0.5,4), 'lines'), panel.background=element_rect(fill='transparent', color='transparent'), panel.border=element_rect(fill='transparent', color='transparent'), panel.grid=element_blank(), axis.title = element_text(color='black', vjust=0.1), axis.ticks.length = unit(-0.3,"lines"), axis.ticks = element_line(colour = "grey20"), legend.title=element_blank(), legend.key=element_rect(fill='transparent', color='transparent'))&#125; 套用自己的自定义主题：1ggplot(mydata,aes(Conpany,Sale,fill=Year))+geom_bar(stat="identity")+theme_xmf() 这里要强调一点，主题中是不包含颜色模板设定的，因为颜色的使用场景及类别比较复杂，会有专门的颜色标度进行设定，其实就是scale_colour_xxx()/scale_fill_xxx()进行设定（分别为点、线色以及区域色） 这里暂且使用一个RColorbrewer色板中的渐变色装饰一下，不做过多解释，下一节，专门讨论颜色。 1ggplot(mydata,aes(Conpany,Sale,fill=Year))+geom_bar(stat="identity")+theme_xmf()+scale_fill_brewer(palette="Blues") 至于图表中的颜色填充顺序和图例相反，这个问题只需追加一句代码即可： 1ggplot(mydata,aes(Conpany,Sale,fill=Year))+geom_bar(stat="identity")+theme_xmf()+scale_fill_brewer(palette="Blues")+guides(fill = guide_legend(reverse = TRUE)) 其他的细节设定，下次讲。 联系方式：wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]298236508 个人简介：杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。Mail:578708965@qq.com 备注信息：本作品采用知识共享署名-非商业性使用 4.0 国际许可协议进行许可。]]></content>
@@ -246,8 +261,8 @@
         <tag>数据可视化</tag>
         <tag>R语言</tag>
         <tag>地理信息可视化</tag>
-        <tag>填充地图</tag>
         <tag>REmap</tag>
+        <tag>填充地图</tag>
       </tags>
   </entry>
   <entry>
@@ -322,9 +337,9 @@
       <tags>
         <tag>数据可视化</tag>
         <tag>R语言</tag>
-        <tag>json</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
+        <tag>json</tag>
         <tag>leaflet</tag>
       </tags>
   </entry>
@@ -356,8 +371,8 @@
         <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
-        <tag>leaflet</tag>
         <tag>路径图</tag>
+        <tag>leaflet</tag>
         <tag>mini柱形/条形图</tag>
       </tags>
   </entry>
