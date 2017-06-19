@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.raindu.com/"/>
-  <updated>2017-06-19T01:02:30.539Z</updated>
+  <updated>2017-06-19T14:22:58.141Z</updated>
   <id>http://www.raindu.com/</id>
   
   <author>
@@ -14,6 +14,81 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>R语言可视化——ggplot图表中的线条</title>
+    <link href="http://www.raindu.com/2017/06/19/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94ggplot%E5%9B%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E7%BA%BF%E6%9D%A1/"/>
+    <id>http://www.raindu.com/2017/06/19/R语言可视化——ggplot图表中的线条/</id>
+    <published>2017-06-19T14:08:27.000Z</published>
+    <updated>2017-06-19T14:22:58.141Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天跟大家分享的是<code>ggplot</code>图表中的一类重要元素——线条。</p>
+<p>不要觉得专门为线条写一章推送有点小题大做，其实线条对于图表而言，功不可没，即便是不起眼的网格、轴线、或者线条的粗线、线型、磅数等都将决定着你的图表品质。</p>
+<p>R语言中ggplot函数系统中涉及到线条的地方有很多，最常见的场景就是我们做<code>geom_line()</code>（折线图）、<code>geom_path（）</code>(路径图),以及图表的绘图区（<code>panel</code>）、图表区、网格系统（<code>grid</code>）中所涉及到的线条。</p>
+<a id="more"></a>
+<p>今天以一个折线图为例，简要说明ggplot函数中关于线条的主要参数及其效果。</p>
+<h3 id="数据构造过程："><a href="#数据构造过程：" class="headerlink" title="数据构造过程："></a>数据构造过程：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(ggplot2)</div><div class="line"><span class="keyword">library</span>(reshape2)</div><div class="line"><span class="keyword">library</span>(ggthemes)</div><div class="line"><span class="keyword">library</span>(RColorBrewer)</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">data&lt;-data.frame(Name = c(<span class="string">"苹果"</span>,<span class="string">"谷歌"</span>,<span class="string">"脸书"</span>,<span class="string">"亚马逊"</span>,<span class="string">"腾讯"</span>),Company = c(<span class="string">"Apple"</span>,<span class="string">"Google"</span>,<span class="string">"Facebook"</span>,<span class="string">"Amozon"</span>,<span class="string">"Tencent"</span>),Sale2013 = c(<span class="number">5000</span>,<span class="number">3500</span>,<span class="number">2300</span>,<span class="number">2100</span>,<span class="number">3100</span>),Sale2014 = c(<span class="number">5050</span>,<span class="number">3800</span>,<span class="number">2900</span>,<span class="number">2500</span>,<span class="number">3300</span>),Sale2015 = c(<span class="number">5050</span>,<span class="number">4000</span>,<span class="number">3200</span>,<span class="number">2800</span>,<span class="number">3700</span>),Sale2016 = c(<span class="number">6000</span>,<span class="number">4800</span>,<span class="number">4500</span>,<span class="number">3500</span>,<span class="number">4300</span>))</div><div class="line">mydata&lt;-melt(data,id.vars=c(<span class="string">"Name"</span>,<span class="string">"Company"</span>),variable.name=<span class="string">"Year"</span>,value.name=<span class="string">"Sale"</span>)</div></pre></td></tr></table></figure>
+<h3 id="案例引入："><a href="#案例引入：" class="headerlink" title="案例引入："></a>案例引入：</h3><p>我先用一个简单的折线图代码跑出来一个折线图：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(Company,Sale,fill=Year))+geom_line()</div></pre></td></tr></table></figure></p>
+<p><img src="http://orssvamao.bkt.clouddn.com/image1.png" alt=""><br><img src="http://orssvamao.bkt.clouddn.com/image2.png" alt=""></p>
+<blockquote>
+<p>geom_path: Each group consists of only one observation. Do you need to adjust the group aesthetic?</p>
+</blockquote>
+<p>当我用以上代码运行的时候，软件报错，提示如上：</p>
+<p>图表展示区给出了一个只有坐标系的空白图表；</p>
+<p>相信根据英文意思也可以明白怎么回事，因为我们给折线图的X轴映射是一个离散的因子变量，而默认状态下软件会将单条记录都会视作一个分类，这样肯定是无法出来图表的，而如果是一个连续变量，则会只会当做一个类别进行映射。</p>
+<p>我们使用过ggplot内内置数据集验证我们的猜想。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">head(LakeHuron)</div><div class="line">LakeHuron$data&lt;-seq(<span class="number">1875</span>,<span class="number">1972</span>,<span class="number">1</span>)</div><div class="line">ggplot(LakeHuron,aes(data,LakeHuron))+geom_line()</div></pre></td></tr></table></figure></p>
+<h3 id="参数解释说明："><a href="#参数解释说明：" class="headerlink" title="参数解释说明："></a>参数解释说明：</h3><p>以上使用了一个时间序列数据，很顺利的完成了折线图的制作。</p>
+<p>那么针对离散变量的折线图到底如何来做呢，我们可以通过group指定分组的形式来达到目的。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(Company,Sale,group=Year,fill=Year))+geom_line()</div></pre></td></tr></table></figure>
+<p><img src="http://orssvamao.bkt.clouddn.com/image3.png" alt=""></p>
+<p>通过指定group即告知软件将变量按照年份变量分组，否则单个不重复记录都会被当做一个单独分组。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata,aes(Company,Sale,group=Year))+geom_line()+geom_point()</div></pre></td></tr></table></figure>
+<p><img src="http://orssvamao.bkt.clouddn.com/image4.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line()+geom_point()  <span class="comment">#按照年份分组的同时按照年份进行线条的颜色映射</span></div></pre></td></tr></table></figure>
+<p><img src="http://orssvamao.bkt.clouddn.com/image5.png" alt=""></p>
+<h3 id="参数变化的对比效果："><a href="#参数变化的对比效果：" class="headerlink" title="参数变化的对比效果："></a>参数变化的对比效果：</h3><p>接下来通过对线条内部参数的修改，我们可以体会到ggplot对于线条细节的把控是多么的专注：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line()+geom_point()</div></pre></td></tr></table></figure>
+<p><img src="http://orssvamao.bkt.clouddn.com/image6.png" alt=""></p>
+<p>线条的参数主要有<code>size</code>、<code>colour</code>、<code>linetype</code>.</p>
+<p>其中线条的类型主要有<code>0=blank</code>,<code>1=solid</code>,<code>2=dashed</code>,<code>3=dotted</code>,<code>4=dotdash</code>,<code>5=longdash</code>,<code>6=twodash</code></p>
+<p><img src="http://orssvamao.bkt.clouddn.com/image7.png" alt=""></p>
+<p><strong>每一个类型示例如下：</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line()+geom_point() </div><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(linetype=<span class="number">1</span>,size=<span class="number">1.5</span>)+geom_point()</div><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(linetype=<span class="number">2</span>,size=<span class="number">1.5</span>)+geom_point()</div><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(linetype=<span class="number">3</span>,size=<span class="number">1.5</span>)+geom_point()</div><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(linetype=<span class="number">4</span>,size=<span class="number">1.5</span>)+geom_point()</div><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(linetype=<span class="number">5</span>,size=<span class="number">1.5</span>)+geom_point()</div><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(linetype=<span class="number">6</span>,size=<span class="number">1.5</span>)+geom_point()</div></pre></td></tr></table></figure>
+<p><img src="http://orssvamao.bkt.clouddn.com/image10.png" alt=""></p>
+<p><strong>下面是关于线条粗度的不同感知：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(size=<span class="number">1</span>,linetype=<span class="number">1</span>)+geom_point() </div><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(size=<span class="number">2</span>,linetype=<span class="number">1</span>)+geom_point()</div><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(size=<span class="number">3</span>,linetype=<span class="number">1</span>)+geom_point()</div><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(size=<span class="number">4</span>,linetype=<span class="number">1</span>)+geom_point()</div><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(size=<span class="number">5</span>,linetype=<span class="number">1</span>)+geom_point()</div><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(size=<span class="number">6</span>,linetype=<span class="number">1</span>)+geom_point()</div></pre></td></tr></table></figure></p>
+<p><img src="http://orssvamao.bkt.clouddn.com/image8.png" alt=""></p>
+<p>以上依次使用的线条粗度值为1,2,3,4,5,6，大家可以通过图表感受到ggplot图表中线条的粗度变化规律。</p>
+<p>除了折线图（以及路径图，等图层中的线条之外），在theme系统中存在大量的关于线条的属性设置(网格系统、图表边框、轴线、图例系统)，均可以参照以上参数进行设置。</p>
+<hr>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
+<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
+<hr>
+<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今天跟大家分享的是&lt;code&gt;ggplot&lt;/code&gt;图表中的一类重要元素——线条。&lt;/p&gt;
+&lt;p&gt;不要觉得专门为线条写一章推送有点小题大做，其实线条对于图表而言，功不可没，即便是不起眼的网格、轴线、或者线条的粗线、线型、磅数等都将决定着你的图表品质。&lt;/p&gt;
+&lt;p&gt;R语言中ggplot函数系统中涉及到线条的地方有很多，最常见的场景就是我们做&lt;code&gt;geom_line()&lt;/code&gt;（折线图）、&lt;code&gt;geom_path（）&lt;/code&gt;(路径图),以及图表的绘图区（&lt;code&gt;panel&lt;/code&gt;）、图表区、网格系统（&lt;code&gt;grid&lt;/code&gt;）中所涉及到的线条。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
+    
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="图表美化" scheme="http://www.raindu.com/tags/%E5%9B%BE%E8%A1%A8%E7%BE%8E%E5%8C%96/"/>
+    
+      <category term="theme" scheme="http://www.raindu.com/tags/theme/"/>
+    
+      <category term="视觉信号" scheme="http://www.raindu.com/tags/%E8%A7%86%E8%A7%89%E4%BF%A1%E5%8F%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>Word天呀，气泡图居然还有这种操作~</title>
@@ -72,9 +147,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="气泡云图.superbubble" scheme="http://www.raindu.com/tags/%E6%B0%94%E6%B3%A1%E4%BA%91%E5%9B%BE-superbubble/"/>
     
@@ -159,9 +234,9 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="图表美化" scheme="http://www.raindu.com/tags/%E5%9B%BE%E8%A1%A8%E7%BE%8E%E5%8C%96/"/>
     
@@ -232,9 +307,9 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="数据地图" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%9C%B0%E5%9B%BE/"/>
     
@@ -309,9 +384,9 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="图表美化" scheme="http://www.raindu.com/tags/%E5%9B%BE%E8%A1%A8%E7%BE%8E%E5%8C%96/"/>
     
@@ -370,9 +445,9 @@
       <category term="地理信息可视化" scheme="http://www.raindu.com/categories/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
@@ -436,9 +511,9 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -500,13 +575,13 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
-      <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="动态图表" scheme="http://www.raindu.com/tags/%E5%8A%A8%E6%80%81%E5%9B%BE%E8%A1%A8/"/>
+    
+      <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
       <category term="版面控制" scheme="http://www.raindu.com/tags/%E7%89%88%E9%9D%A2%E6%8E%A7%E5%88%B6/"/>
     
@@ -566,9 +641,9 @@
       <category term="可视化案例呈现" scheme="http://www.raindu.com/categories/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%A1%88%E4%BE%8B%E5%91%88%E7%8E%B0/"/>
     
     
-      <category term="Excel" scheme="http://www.raindu.com/tags/Excel/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="Excel" scheme="http://www.raindu.com/tags/Excel/"/>
     
       <category term="商务图表" scheme="http://www.raindu.com/tags/%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
     
@@ -615,11 +690,11 @@
       <category term="可视化案例呈现" scheme="http://www.raindu.com/categories/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%A1%88%E4%BE%8B%E5%91%88%E7%8E%B0/"/>
     
     
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="商务图表" scheme="http://www.raindu.com/tags/%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
-    
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   
@@ -674,9 +749,9 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -727,9 +802,9 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
@@ -932,9 +1007,9 @@
       <category term="PowerBI" scheme="http://www.raindu.com/categories/PowerBI/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
     
@@ -996,9 +1071,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
@@ -1188,9 +1263,9 @@
       <category term="图表配色" scheme="http://www.raindu.com/categories/%E5%9B%BE%E8%A1%A8%E9%85%8D%E8%89%B2/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="配色" scheme="http://www.raindu.com/tags/%E9%85%8D%E8%89%B2/"/>
     
@@ -1262,9 +1337,9 @@
       <category term="R语言" scheme="http://www.raindu.com/categories/R%E8%AF%AD%E8%A8%80/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -1359,9 +1434,9 @@
       <category term="R语言" scheme="http://www.raindu.com/categories/R%E8%AF%AD%E8%A8%80/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -1413,96 +1488,15 @@
       <category term="地理信息可视化" scheme="http://www.raindu.com/categories/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="在线地图" scheme="http://www.raindu.com/tags/%E5%9C%A8%E7%BA%BF%E5%9C%B0%E5%9B%BE/"/>
     
       <category term="leaflet" scheme="http://www.raindu.com/tags/leaflet/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>R语言可视化——REmapH(中心热度图)</title>
-    <link href="http://www.raindu.com/2017/06/08/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94REmapH-%E4%B8%AD%E5%BF%83%E7%83%AD%E5%BA%A6%E5%9B%BE/"/>
-    <id>http://www.raindu.com/2017/06/08/R语言可视化——REmapH-中心热度图/</id>
-    <published>2017-06-08T09:36:37.000Z</published>
-    <updated>2017-06-16T14:17:25.724Z</updated>
-    
-    <content type="html"><![CDATA[<p>今天是REmap系列的最后一篇——REmapH函数。</p>
-<p>这个函数的特色是可以做中心辐射的热力图，这种热力图在气象、人口密度、海拔测绘领域有诸多运用，当然也可以上当用在商务场合——特别是跟地理信息有关的数据呈现方面。</p>
-<a id="more"></a>
-<h3 id="加载包："><a href="#加载包：" class="headerlink" title="加载包："></a>加载包：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(<span class="string">"baidumap"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"REmap"</span>)</div></pre></td></tr></table></figure>
-<h3 id="语法简介："><a href="#语法简介：" class="headerlink" title="语法简介："></a>语法简介：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">?remapH</div><div class="line">remapH(data,</div><div class="line">      maptype = <span class="string">'china'</span>,</div><div class="line">      theme = get_theme(<span class="string">"Dark"</span>),</div><div class="line">      blurSize = <span class="number">30</span>,</div><div class="line">      color = c(<span class="string">'blue'</span>, <span class="string">'cyan'</span>, <span class="string">'lime'</span>, <span class="string">'yellow'</span>, <span class="string">'red'</span>),</div><div class="line">      minAlpha = <span class="number">0.05</span>,</div><div class="line">      opacity = <span class="number">1</span>,</div><div class="line">      <span class="keyword">...</span>)</div></pre></td></tr></table></figure>
-<ul>
-<li>data为要传入的数据，数据为三列，第一列为lon(经度)，第二列为lat(维度)，第三列为prob(密度/概率)；</li>
-<li>maptype为要绘制的地图类型，可选有：”china”，”world”或中国各省份名字；</li>
-<li>theme为绘制的地图主题类型，可由get_theme函数传入；</li>
-<li>blurSize为热力效果的泛化范围，可调整热力点中心的扩散程度；</li>
-<li>color为热力的渐变颜色；</li>
-<li>minAlpha为热力点的展示阈值，对应data中的prob列，作图时各点密度会对比minAlpha，以凸显不同密度所展示的不同热力分布；</li>
-<li>opacity为透明度，调整热力图的透明度。</li>
-</ul>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">get_theme(theme = <span class="string">"Dark"</span>, </div><div class="line">          lineColor = <span class="string">"Random"</span>,</div><div class="line">          backgroundColor = <span class="string">"#1b1b1b"</span>, </div><div class="line">          titleColor = <span class="string">"#fff"</span>,</div><div class="line">          borderColor = <span class="string">"rgba(100,149,237,1)"</span>, </div><div class="line">          regionColor = <span class="string">"#1b1b1b"</span>,</div><div class="line">          labelShow = <span class="literal">T</span>, </div><div class="line">          pointShow = <span class="literal">F</span>, </div><div class="line">          pointColor = <span class="string">"gold"</span></div><div class="line">          )</div></pre></td></tr></table></figure>
-<p>theme为主题，设置该参数后无需设置get_theme里其他参数，可选有”Dark”、”Sky”、”blue”和”none”四种</p>
-<ul>
-<li>lineColoe为线条颜色，对应为map图里面迁徙线条的颜色</li>
-<li>backgroundColor为图片的背景色，支持16进制颜色输入，也支持rgb()函数和rgba()</li>
-<li>titleColor为标题的颜色，设置同上</li>
-<li>borderColor为地图中各省、市边界颜色</li>
-<li>regionColor为地图中各区域颜色，各省份和市</li>
-<li>labelShow为是否展示各省、市名字，设置为True时展示</li>
-<li>pointShow为是否展示各省会城市所在点，设置为True时展示</li>
-<li>pointColor设置上述点的颜色</li>
-</ul>
-<p>接下来首先通过两个案例进行讲解：</p>
-<h3 id="案例1："><a href="#案例1：" class="headerlink" title="案例1："></a>案例1：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">options(remap.js.web=<span class="literal">T</span>)</div></pre></td></tr></table></figure>
-<p>这里有一个包含经纬度信息及对应密度的数据集，通过该数据集我们可以看到看到REmapH函数制作热力图的大致效果：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">data&lt;- read.csv(file=<span class="string">"D:\\R\\map\\MoveChart\\cityvaluetop10.csv"</span>,header=<span class="literal">T</span>)</div></pre></td></tr></table></figure></p>
-<p>数据结构如下：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">head(data)</div><div class="line">       lon      lat prob</div><div class="line"><span class="number">1</span> <span class="number">114.3948</span> <span class="number">23.40800</span> <span class="number">0.85</span></div><div class="line"><span class="number">2</span> <span class="number">115.3948</span> <span class="number">24.40800</span> <span class="number">0.85</span></div><div class="line"><span class="number">3</span> <span class="number">114.3948</span> <span class="number">23.40800</span> <span class="number">0.85</span></div><div class="line"><span class="number">4</span> <span class="number">113.3948</span> <span class="number">23.40800</span> <span class="number">0.85</span></div><div class="line"><span class="number">5</span> <span class="number">114.7307</span> <span class="number">27.69586</span> <span class="number">0.80</span></div><div class="line"><span class="number">6</span> <span class="number">110.5066</span> <span class="number">28.69586</span> <span class="number">0.80</span></div><div class="line"></div><div class="line"><span class="string">'data.frame'</span>:	<span class="number">48</span> obs. of  <span class="number">3</span> variables:</div><div class="line"> $ lon : num  <span class="number">114</span> <span class="number">115</span> <span class="number">114</span> <span class="number">113</span> <span class="number">115</span> <span class="keyword">...</span></div><div class="line"> $ lat : num  <span class="number">23.4</span> <span class="number">24.4</span> <span class="number">23.4</span> <span class="number">23.4</span> <span class="number">27.7</span> <span class="keyword">...</span></div><div class="line"> $ prob: num  <span class="number">0.85</span> <span class="number">0.85</span> <span class="number">0.85</span> <span class="number">0.85</span> <span class="number">0.8</span> <span class="number">0.8</span> <span class="number">0.8</span> <span class="number">0.8</span> <span class="number">0.75</span> <span class="number">0.75</span> <span class="keyword">...</span></div></pre></td></tr></table></figure></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">map_out&lt;-remapH(data,</div><div class="line">       maptype = <span class="string">'china'</span>,</div><div class="line">       theme =get_theme(theme = <span class="string">"Dark"</span>),</div><div class="line">       blurSize = <span class="number">70</span>,</div><div class="line">       color = <span class="string">"red"</span>,</div><div class="line">       minAlpha = <span class="number">10</span>,</div><div class="line">       opacity = <span class="number">1</span>,</div><div class="line">       )</div><div class="line">plot(map_out)</div></pre></td></tr></table></figure>
-<p><img src="http://or82vn70x.bkt.clouddn.com/image1.png" alt=""></p>
-<p>接下来制作辽宁省省域热力图数据集：</p>
-<h3 id="案例2："><a href="#案例2：" class="headerlink" title="案例2："></a>案例2：</h3><p><strong>首先使用mapNames函数获取辽宁省市级行政单位：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">city_ln&lt;-mapNames(<span class="string">"liaoning"</span>) </div><div class="line"></div><div class="line">[<span class="number">1</span>] <span class="string">"大连市"</span>   <span class="string">"朝阳市"</span>   <span class="string">"丹东市"</span>   <span class="string">"铁岭市"</span>   <span class="string">"沈阳市"</span>   <span class="string">"抚顺市"</span>   <span class="string">"葫芦岛市"</span> <span class="string">"阜新市"</span>   <span class="string">"锦州市"</span>  </div><div class="line">[<span class="number">10</span>] <span class="string">"鞍山市"</span>   <span class="string">"本溪市"</span>   <span class="string">"营口市"</span>   <span class="string">"辽阳市"</span>   <span class="string">"盘锦市"</span></div></pre></td></tr></table></figure></p>
-<p><strong>获取各市级行政单位经纬度信息：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">city_list&lt;-get_geo_position(city_ln)</div><div class="line"></div><div class="line">&gt; city_list</div><div class="line">        lon      lat     city</div><div class="line"><span class="number">1</span>  <span class="number">121.6214</span> <span class="number">38.91934</span>   大连市</div><div class="line"><span class="number">2</span>  <span class="number">120.4573</span> <span class="number">41.57949</span>   朝阳市</div><div class="line"><span class="number">3</span>  <span class="number">124.3626</span> <span class="number">40.00569</span>   丹东市</div><div class="line"><span class="number">4</span>  <span class="number">123.8488</span> <span class="number">42.29257</span>   铁岭市</div><div class="line"><span class="number">5</span>  <span class="number">123.4390</span> <span class="number">41.81134</span>   沈阳市</div><div class="line"><span class="number">6</span>  <span class="number">123.9636</span> <span class="number">41.88608</span>   抚顺市</div><div class="line"><span class="number">7</span>  <span class="number">120.8434</span> <span class="number">40.71736</span> 葫芦岛市</div><div class="line"><span class="number">8</span>  <span class="number">121.6765</span> <span class="number">42.02798</span>   阜新市</div><div class="line"><span class="number">9</span>  <span class="number">121.1336</span> <span class="number">41.10087</span>   锦州市</div><div class="line"><span class="number">10</span> <span class="number">123.0010</span> <span class="number">41.11412</span>   鞍山市</div><div class="line"><span class="number">11</span> <span class="number">123.7735</span> <span class="number">41.29985</span>   本溪市</div><div class="line"><span class="number">12</span> <span class="number">122.2415</span> <span class="number">40.67256</span>   营口市</div><div class="line"><span class="number">13</span> <span class="number">123.2437</span> <span class="number">41.27445</span>   辽阳市</div><div class="line"><span class="number">14</span> <span class="number">122.0773</span> <span class="number">41.12594</span>   盘锦市</div></pre></td></tr></table></figure></p>
-<p><strong>生成一列密度数据：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">point&lt;-round(runif(<span class="number">14</span>,min=<span class="number">0.3</span>,max=<span class="number">0.95</span>),<span class="number">2</span>)</div><div class="line"> [<span class="number">1</span>] <span class="number">0.89</span> <span class="number">0.82</span> <span class="number">0.91</span> <span class="number">0.87</span> <span class="number">0.90</span> <span class="number">0.90</span> <span class="number">0.85</span> <span class="number">0.89</span> <span class="number">0.87</span> <span class="number">0.94</span> <span class="number">0.90</span> <span class="number">0.85</span> <span class="number">0.88</span> <span class="number">0.88</span></div></pre></td></tr></table></figure></p>
-<p><strong>合成数据框格式的热力图作图数据：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">newdata&lt;-data.frame(city_list[,<span class="number">1</span>:<span class="number">2</span>],point)</div><div class="line"></div><div class="line">        lon      lat point</div><div class="line"><span class="number">1</span>  <span class="number">121.6214</span> <span class="number">38.91934</span>  <span class="number">0.89</span></div><div class="line"><span class="number">2</span>  <span class="number">120.4573</span> <span class="number">41.57949</span>  <span class="number">0.82</span></div><div class="line"><span class="number">3</span>  <span class="number">124.3626</span> <span class="number">40.00569</span>  <span class="number">0.91</span></div><div class="line"><span class="number">4</span>  <span class="number">123.8488</span> <span class="number">42.29257</span>  <span class="number">0.87</span></div><div class="line"><span class="number">5</span>  <span class="number">123.4390</span> <span class="number">41.81134</span>  <span class="number">0.90</span></div><div class="line"><span class="number">6</span>  <span class="number">123.9636</span> <span class="number">41.88608</span>  <span class="number">0.90</span></div><div class="line"><span class="number">7</span>  <span class="number">120.8434</span> <span class="number">40.71736</span>  <span class="number">0.85</span></div><div class="line"><span class="number">8</span>  <span class="number">121.6765</span> <span class="number">42.02798</span>  <span class="number">0.89</span></div><div class="line"><span class="number">9</span>  <span class="number">121.1336</span> <span class="number">41.10087</span>  <span class="number">0.87</span></div><div class="line"><span class="number">10</span> <span class="number">123.0010</span> <span class="number">41.11412</span>  <span class="number">0.94</span></div><div class="line"><span class="number">11</span> <span class="number">123.7735</span> <span class="number">41.29985</span>  <span class="number">0.90</span></div><div class="line"><span class="number">12</span> <span class="number">122.2415</span> <span class="number">40.67256</span>  <span class="number">0.85</span></div><div class="line"><span class="number">13</span> <span class="number">123.2437</span> <span class="number">41.27445</span>  <span class="number">0.88</span></div><div class="line"><span class="number">14</span> <span class="number">122.0773</span> <span class="number">41.12594</span>  <span class="number">0.88</span></div></pre></td></tr></table></figure></p>
-<p><strong>作图函数：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">map_out1&lt;-remapH(newdata,</div><div class="line">       maptype = <span class="string">"辽宁"</span>,</div><div class="line">       theme =get_theme(theme = <span class="string">"Dark"</span>),</div><div class="line">       blurSize = <span class="number">70</span>,</div><div class="line">       color = <span class="string">"red"</span>,</div><div class="line">       minAlpha = <span class="number">10</span>,</div><div class="line">       opacity = <span class="number">1</span>,</div><div class="line">       )</div><div class="line">plot(map_out1)</div></pre></td></tr></table></figure></p>
-<p><img src="http://or82vn70x.bkt.clouddn.com/image2.png" alt=""></p>
-<p>因为以上数据集中使用的各市中心城市的密度数据，所以整体密度太过分散，看不出渐变效果，当然密度图的数据记录是不受数量限制的，在有较多数据点呈现密集分布的地方，可以看到非常明显的颜色热度渐变效果。</p>
-<p>这里我通过添加一列分类数据，将以上密度图数据进行改造：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">newdata$perA&lt;-rep(<span class="string">"A"</span>,<span class="number">14</span>)</div><div class="line">newdata$perB&lt;-rep(<span class="string">"B"</span>,<span class="number">14</span>)</div><div class="line">newdata$perC&lt;-rep(<span class="string">"C"</span>,<span class="number">14</span>)</div></pre></td></tr></table></figure>
-<p>使用Reshape2包对数据进行一维转化：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">mydata &lt;- melt(newdata, id.vars=c(<span class="string">"lon"</span>,<span class="string">"lat"</span>,<span class="string">"point"</span>))</div><div class="line"></div><div class="line">        lon      lat point variable value</div><div class="line"><span class="number">1</span>  <span class="number">121.6214</span> <span class="number">38.91934</span>  <span class="number">0.85</span>     perA     A</div><div class="line"><span class="number">2</span>  <span class="number">120.4573</span> <span class="number">41.57949</span>  <span class="number">0.81</span>     perA     A</div><div class="line"><span class="number">3</span>  <span class="number">124.3626</span> <span class="number">40.00569</span>  <span class="number">0.91</span>     perA     A</div><div class="line"><span class="number">4</span>  <span class="number">123.8488</span> <span class="number">42.29257</span>  <span class="number">0.90</span>     perA     A</div><div class="line"><span class="number">5</span>  <span class="number">123.4390</span> <span class="number">41.81134</span>  <span class="number">0.91</span>     perA     A</div><div class="line"><span class="number">6</span>  <span class="number">123.9636</span> <span class="number">41.88608</span>  <span class="number">0.93</span>     perA     A</div><div class="line"><span class="number">7</span>  <span class="number">120.8434</span> <span class="number">40.71736</span>  <span class="number">0.91</span>     perA     A</div><div class="line"><span class="number">8</span>  <span class="number">121.6765</span> <span class="number">42.02798</span>  <span class="number">0.87</span>     perA     A</div><div class="line"><span class="number">9</span>  <span class="number">121.1336</span> <span class="number">41.10087</span>  <span class="number">0.89</span>     perA     A</div><div class="line"><span class="number">10</span> <span class="number">123.0010</span> <span class="number">41.11412</span>  <span class="number">0.82</span>     perA     A</div><div class="line"><span class="number">11</span> <span class="number">123.7735</span> <span class="number">41.29985</span>  <span class="number">0.88</span>     perA     A</div><div class="line"><span class="number">12</span> <span class="number">122.2415</span> <span class="number">40.67256</span>  <span class="number">0.95</span>     perA     A</div><div class="line"><span class="number">13</span> <span class="number">123.2437</span> <span class="number">41.27445</span>  <span class="number">0.90</span>     perA     A</div><div class="line"><span class="number">14</span> <span class="number">122.0773</span> <span class="number">41.12594</span>  <span class="number">0.84</span>     perA     A</div><div class="line"><span class="number">15</span> <span class="number">121.6214</span> <span class="number">38.91934</span>  <span class="number">0.85</span>     perB     B</div><div class="line"><span class="number">16</span> <span class="number">120.4573</span> <span class="number">41.57949</span>  <span class="number">0.81</span>     perB     B</div><div class="line"><span class="number">17</span> <span class="number">124.3626</span> <span class="number">40.00569</span>  <span class="number">0.91</span>     perB     B</div><div class="line"><span class="number">18</span> <span class="number">123.8488</span> <span class="number">42.29257</span>  <span class="number">0.90</span>     perB     B</div><div class="line"><span class="number">19</span> <span class="number">123.4390</span> <span class="number">41.81134</span>  <span class="number">0.91</span>     perB     B</div><div class="line"><span class="number">20</span> <span class="number">123.9636</span> <span class="number">41.88608</span>  <span class="number">0.93</span>     perB     B</div><div class="line"><span class="number">21</span> <span class="number">120.8434</span> <span class="number">40.71736</span>  <span class="number">0.91</span>     perB     B</div><div class="line"><span class="number">22</span> <span class="number">121.6765</span> <span class="number">42.02798</span>  <span class="number">0.87</span>     perB     B</div><div class="line"><span class="number">23</span> <span class="number">121.1336</span> <span class="number">41.10087</span>  <span class="number">0.89</span>     perB     B</div><div class="line"><span class="number">24</span> <span class="number">123.0010</span> <span class="number">41.11412</span>  <span class="number">0.82</span>     perB     B</div><div class="line"><span class="number">25</span> <span class="number">123.7735</span> <span class="number">41.29985</span>  <span class="number">0.88</span>     perB     B</div><div class="line"><span class="number">26</span> <span class="number">122.2415</span> <span class="number">40.67256</span>  <span class="number">0.95</span>     perB     B</div><div class="line"><span class="number">27</span> <span class="number">123.2437</span> <span class="number">41.27445</span>  <span class="number">0.90</span>     perB     B</div><div class="line"><span class="number">28</span> <span class="number">122.0773</span> <span class="number">41.12594</span>  <span class="number">0.84</span>     perB     B</div><div class="line"><span class="number">29</span> <span class="number">121.6214</span> <span class="number">38.91934</span>  <span class="number">0.85</span>     perC     C</div><div class="line"><span class="number">30</span> <span class="number">120.4573</span> <span class="number">41.57949</span>  <span class="number">0.81</span>     perC     C</div><div class="line"><span class="number">31</span> <span class="number">124.3626</span> <span class="number">40.00569</span>  <span class="number">0.91</span>     perC     C</div><div class="line"><span class="number">32</span> <span class="number">123.8488</span> <span class="number">42.29257</span>  <span class="number">0.90</span>     perC     C</div><div class="line"><span class="number">33</span> <span class="number">123.4390</span> <span class="number">41.81134</span>  <span class="number">0.91</span>     perC     C</div><div class="line"><span class="number">34</span> <span class="number">123.9636</span> <span class="number">41.88608</span>  <span class="number">0.93</span>     perC     C</div><div class="line"><span class="number">35</span> <span class="number">120.8434</span> <span class="number">40.71736</span>  <span class="number">0.91</span>     perC     C</div><div class="line"><span class="number">36</span> <span class="number">121.6765</span> <span class="number">42.02798</span>  <span class="number">0.87</span>     perC     C</div><div class="line"><span class="number">37</span> <span class="number">121.1336</span> <span class="number">41.10087</span>  <span class="number">0.89</span>     perC     C</div><div class="line"><span class="number">38</span> <span class="number">123.0010</span> <span class="number">41.11412</span>  <span class="number">0.82</span>     perC     C</div><div class="line"><span class="number">39</span> <span class="number">123.7735</span> <span class="number">41.29985</span>  <span class="number">0.88</span>     perC     C</div><div class="line"><span class="number">40</span> <span class="number">122.2415</span> <span class="number">40.67256</span>  <span class="number">0.95</span>     perC     C</div><div class="line"><span class="number">41</span> <span class="number">123.2437</span> <span class="number">41.27445</span>  <span class="number">0.90</span>     perC     C</div><div class="line"><span class="number">42</span> <span class="number">122.0773</span> <span class="number">41.12594</span>  <span class="number">0.84</span>     perC     C</div></pre></td></tr></table></figure></p>
-<p><strong>从新运行图表函数：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">map_out2&lt;-remapH(newdata[,<span class="number">1</span>:<span class="number">3</span>],</div><div class="line">       maptype = <span class="string">"辽宁"</span>,</div><div class="line">       theme =get_theme(theme = <span class="string">"Dark"</span>),</div><div class="line">       blurSize = <span class="number">70</span>,</div><div class="line">       color = <span class="string">"red"</span>,</div><div class="line">       minAlpha = <span class="number">10</span>,</div><div class="line">       opacity = <span class="number">1</span>,</div><div class="line">       )</div><div class="line">plot(map_out2)</div></pre></td></tr></table></figure></p>
-<p><img src="http://or82vn70x.bkt.clouddn.com/image3.png" alt=""></p>
-<hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
-<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<hr>
-<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;今天是REmap系列的最后一篇——REmapH函数。&lt;/p&gt;
-&lt;p&gt;这个函数的特色是可以做中心辐射的热力图，这种热力图在气象、人口密度、海拔测绘领域有诸多运用，当然也可以上当用在商务场合——特别是跟地理信息有关的数据呈现方面。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="地理信息可视化" scheme="http://www.raindu.com/categories/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
-    
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
-      <category term="REmap" scheme="http://www.raindu.com/tags/REmap/"/>
-    
-      <category term="热力密度地图" scheme="http://www.raindu.com/tags/%E7%83%AD%E5%8A%9B%E5%AF%86%E5%BA%A6%E5%9C%B0%E5%9B%BE/"/>
     
   </entry>
   

@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="R语言,数据可视化,图表美化,theme,视觉信号," />
 
 
 
@@ -97,15 +97,28 @@
 
 
 
-<meta name="description" content="身体和心灵，总有一个在路上！">
-<meta property="og:type" content="website">
-<meta property="og:title" content="raindu&#39;s home">
-<meta property="og:url" content="http://www.raindu.com/tags/mini柱形-条形图/index.html">
+<meta name="description" content="今天跟大家分享的是ggplot图表中的一类重要元素——线条。 不要觉得专门为线条写一章推送有点小题大做，其实线条对于图表而言，功不可没，即便是不起眼的网格、轴线、或者线条的粗线、线型、磅数等都将决定着你的图表品质。 R语言中ggplot函数系统中涉及到线条的地方有很多，最常见的场景就是我们做geom_line()（折线图）、geom_path（）(路径图),以及图表的绘图区（panel）、图表区、">
+<meta name="keywords" content="R语言,数据可视化,图表美化,theme,视觉信号">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R语言可视化——ggplot图表中的线条">
+<meta property="og:url" content="http://www.raindu.com/2017/06/19/R语言可视化——ggplot图表中的线条/index.html">
 <meta property="og:site_name" content="raindu&#39;s home">
-<meta property="og:description" content="身体和心灵，总有一个在路上！">
+<meta property="og:description" content="今天跟大家分享的是ggplot图表中的一类重要元素——线条。 不要觉得专门为线条写一章推送有点小题大做，其实线条对于图表而言，功不可没，即便是不起眼的网格、轴线、或者线条的粗线、线型、磅数等都将决定着你的图表品质。 R语言中ggplot函数系统中涉及到线条的地方有很多，最常见的场景就是我们做geom_line()（折线图）、geom_path（）(路径图),以及图表的绘图区（panel）、图表区、">
+<meta property="og:image" content="http://orssvamao.bkt.clouddn.com/image1.png">
+<meta property="og:image" content="http://orssvamao.bkt.clouddn.com/image2.png">
+<meta property="og:image" content="http://orssvamao.bkt.clouddn.com/image3.png">
+<meta property="og:image" content="http://orssvamao.bkt.clouddn.com/image4.png">
+<meta property="og:image" content="http://orssvamao.bkt.clouddn.com/image5.png">
+<meta property="og:image" content="http://orssvamao.bkt.clouddn.com/image6.png">
+<meta property="og:image" content="http://orssvamao.bkt.clouddn.com/image7.png">
+<meta property="og:image" content="http://orssvamao.bkt.clouddn.com/image10.png">
+<meta property="og:image" content="http://orssvamao.bkt.clouddn.com/image8.png">
+<meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
+<meta property="og:updated_time" content="2017-06-19T14:22:58.141Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="raindu&#39;s home">
-<meta name="twitter:description" content="身体和心灵，总有一个在路上！">
+<meta name="twitter:title" content="R语言可视化——ggplot图表中的线条">
+<meta name="twitter:description" content="今天跟大家分享的是ggplot图表中的一类重要元素——线条。 不要觉得专门为线条写一章推送有点小题大做，其实线条对于图表而言，功不可没，即便是不起眼的网格、轴线、或者线条的粗线、线型、磅数等都将决定着你的图表品质。 R语言中ggplot函数系统中涉及到线条的地方有很多，最常见的场景就是我们做geom_line()（折线图）、geom_path（）(路径图),以及图表的绘图区（panel）、图表区、">
+<meta name="twitter:image" content="http://orssvamao.bkt.clouddn.com/image1.png">
 
 
 
@@ -133,13 +146,13 @@
 
 
 
-  <link rel="canonical" href="http://www.raindu.com/tags/mini柱形-条形图/"/>
+  <link rel="canonical" href="http://www.raindu.com/2017/06/19/R语言可视化——ggplot图表中的线条/"/>
 
 
 
 
 
-  <title>标签: mini柱形/条形图 | raindu's home</title>
+  <title>R语言可视化——ggplot图表中的线条 | raindu's home</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -165,7 +178,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -313,128 +326,316 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h1>mini柱形/条形图<small>标签</small>
-      </h1>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/04/动态地理信息可视化——leaflet构造路径图/" itemprop="url">
-              
-                <span itemprop="name">动态地理信息可视化——leaflet构造路径图</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-04T09:56:20+08:00"
-              content="2017-06-04" >
-          06-04
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/03/动态地理信息可视化——散点地图系列/" itemprop="url">
-              
-                <span itemprop="name">动态地理信息可视化——散点地图系列</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-03T09:44:35+08:00"
-              content="2017-06-03" >
-          06-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/02/动态地理信息可视化——leaflet在线地图简介/" itemprop="url">
-              
-                <span itemprop="name">动态地理信息可视化——leaflet在线地图简介</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-02T15:14:53+08:00"
-              content="2017-06-02" >
-          06-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/02/玩转数据地图系列之——地图上的迷你条形图/" itemprop="url">
-              
-                <span itemprop="name">玩转数据地图系列之——地图上的迷你条形图</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-02T15:01:58+08:00"
-              content="2017-06-02" >
-          06-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-  </div>
 
   
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/06/19/R语言可视化——ggplot图表中的线条/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RainDu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="raindu's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">R语言可视化——ggplot图表中的线条</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T22:08:27+08:00">
+                2017-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ggplot2/" itemprop="url" rel="index">
+                    <span itemprop="name">ggplot2</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/06/19/R语言可视化——ggplot图表中的线条/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/06/19/R语言可视化——ggplot图表中的线条/" class="leancloud_visitors" data-flag-title="R语言可视化——ggplot图表中的线条">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,239 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  5 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>今天跟大家分享的是<code>ggplot</code>图表中的一类重要元素——线条。</p>
+<p>不要觉得专门为线条写一章推送有点小题大做，其实线条对于图表而言，功不可没，即便是不起眼的网格、轴线、或者线条的粗线、线型、磅数等都将决定着你的图表品质。</p>
+<p>R语言中ggplot函数系统中涉及到线条的地方有很多，最常见的场景就是我们做<code>geom_line()</code>（折线图）、<code>geom_path（）</code>(路径图),以及图表的绘图区（<code>panel</code>）、图表区、网格系统（<code>grid</code>）中所涉及到的线条。</p>
+<a id="more"></a>
+<p>今天以一个折线图为例，简要说明ggplot函数中关于线条的主要参数及其效果。</p>
+<h3 id="数据构造过程："><a href="#数据构造过程：" class="headerlink" title="数据构造过程："></a>数据构造过程：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(ggplot2)</div><div class="line"><span class="keyword">library</span>(reshape2)</div><div class="line"><span class="keyword">library</span>(ggthemes)</div><div class="line"><span class="keyword">library</span>(RColorBrewer)</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">data&lt;-data.frame(Name = c(<span class="string">"苹果"</span>,<span class="string">"谷歌"</span>,<span class="string">"脸书"</span>,<span class="string">"亚马逊"</span>,<span class="string">"腾讯"</span>),Company = c(<span class="string">"Apple"</span>,<span class="string">"Google"</span>,<span class="string">"Facebook"</span>,<span class="string">"Amozon"</span>,<span class="string">"Tencent"</span>),Sale2013 = c(<span class="number">5000</span>,<span class="number">3500</span>,<span class="number">2300</span>,<span class="number">2100</span>,<span class="number">3100</span>),Sale2014 = c(<span class="number">5050</span>,<span class="number">3800</span>,<span class="number">2900</span>,<span class="number">2500</span>,<span class="number">3300</span>),Sale2015 = c(<span class="number">5050</span>,<span class="number">4000</span>,<span class="number">3200</span>,<span class="number">2800</span>,<span class="number">3700</span>),Sale2016 = c(<span class="number">6000</span>,<span class="number">4800</span>,<span class="number">4500</span>,<span class="number">3500</span>,<span class="number">4300</span>))</div><div class="line">mydata&lt;-melt(data,id.vars=c(<span class="string">"Name"</span>,<span class="string">"Company"</span>),variable.name=<span class="string">"Year"</span>,value.name=<span class="string">"Sale"</span>)</div></pre></td></tr></table></figure>
+<h3 id="案例引入："><a href="#案例引入：" class="headerlink" title="案例引入："></a>案例引入：</h3><p>我先用一个简单的折线图代码跑出来一个折线图：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(Company,Sale,fill=Year))+geom_line()</div></pre></td></tr></table></figure></p>
+<p><img src="http://orssvamao.bkt.clouddn.com/image1.png" alt=""><br><img src="http://orssvamao.bkt.clouddn.com/image2.png" alt=""></p>
+<blockquote>
+<p>geom_path: Each group consists of only one observation. Do you need to adjust the group aesthetic?</p>
+</blockquote>
+<p>当我用以上代码运行的时候，软件报错，提示如上：</p>
+<p>图表展示区给出了一个只有坐标系的空白图表；</p>
+<p>相信根据英文意思也可以明白怎么回事，因为我们给折线图的X轴映射是一个离散的因子变量，而默认状态下软件会将单条记录都会视作一个分类，这样肯定是无法出来图表的，而如果是一个连续变量，则会只会当做一个类别进行映射。</p>
+<p>我们使用过ggplot内内置数据集验证我们的猜想。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">head(LakeHuron)</div><div class="line">LakeHuron$data&lt;-seq(<span class="number">1875</span>,<span class="number">1972</span>,<span class="number">1</span>)</div><div class="line">ggplot(LakeHuron,aes(data,LakeHuron))+geom_line()</div></pre></td></tr></table></figure></p>
+<h3 id="参数解释说明："><a href="#参数解释说明：" class="headerlink" title="参数解释说明："></a>参数解释说明：</h3><p>以上使用了一个时间序列数据，很顺利的完成了折线图的制作。</p>
+<p>那么针对离散变量的折线图到底如何来做呢，我们可以通过group指定分组的形式来达到目的。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(Company,Sale,group=Year,fill=Year))+geom_line()</div></pre></td></tr></table></figure>
+<p><img src="http://orssvamao.bkt.clouddn.com/image3.png" alt=""></p>
+<p>通过指定group即告知软件将变量按照年份变量分组，否则单个不重复记录都会被当做一个单独分组。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata,aes(Company,Sale,group=Year))+geom_line()+geom_point()</div></pre></td></tr></table></figure>
+<p><img src="http://orssvamao.bkt.clouddn.com/image4.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line()+geom_point()  <span class="comment">#按照年份分组的同时按照年份进行线条的颜色映射</span></div></pre></td></tr></table></figure>
+<p><img src="http://orssvamao.bkt.clouddn.com/image5.png" alt=""></p>
+<h3 id="参数变化的对比效果："><a href="#参数变化的对比效果：" class="headerlink" title="参数变化的对比效果："></a>参数变化的对比效果：</h3><p>接下来通过对线条内部参数的修改，我们可以体会到ggplot对于线条细节的把控是多么的专注：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line()+geom_point()</div></pre></td></tr></table></figure>
+<p><img src="http://orssvamao.bkt.clouddn.com/image6.png" alt=""></p>
+<p>线条的参数主要有<code>size</code>、<code>colour</code>、<code>linetype</code>.</p>
+<p>其中线条的类型主要有<code>0=blank</code>,<code>1=solid</code>,<code>2=dashed</code>,<code>3=dotted</code>,<code>4=dotdash</code>,<code>5=longdash</code>,<code>6=twodash</code></p>
+<p><img src="http://orssvamao.bkt.clouddn.com/image7.png" alt=""></p>
+<p><strong>每一个类型示例如下：</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line()+geom_point() </div><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(linetype=<span class="number">1</span>,size=<span class="number">1.5</span>)+geom_point()</div><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(linetype=<span class="number">2</span>,size=<span class="number">1.5</span>)+geom_point()</div><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(linetype=<span class="number">3</span>,size=<span class="number">1.5</span>)+geom_point()</div><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(linetype=<span class="number">4</span>,size=<span class="number">1.5</span>)+geom_point()</div><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(linetype=<span class="number">5</span>,size=<span class="number">1.5</span>)+geom_point()</div><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(linetype=<span class="number">6</span>,size=<span class="number">1.5</span>)+geom_point()</div></pre></td></tr></table></figure>
+<p><img src="http://orssvamao.bkt.clouddn.com/image10.png" alt=""></p>
+<p><strong>下面是关于线条粗度的不同感知：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(size=<span class="number">1</span>,linetype=<span class="number">1</span>)+geom_point() </div><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(size=<span class="number">2</span>,linetype=<span class="number">1</span>)+geom_point()</div><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(size=<span class="number">3</span>,linetype=<span class="number">1</span>)+geom_point()</div><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(size=<span class="number">4</span>,linetype=<span class="number">1</span>)+geom_point()</div><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(size=<span class="number">5</span>,linetype=<span class="number">1</span>)+geom_point()</div><div class="line">ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(size=<span class="number">6</span>,linetype=<span class="number">1</span>)+geom_point()</div></pre></td></tr></table></figure></p>
+<p><img src="http://orssvamao.bkt.clouddn.com/image8.png" alt=""></p>
+<p>以上依次使用的线条粗度值为1,2,3,4,5,6，大家可以通过图表感受到ggplot图表中线条的粗度变化规律。</p>
+<p>除了折线图（以及路径图，等图层中的线条之外），在theme系统中存在大量的关于线条的属性设置(网格系统、图表边框、轴线、图例系统)，均可以参照以上参数进行设置。</p>
+<hr>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
+<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
+<hr>
+<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://oqbxptw4f.bkt.clouddn.com/dashang/wechat.jpg" alt="RainDu WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://oqbxptw4f.bkt.clouddn.com/dashang/Alipay.png" alt="RainDu Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/R语言/" rel="tag"># R语言</a>
+          
+            <a href="/tags/数据可视化/" rel="tag"># 数据可视化</a>
+          
+            <a href="/tags/图表美化/" rel="tag"># 图表美化</a>
+          
+            <a href="/tags/theme/" rel="tag"># theme</a>
+          
+            <a href="/tags/视觉信号/" rel="tag"># 视觉信号</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/19/Word天呀，气泡图居然还有这种操作/" rel="next" title="Word天呀，气泡图居然还有这种操作~">
+                <i class="fa fa-chevron-left"></i> Word天呀，气泡图居然还有这种操作~
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
 
 
           </div>
@@ -442,6 +643,12 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
 
         </div>
         
@@ -461,8 +668,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.png"
@@ -569,6 +785,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据构造过程："><span class="nav-number">1.</span> <span class="nav-text">数据构造过程：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#案例引入："><span class="nav-number">2.</span> <span class="nav-text">案例引入：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数解释说明："><span class="nav-number">3.</span> <span class="nav-text">参数解释说明：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数变化的对比效果："><span class="nav-number">4.</span> <span class="nav-text">参数变化的对比效果：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -709,6 +941,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
 
   
 
