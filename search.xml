@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Word天呀，气泡图居然还有这种操作~]]></title>
+    <url>%2F2017%2F06%2F19%2FWord%E5%A4%A9%E5%91%80%EF%BC%8C%E6%B0%94%E6%B3%A1%E5%9B%BE%E5%B1%85%E7%84%B6%E8%BF%98%E6%9C%89%E8%BF%99%E7%A7%8D%E6%93%8D%E4%BD%9C%2F</url>
+    <content type="text"><![CDATA[在之前写实习僧爬虫可视化案例之时，曾经用过一个很类似气泡图的图表——气泡云图（superbubble）。 它的图表信息呈现与文字云非常相似，都是在控制一组元素的大小，文字云的大小是文字，气泡云图的大小是形状（气泡）。 关于可视思维的一些感想：虽然看起来，它与普通气泡图比起来非常相似，但是实质上数据信息含量已经大相径庭，气泡图实际上使用了三个指标变量，而气泡云图仅适用了两个（而且仅有大小变量是数值型的）。 实际上以上对比是为了启发大家一种认识图表的思路： 通常情况下，我们被各种课程或者书籍指导着，认识到的可视化无一例外的是从数据如何转换为图表，坦白的说，这中思路问题不大，至少没有方向性的失误。 但是可视化是一套理念，而非流程或者过程，从数据到图表仅仅解决的是数据（变量）通过视觉信号映射到图表的过程，更为完善的可视化视角应该是： 你既要知道视觉元素是是如何通过数据映射到图表上的，更要知道一张已经被映射完成的图表，其视觉信号如何还原为原始的数据结构，毕竟很多职场人士是先看到自己觉得满意的图表之后，再回过头来思考自己的数据怎么做成那种理想的图表。 即可视化是一套从数据信息到视觉信息，再由视觉信息还原数据信息的过程。（个人愚见） 今天要讲的气泡云图，你可以这么理解，我们有一组指标（离散），并且想要呈现（从宏观上）该组指标的客观大小。以上属于正向的从数据到图表的可视化思维。 更加常见的情况是，我看到了一张非常漂亮的气泡云图，我想要将其用在我的项目或者业务报告之中，那么你一定要搞明白，你是否有这么一组指标（数据），仅需从宏观上呈现其大小。（因为这种需求有很多图表类型可以运用，而且达到的目的大同小异）。 这里仍然以之前那个实习僧职位需求top100企业为例： 我会分别使用PowerBI、Tableau、R语言来制作这一案例。 PowerBI：我完成后的整个软件界面是这样的，大家可以看到，我只使用了两个字段：分别是一个文本标签和一组对应频率。 在superbubble的菜单中，刚好对应category选项和Role_DisplayName_Values字段。 就这样，完成了PowerBI中的气泡云图的制作。（该图表对象并非PowerBI内置图表对象，需要在其官方的在线社区中下载对应插件并加载之后才可用）。 Tableau:在Tableau操作界面中，仍然是使用两个字段，我将文本字段作为标签，freq作为大小映射给了该图表对象，同时因为Tableau系统中的图形对于颜色设置了非常严格的使用标准，所以默认是单色的，为了不过于单调，我将freq又映射给了一个颜色标度。（由此可见Tableau在数据可视化领域的专业性和权威性，PowerBI一直是在替用户选择，Tbaleau是用户掌握选择权）。 R语言：R语言的官方社区中没有气泡云图（superbubble），但是在HTMLwidgets的开发者社区里，有一个制作该图表的扩展包：123devtools::install_github("jcheng5/bubbles")library(bubbles)library(RColorBrewer) example：1bubbles(value = runif(26),label=LETTERS,color=rainbow(26, alpha=NULL)[sample(26)]) 以下接前面案例： 123456mydata&lt;-read.csv(&quot;D:R/File/shixiseng_job.csv&quot;,stringsAsFactors=FALSE,check.names=FALSE)color1&lt;-brewer.pal(9,&quot;YlOrRd&quot;)color2&lt;-brewer.pal(9,&quot;Greens&quot;)color&lt;-c(color1,color2)colorpan&lt;-sample(color,100,replace = TRUE)bubbles(value =mydata$Freq,label=mydata$Var1,color=colorpan) 简单几行代码，一幅还算看的过眼的superbubble图表就完美出炉了，关键是，它的信息呈现角度与众不同，给人的视觉感受比较震撼，令人耳目一新，心领神会。 本文总结：总结一下今天的分享概要： 1 可视化的两个环节： 从数据到图表——数据元素到视觉信号的映射过程 从图表到数据——视觉信号还原为数据结构的过程2 图表的数据信息含量一致，与所使用的软件无关： 因而所有的可视化工具在设计底层理念的时候，都是有规律的，不要害怕软件操作难，我们掌握心法就好。 联系方式：wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]298236508 个人简介：杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。Mail:578708965@qq.com 备注信息：本作品采用知识共享署名-非商业性使用 4.0 国际许可协议进行许可。]]></content>
+      <categories>
+        <category>数据可视化</category>
+      </categories>
+      <tags>
+        <tag>数据可视化</tag>
+        <tag>R语言</tag>
+        <tag>气泡云图.superbubble</tag>
+        <tag>PowerBI</tag>
+        <tag>Tableau</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[R语言可视化——ggplot图表配色技巧]]></title>
     <url>%2F2017%2F06%2F18%2FR%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94ggplot%E5%9B%BE%E8%A1%A8%E9%85%8D%E8%89%B2%E6%8A%80%E5%B7%A7%2F</url>
     <content type="text"><![CDATA[今天跟大家分享ggplot图表的配色原理与基本技巧。 图表配色是一个很深奥的话题，多亏了R语言平台的众多开发者贡献的配色包，让图表的配色不再深不可测。 图表配色常用类型：这里我暂且将所有的配色场景划分为两类： 离散变量配色与连续变量配色 ggplot函数的配色机制相对来说比较智能，当你给colour或者fill属性指定给变量映射的时候，该函数就会自动的区分变量属性（是离散变量或者是连续变量），进而给出适用于两种情况的配色风格。1ggplot(diamonds,aes(carat,price,colour=cut))+geom_point() 1ggplot(diamonds,aes(carat,price,colour=depth))+geom_point() 大家可以对比以上两句代码：我并没有指定任何实际的颜色，只是将colour颜色属性指定给离散变量cut或者连续变量depth,而输出的图表已经完成了默认的离散颜色映射和连续颜色渐变映射。 对于以上两种类型颜色使用场景，如果是要自行修改，则需要自行定义颜色标度： 常用配色方案简介：1scale_colour_XXX: 这里最经常适用的三种情况 第一种情况，使用ggthemes包中的颜色主题，其中有些非常流行的颜色主题，如经济学人的主题scale_colour_economist()、scale_colour_wsj(),还有excel的主题、tableau主题以及stata主题。 第二种情况，可以使用RColorBrewer包中的配色卡，以下是该包scale_colour_brewer()函数所允许使用的所有离散颜色色卡。 该配色系统方案给予我们三种关于分类变量的配色场景： 同色系方案，即在同一个色系中均匀取出若干个色段，用于分类变量填充，最终呈现的效果，看起来非常清爽，图中最上面的一排颜色均为此类。（适用于表达有序因子分类变量，比如GDP的分段呈现等） 二分色系方案，即两个色系方向平滑过渡，均匀取值，中间色一般为白色或者淡色。（适用于表达含有正负值的分类数量段，譬如增长率指标、利润率等） 多分类不同色系方案，取不同色系相对协调的一组颜色，这种情况比较适合用于表达仅作分类，分类项之间没有顺序和大小的普通情况。 以上色卡以及配色包是由一个著名的专做地图可视化配色方案的团队所开发的，网址如下，提供在线配色并免费下载服务。（网站可能被屏蔽，如无法打开需要使用VPN） RColorBrewer 当然第三种就是自己DIY了，R支持直接调用可识别的颜色名称以及颜色代码（16进制代码）。1scale_fill_manual(values=c("#FB882C","#5B88A0")) 或者1scale_fill_manual(values=c(&quot;Linen&quot;,&quot;Peru&quot;,&quot;PeachPuff&quot;,&quot;SandyBrown&quot;,&quot;Chocolate&quot;)) 连续型配色方案： 而针对连续型变量颜色修改的情况，可探讨的余地不多： 1234scale_fill_gradient（）scale_fill_gradient2（）scale_fill_gradient（） #允许分配一组双色连续渐变，low="white",high="red"scale_fill_gradient2（）#允许分配一组三色连续渐变，low="blue",mid="white",high="red" 配色方案案例演示：接下来针对以上几种情况，我分别演示一个案例： 12library("ggthemes")library("RColorBrewer") 离散型配色方案： 使用ggthemes包中的颜色主题（华尔街日报的主题色模板）1ggplot(diamonds,aes(carat,price,colour=cut))+geom_point()+scale_colour_wsj() 使用RColorBrewer包中的配色卡 1ggplot(diamonds,aes(carat,price,colour=cut))+geom_point()+scale_colour_brewer(palette="Greens") 使用DIY方式自己制作配色卡 1ggplot(diamonds,aes(carat,price,colour=cut))+geom_point()+scale_colour_manual(values=c("#84CEFC","#ACDAE4","#5C9EA4","#04FEFC","#4CD2CC")) 连续型： 双色渐变：1ggplot(diamonds,aes(carat,price,colour=depth))+geom_point()+scale_colour_gradient(low="white",high="Blue") 三色渐变：1ggplot(diamonds,aes(carat,price,colour=depth))+geom_point()+scale_colour_gradient2(low="#8E0F2E", mid="#BFBEBE", high="#0E4E75",midpoint=median(na.omit(diamonds$depth))) 以上就是R中最常用到的配色技巧，可以满足我们大部分使用场景的需求。 联系方式：wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]298236508 个人简介：杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。Mail:578708965@qq.com 备注信息：本作品采用知识共享署名-非商业性使用 4.0 国际许可协议进行许可。]]></content>
@@ -83,8 +98,8 @@
       <tags>
         <tag>数据可视化</tag>
         <tag>R语言</tag>
-        <tag>动态图表</tag>
         <tag>ggplot2</tag>
+        <tag>动态图表</tag>
         <tag>版面控制</tag>
       </tags>
   </entry>
@@ -551,8 +566,8 @@
       <tags>
         <tag>数据可视化</tag>
         <tag>R语言</tag>
-        <tag>动态图表</tag>
         <tag>ggplot2</tag>
+        <tag>动态图表</tag>
         <tag>gif</tag>
       </tags>
   </entry>

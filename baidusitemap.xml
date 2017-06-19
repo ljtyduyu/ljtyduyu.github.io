@@ -4,25 +4,27 @@
 
     
   <url>
-    <loc>http://www.raindu.com/2017/06/18/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94ggplot%E5%9B%BE%E8%A1%A8%E9%85%8D%E8%89%B2%E6%8A%80%E5%B7%A7/</loc>
-    <lastmod>2017-06-18T14:22:15.782Z</lastmod>
+    <loc>http://www.raindu.com/2017/06/19/Word%E5%A4%A9%E5%91%80%EF%BC%8C%E6%B0%94%E6%B3%A1%E5%9B%BE%E5%B1%85%E7%84%B6%E8%BF%98%E6%9C%89%E8%BF%99%E7%A7%8D%E6%93%8D%E4%BD%9C/</loc>
+    <lastmod>2017-06-19T01:02:30.539Z</lastmod>
     <data>
         <display>
-        <title>R语言可视化——ggplot图表配色技巧</title>
-        <pubTime>2017-06-18T14:03:45.000Z</pubTime>
+        <title>Word天呀，气泡图居然还有这种操作~</title>
+        <pubTime>2017-06-19T00:49:56.000Z</pubTime>
         
         <tag>数据可视化</tag>
          
         <tag>R语言</tag>
          
-        <tag>图表美化</tag>
+        <tag>气泡云图.superbubble</tag>
          
-        <tag>配色技巧</tag>
+        <tag>PowerBI</tag>
+         
+        <tag>Tableau</tag>
          
          
            
              
-              <breadCrumb title="ggplot2" url="http://www.raindu.com/categories/ggplot2/"/>
+              <breadCrumb title="数据可视化" url="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
           
         </display>
     </data>
@@ -31,7 +33,7 @@
     
   <url>
     <loc>http://www.raindu.com/2017/06/18/%E5%85%B3%E4%BA%8E%E6%95%B0%E6%8D%AE%E5%9C%B0%E5%9B%BE%E7%9A%84%E5%87%A0%E4%B8%AA%E9%81%97%E7%95%99%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</loc>
-    <lastmod>2017-06-18T02:01:25.170Z</lastmod>
+    <lastmod>2017-06-19T00:55:50.483Z</lastmod>
     <data>
         <display>
         <title>关于数据地图的几个遗留问题解决方案</title>
@@ -46,6 +48,32 @@
         <tag>九段线</tag>
          
         <tag>mini导航窗口</tag>
+         
+         
+           
+             
+              <breadCrumb title="ggplot2" url="http://www.raindu.com/categories/ggplot2/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.raindu.com/2017/06/18/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94ggplot%E5%9B%BE%E8%A1%A8%E9%85%8D%E8%89%B2%E6%8A%80%E5%B7%A7/</loc>
+    <lastmod>2017-06-18T14:22:15.782Z</lastmod>
+    <data>
+        <display>
+        <title>R语言可视化——ggplot图表配色技巧</title>
+        <pubTime>2017-06-18T14:03:45.000Z</pubTime>
+        
+        <tag>数据可视化</tag>
+         
+        <tag>R语言</tag>
+         
+        <tag>图表美化</tag>
+         
+        <tag>配色技巧</tag>
          
          
            
@@ -151,9 +179,9 @@
          
         <tag>R语言</tag>
          
-        <tag>动态图表</tag>
-         
         <tag>ggplot2</tag>
+         
+        <tag>动态图表</tag>
          
         <tag>版面控制</tag>
          
@@ -723,9 +751,9 @@
          
         <tag>R语言</tag>
          
-        <tag>动态图表</tag>
-         
         <tag>ggplot2</tag>
+         
+        <tag>动态图表</tag>
          
         <tag>gif</tag>
          
