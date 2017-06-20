@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[那些培训师都不曾告诉你的关于Excel图表的秘密~]]></title>
+    <url>%2F2017%2F06%2F20%2F%E9%82%A3%E4%BA%9B%E5%9F%B9%E8%AE%AD%E5%B8%88%E9%83%BD%E4%B8%8D%E6%9B%BE%E5%91%8A%E8%AF%89%E4%BD%A0%E7%9A%84%E5%85%B3%E4%BA%8EExcel%E5%9B%BE%E8%A1%A8%E7%9A%84%E7%A7%98%E5%AF%86%2F</url>
+    <content type="text"><![CDATA[这是一篇关于Excel数据可视化的心得汇总！ Excel对宽数据和长数据的适用范围： Excel的图表模块更适合宽数据（即汇总过的二维表）； 在长表中，我将选中得三列全部作为簇状柱形图的数据源，默认的柱形图如下所示，虽然在横轴上也出现了两个维度信息（公司维度、日期维度），但是两个维度布局的很不友好。 Excel图表数据源行列限制规则：针对宽数据而言，Excel并不严格限定行列（允许行列自由转置），过渡的自由有时候会造成制图效率的低下，所以如果等领会我接下来交给你的心得，那么你的制图效率将会提高很多。 在详细解释以上内容之前，你需要对数据结构中的基本概念有所了解，即什么叫维度、什么叫度量。 如果不那么严格的进行定义，你可以粗略的将数值型指标当做度量（并不绝对，要视实际意义而定），类别型指标视作度量。（这其实对应于统计学中的变量类别划分标准：定类变量/定序变量——维度，定距变量/定比变量——度量） 了解变量类型之后，我们可以知道，我们的源数据包含两个维度（公司、日期），一个度量（对应日期某公司的指标）。 源数据的维度之间可以自由的转职（与线性代数中的转至概念没什么差别，就是行列位置的对应调整，并不改变具体度量值，改变的只是呈现数据的方式）。 转至在Excel中有两种方式可以完成，一种是复制数据源，选择性黏贴——行列转换。 另一种则是在已经完成的默认图表选择菜单中点击行列数据变换。 我使用同一数据源的原始维度和转之后的维度分别插入了默认的簇状柱形图。结果如下。 仔细分析以上数据源与默认图表的行列对应关系你会发现，三个字段的位置在原始表格与图形化后的图表上分布及其有规律。 列标题总是对应图表中的横轴，行标题总是对应图表中的图例。而度量总是呈现在图表的纵轴（数量轴）上。 这个规律是Excel图表的默认规则，当然你不必要严格执行此规则，那么不执行的后果就是，如果维度呈现的顺序不符合你的意图，你要么需要在源数据中进行数据转至，要么需要在图表的选择菜单里进行行列变化，进而转换成你中意的图表呈现形式。 所以结论就是，你的数据源组织，需符合以下要求： 1、想要对比的维度按列分布；（最终将会呈现在X轴上）2、需要分类的维度按行分布：（最终通过图例中的颜色分类进行区分）。3、行列虽然可以自由变换（通过数据源选择性黏贴转至或者在图表的选择菜单中进行行列变换），但一定要想清楚你的图表侧重对比那个维度，按照那个维度分类。 Excel与数据聚合功能：Excel的图表模块并没有数据聚合功能。（原因大概是这个模块并不能识别因子变量）。 我所说的聚合是指，通过将一组分类指标（一个维度与一个度量）按照类别分开并计算各类的均值、众数、中位数、方差、标准差、求和计算等。 所以，无论你的维度理念包含多少类别，Excel图表都只会把单个观测值视作单独的指标，这是它与主流可视化工具以及编程类工具在可视化功能上的最大差别和缺憾，也是验证上述观点中：Excel图表模块专为二维表（宽数据）所设计的证据之一。 以上图示中，列是一个呈现公司维度的指标，这种维度在数据库中非常常见，可能是日期的细分维度、也可鞥是地区的细分维度。 但是Excel的默认图表将维度的单个观测全部视作唯一值，而不会对齐进行任何分类聚合操作。 所以我们要想直接呈现汇总后的图表，需动用数据透析表进行维度透析，或者，将其整理成二维表制作多分类的可视化图表。 （以上操作同样适合条形图，只是条形图实质上相当于将柱形图向右旋转了90，所以条形图的行列概念与柱形图刚好颠倒过来） Excel维度指标的识别：这里先放四张图供大家思考： 我想大家一定看出了些猫腻，但是好像还不说不出其中的端倪。 我是这么理解的，Excel的图表模块是通过行列标题来自动探测并识别维度指标的。以上四幅图最符合我们需求的的应该是第一张图，该图完整的呈现了两个维度和度量的信息。 图二中，我们在首行首列的位置放入了一个YEAR的名称，我们理所当然的以为这个只是首列的标题而已，可是Excel并没有这么智能，它将其视作与后几列同样性质的公司维度中的一个名称。因为首列也成了一个特殊的公司（日期则成了该特殊公司的另一个维度不同水平的指标）。 所以整个图表的行维度（公司数）变成了6个，而因为没有定义列维度（原始数据中失去了行标题，其实是有的，但是因为添加了一个首行首列交叉位置的YEAR标签，结果Excel将首行作为列的一个维度，因而也就不存在名义上的日期维度分类）。 尽管Excel不知道丢失的维度的具体水平及名称，可是改变不了原始数据是一个二维表这样一个事实，因而还是给丢失的维度信息在图表中补全了，但是是通过默认的系列1、系列2、系列3……等方式来弥补的。 接下来看图示3： 该图的原始数据仍然是一个二维表，但是只有明确的行列维度信息（你以为你写了一组2012、2013^2016这么一组有规律的数据，Excel就能明白这是一个日期维度呀，那你真的是想多了，它跟其他的数值型指标没有任何的区别），与图2的过程类似，维度信息的丢失改变不了原始数据是二维表这样一个事实。因而Excel仍然会帮其补全行列维度（图表横轴补全了原始表列维度信息【即我们想当然以为当做行维度信息的日期和后5列指标】，图表纵轴补原始表中行维度信息，此时行为度信息已经不是我们想当然以为的那个日期指标，而是一组未知度量）。 图示4： 图示4中只明确了表格中列维度信息，而没有声明行维度信息，因为不存在错误识别，该状况下，Excel可以很完美的识别列维度（呈现在图表的横轴上）。而丢失的行维度信息则自动补全（呈现在图例的分类颜色指标上）。 综上所示，Excel识别维度信息是通过原始二维表表结构中的首行首列标签来识别的(切记不要在首行首列中写入任何信息，一定要留白、一定要留白、一定要留白)。 倘若不慎将首行首列（即行列维度标签的交叉单元格）标签交叉位置写入任何内容，那么结果是致命性的，你的列为度（也就是图表的横轴上）会被加入一个虚假的维度类别指标。 关于作图效率：以下是分别在Excel中制作多分类序列图表和其他软件工具（包含桌面端可视化工具以及编程工具等）所分别适用的数据源。 从效率上来说，自然是其他 工具能更高一些，Excel将每一个分类都视作一个列字段（典型二维表风格），其他的工具是通过将分类序列进行堆栈操作，聚合成一个包含类别变量（因子变量）和一个度量（数值型变量）从而大大简化了数据源，这在分类特别特别多的时候具有很大的优势。（想象一下如果有一千个分类，你难倒要在Excel里面列出1001个列字段吗，使用二维表仍然是三个字段，公司名称、日期，指标）。 当然 也不能说Excel这种二维表作图一无是处，二维表直观易懂，其本事就兼具图形化的信息呈现功能，否则为什么很多专业的报告中除了图表之外，包含很多表格呢，而一维表这种篇原始（但是易于存储）结构的数据应该不会常用于报告中。 所以说对于小数据或者二维表而言，Excel的图表工具还是非常适于此种可视化场景，而要是将二维表用于其他攻击高来进行可视化（可视化桌面端工具或者编程工具），则你需要额外进行数据的长宽转换。（关于数据长宽转换以及多维数据集在不同可视化工具中的最有可视化解决方案，我会专门列一篇进行分析讲解） 以上关于行列维度的分析并不适用于呈现连续性数据的图表类型（如直方图、散点图、气泡图等），原因很简单，如果图表的二维坐标系中都呈现连续性指标，那么也就无所谓维度了，维度是针对分类资料所定义的一种特殊指标，连续性指标也就只剩下度量指标啦。 事实上Excel出了为二维表作图而生之外，还是转门为分类数据可视化而生的（可能我说的比较绝对了，大家不要喷我），为什么的，原因有两个： Excel的现存图表库中绝大多数图表是适应分类数据作图，（只要一个轴支持分类数据即可算作离散数据可视化类型，而真正用于连续性数据可视化呈现的图表类型及其少，比如散点图【你会发现Excel的散点图也是支持类别变量的】、气泡图、直方图【直方图以往都是在数据分析库模块中，需要单独调用才能使用，近期才加入普通图表的菜单入口】）。 普通的业务分析场景下，更多的是不同维度间的交叉对比和汇总分析，而连续数据的可视化多用于预测与建模，这在学术研究中（时间序列数据的建模）以及企业的战略数据挖掘部门（市场拓展与销售预测等）使用场景比较多，而且数据量一般都大。（这也决定了Excel使用的局限性，即更适合客观呈现、适合分类资料的汇总可视化，不适合用于大数据量的挖掘呈现）。 当然我还有一个证据在证明我以上的看法，那就是最近两年微软公司尽心尽力培育的PowerBI商务智能系统，在数据源上完美支持主流数据库，可视化形式上使用一维表进行操作，在数据量上也大大突破了Excel所能承受的量级。这或许就是当前大数据如火如荼的形势下，微软的office系统显然已经无法支撑大数据下的分析与可视化需求，必须布局其自己的大数据分析与可视化系统。 联系方式：wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]298236508 个人简介：杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。Mail:578708965@qq.com 备注信息：本作品采用知识共享署名-非商业性使用 4.0 国际许可协议进行许可。]]></content>
+      <categories>
+        <category>Excel</category>
+      </categories>
+      <tags>
+        <tag>Excel</tag>
+        <tag>数据可视化</tag>
+        <tag>商务图表</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[R语言可视化——ggplot图表中的线条]]></title>
     <url>%2F2017%2F06%2F19%2FR%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94ggplot%E5%9B%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E7%BA%BF%E6%9D%A1%2F</url>
     <content type="text"><![CDATA[今天跟大家分享的是ggplot图表中的一类重要元素——线条。 不要觉得专门为线条写一章推送有点小题大做，其实线条对于图表而言，功不可没，即便是不起眼的网格、轴线、或者线条的粗线、线型、磅数等都将决定着你的图表品质。 R语言中ggplot函数系统中涉及到线条的地方有很多，最常见的场景就是我们做geom_line()（折线图）、geom_path（）(路径图),以及图表的绘图区（panel）、图表区、网格系统（grid）中所涉及到的线条。 今天以一个折线图为例，简要说明ggplot函数中关于线条的主要参数及其效果。 数据构造过程：1234library(ggplot2)library(reshape2)library(ggthemes)library(RColorBrewer) 12data&lt;-data.frame(Name = c("苹果","谷歌","脸书","亚马逊","腾讯"),Company = c("Apple","Google","Facebook","Amozon","Tencent"),Sale2013 = c(5000,3500,2300,2100,3100),Sale2014 = c(5050,3800,2900,2500,3300),Sale2015 = c(5050,4000,3200,2800,3700),Sale2016 = c(6000,4800,4500,3500,4300))mydata&lt;-melt(data,id.vars=c("Name","Company"),variable.name="Year",value.name="Sale") 案例引入：我先用一个简单的折线图代码跑出来一个折线图：1ggplot(mydata,aes(Company,Sale,fill=Year))+geom_line() geom_path: Each group consists of only one observation. Do you need to adjust the group aesthetic? 当我用以上代码运行的时候，软件报错，提示如上： 图表展示区给出了一个只有坐标系的空白图表； 相信根据英文意思也可以明白怎么回事，因为我们给折线图的X轴映射是一个离散的因子变量，而默认状态下软件会将单条记录都会视作一个分类，这样肯定是无法出来图表的，而如果是一个连续变量，则会只会当做一个类别进行映射。 我们使用过ggplot内内置数据集验证我们的猜想。123head(LakeHuron)LakeHuron$data&lt;-seq(1875,1972,1)ggplot(LakeHuron,aes(data,LakeHuron))+geom_line() 参数解释说明：以上使用了一个时间序列数据，很顺利的完成了折线图的制作。 那么针对离散变量的折线图到底如何来做呢，我们可以通过group指定分组的形式来达到目的。 1ggplot(mydata,aes(Company,Sale,group=Year,fill=Year))+geom_line() 通过指定group即告知软件将变量按照年份变量分组，否则单个不重复记录都会被当做一个单独分组。 1ggplot(newdata,aes(Company,Sale,group=Year))+geom_line()+geom_point() 1ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line()+geom_point() #按照年份分组的同时按照年份进行线条的颜色映射 参数变化的对比效果：接下来通过对线条内部参数的修改，我们可以体会到ggplot对于线条细节的把控是多么的专注： 1ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line()+geom_point() 线条的参数主要有size、colour、linetype. 其中线条的类型主要有0=blank,1=solid,2=dashed,3=dotted,4=dotdash,5=longdash,6=twodash 每一个类型示例如下： 1234567ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line()+geom_point() ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(linetype=1,size=1.5)+geom_point()ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(linetype=2,size=1.5)+geom_point()ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(linetype=3,size=1.5)+geom_point()ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(linetype=4,size=1.5)+geom_point()ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(linetype=5,size=1.5)+geom_point()ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(linetype=6,size=1.5)+geom_point() 下面是关于线条粗度的不同感知：123456ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(size=1,linetype=1)+geom_point() ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(size=2,linetype=1)+geom_point()ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(size=3,linetype=1)+geom_point()ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(size=4,linetype=1)+geom_point()ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(size=5,linetype=1)+geom_point()ggplot(newdata,aes(Company,Sale,group=Year,colour=Year))+geom_line(size=6,linetype=1)+geom_point() 以上依次使用的线条粗度值为1,2,3,4,5,6，大家可以通过图表感受到ggplot图表中线条的粗度变化规律。 除了折线图（以及路径图，等图层中的线条之外），在theme系统中存在大量的关于线条的属性设置(网格系统、图表边框、轴线、图例系统)，均可以参照以上参数进行设置。 联系方式：wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]298236508 个人简介：杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。Mail:578708965@qq.com 备注信息：本作品采用知识共享署名-非商业性使用 4.0 国际许可协议进行许可。]]></content>
@@ -8,8 +21,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>图表美化</tag>
         <tag>theme</tag>
         <tag>视觉信号</tag>
@@ -23,8 +36,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>气泡云图.superbubble</tag>
         <tag>PowerBI</tag>
         <tag>Tableau</tag>
@@ -38,8 +51,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>图表美化</tag>
         <tag>配色技巧</tag>
       </tags>
@@ -52,8 +65,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>数据地图</tag>
         <tag>九段线</tag>
         <tag>mini导航窗口</tag>
@@ -67,8 +80,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>图表美化</tag>
         <tag>主题定制</tag>
       </tags>
@@ -81,8 +94,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -97,8 +110,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>版面控制</tag>
       </tags>
@@ -111,8 +124,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>动态图表</tag>
         <tag>ggplot2</tag>
         <tag>版面控制</tag>
@@ -126,8 +139,8 @@
         <category>可视化案例呈现</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>Excel</tag>
+        <tag>数据可视化</tag>
         <tag>商务图表</tag>
       </tags>
   </entry>
@@ -139,9 +152,9 @@
         <category>可视化案例呈现</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>商务图表</tag>
+        <tag>R语言</tag>
       </tags>
   </entry>
   <entry>
@@ -152,8 +165,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>版式设计</tag>
         <tag>grid</tag>
@@ -167,8 +180,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>ggplot2</tag>
         <tag>数据地图</tag>
@@ -196,8 +209,8 @@
         <category>PowerBI</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>在线地图</tag>
         <tag>PowerBI</tag>
       </tags>
@@ -210,8 +223,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>多边形填充</tag>
       </tags>
@@ -229,8 +242,8 @@
         <category>图表配色</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>配色</tag>
       </tags>
   </entry>
@@ -242,8 +255,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>极坐标</tag>
         <tag>饼图</tag>
@@ -259,8 +272,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -272,8 +285,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -287,8 +300,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>REmap</tag>
         <tag>热力密度地图</tag>
@@ -302,11 +315,11 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
-        <tag>REmap</tag>
         <tag>填充地图</tag>
+        <tag>REmap</tag>
       </tags>
   </entry>
   <entry>
@@ -317,11 +330,11 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
-        <tag>在线地图</tag>
         <tag>REmap</tag>
+        <tag>在线地图</tag>
       </tags>
   </entry>
   <entry>
@@ -332,11 +345,11 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
-        <tag>在线地图</tag>
         <tag>REmap</tag>
+        <tag>在线地图</tag>
         <tag>路径图</tag>
       </tags>
   </entry>
@@ -348,11 +361,11 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
-        <tag>在线地图</tag>
         <tag>REmap</tag>
+        <tag>在线地图</tag>
       </tags>
   </entry>
   <entry>
@@ -363,8 +376,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -379,10 +392,10 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
-        <tag>json</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
+        <tag>json</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
       </tags>
@@ -395,8 +408,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -411,8 +424,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -428,8 +441,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -444,8 +457,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -460,8 +473,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>ggplot2</tag>
         <tag>mini柱形/条形图</tag>
@@ -475,8 +488,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>ggplot2</tag>
         <tag>mini饼图</tag>
@@ -490,8 +503,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>爬虫</tag>
         <tag>国产电影</tag>
@@ -506,8 +519,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>爬虫</tag>
         <tag>空气质量可视化</tag>
@@ -521,8 +534,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>路径图</tag>
         <tag>ggplot2</tag>
       </tags>
@@ -535,8 +548,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>热力地图</tag>
       </tags>
@@ -549,8 +562,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>信息图</tag>
         <tag>版面设计</tag>
@@ -565,8 +578,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>信息图</tag>
       </tags>
@@ -579,8 +592,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>动态图表</tag>
         <tag>ggplot2</tag>
         <tag>gif</tag>
@@ -594,8 +607,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>gif</tag>
         <tag>动态地图</tag>
@@ -609,8 +622,8 @@
         <category>仪表盘</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>仪表盘</tag>
         <tag>排版</tag>
@@ -624,8 +637,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>信息图</tag>
       </tags>
@@ -638,8 +651,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>爬虫</tag>
         <tag>emoji</tag>
@@ -653,8 +666,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -666,8 +679,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>爬虫</tag>
       </tags>
@@ -680,8 +693,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>爬虫</tag>
         <tag>PowerBI</tag>
       </tags>
@@ -694,8 +707,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -707,8 +720,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -720,8 +733,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
