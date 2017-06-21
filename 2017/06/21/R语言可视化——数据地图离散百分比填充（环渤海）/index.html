@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="数据可视化,R语言,图表美化,主题定制," />
+  <meta name="keywords" content="数据可视化,商务图表,R语言,数据地图," />
 
 
 
@@ -97,28 +97,22 @@
 
 
 
-<meta name="description" content="ggplot作图系统在R预言诸多可视化包中之所以如此的风靡，除了它拥有自己的图层理念之外，我觉得还要归功于它对于图表细节元素的灵活调整。 对于ggplot的初学者而言，可能没有太多的在意图表的主题是否优雅，配色是否美观，仅求能够准确无误的出图就OK了。 但是如果仅限于此，那么使用ggplot作图真的就是杀鸡用了宰牛刀了。">
-<meta name="keywords" content="数据可视化,R语言,图表美化,主题定制">
+<meta name="description" content="今天跟大家分享如何以百分比形式填充离散分段数据地图。">
+<meta name="keywords" content="数据可视化,商务图表,R语言,数据地图">
 <meta property="og:type" content="article">
-<meta property="og:title" content="R语言可视化——ggplot的theme订制">
-<meta property="og:url" content="http://www.raindu.com/2017/06/17/R语言可视化——ggplot的theme订制/index.html">
+<meta property="og:title" content="R语言可视化——数据地图离散百分比填充（环渤海）">
+<meta property="og:url" content="http://www.raindu.com/2017/06/21/R语言可视化——数据地图离散百分比填充（环渤海）/index.html">
 <meta property="og:site_name" content="raindu&#39;s home">
-<meta property="og:description" content="ggplot作图系统在R预言诸多可视化包中之所以如此的风靡，除了它拥有自己的图层理念之外，我觉得还要归功于它对于图表细节元素的灵活调整。 对于ggplot的初学者而言，可能没有太多的在意图表的主题是否优雅，配色是否美观，仅求能够准确无误的出图就OK了。 但是如果仅限于此，那么使用ggplot作图真的就是杀鸡用了宰牛刀了。">
-<meta property="og:image" content="http://orp205tiu.bkt.clouddn.com/image2.png">
-<meta property="og:image" content="http://orp205tiu.bkt.clouddn.com/image1.png">
-<meta property="og:image" content="http://orp205tiu.bkt.clouddn.com/image3.png">
-<meta property="og:image" content="http://orp205tiu.bkt.clouddn.com/image4.png">
-<meta property="og:image" content="http://orp205tiu.bkt.clouddn.com/image5.png">
-<meta property="og:image" content="http://orp205tiu.bkt.clouddn.com/image6.png">
-<meta property="og:image" content="http://orp205tiu.bkt.clouddn.com/image7.png">
-<meta property="og:image" content="http://orp205tiu.bkt.clouddn.com/image8.png">
-<meta property="og:image" content="http://orp205tiu.bkt.clouddn.com/image9.png">
+<meta property="og:description" content="今天跟大家分享如何以百分比形式填充离散分段数据地图。">
+<meta property="og:image" content="http://orvigieh3.bkt.clouddn.com/image1.png">
+<meta property="og:image" content="http://orvigieh3.bkt.clouddn.com/image2.png">
+<meta property="og:image" content="http://orvigieh3.bkt.clouddn.com/image3.png">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-06-17T13:54:25.140Z">
+<meta property="og:updated_time" content="2017-06-21T01:38:11.156Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="R语言可视化——ggplot的theme订制">
-<meta name="twitter:description" content="ggplot作图系统在R预言诸多可视化包中之所以如此的风靡，除了它拥有自己的图层理念之外，我觉得还要归功于它对于图表细节元素的灵活调整。 对于ggplot的初学者而言，可能没有太多的在意图表的主题是否优雅，配色是否美观，仅求能够准确无误的出图就OK了。 但是如果仅限于此，那么使用ggplot作图真的就是杀鸡用了宰牛刀了。">
-<meta name="twitter:image" content="http://orp205tiu.bkt.clouddn.com/image2.png">
+<meta name="twitter:title" content="R语言可视化——数据地图离散百分比填充（环渤海）">
+<meta name="twitter:description" content="今天跟大家分享如何以百分比形式填充离散分段数据地图。">
+<meta name="twitter:image" content="http://orvigieh3.bkt.clouddn.com/image1.png">
 
 
 
@@ -146,13 +140,13 @@
 
 
 
-  <link rel="canonical" href="http://www.raindu.com/2017/06/17/R语言可视化——ggplot的theme订制/"/>
+  <link rel="canonical" href="http://www.raindu.com/2017/06/21/R语言可视化——数据地图离散百分比填充（环渤海）/"/>
 
 
 
 
 
-  <title>R语言可视化——ggplot的theme订制 | raindu's home</title>
+  <title>R语言可视化——数据地图离散百分比填充（环渤海） | raindu's home</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -336,7 +330,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/06/17/R语言可视化——ggplot的theme订制/">
+    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/06/21/R语言可视化——数据地图离散百分比填充（环渤海）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="RainDu">
@@ -353,7 +347,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">R语言可视化——ggplot的theme订制</h1>
+          <h1 class="post-title" itemprop="name headline">R语言可视化——数据地图离散百分比填充（环渤海）</h1>
         
 
         <div class="post-meta">
@@ -365,8 +359,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-17T21:41:13+08:00">
-                2017-06-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-21T09:28:30+08:00">
+                2017-06-21
               </time>
             
 
@@ -388,8 +382,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ggplot2/" itemprop="url" rel="index">
-                    <span itemprop="name">ggplot2</span>
+                  <a href="/categories/R语言/" itemprop="url" rel="index">
+                    <span itemprop="name">R语言</span>
                   </a>
                 </span>
 
@@ -406,7 +400,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2017/06/17/R语言可视化——ggplot的theme订制/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2017/06/21/R语言可视化——数据地图离散百分比填充（环渤海）/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -415,7 +409,7 @@
 
           
           
-             <span id="/2017/06/17/R语言可视化——ggplot的theme订制/" class="leancloud_visitors" data-flag-title="R语言可视化——ggplot的theme订制">
+             <span id="/2017/06/21/R语言可视化——数据地图离散百分比填充（环渤海）/" class="leancloud_visitors" data-flag-title="R语言可视化——数据地图离散百分比填充（环渤海）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -440,7 +434,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,150 字
+                  889 字
                 </span>
               
 
@@ -456,7 +450,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  5 分钟
+                  4 分钟
                 </span>
               
             </div>
@@ -474,46 +468,26 @@
       
 
       
-        <p>ggplot作图系统在R预言诸多可视化包中之所以如此的风靡，除了它拥有自己的图层理念之外，我觉得还要归功于它对于图表细节元素的灵活调整。</p>
-<p>对于ggplot的初学者而言，可能没有太多的在意图表的主题是否优雅，配色是否美观，仅求能够准确无误的出图就OK了。</p>
-<p>但是如果仅限于此，那么使用ggplot作图真的就是杀鸡用了宰牛刀了。</p>
+        <p>今天跟大家分享如何以百分比形式填充离散分段数据地图。</p>
 <a id="more"></a>
-<p>就拿默认的图表来说，虽然你只靠两句代码就可以跑出来一幅还算及格的图表，可是ggplot语法博大精深，背后给你的代码默认匹配的参数不计其数。</p>
-<p>其中有一组特别庞大的参数组就是<code>theme（）</code>参数：</p>
-<p>默认的图表再不添加任何自定义主题和配色的情况下，软件会给出默认的主题和配色：</p>
-<p>默认主题是<code>theme_gray</code>,中一共给出了两套主题，分别是<code>theme_gray</code>、<code>theme_bw</code></p>
-<p>接下来我们来一步步验证：</p>
-<h3 id="首先加载包："><a href="#首先加载包：" class="headerlink" title="首先加载包："></a>首先加载包：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>（ggplot2）</div><div class="line"><span class="keyword">library</span>（reshape2）</div><div class="line"><span class="keyword">library</span>(ggtheme)</div></pre></td></tr></table></figure>
-<h3 id="构造作图数据："><a href="#构造作图数据：" class="headerlink" title="构造作图数据："></a>构造作图数据：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">data&lt;-data.frame(Name = c(<span class="string">"苹果"</span>,<span class="string">"谷歌"</span>,<span class="string">"脸书"</span>,<span class="string">"亚马逊"</span>,<span class="string">"腾讯"</span>),Conpany = c(<span class="string">"Apple"</span>,<span class="string">"Google"</span>,<span class="string">"Facebook"</span>,<span class="string">"Amozon"</span>,<span class="string">"Tencent"</span>),Sale2013 = c(<span class="number">5000</span>,<span class="number">3500</span>,<span class="number">2300</span>,<span class="number">2100</span>,<span class="number">3100</span>),Sale2014 = c(<span class="number">5050</span>,<span class="number">3800</span>,<span class="number">2900</span>,<span class="number">2500</span>,<span class="number">3300</span>),Sale2015 = c(<span class="number">5050</span>,<span class="number">3800</span>,<span class="number">2900</span>,<span class="number">2500</span>,<span class="number">3300</span>),Sale2016 = c(<span class="number">5050</span>,<span class="number">3800</span>,<span class="number">2900</span>,<span class="number">2500</span>,<span class="number">3300</span>))</div><div class="line">mydata&lt;-melt(data,id.vars=c(<span class="string">"Name"</span>,<span class="string">"Conpany"</span>),variable.name=<span class="string">"Year"</span>,value.name=<span class="string">"Sale"</span>)</div></pre></td></tr></table></figure>
-<h3 id="初始化绘图："><a href="#初始化绘图：" class="headerlink" title="初始化绘图："></a>初始化绘图：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(Conpany,Sale,fill=Year))+geom_bar(stat=<span class="string">"identity"</span>)</div></pre></td></tr></table></figure>
-<p><img src="http://orp205tiu.bkt.clouddn.com/image2.png" alt=""></p>
-<p>以上代码（已经简化的不能再简化了，不夸张的说，再少一个标点符号，就要报错了）跑出来的默认堆积条形图。</p>
-<h3 id="添加主题："><a href="#添加主题：" class="headerlink" title="添加主题："></a>添加主题：</h3><p>可是在R预言可视化这个领域内，以上图表绝对是一个烂大街的货色，怎么说呢，因为你不修改主题，它搭配的主题永远都是<code>theme_gray</code></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(Conpany,Sale,fill=Year))+geom_bar(stat=<span class="string">"identity"</span>)+theme_gray()</div><div class="line">ggplot(mydata,aes(Conpany,Sale,fill=Year))+geom_bar(stat=<span class="string">"identity"</span>)+theme_bw()</div></pre></td></tr></table></figure>
-<p><img src="http://orp205tiu.bkt.clouddn.com/image1.png" alt=""><br><img src="http://orp205tiu.bkt.clouddn.com/image3.png" alt=""></p>
-<p>以上两个图表分别套用了默认主题<code>theme_gray()</code>和备用主题<code>theme_bw()</code>，所以看去来前者与第一幅图无异，后者则差别很大。</p>
-<p>虽然看起来修改主题好像很简单的样纸，殊不知，在主题内部，该函数是设定了不计其数、让人眼花缭乱的参数。</p>
-<h3 id="主题函数结构："><a href="#主题函数结构：" class="headerlink" title="主题函数结构："></a>主题函数结构：</h3><p>你可以通过<code>theme_gray</code> 查看主题函数内的参数配置：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">theme_gray</div></pre></td></tr></table></figure>
-<p><img src="http://orp205tiu.bkt.clouddn.com/image4.png" alt=""></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">theme_bw</div></pre></td></tr></table></figure>
-<p><img src="http://orp205tiu.bkt.clouddn.com/image5.png" alt=""></p>
-<p>哈哈看傻眼了吧，其实仔细捋一捋，主题函数内的参数虽然繁杂，但是绝对算不上晦涩。</p>
-<p><strong>以下是自己整理的主题参数列表：</strong></p>
-<p><img src="http://orp205tiu.bkt.clouddn.com/image6.png" alt=""></p>
-<p>通过设定主题参数，你也可以制作专属的图表主题模板。</p>
-<p>接下来我将设定一个简单的主题模板用于修改以上的图表主题；</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">theme_xmf &lt;- <span class="keyword">function</span>(<span class="keyword">...</span>, bg=<span class="string">'white'</span>)&#123;</div><div class="line">    <span class="keyword">require</span>(grid)</div><div class="line">    theme_classic(<span class="keyword">...</span>) +</div><div class="line">        theme(rect=element_rect(fill=bg),</div><div class="line">              plot.margin=unit(rep(<span class="number">0.5</span>,<span class="number">4</span>), <span class="string">'lines'</span>),</div><div class="line">              panel.background=element_rect(fill=<span class="string">'transparent'</span>, color=<span class="string">'transparent'</span>),</div><div class="line">              panel.border=element_rect(fill=<span class="string">'transparent'</span>, color=<span class="string">'transparent'</span>),</div><div class="line">              panel.grid=element_blank(),</div><div class="line">              axis.title = element_text(color=<span class="string">'black'</span>, vjust=<span class="number">0.1</span>),</div><div class="line">              axis.ticks.length = unit(-<span class="number">0.3</span>,<span class="string">"lines"</span>),</div><div class="line">              axis.ticks = element_line(colour = <span class="string">"grey20"</span>),             </div><div class="line">              legend.title=element_blank(),</div><div class="line">              legend.key=element_rect(fill=<span class="string">'transparent'</span>, color=<span class="string">'transparent'</span>))</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="套用自己的自定义主题："><a href="#套用自己的自定义主题：" class="headerlink" title="套用自己的自定义主题："></a>套用自己的自定义主题：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(Conpany,Sale,fill=Year))+geom_bar(stat=<span class="string">"identity"</span>)+theme_xmf()</div></pre></td></tr></table></figure>
-<p><img src="http://orp205tiu.bkt.clouddn.com/image7.png" alt=""></p>
-<p>这里要强调一点，主题中是不包含颜色模板设定的，因为颜色的使用场景及类别比较复杂，会有专门的颜色标度进行设定，其实就是<code>scale_colour_xxx()/scale_fill_xxx()</code>进行设定（分别为点、线色以及区域色）</p>
-<p>这里暂且使用一个<code>RColorbrewer</code>色板中的渐变色装饰一下，不做过多解释，下一节，专门讨论颜色。</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(Conpany,Sale,fill=Year))+geom_bar(stat=<span class="string">"identity"</span>)+theme_xmf()+scale_fill_brewer(palette=<span class="string">"Blues"</span>)</div></pre></td></tr></table></figure>
-<p><img src="http://orp205tiu.bkt.clouddn.com/image8.png" alt=""></p>
-<p>至于图表中的颜色填充顺序和图例相反，这个问题只需追加一句代码即可：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(Conpany,Sale,fill=Year))+geom_bar(stat=<span class="string">"identity"</span>)+theme_xmf()+scale_fill_brewer(palette=<span class="string">"Blues"</span>)+guides(fill = guide_legend(reverse = <span class="literal">TRUE</span>))</div></pre></td></tr></table></figure>
-<p><img src="http://orp205tiu.bkt.clouddn.com/image9.png" alt=""></p>
-<p>其他的细节设定，下次讲。</p>
+<p>案例用环渤海三省二市的地理数据。</p>
+<h3 id="数据准备："><a href="#数据准备：" class="headerlink" title="数据准备："></a>数据准备：</h3><p><strong>加载包：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(ggplot2)</div><div class="line"><span class="keyword">library</span>(maptools)</div><div class="line"><span class="keyword">library</span>(plyr)</div></pre></td></tr></table></figure></p>
+<p><strong>数据导入、转换、抽取：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">CHN_adm2 &lt;- readShapePoly(<span class="string">"c:/rstudy/CHN_adm/CHN_adm2.shp"</span>) </div><div class="line">CHN_adm2_1 &lt;- fortify(CHN_adm2)   </div><div class="line">data1 &lt;- CHN_adm2@data          </div><div class="line">data2 &lt;- data.frame(id=row.names(data1),data1)        </div><div class="line">china_map_data &lt;- join(CHN_adm2_1, data2, type = <span class="string">"full"</span>) </div><div class="line">huanbohai &lt;-subset(china_map_data,NAME_1==c(<span class="string">"Beijing"</span>,<span class="string">"Tianjin"</span>,<span class="string">"Nei Mongol"</span>,<span class="string">"Hebei"</span>,<span class="string">"Shandong"</span>))</div></pre></td></tr></table></figure></p>
+<p><strong>建立业务数据：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">huanbohai_perm&lt;-data.frame(NAME_2=unique(huanbohai$NAME_2),zhibiao=rnorm(<span class="number">42</span>,<span class="number">100</span>,<span class="number">50</span>))</div><div class="line">huanbohai_perm$zhibiao&lt;-round(huanbohai_perm$zhibiao,<span class="number">0</span>)</div><div class="line">write.table (huanbohai_perm, file =<span class="string">"C:/rstudy/huanbohai.csv"</span>, sep =<span class="string">","</span>, row.names =<span class="literal">FALSE</span>)</div></pre></td></tr></table></figure></p>
+<p><strong>业务数据导入及合并：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mydata&lt;-read.csv(<span class="string">"C:/rstudy/huanbohai.csv"</span>,header=<span class="literal">T</span>)</div><div class="line">huanbohai_map_data &lt;- join(huanbohai,mydata, type=<span class="string">"full"</span>)</div></pre></td></tr></table></figure></p>
+<p><strong>将转换的分段因子变量重新命名为我们需要的分段阀值：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">huanbohai_map_data$fau &lt;- cut(huanbohai_map_data$zhibiao, breaks = c(<span class="number">0</span>,<span class="number">40</span>,<span class="number">80</span>,<span class="number">120</span>,<span class="number">160</span>,<span class="number">200</span>)) </div><div class="line">huanbohai_map_data$fam&lt;-factor(huanbohai_map_data$fau,levels=c(<span class="string">'(0,40]'</span>,<span class="string">'(40,80]'</span>,<span class="string">'(80,120]'</span>,<span class="string">'(120,160]'</span>,<span class="string">'(160,200]'</span>),labels=c(<span class="string">'0~40'</span>,<span class="string">'40~80'</span>,<span class="string">'80~120'</span>,<span class="string">'120~160'</span>,<span class="string">'160~200'</span>),order=<span class="literal">TRUE</span>)</div></pre></td></tr></table></figure></p>
+<h3 id="离散颜色标度填充（实际值分段）"><a href="#离散颜色标度填充（实际值分段）" class="headerlink" title="离散颜色标度填充（实际值分段）:"></a>离散颜色标度填充（实际值分段）:</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">windowsFonts(myFont = windowsFont(<span class="string">"微软雅黑"</span>)) </div><div class="line">ggplot(huanbohai_map_data, aes(x = long, y = lat, group = group,fill =fam)) +</div><div class="line">     geom_polygon(colour=<span class="string">"white"</span>)+</div><div class="line">     scale_fill_brewer(palette=<span class="string">"Greens"</span>) +  <span class="comment">###Blues&amp;Greens</span></div><div class="line">     coord_map(<span class="string">"polyconic"</span>) +</div><div class="line">     ggtitle(<span class="string">"某公司2015~2016年度营业状况分布图"</span>)+       </div><div class="line">     guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))+       </div><div class="line">     theme(</div><div class="line">          title=element_text(family=<span class="string">"myFont"</span>), </div><div class="line">          legend.text.align=<span class="number">1</span>, <span class="comment">###图例标签右对齐             </span></div><div class="line">          panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank(),</div><div class="line">          legend.position = c(<span class="number">0.08</span>,<span class="number">0.6</span>)</div><div class="line">          )</div></pre></td></tr></table></figure>
+<p><img src="http://orvigieh3.bkt.clouddn.com/image1.png" alt=""></p>
+<p>以上是昨天在东三省填充地图中所使用过的方法，接下来我解释一种新的填充方案，通过将数量段转换为百分比进行离散颜色标度填充：</p>
+<h3 id="离散颜色标度分割（百分比数量段）："><a href="#离散颜色标度分割（百分比数量段）：" class="headerlink" title="离散颜色标度分割（百分比数量段）："></a>离散颜色标度分割（百分比数量段）：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">qa &lt;- quantile(na.omit(huanbohai_map_data$zhibiao), c(<span class="number">0</span>,<span class="number">0.2</span>,<span class="number">0.4</span>,<span class="number">0.6</span>,<span class="number">0.8</span>,<span class="number">1.0</span>))</div><div class="line">huanbohai_map_data$zhibiao_q&lt;-cut(huanbohai_map_data$zhibiao,qa,labels = c(<span class="string">"0-20%"</span>, <span class="string">"20-40%"</span>,<span class="string">"40-60%"</span>,<span class="string">"60-80%"</span>, <span class="string">"80-100%"</span>),include.lowest = <span class="literal">TRUE</span>)</div><div class="line">&gt; levels(huanbohai_map_data$zhibiao_q)</div><div class="line">[<span class="number">1</span>] <span class="string">"0-20%"</span>   <span class="string">"20-40%"</span>  <span class="string">"40-60%"</span>  <span class="string">"60-80%"</span>  <span class="string">"80-100%"</span></div></pre></td></tr></table></figure>
+<p>通过将指标变量以分段百分比的方式进行分割，新建立一个百分比分段因子变量：</p>
+<p><strong>离散渐变（百分比）</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">windowsFonts(myFont = windowsFont(<span class="string">"微软雅黑"</span>))</div><div class="line">ggplot(huanbohai_map_data,aes(long,lat))+</div><div class="line">     geom_polygon(aes(group=group,fill=zhibiao_q),colour=<span class="string">"white"</span>)+</div><div class="line">     scale_fill_brewer(palette=<span class="string">"Greens"</span>)+</div><div class="line">     coord_map(<span class="string">"polyconic"</span>) +</div><div class="line">     guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))+ </div><div class="line">     ggtitle(<span class="string">"某公司2015~2016年度营业状况分布图"</span>)+</div><div class="line">     theme(</div><div class="line">          title=element_text(family=<span class="string">"myFont"</span>),</div><div class="line">          panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank(),</div><div class="line">          legend.position =c(<span class="number">0.2</span>,<span class="number">0.7</span>),</div><div class="line">          legend.text.align=<span class="number">1</span></div><div class="line">          )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orvigieh3.bkt.clouddn.com/image2.png" alt=""></p>
+<p><strong>带标签</strong></p>
+<h3 id="接下来处理标签问题："><a href="#接下来处理标签问题：" class="headerlink" title="接下来处理标签问题："></a>接下来处理标签问题：</h3><p>创建各城市中心地理坐标：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">midpos &lt;- <span class="keyword">function</span>(data1) mean(range(data1,na.rm=<span class="literal">TRUE</span>))</div><div class="line">centres &lt;- ddply(huanbohai_map_data,.(city),colwise(midpos,.(long,lat)))</div></pre></td></tr></table></figure></p>
+<p><strong>填充并添加标签：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">ggplot(huanbohai_map_data,aes(long,lat))+</div><div class="line">     geom_polygon(aes(group=group,fill=zhibiao_q),colour=<span class="string">"white"</span>)+</div><div class="line">     scale_fill_brewer(palette=<span class="string">"Greens"</span>)+</div><div class="line">     coord_map(<span class="string">"polyconic"</span>) +</div><div class="line">     geom_text(aes(label=city),size =<span class="number">3</span>,family=<span class="string">"myFont"</span>,fontface=<span class="string">"plain"</span>,data=centres) +</div><div class="line">     guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))+ </div><div class="line">     ggtitle(<span class="string">"某公司2015~2016年度营业状况分布图"</span>)+    </div><div class="line">     theme(</div><div class="line">          title=element_text(family=<span class="string">"myFont"</span>),</div><div class="line">          title=element_text(family=<span class="string">"myFont"</span>), </div><div class="line">          panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          legend.text.align=<span class="number">1</span>,</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank(),</div><div class="line">          legend.position = c(<span class="number">0.2</span>,<span class="number">0.7</span>)</div><div class="line">          )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orvigieh3.bkt.clouddn.com/image3.png" alt=""></p>
+<p>文件及代码分享在QQ群共享中.</p>
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
@@ -571,11 +545,11 @@
           
             <a href="/tags/数据可视化/" rel="tag"># 数据可视化</a>
           
+            <a href="/tags/商务图表/" rel="tag"># 商务图表</a>
+          
             <a href="/tags/R语言/" rel="tag"># R语言</a>
           
-            <a href="/tags/图表美化/" rel="tag"># 图表美化</a>
-          
-            <a href="/tags/主题定制/" rel="tag"># 主题定制</a>
+            <a href="/tags/数据地图/" rel="tag"># 数据地图</a>
           
         </div>
       
@@ -588,8 +562,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/17/leaflet的小搭档leaflet-minicharts来了，从此动态地图又多了一些乐趣/" rel="next" title="leaflet的小搭档leaflet.minicharts来了，从此动态地图又多了一些乐趣~~~">
-                <i class="fa fa-chevron-left"></i> leaflet的小搭档leaflet.minicharts来了，从此动态地图又多了一些乐趣~~~
+              <a href="/2017/06/20/R语言可视化——数据地图应用（东三省）/" rel="next" title="R语言可视化——数据地图应用（东三省）">
+                <i class="fa fa-chevron-left"></i> R语言可视化——数据地图应用（东三省）
               </a>
             
           </div>
@@ -597,10 +571,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/18/关于数据地图的几个遗留问题解决方案/" rel="prev" title="关于数据地图的几个遗留问题解决方案">
-                关于数据地图的几个遗留问题解决方案 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -799,7 +769,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#首先加载包："><span class="nav-number">1.</span> <span class="nav-text">首先加载包：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造作图数据："><span class="nav-number">2.</span> <span class="nav-text">构造作图数据：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化绘图："><span class="nav-number">3.</span> <span class="nav-text">初始化绘图：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加主题："><span class="nav-number">4.</span> <span class="nav-text">添加主题：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主题函数结构："><span class="nav-number">5.</span> <span class="nav-text">主题函数结构：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#套用自己的自定义主题："><span class="nav-number">6.</span> <span class="nav-text">套用自己的自定义主题：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据准备："><span class="nav-number">1.</span> <span class="nav-text">数据准备：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#离散颜色标度填充（实际值分段）"><span class="nav-number">2.</span> <span class="nav-text">离散颜色标度填充（实际值分段）:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#离散颜色标度分割（百分比数量段）："><span class="nav-number">3.</span> <span class="nav-text">离散颜色标度分割（百分比数量段）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接下来处理标签问题："><span class="nav-number">4.</span> <span class="nav-text">接下来处理标签问题：</span></a></li></ol></div>
             
 
           </div>
