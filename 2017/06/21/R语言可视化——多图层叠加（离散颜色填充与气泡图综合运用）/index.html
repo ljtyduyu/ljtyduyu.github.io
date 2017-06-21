@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="R语言,数据可视化,商务图表," />
+  <meta name="keywords" content="R语言,数据可视化,商务图表,数据地图," />
 
 
 
@@ -97,35 +97,24 @@
 
 
 
-<meta name="description" content="学习R语言已经整整一年光景了， 是时候整理一下自己学习以来的收获和成就。 虽然一直学的很专注（一直埋头在可视化的小圈子了，总感觉这样是停留在舒适区，也许外面的风景会更好），但是专注有专注的好处，就是每一个细节都有机会做的更好！ 以下是我学习以来自己练习过程中的一些案例，包括给别人定做的报告、高仿的商务图表、以及我尝试着创新出的一些好玩的创意图表，集中分享给大家。">
-<meta name="keywords" content="R语言,数据可视化,商务图表">
+<meta name="description" content="今天这一篇是昨天推送的基础上进行了进一步的深化，主要讲如何在离散颜色填充的地图上进行气泡图图层叠加。">
+<meta name="keywords" content="R语言,数据可视化,商务图表,数据地图">
 <meta property="og:type" content="article">
-<meta property="og:title" content="学习R语言我都做了那些有趣的事情！！！">
-<meta property="og:url" content="http://www.raindu.com/2017/06/16/学习R语言我都做了那些有趣的事情！！！/index.html">
+<meta property="og:title" content="R语言可视化——多图层叠加（离散颜色填充与气泡图综合运用）">
+<meta property="og:url" content="http://www.raindu.com/2017/06/21/R语言可视化——多图层叠加（离散颜色填充与气泡图综合运用）/index.html">
 <meta property="og:site_name" content="raindu&#39;s home">
-<meta property="og:description" content="学习R语言已经整整一年光景了， 是时候整理一下自己学习以来的收获和成就。 虽然一直学的很专注（一直埋头在可视化的小圈子了，总感觉这样是停留在舒适区，也许外面的风景会更好），但是专注有专注的好处，就是每一个细节都有机会做的更好！ 以下是我学习以来自己练习过程中的一些案例，包括给别人定做的报告、高仿的商务图表、以及我尝试着创新出的一些好玩的创意图表，集中分享给大家。">
-<meta property="og:image" content="http://orm8l6eph.bkt.clouddn.com/image7.jpg">
-<meta property="og:image" content="http://orm8l6eph.bkt.clouddn.com/image8.jpg">
-<meta property="og:image" content="http://orm8l6eph.bkt.clouddn.com/image1.png">
-<meta property="og:image" content="http://orm8l6eph.bkt.clouddn.com/image2.png">
-<meta property="og:image" content="http://orm8l6eph.bkt.clouddn.com/image3.png">
-<meta property="og:image" content="http://orm8l6eph.bkt.clouddn.com/image4.jpg">
-<meta property="og:image" content="http://orm8l6eph.bkt.clouddn.com/image5.jpg">
-<meta property="og:image" content="http://orm8l6eph.bkt.clouddn.com/image6.jpg">
-<meta property="og:image" content="http://orm8l6eph.bkt.clouddn.com/image16.jpg">
-<meta property="og:image" content="http://orm8l6eph.bkt.clouddn.com/image9.png">
-<meta property="og:image" content="http://orm8l6eph.bkt.clouddn.com/image10.png">
-<meta property="og:image" content="http://orm8l6eph.bkt.clouddn.com/image11.jpg">
-<meta property="og:image" content="http://orm8l6eph.bkt.clouddn.com/image12.png">
-<meta property="og:image" content="http://orm8l6eph.bkt.clouddn.com/image13.jpg">
-<meta property="og:image" content="http://orm8l6eph.bkt.clouddn.com/image14.jpg">
-<meta property="og:image" content="http://orm8l6eph.bkt.clouddn.com/image15.png">
+<meta property="og:description" content="今天这一篇是昨天推送的基础上进行了进一步的深化，主要讲如何在离散颜色填充的地图上进行气泡图图层叠加。">
+<meta property="og:image" content="http://orwbijg12.bkt.clouddn.com/image1.png">
+<meta property="og:image" content="http://orwbijg12.bkt.clouddn.com/image2.png">
+<meta property="og:image" content="http://orwbijg12.bkt.clouddn.com/image3.png">
+<meta property="og:image" content="http://orwbijg12.bkt.clouddn.com/image4.png">
+<meta property="og:image" content="http://orwbijg12.bkt.clouddn.com/image5.png">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-06-16T14:17:25.937Z">
+<meta property="og:updated_time" content="2017-06-21T11:46:52.544Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="学习R语言我都做了那些有趣的事情！！！">
-<meta name="twitter:description" content="学习R语言已经整整一年光景了， 是时候整理一下自己学习以来的收获和成就。 虽然一直学的很专注（一直埋头在可视化的小圈子了，总感觉这样是停留在舒适区，也许外面的风景会更好），但是专注有专注的好处，就是每一个细节都有机会做的更好！ 以下是我学习以来自己练习过程中的一些案例，包括给别人定做的报告、高仿的商务图表、以及我尝试着创新出的一些好玩的创意图表，集中分享给大家。">
-<meta name="twitter:image" content="http://orm8l6eph.bkt.clouddn.com/image7.jpg">
+<meta name="twitter:title" content="R语言可视化——多图层叠加（离散颜色填充与气泡图综合运用）">
+<meta name="twitter:description" content="今天这一篇是昨天推送的基础上进行了进一步的深化，主要讲如何在离散颜色填充的地图上进行气泡图图层叠加。">
+<meta name="twitter:image" content="http://orwbijg12.bkt.clouddn.com/image1.png">
 
 
 
@@ -153,13 +142,13 @@
 
 
 
-  <link rel="canonical" href="http://www.raindu.com/2017/06/16/学习R语言我都做了那些有趣的事情！！！/"/>
+  <link rel="canonical" href="http://www.raindu.com/2017/06/21/R语言可视化——多图层叠加（离散颜色填充与气泡图综合运用）/"/>
 
 
 
 
 
-  <title>学习R语言我都做了那些有趣的事情！！！ | raindu's home</title>
+  <title>R语言可视化——多图层叠加（离散颜色填充与气泡图综合运用） | raindu's home</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -343,7 +332,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/06/16/学习R语言我都做了那些有趣的事情！！！/">
+    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/06/21/R语言可视化——多图层叠加（离散颜色填充与气泡图综合运用）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="RainDu">
@@ -360,7 +349,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">学习R语言我都做了那些有趣的事情！！！</h1>
+          <h1 class="post-title" itemprop="name headline">R语言可视化——多图层叠加（离散颜色填充与气泡图综合运用）</h1>
         
 
         <div class="post-meta">
@@ -372,8 +361,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-16T09:01:29+08:00">
-                2017-06-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-21T19:35:53+08:00">
+                2017-06-21
               </time>
             
 
@@ -395,8 +384,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/可视化案例呈现/" itemprop="url" rel="index">
-                    <span itemprop="name">可视化案例呈现</span>
+                  <a href="/categories/数据可视化/" itemprop="url" rel="index">
+                    <span itemprop="name">数据可视化</span>
                   </a>
                 </span>
 
@@ -413,7 +402,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2017/06/16/学习R语言我都做了那些有趣的事情！！！/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2017/06/21/R语言可视化——多图层叠加（离散颜色填充与气泡图综合运用）/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -422,7 +411,7 @@
 
           
           
-             <span id="/2017/06/16/学习R语言我都做了那些有趣的事情！！！/" class="leancloud_visitors" data-flag-title="学习R语言我都做了那些有趣的事情！！！">
+             <span id="/2017/06/21/R语言可视化——多图层叠加（离散颜色填充与气泡图综合运用）/" class="leancloud_visitors" data-flag-title="R语言可视化——多图层叠加（离散颜色填充与气泡图综合运用）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -447,7 +436,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  686 字
+                  1,570 字
                 </span>
               
 
@@ -463,7 +452,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  2 分钟
+                  8 分钟
                 </span>
               
             </div>
@@ -481,22 +470,35 @@
       
 
       
-        <p>学习R语言已经整整一年光景了， 是时候整理一下自己学习以来的收获和成就。</p>
-<p>虽然一直学的很专注（一直埋头在可视化的小圈子了，总感觉这样是停留在舒适区，也许外面的风景会更好），但是专注有专注的好处，就是每一个细节都有机会做的更好！</p>
-<p>以下是我学习以来自己练习过程中的一些案例，包括给别人定做的报告、高仿的商务图表、以及我尝试着创新出的一些好玩的创意图表，集中分享给大家。</p>
+        <p>今天这一篇是昨天推送的基础上进行了进一步的深化，主要讲如何在离散颜色填充的地图上进行气泡图图层叠加。</p>
 <a id="more"></a>
-<p><strong>以下案例按照时间顺序排列：</strong></p>
-<h3 id="刚入门没多久，就跃跃欲试的开始模仿那些曾经用Excel做过的商务图表"><a href="#刚入门没多久，就跃跃欲试的开始模仿那些曾经用Excel做过的商务图表" class="headerlink" title="刚入门没多久，就跃跃欲试的开始模仿那些曾经用Excel做过的商务图表"></a>刚入门没多久，就跃跃欲试的开始模仿那些曾经用Excel做过的商务图表</h3><p><img src="http://orm8l6eph.bkt.clouddn.com/image7.jpg" alt=""></p>
-<h3 id="也热衷于制作各种炫酷的信息图："><a href="#也热衷于制作各种炫酷的信息图：" class="headerlink" title="也热衷于制作各种炫酷的信息图："></a>也热衷于制作各种炫酷的信息图：</h3><p><img src="http://orm8l6eph.bkt.clouddn.com/image8.jpg" alt=""></p>
-<h3 id="练习了大量的数据地图"><a href="#练习了大量的数据地图" class="headerlink" title="练习了大量的数据地图"></a>练习了大量的数据地图</h3><p>（所以才有资格跟大家输出地理信息可视化案例呀！）</p>
-<p><img src="http://orm8l6eph.bkt.clouddn.com/image1.png" alt=""><br><img src="http://orm8l6eph.bkt.clouddn.com/image2.png" alt=""><br><img src="http://orm8l6eph.bkt.clouddn.com/image3.png" alt=""></p>
-<h3 id="给别人定做过一些有报酬的小作品："><a href="#给别人定做过一些有报酬的小作品：" class="headerlink" title="给别人定做过一些有报酬的小作品："></a>给别人定做过一些有报酬的小作品：</h3><p><img src="http://orm8l6eph.bkt.clouddn.com/image4.jpg" alt=""><br><img src="http://orm8l6eph.bkt.clouddn.com/image5.jpg" alt=""></p>
-<h3 id="尝试着爬取数据，做一些地理信息可视化作品："><a href="#尝试着爬取数据，做一些地理信息可视化作品：" class="headerlink" title="尝试着爬取数据，做一些地理信息可视化作品："></a>尝试着爬取数据，做一些地理信息可视化作品：</h3><p><img src="http://orm8l6eph.bkt.clouddn.com/image6.jpg" alt=""><br><img src="http://orm8l6eph.bkt.clouddn.com/image16.jpg" alt=""></p>
-<h3 id="一些零零散散的小创意也会令自己成就感爆满："><a href="#一些零零散散的小创意也会令自己成就感爆满：" class="headerlink" title="一些零零散散的小创意也会令自己成就感爆满："></a>一些零零散散的小创意也会令自己成就感爆满：</h3><p><img src="http://orm8l6eph.bkt.clouddn.com/image9.png" alt=""><br><img src="http://orm8l6eph.bkt.clouddn.com/image10.png" alt=""><br><img src="http://orm8l6eph.bkt.clouddn.com/image11.jpg" alt=""><br><img src="http://orm8l6eph.bkt.clouddn.com/image12.png" alt=""><br><img src="http://orm8l6eph.bkt.clouddn.com/image13.jpg" alt=""><br><img src="http://orm8l6eph.bkt.clouddn.com/image14.jpg" alt=""><br><img src="http://orm8l6eph.bkt.clouddn.com/image15.png" alt=""></p>
-<p>以上所有图表（不含文字云）都是基于R语言ggplot2包绘制；</p>
-<p>回首学习的过程，虽然很痛苦但也都挺过来了，没有专门学习R语言的相关课程（几乎也不存在这种可能，因为我在案例中融入的元素并不是来自于R语言本身，而是以前积淀的可视化基础），也几乎没有正儿八经的看完一本R语言可视化的参考书。</p>
-<p>当然这些并不是全部，还有很多案例来不及给大家分享，那些学完爬虫之后，自己能够遍历网页，获取实用数据的时刻，确实非常令人振奋。</p>
-<p>也许学习技能的最好方式，就是立马用起来，做一些有趣的事情，时刻保持着热情，那么总能有所收获！</p>
+<p>为了使得案例前后一致，仍然使用昨天的数据集。</p>
+<h3 id="数据准备："><a href="#数据准备：" class="headerlink" title="数据准备："></a>数据准备：</h3><p><strong>加载包：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(ggplot2)</div><div class="line"><span class="keyword">library</span>(plyr)</div><div class="line"><span class="keyword">library</span>(maptools)</div><div class="line"><span class="keyword">library</span>(sp)</div></pre></td></tr></table></figure></p>
+<p><strong>导入中国省界地图：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">china_map&lt;-readShapePoly(<span class="string">"c:/rstudy/bou2_4p.shp"</span>)</div><div class="line">data1&lt;- china_map@data      </div><div class="line">data2&lt;- data.frame(id=row.names(data1),data1)</div></pre></td></tr></table></figure></p>
+<p><strong>数据格式转化及业务数据合并：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">china_map1 &lt;- fortify(china_map) </div><div class="line">china_map_data &lt;- join(china_map1,data2, type = <span class="string">"full"</span>) </div><div class="line">mydata &lt;- read.csv(<span class="string">"c:/rstudy/geshengzhibiao.csv"</span>)</div><div class="line">china_data &lt;- join(china_map_data, mydata, type=<span class="string">"full"</span>)</div></pre></td></tr></table></figure></p>
+<p><strong>各省省会城市经纬度数据：</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">province_city &lt;- read.csv(<span class="string">"c:/rstudy/chinaprovincecity.csv"</span>)</div></pre></td></tr></table></figure>
+<h3 id="构造数据地图作图数据："><a href="#构造数据地图作图数据：" class="headerlink" title="构造数据地图作图数据："></a>构造数据地图作图数据：</h3><p><strong>根据自己的数据量级和具体业务需要设置分割点</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mydata&lt;-mydata[,-c(<span class="number">5</span>,<span class="number">6</span>)]</div><div class="line">mydata$zhibiao&lt;-rnorm(<span class="number">33</span>,<span class="number">100</span>,<span class="number">50</span>)</div><div class="line">mydata$zhibiao&lt;-abs(mydata$zhibiao)</div><div class="line">mydata$zhibiao2&lt;-round(mydata$zhibiao,<span class="number">0</span>)</div><div class="line">mydata$fau &lt;- cut(mydata$zhibiao, breaks = c(<span class="number">0</span>,<span class="number">50</span>,<span class="number">100</span>,<span class="number">150</span>,<span class="number">200</span>,<span class="number">250</span>))</div></pre></td></tr></table></figure></p>
+<p><strong>将转换的分段因子变量重新命名为我们需要的分段阀值：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mydata$fam&lt;-factor(mydata$fau,levels=c(<span class="string">'(0,50]'</span>,<span class="string">'(50,100]'</span>,<span class="string">'(100,150]'</span>,<span class="string">'(150,200]'</span>,<span class="string">'(200,250]'</span>),labels=c(<span class="string">'0~50'</span>,<span class="string">'50~100'</span>,<span class="string">'100~150'</span>,<span class="string">'150~200'</span>,<span class="string">'200~250'</span>),order=<span class="literal">TRUE</span>)</div></pre></td></tr></table></figure></p>
+<p><strong>将业务数据与地理信息数据合并：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">china_data &lt;- join(china_map_data, mydata, type=<span class="string">"full"</span>) </div><div class="line">province_city &lt;- read.csv(<span class="string">"c:/rstudy/chinaprovincecity.csv"</span>)</div><div class="line">windowsFonts(myFont = windowsFont(<span class="string">"微软雅黑"</span>))</div></pre></td></tr></table></figure></p>
+<h3 id="离散标度填充："><a href="#离散标度填充：" class="headerlink" title="离散标度填充："></a>离散标度填充：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">ggplot(china_data, aes(x = long, y = lat, group = group,fill =fam)) +</div><div class="line">     geom_polygon(colour=<span class="string">"white"</span>)+</div><div class="line">     scale_fill_brewer(palette=<span class="string">"Blues"</span>) +  <span class="comment">###Blues&amp;Greens</span></div><div class="line">     coord_map(<span class="string">"polyconic"</span>) +</div><div class="line">     ggtitle(<span class="string">"某公司2015~2016年度营业状况分布图"</span>)+  <span class="comment">#写入标题</span></div><div class="line">     guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))+       </div><div class="line">     theme(               </div><div class="line">          panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          title=element_text(family=<span class="string">"myFont"</span>),</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank(),</div><div class="line">          legend.position = c(<span class="number">0.08</span>,<span class="number">0.4</span>),</div><div class="line">          legend.text.align=<span class="number">1</span></div><div class="line">          )</div></pre></td></tr></table></figure>
+<p><img src="http://orwbijg12.bkt.clouddn.com/image1.png" alt=""></p>
+<p><strong>在离散颜色标度的基础上添加各省份散点图：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">ggplot() +</div><div class="line">     geom_polygon(data=china_data, aes(x=long,y=lat,group=group,fill=fam),colour=<span class="string">"white"</span>)+</div><div class="line">     geom_point(data=province_city,aes(x=jd,y=wd),colour=<span class="string">"red"</span>)+</div><div class="line">     scale_fill_brewer(palette=<span class="string">"Blues"</span>) +  <span class="comment">###Blues&amp;Greens</span></div><div class="line">     coord_map(<span class="string">"polyconic"</span>) +</div><div class="line">     ggtitle(<span class="string">"某公司2015~2016年度营业状况分布图"</span>)+  <span class="comment">#写入标题</span></div><div class="line">     guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))+       </div><div class="line">     theme(               </div><div class="line">          panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          title=element_text(family=<span class="string">"myFont"</span>),</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank(),</div><div class="line">          legend.position = c(<span class="number">0.08</span>,<span class="number">0.4</span>),</div><div class="line">          legend.text.align=<span class="number">1</span></div><div class="line">          )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orwbijg12.bkt.clouddn.com/image2.png" alt=""></p>
+<p><strong>更该散点图为气泡图：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">province_city$PerforamA&lt;-round(rnorm(<span class="number">34</span>,<span class="number">100</span>,<span class="number">30</span>),<span class="number">0</span>)</div><div class="line">province_city$Perforamb&lt;-round(rnorm(<span class="number">34</span>,<span class="number">100</span>,<span class="number">30</span>),<span class="number">0</span>)</div></pre></td></tr></table></figure></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">ggplot() +</div><div class="line">     geom_polygon(data=china_data, aes(x=long,y=lat,group=group,fill=fam),colour=<span class="string">"white"</span>)+</div><div class="line">     geom_point(data=province_city,aes(x=jd,y=wd,size=PerforamA),shape=<span class="number">21</span>,fill=<span class="string">"#8E0F2E"</span>,colour=<span class="string">"black"</span>,alpha=<span class="number">0.6</span>)+</div><div class="line">     scale_fill_brewer(palette=<span class="string">"Blues"</span>) +  <span class="comment">###Blues&amp;Greens</span></div><div class="line">     scale_size_area(max_size=<span class="number">6</span>)+</div><div class="line">     coord_map(<span class="string">"polyconic"</span>) +</div><div class="line">     ggtitle(<span class="string">"某公司2015~2016年度营业状况分布图"</span>)+  <span class="comment">#写入标题</span></div><div class="line">     guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>),size=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))+       </div><div class="line">     theme(               </div><div class="line">          panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          title=element_text(family=<span class="string">"myFont"</span>),</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank(),</div><div class="line">          legend.position = c(<span class="number">0.08</span>,<span class="number">0.4</span>),</div><div class="line">          legend.text.align=<span class="number">1</span></div><div class="line">          )</div></pre></td></tr></table></figure>
+<p><img src="http://orwbijg12.bkt.clouddn.com/image3.png" alt=""></p>
+<p>本来打算再继续在气泡图的基础上进行颜色渐变填充呢，可以试了一下，这样的话前面的底图离散颜色标度填充的的时候已经使用过了一个fill属性设置选项，而要对气泡图进行颜色渐变填充就要再使用一次fill属性，可是目前为止我还不知道如何在多图层中出现多个fill属性的时候如何识别并分别进行标度设置，当我运行如下代码时，软件无法识别两个颜色标度设置分别对应的指标，因而图表无法跑出来：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">ggplot() +</div><div class="line">     geom_polygon(data=china_data, aes(x=long,y=lat,group=group,fill=fam),colour=<span class="string">"white"</span>)+</div><div class="line">     scale_fill_brewer(palette=<span class="string">"Blues"</span>) +  <span class="comment">###Blues&amp;Greens</span></div><div class="line">     geom_point(data=province_city,aes(x=jd,y=wd,size=PerforamA,fill=PerforamB),shape=<span class="number">21</span>,fill=<span class="string">"#8E0F2E"</span>,colour=<span class="string">"black"</span>,alpha=<span class="number">0.6</span>)+     </div><div class="line">     scale_size_area(max_size=<span class="number">6</span>)+</div><div class="line">     scale_fill_gradient2(low=<span class="string">"DarkCyan"</span>, mid=<span class="string">"Azure"</span>, high=<span class="string">"Sienna"</span>, midpoint=median(province_city$PerforamB))+ </div><div class="line">     coord_map(<span class="string">"polyconic"</span>) +</div><div class="line">     ggtitle(<span class="string">"某公司2015~2016年度营业状况分布图"</span>)+  <span class="comment">#写入标题</span></div><div class="line">     guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>),size=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))+       </div><div class="line">     theme(               </div><div class="line">          panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          title=element_text(family=<span class="string">"myFont"</span>),</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank(),</div><div class="line">          legend.position = c(<span class="number">0.08</span>,<span class="number">0.4</span>),</div><div class="line">          legend.text.align=<span class="number">1</span></div><div class="line">          )</div></pre></td></tr></table></figure>
+<blockquote>
+<p>Scale for ‘fill’ is already present. Adding another scale for ‘fill’, which will replace the existing scale.<br>Error: Discrete value supplied to continuous scale</p>
+</blockquote>
+<p>实在是太遗憾了，不知道哪位大神知道如何处理多图层相同的fill属性，可以告知在下，这里先行谢过了。</p>
+<h3 id="处理标签问题："><a href="#处理标签问题：" class="headerlink" title="处理标签问题："></a>处理标签问题：</h3><p>最后来处理标签问题，为了防止页面杂乱不堪，我只用了PerforamA指标前十个标签。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">labelper&lt;-province_city[order(province_city[,<span class="number">5</span>],decreasing=<span class="literal">T</span>),][<span class="number">1</span>:<span class="number">10</span>,]</div><div class="line">ggplot() +</div><div class="line">     geom_polygon(data=china_data, aes(x=long,y=lat,group=group,fill=fam),colour=<span class="string">"white"</span>)+</div><div class="line">     geom_point(data=province_city,aes(x=jd,y=wd,size=PerforamA),shape=<span class="number">21</span>,fill=<span class="string">"#8E0F2E"</span>,colour=<span class="string">"black"</span>,alpha=<span class="number">0.6</span>)+</div><div class="line">     scale_fill_brewer(palette=<span class="string">"Blues"</span>) +  <span class="comment">###Blues&amp;Greens</span></div><div class="line">     scale_size_area(max_size=<span class="number">6</span>)+</div><div class="line">     coord_map(<span class="string">"polyconic"</span>) +</div><div class="line">     geom_text(aes(x=jd+<span class="number">2.3</span>,y=wd,label=city),size =<span class="number">3</span>,family=<span class="string">"myFont"</span>,fontface=<span class="string">"plain"</span>,data=labelper) +</div><div class="line">     ggtitle(<span class="string">"某公司2015~2016年度营业状况分布图"</span>)+  <span class="comment">#写入标题</span></div><div class="line">     guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>),size=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))+       </div><div class="line">     theme(               </div><div class="line">          panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          title=element_text(family=<span class="string">"myFont"</span>),</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank(),</div><div class="line">          legend.position = c(<span class="number">0.08</span>,<span class="number">0.4</span>),</div><div class="line">          legend.text.align=<span class="number">1</span></div><div class="line">          )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orwbijg12.bkt.clouddn.com/image4.png" alt=""></p>
+<p>要是把所有的标签全部都添加到地图上的话，真的不太合适，本来图层就有两个，已经出现信息相互遮挡的情况了。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">ggplot() +</div><div class="line">     geom_polygon(data=china_data, aes(x=long,y=lat,group=group,fill=fam),colour=<span class="string">"white"</span>)+</div><div class="line">     geom_point(data=province_city,aes(x=jd,y=wd,size=PerforamA),shape=<span class="number">21</span>,fill=<span class="string">"#8E0F2E"</span>,colour=<span class="string">"black"</span>,alpha=<span class="number">0.6</span>)+</div><div class="line">     scale_fill_brewer(palette=<span class="string">"Blues"</span>) +  <span class="comment">###Blues&amp;Greens</span></div><div class="line">     scale_size_area(max_size=<span class="number">6</span>)+</div><div class="line">     coord_map(<span class="string">"polyconic"</span>) +</div><div class="line">     geom_text(aes(x=jd+<span class="number">2.3</span>,y=wd,label=city),size =<span class="number">3</span>,family=<span class="string">"myFont"</span>,fontface=<span class="string">"plain"</span>,data=province_city) +</div><div class="line">     ggtitle(<span class="string">"某公司2015~2016年度营业状况分布图"</span>)+  <span class="comment">#写入标题</span></div><div class="line">     guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>),size=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))+       </div><div class="line">     theme(               </div><div class="line">          panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          title=element_text(family=<span class="string">"myFont"</span>),</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank(),</div><div class="line">          legend.position = c(<span class="number">0.08</span>,<span class="number">0.4</span>),</div><div class="line">          legend.text.align=<span class="number">1</span></div><div class="line">          )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orwbijg12.bkt.clouddn.com/image5.png" alt=""></p>
+<p>所以标签的话，还是尽量越少越好，最好别添加，本来省级行政单位作为地理常识，已经是大家心知肚明的东西了，信息表达到位了就OK了。</p>
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
@@ -558,6 +560,8 @@
           
             <a href="/tags/商务图表/" rel="tag"># 商务图表</a>
           
+            <a href="/tags/数据地图/" rel="tag"># 数据地图</a>
+          
         </div>
       
 
@@ -569,8 +573,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/15/R语言可视化——图表嵌套（母子图）/" rel="next" title="R语言可视化——图表嵌套（母子图）">
-                <i class="fa fa-chevron-left"></i> R语言可视化——图表嵌套（母子图）
+              <a href="/2017/06/21/R语言可视化——数据地图离散百分比填充（环渤海）/" rel="next" title="R语言可视化——数据地图离散百分比填充（环渤海）">
+                <i class="fa fa-chevron-left"></i> R语言可视化——数据地图离散百分比填充（环渤海）
               </a>
             
           </div>
@@ -578,10 +582,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/16/Excel依然是一款强大的数据可视化利器/" rel="prev" title="Excel依然是一款强大的数据可视化利器~">
-                Excel依然是一款强大的数据可视化利器~ <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -780,7 +780,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#刚入门没多久，就跃跃欲试的开始模仿那些曾经用Excel做过的商务图表"><span class="nav-number">1.</span> <span class="nav-text">刚入门没多久，就跃跃欲试的开始模仿那些曾经用Excel做过的商务图表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#也热衷于制作各种炫酷的信息图："><span class="nav-number">2.</span> <span class="nav-text">也热衷于制作各种炫酷的信息图：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#练习了大量的数据地图"><span class="nav-number">3.</span> <span class="nav-text">练习了大量的数据地图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#给别人定做过一些有报酬的小作品："><span class="nav-number">4.</span> <span class="nav-text">给别人定做过一些有报酬的小作品：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#尝试着爬取数据，做一些地理信息可视化作品："><span class="nav-number">5.</span> <span class="nav-text">尝试着爬取数据，做一些地理信息可视化作品：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些零零散散的小创意也会令自己成就感爆满："><span class="nav-number">6.</span> <span class="nav-text">一些零零散散的小创意也会令自己成就感爆满：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据准备："><span class="nav-number">1.</span> <span class="nav-text">数据准备：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造数据地图作图数据："><span class="nav-number">2.</span> <span class="nav-text">构造数据地图作图数据：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#离散标度填充："><span class="nav-number">3.</span> <span class="nav-text">离散标度填充：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理标签问题："><span class="nav-number">4.</span> <span class="nav-text">处理标签问题：</span></a></li></ol></div>
             
 
           </div>

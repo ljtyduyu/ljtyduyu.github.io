@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[R语言可视化——多图层叠加（离散颜色填充与气泡图综合运用）]]></title>
+    <url>%2F2017%2F06%2F21%2FR%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94%E5%A4%9A%E5%9B%BE%E5%B1%82%E5%8F%A0%E5%8A%A0%EF%BC%88%E7%A6%BB%E6%95%A3%E9%A2%9C%E8%89%B2%E5%A1%AB%E5%85%85%E4%B8%8E%E6%B0%94%E6%B3%A1%E5%9B%BE%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[今天这一篇是昨天推送的基础上进行了进一步的深化，主要讲如何在离散颜色填充的地图上进行气泡图图层叠加。 为了使得案例前后一致，仍然使用昨天的数据集。 数据准备：加载包：1234library(ggplot2)library(plyr)library(maptools)library(sp) 导入中国省界地图：123china_map&lt;-readShapePoly("c:/rstudy/bou2_4p.shp")data1&lt;- china_map@data data2&lt;- data.frame(id=row.names(data1),data1) 数据格式转化及业务数据合并：1234china_map1 &lt;- fortify(china_map) china_map_data &lt;- join(china_map1,data2, type = "full") mydata &lt;- read.csv("c:/rstudy/geshengzhibiao.csv")china_data &lt;- join(china_map_data, mydata, type="full") 各省省会城市经纬度数据： 1province_city &lt;- read.csv("c:/rstudy/chinaprovincecity.csv") 构造数据地图作图数据：根据自己的数据量级和具体业务需要设置分割点12345mydata&lt;-mydata[,-c(5,6)]mydata$zhibiao&lt;-rnorm(33,100,50)mydata$zhibiao&lt;-abs(mydata$zhibiao)mydata$zhibiao2&lt;-round(mydata$zhibiao,0)mydata$fau &lt;- cut(mydata$zhibiao, breaks = c(0,50,100,150,200,250)) 将转换的分段因子变量重新命名为我们需要的分段阀值：1mydata$fam&lt;-factor(mydata$fau,levels=c('(0,50]','(50,100]','(100,150]','(150,200]','(200,250]'),labels=c('0~50','50~100','100~150','150~200','200~250'),order=TRUE) 将业务数据与地理信息数据合并：123china_data &lt;- join(china_map_data, mydata, type="full") province_city &lt;- read.csv("c:/rstudy/chinaprovincecity.csv")windowsFonts(myFont = windowsFont("微软雅黑")) 离散标度填充：12345678910111213141516ggplot(china_data, aes(x = long, y = lat, group = group,fill =fam)) + geom_polygon(colour="white")+ scale_fill_brewer(palette="Blues") + ###Blues&amp;Greens coord_map("polyconic") + ggtitle("某公司2015~2016年度营业状况分布图")+ #写入标题 guides(fill=guide_legend(reverse=TRUE,title=NULL))+ theme( panel.grid = element_blank(), panel.background = element_blank(), title=element_text(family="myFont"), axis.text = element_blank(), axis.ticks = element_blank(), axis.title = element_blank(), legend.position = c(0.08,0.4), legend.text.align=1 ) 在离散颜色标度的基础上添加各省份散点图：1234567891011121314151617ggplot() + geom_polygon(data=china_data, aes(x=long,y=lat,group=group,fill=fam),colour="white")+ geom_point(data=province_city,aes(x=jd,y=wd),colour="red")+ scale_fill_brewer(palette="Blues") + ###Blues&amp;Greens coord_map("polyconic") + ggtitle("某公司2015~2016年度营业状况分布图")+ #写入标题 guides(fill=guide_legend(reverse=TRUE,title=NULL))+ theme( panel.grid = element_blank(), panel.background = element_blank(), title=element_text(family="myFont"), axis.text = element_blank(), axis.ticks = element_blank(), axis.title = element_blank(), legend.position = c(0.08,0.4), legend.text.align=1 ) 更该散点图为气泡图：12province_city$PerforamA&lt;-round(rnorm(34,100,30),0)province_city$Perforamb&lt;-round(rnorm(34,100,30),0) 123456789101112131415161718ggplot() + geom_polygon(data=china_data, aes(x=long,y=lat,group=group,fill=fam),colour="white")+ geom_point(data=province_city,aes(x=jd,y=wd,size=PerforamA),shape=21,fill="#8E0F2E",colour="black",alpha=0.6)+ scale_fill_brewer(palette="Blues") + ###Blues&amp;Greens scale_size_area(max_size=6)+ coord_map("polyconic") + ggtitle("某公司2015~2016年度营业状况分布图")+ #写入标题 guides(fill=guide_legend(reverse=TRUE,title=NULL),size=guide_legend(reverse=TRUE,title=NULL))+ theme( panel.grid = element_blank(), panel.background = element_blank(), title=element_text(family="myFont"), axis.text = element_blank(), axis.ticks = element_blank(), axis.title = element_blank(), legend.position = c(0.08,0.4), legend.text.align=1 ) 本来打算再继续在气泡图的基础上进行颜色渐变填充呢，可以试了一下，这样的话前面的底图离散颜色标度填充的的时候已经使用过了一个fill属性设置选项，而要对气泡图进行颜色渐变填充就要再使用一次fill属性，可是目前为止我还不知道如何在多图层中出现多个fill属性的时候如何识别并分别进行标度设置，当我运行如下代码时，软件无法识别两个颜色标度设置分别对应的指标，因而图表无法跑出来： 12345678910111213141516171819ggplot() + geom_polygon(data=china_data, aes(x=long,y=lat,group=group,fill=fam),colour="white")+ scale_fill_brewer(palette="Blues") + ###Blues&amp;Greens geom_point(data=province_city,aes(x=jd,y=wd,size=PerforamA,fill=PerforamB),shape=21,fill="#8E0F2E",colour="black",alpha=0.6)+ scale_size_area(max_size=6)+ scale_fill_gradient2(low="DarkCyan", mid="Azure", high="Sienna", midpoint=median(province_city$PerforamB))+ coord_map("polyconic") + ggtitle("某公司2015~2016年度营业状况分布图")+ #写入标题 guides(fill=guide_legend(reverse=TRUE,title=NULL),size=guide_legend(reverse=TRUE,title=NULL))+ theme( panel.grid = element_blank(), panel.background = element_blank(), title=element_text(family="myFont"), axis.text = element_blank(), axis.ticks = element_blank(), axis.title = element_blank(), legend.position = c(0.08,0.4), legend.text.align=1 ) Scale for ‘fill’ is already present. Adding another scale for ‘fill’, which will replace the existing scale.Error: Discrete value supplied to continuous scale 实在是太遗憾了，不知道哪位大神知道如何处理多图层相同的fill属性，可以告知在下，这里先行谢过了。 处理标签问题：最后来处理标签问题，为了防止页面杂乱不堪，我只用了PerforamA指标前十个标签。1234567891011121314151617181920labelper&lt;-province_city[order(province_city[,5],decreasing=T),][1:10,]ggplot() + geom_polygon(data=china_data, aes(x=long,y=lat,group=group,fill=fam),colour="white")+ geom_point(data=province_city,aes(x=jd,y=wd,size=PerforamA),shape=21,fill="#8E0F2E",colour="black",alpha=0.6)+ scale_fill_brewer(palette="Blues") + ###Blues&amp;Greens scale_size_area(max_size=6)+ coord_map("polyconic") + geom_text(aes(x=jd+2.3,y=wd,label=city),size =3,family="myFont",fontface="plain",data=labelper) + ggtitle("某公司2015~2016年度营业状况分布图")+ #写入标题 guides(fill=guide_legend(reverse=TRUE,title=NULL),size=guide_legend(reverse=TRUE,title=NULL))+ theme( panel.grid = element_blank(), panel.background = element_blank(), title=element_text(family="myFont"), axis.text = element_blank(), axis.ticks = element_blank(), axis.title = element_blank(), legend.position = c(0.08,0.4), legend.text.align=1 ) 要是把所有的标签全部都添加到地图上的话，真的不太合适，本来图层就有两个，已经出现信息相互遮挡的情况了。12345678910111213141516171819ggplot() + geom_polygon(data=china_data, aes(x=long,y=lat,group=group,fill=fam),colour="white")+ geom_point(data=province_city,aes(x=jd,y=wd,size=PerforamA),shape=21,fill="#8E0F2E",colour="black",alpha=0.6)+ scale_fill_brewer(palette="Blues") + ###Blues&amp;Greens scale_size_area(max_size=6)+ coord_map("polyconic") + geom_text(aes(x=jd+2.3,y=wd,label=city),size =3,family="myFont",fontface="plain",data=province_city) + ggtitle("某公司2015~2016年度营业状况分布图")+ #写入标题 guides(fill=guide_legend(reverse=TRUE,title=NULL),size=guide_legend(reverse=TRUE,title=NULL))+ theme( panel.grid = element_blank(), panel.background = element_blank(), title=element_text(family="myFont"), axis.text = element_blank(), axis.ticks = element_blank(), axis.title = element_blank(), legend.position = c(0.08,0.4), legend.text.align=1 ) 所以标签的话，还是尽量越少越好，最好别添加，本来省级行政单位作为地理常识，已经是大家心知肚明的东西了，信息表达到位了就OK了。 联系方式：wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]298236508 个人简介：杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。Mail:578708965@qq.com 备注信息：本作品采用知识共享署名-非商业性使用 4.0 国际许可协议进行许可。]]></content>
+      <categories>
+        <category>数据可视化</category>
+      </categories>
+      <tags>
+        <tag>R语言</tag>
+        <tag>数据可视化</tag>
+        <tag>商务图表</tag>
+        <tag>数据地图</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[R语言可视化——数据地图离散百分比填充（环渤海）]]></title>
     <url>%2F2017%2F06%2F21%2FR%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E5%9C%B0%E5%9B%BE%E7%A6%BB%E6%95%A3%E7%99%BE%E5%88%86%E6%AF%94%E5%A1%AB%E5%85%85%EF%BC%88%E7%8E%AF%E6%B8%A4%E6%B5%B7%EF%BC%89%2F</url>
     <content type="text"><![CDATA[今天跟大家分享如何以百分比形式填充离散分段数据地图。 案例用环渤海三省二市的地理数据。 数据准备：加载包：123library(ggplot2)library(maptools)library(plyr) 数据导入、转换、抽取：123456CHN_adm2 &lt;- readShapePoly("c:/rstudy/CHN_adm/CHN_adm2.shp") CHN_adm2_1 &lt;- fortify(CHN_adm2) data1 &lt;- CHN_adm2@data data2 &lt;- data.frame(id=row.names(data1),data1) china_map_data &lt;- join(CHN_adm2_1, data2, type = "full") huanbohai &lt;-subset(china_map_data,NAME_1==c("Beijing","Tianjin","Nei Mongol","Hebei","Shandong")) 建立业务数据：123huanbohai_perm&lt;-data.frame(NAME_2=unique(huanbohai$NAME_2),zhibiao=rnorm(42,100,50))huanbohai_perm$zhibiao&lt;-round(huanbohai_perm$zhibiao,0)write.table (huanbohai_perm, file ="C:/rstudy/huanbohai.csv", sep =",", row.names =FALSE) 业务数据导入及合并：12mydata&lt;-read.csv("C:/rstudy/huanbohai.csv",header=T)huanbohai_map_data &lt;- join(huanbohai,mydata, type="full") 将转换的分段因子变量重新命名为我们需要的分段阀值：12huanbohai_map_data$fau &lt;- cut(huanbohai_map_data$zhibiao, breaks = c(0,40,80,120,160,200)) huanbohai_map_data$fam&lt;-factor(huanbohai_map_data$fau,levels=c('(0,40]','(40,80]','(80,120]','(120,160]','(160,200]'),labels=c('0~40','40~80','80~120','120~160','160~200'),order=TRUE) 离散颜色标度填充（实际值分段）:1234567891011121314151617windowsFonts(myFont = windowsFont("微软雅黑")) ggplot(huanbohai_map_data, aes(x = long, y = lat, group = group,fill =fam)) + geom_polygon(colour="white")+ scale_fill_brewer(palette="Greens") + ###Blues&amp;Greens coord_map("polyconic") + ggtitle("某公司2015~2016年度营业状况分布图")+ guides(fill=guide_legend(reverse=TRUE,title=NULL))+ theme( title=element_text(family="myFont"), legend.text.align=1, ###图例标签右对齐 panel.grid = element_blank(), panel.background = element_blank(), axis.text = element_blank(), axis.ticks = element_blank(), axis.title = element_blank(), legend.position = c(0.08,0.6) ) 以上是昨天在东三省填充地图中所使用过的方法，接下来我解释一种新的填充方案，通过将数量段转换为百分比进行离散颜色标度填充： 离散颜色标度分割（百分比数量段）：1234qa &lt;- quantile(na.omit(huanbohai_map_data$zhibiao), c(0,0.2,0.4,0.6,0.8,1.0))huanbohai_map_data$zhibiao_q&lt;-cut(huanbohai_map_data$zhibiao,qa,labels = c("0-20%", "20-40%","40-60%","60-80%", "80-100%"),include.lowest = TRUE)&gt; levels(huanbohai_map_data$zhibiao_q)[1] "0-20%" "20-40%" "40-60%" "60-80%" "80-100%" 通过将指标变量以分段百分比的方式进行分割，新建立一个百分比分段因子变量： 离散渐变（百分比）1234567891011121314151617windowsFonts(myFont = windowsFont("微软雅黑"))ggplot(huanbohai_map_data,aes(long,lat))+ geom_polygon(aes(group=group,fill=zhibiao_q),colour="white")+ scale_fill_brewer(palette="Greens")+ coord_map("polyconic") + guides(fill=guide_legend(reverse=TRUE,title=NULL))+ ggtitle("某公司2015~2016年度营业状况分布图")+ theme( title=element_text(family="myFont"), panel.grid = element_blank(), panel.background = element_blank(), axis.text = element_blank(), axis.ticks = element_blank(), axis.title = element_blank(), legend.position =c(0.2,0.7), legend.text.align=1 ) 带标签 接下来处理标签问题：创建各城市中心地理坐标：12midpos &lt;- function(data1) mean(range(data1,na.rm=TRUE))centres &lt;- ddply(huanbohai_map_data,.(city),colwise(midpos,.(long,lat))) 填充并添加标签：123456789101112131415161718ggplot(huanbohai_map_data,aes(long,lat))+ geom_polygon(aes(group=group,fill=zhibiao_q),colour="white")+ scale_fill_brewer(palette="Greens")+ coord_map("polyconic") + geom_text(aes(label=city),size =3,family="myFont",fontface="plain",data=centres) + guides(fill=guide_legend(reverse=TRUE,title=NULL))+ ggtitle("某公司2015~2016年度营业状况分布图")+ theme( title=element_text(family="myFont"), title=element_text(family="myFont"), panel.grid = element_blank(), panel.background = element_blank(), legend.text.align=1, axis.text = element_blank(), axis.ticks = element_blank(), axis.title = element_blank(), legend.position = c(0.2,0.7) ) 文件及代码分享在QQ群共享中. 联系方式：wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]298236508 个人简介：杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。Mail:578708965@qq.com 备注信息：本作品采用知识共享署名-非商业性使用 4.0 国际许可协议进行许可。]]></content>
@@ -8,9 +22,9 @@
         <category>R语言</category>
       </categories>
       <tags>
+        <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>商务图表</tag>
-        <tag>R语言</tag>
         <tag>数据地图</tag>
       </tags>
   </entry>
@@ -22,9 +36,9 @@
         <category>R语言</category>
       </categories>
       <tags>
+        <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>商务图表</tag>
-        <tag>R语言</tag>
         <tag>数据地图</tag>
       </tags>
   </entry>
@@ -36,8 +50,8 @@
         <category>Excel</category>
       </categories>
       <tags>
-        <tag>Excel</tag>
         <tag>数据可视化</tag>
+        <tag>Excel</tag>
         <tag>商务图表</tag>
       </tags>
   </entry>
@@ -49,8 +63,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>图表美化</tag>
         <tag>theme</tag>
         <tag>视觉信号</tag>
@@ -64,8 +78,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>气泡云图.superbubble</tag>
         <tag>PowerBI</tag>
         <tag>Tableau</tag>
@@ -79,8 +93,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>图表美化</tag>
         <tag>配色技巧</tag>
       </tags>
@@ -93,8 +107,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>数据地图</tag>
         <tag>九段线</tag>
         <tag>mini导航窗口</tag>
@@ -108,8 +122,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>图表美化</tag>
         <tag>主题定制</tag>
       </tags>
@@ -122,8 +136,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -138,8 +152,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>ggplot2</tag>
         <tag>版面控制</tag>
       </tags>
@@ -152,10 +166,10 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
-        <tag>ggplot2</tag>
+        <tag>数据可视化</tag>
         <tag>动态图表</tag>
+        <tag>ggplot2</tag>
         <tag>版面控制</tag>
       </tags>
   </entry>
@@ -167,8 +181,8 @@
         <category>可视化案例呈现</category>
       </categories>
       <tags>
-        <tag>Excel</tag>
         <tag>数据可视化</tag>
+        <tag>Excel</tag>
         <tag>商务图表</tag>
       </tags>
   </entry>
@@ -180,9 +194,9 @@
         <category>可视化案例呈现</category>
       </categories>
       <tags>
+        <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>商务图表</tag>
-        <tag>R语言</tag>
       </tags>
   </entry>
   <entry>
@@ -193,8 +207,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>ggplot2</tag>
         <tag>版式设计</tag>
         <tag>grid</tag>
@@ -208,8 +222,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
         <tag>ggplot2</tag>
         <tag>数据地图</tag>
@@ -237,8 +251,8 @@
         <category>PowerBI</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>在线地图</tag>
         <tag>PowerBI</tag>
       </tags>
@@ -251,8 +265,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
         <tag>多边形填充</tag>
       </tags>
@@ -270,8 +284,8 @@
         <category>图表配色</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>配色</tag>
       </tags>
   </entry>
@@ -283,8 +297,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>ggplot2</tag>
         <tag>极坐标</tag>
         <tag>饼图</tag>
@@ -300,8 +314,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -313,8 +327,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -328,8 +342,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
         <tag>REmap</tag>
         <tag>热力密度地图</tag>
@@ -343,8 +357,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
         <tag>REmap</tag>
         <tag>填充地图</tag>
@@ -358,8 +372,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>REmap</tag>
@@ -373,8 +387,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>REmap</tag>
@@ -389,8 +403,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>REmap</tag>
@@ -404,8 +418,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -420,8 +434,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>json</tag>
@@ -436,8 +450,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -452,12 +466,12 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
-        <tag>leaflet</tag>
         <tag>路径图</tag>
+        <tag>leaflet</tag>
         <tag>mini柱形/条形图</tag>
       </tags>
   </entry>
@@ -469,8 +483,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -485,8 +499,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -501,8 +515,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
         <tag>ggplot2</tag>
         <tag>mini柱形/条形图</tag>
@@ -516,8 +530,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>地理信息可视化</tag>
         <tag>ggplot2</tag>
         <tag>mini饼图</tag>
@@ -531,8 +545,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>ggplot2</tag>
         <tag>爬虫</tag>
         <tag>国产电影</tag>
@@ -547,8 +561,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>ggplot2</tag>
         <tag>爬虫</tag>
         <tag>空气质量可视化</tag>
@@ -562,8 +576,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>路径图</tag>
         <tag>ggplot2</tag>
       </tags>
@@ -576,8 +590,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>ggplot2</tag>
         <tag>热力地图</tag>
       </tags>
@@ -590,8 +604,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>ggplot2</tag>
         <tag>信息图</tag>
         <tag>版面设计</tag>
@@ -606,8 +620,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>ggplot2</tag>
         <tag>信息图</tag>
       </tags>
@@ -620,10 +634,10 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
-        <tag>ggplot2</tag>
+        <tag>数据可视化</tag>
         <tag>动态图表</tag>
+        <tag>ggplot2</tag>
         <tag>gif</tag>
       </tags>
   </entry>
@@ -635,8 +649,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>ggplot2</tag>
         <tag>gif</tag>
         <tag>动态地图</tag>
@@ -650,8 +664,8 @@
         <category>仪表盘</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>ggplot2</tag>
         <tag>仪表盘</tag>
         <tag>排版</tag>
@@ -665,8 +679,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>ggplot2</tag>
         <tag>信息图</tag>
       </tags>
@@ -679,8 +693,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>ggplot2</tag>
         <tag>爬虫</tag>
         <tag>emoji</tag>
@@ -694,8 +708,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -707,8 +721,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>ggplot2</tag>
         <tag>爬虫</tag>
       </tags>
@@ -721,8 +735,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>爬虫</tag>
         <tag>PowerBI</tag>
       </tags>
@@ -735,8 +749,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -748,8 +762,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -761,8 +775,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>数据可视化</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
