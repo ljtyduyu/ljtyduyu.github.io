@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="R语言,数据可视化,地理信息可视化,在线地图,leaflet,路径图,mini柱形/条形图," />
+  <meta name="keywords" content="R语言,数据可视化,图表美化,ggplot2,ggtech," />
 
 
 
@@ -97,27 +97,36 @@
 
 
 
-<meta name="description" content="根据先前几篇内容的框架，今天介绍leaflet在线地图的第三篇，以线条元素构造的路径图。">
-<meta name="keywords" content="R语言,数据可视化,地理信息可视化,在线地图,leaflet,路径图,mini柱形&#x2F;条形图">
+<meta name="description" content="总觉得以前自己写的东西太过琐碎，纠结于步骤和技巧，而没有任何体系上和理念上的输出；">
+<meta name="keywords" content="R语言,数据可视化,图表美化,ggplot2,ggtech">
 <meta property="og:type" content="article">
-<meta property="og:title" content="动态地理信息可视化——leaflet构造路径图">
-<meta property="og:url" content="http://www.raindu.com/2017/06/04/动态地理信息可视化——leaflet构造路径图/index.html">
+<meta property="og:title" content="用优雅的配色来缔造图表专业主义~">
+<meta property="og:url" content="http://www.raindu.com/2017/06/23/用优雅的配色来缔造图表专业主义/index.html">
 <meta property="og:site_name" content="raindu&#39;s home">
-<meta property="og:description" content="根据先前几篇内容的框架，今天介绍leaflet在线地图的第三篇，以线条元素构造的路径图。">
-<meta property="og:image" content="http://or029s79c.bkt.clouddn.com/image1.png">
-<meta property="og:image" content="http://or029s79c.bkt.clouddn.com/image2.png">
-<meta property="og:image" content="http://or029s79c.bkt.clouddn.com/image3.png">
-<meta property="og:image" content="http://or029s79c.bkt.clouddn.com/image4.png">
-<meta property="og:image" content="http://or029s79c.bkt.clouddn.com/image5.png">
-<meta property="og:image" content="http://or029s79c.bkt.clouddn.com/image6.png">
-<meta property="og:image" content="http://or029s79c.bkt.clouddn.com/image7.png">
-<meta property="og:image" content="http://or029s79c.bkt.clouddn.com/image8.png">
+<meta property="og:description" content="总觉得以前自己写的东西太过琐碎，纠结于步骤和技巧，而没有任何体系上和理念上的输出；">
+<meta property="og:image" content="http://orz7qelg0.bkt.clouddn.com/%E6%BC%94%E7%A4%BA%E6%96%87%E7%A8%BF1.jpg">
+<meta property="og:image" content="http://orz7qelg0.bkt.clouddn.com/image1.png">
+<meta property="og:image" content="http://orz7qelg0.bkt.clouddn.com/image2.png">
+<meta property="og:image" content="http://orz7qelg0.bkt.clouddn.com/image3.png">
+<meta property="og:image" content="http://orz7qelg0.bkt.clouddn.com/image4.png">
+<meta property="og:image" content="http://orz7qelg0.bkt.clouddn.com/image5.png">
+<meta property="og:image" content="http://orz7qelg0.bkt.clouddn.com/image6.png">
+<meta property="og:image" content="http://orz7qelg0.bkt.clouddn.com/image7.png">
+<meta property="og:image" content="http://orz7qelg0.bkt.clouddn.com/image8.png">
+<meta property="og:image" content="http://orz7qelg0.bkt.clouddn.com/image9.png">
+<meta property="og:image" content="http://orz7qelg0.bkt.clouddn.com/image10.png">
+<meta property="og:image" content="http://orz7qelg0.bkt.clouddn.com/image11.png">
+<meta property="og:image" content="http://orz7qelg0.bkt.clouddn.com/image14.png">
+<meta property="og:image" content="http://orz7qelg0.bkt.clouddn.com/image15.png">
+<meta property="og:image" content="http://orz7qelg0.bkt.clouddn.com/image16.png">
+<meta property="og:image" content="http://orz7qelg0.bkt.clouddn.com/image17.png">
+<meta property="og:image" content="http://orz7qelg0.bkt.clouddn.com/image18.png">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-06-16T14:17:25.912Z">
+<meta property="og:updated_time" content="2017-06-23T01:33:06.481Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="动态地理信息可视化——leaflet构造路径图">
-<meta name="twitter:description" content="根据先前几篇内容的框架，今天介绍leaflet在线地图的第三篇，以线条元素构造的路径图。">
-<meta name="twitter:image" content="http://or029s79c.bkt.clouddn.com/image1.png">
+<meta name="twitter:title" content="用优雅的配色来缔造图表专业主义~">
+<meta name="twitter:description" content="总觉得以前自己写的东西太过琐碎，纠结于步骤和技巧，而没有任何体系上和理念上的输出；">
+<meta name="twitter:image" content="http://orz7qelg0.bkt.clouddn.com/%E6%BC%94%E7%A4%BA%E6%96%87%E7%A8%BF1.jpg">
 
 
 
@@ -145,13 +154,13 @@
 
 
 
-  <link rel="canonical" href="http://www.raindu.com/2017/06/04/动态地理信息可视化——leaflet构造路径图/"/>
+  <link rel="canonical" href="http://www.raindu.com/2017/06/23/用优雅的配色来缔造图表专业主义/"/>
 
 
 
 
 
-  <title>动态地理信息可视化——leaflet构造路径图 | raindu's home</title>
+  <title>用优雅的配色来缔造图表专业主义~ | raindu's home</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -335,7 +344,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/06/04/动态地理信息可视化——leaflet构造路径图/">
+    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/06/23/用优雅的配色来缔造图表专业主义/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="RainDu">
@@ -352,7 +361,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">动态地理信息可视化——leaflet构造路径图</h1>
+          <h1 class="post-title" itemprop="name headline">用优雅的配色来缔造图表专业主义~</h1>
         
 
         <div class="post-meta">
@@ -364,8 +373,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-04T09:56:20+08:00">
-                2017-06-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-23T09:10:23+08:00">
+                2017-06-23
               </time>
             
 
@@ -387,8 +396,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/地理信息可视化/" itemprop="url" rel="index">
-                    <span itemprop="name">地理信息可视化</span>
+                  <a href="/categories/数据可视化/" itemprop="url" rel="index">
+                    <span itemprop="name">数据可视化</span>
                   </a>
                 </span>
 
@@ -405,7 +414,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2017/06/04/动态地理信息可视化——leaflet构造路径图/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2017/06/23/用优雅的配色来缔造图表专业主义/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -414,7 +423,7 @@
 
           
           
-             <span id="/2017/06/04/动态地理信息可视化——leaflet构造路径图/" class="leancloud_visitors" data-flag-title="动态地理信息可视化——leaflet构造路径图">
+             <span id="/2017/06/23/用优雅的配色来缔造图表专业主义/" class="leancloud_visitors" data-flag-title="用优雅的配色来缔造图表专业主义~">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -439,7 +448,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  884 字
+                  1,866 字
                 </span>
               
 
@@ -455,7 +464,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  4 分钟
+                  9 分钟
                 </span>
               
             </div>
@@ -473,85 +482,60 @@
       
 
       
-        <p>根据先前几篇内容的框架，今天介绍leaflet在线地图的第三篇，以线条元素构造的路径图。</p>
+        <p><img src="http://orz7qelg0.bkt.clouddn.com/%E6%BC%94%E7%A4%BA%E6%96%87%E7%A8%BF1.jpg" alt=""></p>
+<p>总觉得以前自己写的东西太过琐碎，纠结于步骤和技巧，而没有任何体系上和理念上的输出；</p>
 <a id="more"></a>
-<h3 id="加载包："><a href="#加载包：" class="headerlink" title="加载包："></a>加载包：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(leaflet)</div><div class="line"><span class="keyword">library</span>(dplyr)</div></pre></td></tr></table></figure>
-<h3 id="导入数据集："><a href="#导入数据集：" class="headerlink" title="导入数据集："></a>导入数据集：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">data&lt;-read.table(<span class="string">"D:/R/File/subwayline.txt"</span>,header=<span class="literal">TRUE</span>,stringsAsFactors = <span class="literal">FALSE</span>)</div><div class="line">data$Type&lt;-as.factor(data$Type)</div><div class="line">data1&lt;-filter(data,Type==<span class="string">"NO1"</span>)</div><div class="line">data2&lt;-filter(data,Type==<span class="string">"NO5"</span>)</div></pre></td></tr></table></figure>
-<p><img src="http://or029s79c.bkt.clouddn.com/image1.png" alt=""></p>
-<p>以上我用百度地图的坐标拾取平台采点拾取的背景地铁一号线和五号线的车站地理位置信息，（因为没有现成的数据，只能手工采点，可能不是很准确）</p>
-<h3 id="基本语法解释："><a href="#基本语法解释：" class="headerlink" title="基本语法解释："></a>基本语法解释：</h3><p><strong>今天要介绍的leaflet类型是线条，也即addPolylines函数，其基本语法如下：</strong></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">addPolylines(map, lng = <span class="literal">NULL</span>,lat = <span class="literal">NULL</span>, <span class="comment">#指定数据源并做经纬度声明</span></div><div class="line">     layerId = <span class="literal">NULL</span>, </div><div class="line">     group = <span class="literal">NULL</span>,  <span class="comment">#图层分组（制作动态可见性交互时使用）</span></div><div class="line">     stroke = <span class="literal">TRUE</span>, <span class="comment">#是否呈现路径线</span></div><div class="line">     color = <span class="string">"#03F"</span>,weight = <span class="number">5</span>,opacity = <span class="number">0.5</span>, <span class="comment">#关于线条的颜色、宽度、透明度 </span></div><div class="line">     fill = <span class="literal">FALSE</span>, fillColor = color, fillOpacity = <span class="number">0.2</span>, </div><div class="line">     dashArray = <span class="literal">NULL</span>, smoothFactor = <span class="number">1</span>, noClip = <span class="literal">FALSE</span>,  <span class="comment">#线型参数，平滑度等</span></div><div class="line">     popup = <span class="literal">NULL</span>, options = pathOptions(), data = getMapData(map)) <span class="comment">#弹窗、选项控制</span></div></pre></td></tr></table></figure>
-<h3 id="构造色盘："><a href="#构造色盘：" class="headerlink" title="构造色盘："></a>构造色盘：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pal &lt;- colorFactor(topo.colors(<span class="number">2</span>),data$Type)</div></pre></td></tr></table></figure>
-<h3 id="可视化过程："><a href="#可视化过程：" class="headerlink" title="可视化过程："></a>可视化过程：</h3><h4 id="作图函数：使用默认点标识"><a href="#作图函数：使用默认点标识" class="headerlink" title="作图函数：使用默认点标识"></a>作图函数：使用默认点标识</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">leaflet()%&gt;%</div><div class="line">addTiles()%&gt;%</div><div class="line">addPolylines(data=data1,~lon,~lat,color=<span class="string">"blue"</span>)%&gt;%</div><div class="line">addPolylines(data=data2,~lon,~lat,color=<span class="string">"green"</span>)%&gt;%</div><div class="line">addMarkers(data=data,~lon, ~lat,popup = ~address)</div></pre></td></tr></table></figure>
-<p><img src="http://or029s79c.bkt.clouddn.com/image2.png" alt=""></p>
-<h4 id="使用可自定义的圆点标识车站位置"><a href="#使用可自定义的圆点标识车站位置" class="headerlink" title="使用可自定义的圆点标识车站位置"></a>使用可自定义的圆点标识车站位置</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">leaflet()%&gt;%</div><div class="line">addTiles()%&gt;%</div><div class="line">addPolylines(data=data1,~lon,~lat,color=<span class="string">"blue"</span>)%&gt;%</div><div class="line">addPolylines(data=data2,~lon,~lat,color=<span class="string">"green"</span>)%&gt;%</div><div class="line">addCircles(data=data,~lon, ~lat,popup = ~address,color=<span class="string">"red"</span>)</div></pre></td></tr></table></figure>
-<p><img src="http://or029s79c.bkt.clouddn.com/image3.png" alt=""></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">leaflet()%&gt;%</div><div class="line">addTiles()%&gt;%</div><div class="line">addPolylines(data=data1,~lon,~lat,color=<span class="string">"blue"</span>)%&gt;%</div><div class="line">addPolylines(data=data2,~lon,~lat,color=<span class="string">"green"</span>)%&gt;%</div><div class="line">addCircleMarkers(data=data,~lon, ~lat,popup = ~address,color=~Type)</div></pre></td></tr></table></figure>
-<p><img src="http://or029s79c.bkt.clouddn.com/image4.png" alt=""></p>
-<h4 id="以下是几种比较常用的地图背景素材"><a href="#以下是几种比较常用的地图背景素材" class="headerlink" title="以下是几种比较常用的地图背景素材"></a>以下是几种比较常用的地图背景素材</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">addProviderTiles(<span class="string">"Esri.WorldStreetMap"</span>)  </div><div class="line">addProviderTiles(<span class="string">"Esri.WorldImagery"</span>)   </div><div class="line">addProviderTiles(<span class="string">"Esri.WorldTerrain"</span>)    </div><div class="line">addProviderTiles(<span class="string">"Esri.NatGeoWorldMap"</span>)</div></pre></td></tr></table></figure>
-<h4 id="几张常见的素材风格："><a href="#几张常见的素材风格：" class="headerlink" title="几张常见的素材风格："></a>几张常见的素材风格：</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">leaflet()%&gt;%</div><div class="line">addProviderTiles(<span class="string">"Esri.WorldStreetMap"</span>)%&gt;%</div><div class="line">addPolylines(data=data1,~lon,~lat,color=<span class="string">"blue"</span>)%&gt;%</div><div class="line">addPolylines(data=data2,~lon,~lat,color=<span class="string">"green"</span>)%&gt;%</div><div class="line">addCircles(data=data,~lon, ~lat,popup = ~address,color=~Type)</div></pre></td></tr></table></figure>
-<p><img src="http://or029s79c.bkt.clouddn.com/image5.png" alt=""></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">leaflet()%&gt;%</div><div class="line">addProviderTiles(<span class="string">"Esri.WorldImagery"</span>)%&gt;%</div><div class="line">addPolylines(data=data1,~lon,~lat,color=<span class="string">"blue"</span>)%&gt;%</div><div class="line">addPolylines(data=data2,~lon,~lat,color=<span class="string">"green"</span>)%&gt;%</div><div class="line">addCircles(data=data,~lon, ~lat,popup = ~address,color=~Type)</div></pre></td></tr></table></figure>
-<p><img src="http://or029s79c.bkt.clouddn.com/image6.png" alt=""></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">leaflet()%&gt;%</div><div class="line">addProviderTiles(<span class="string">"Esri.WorldGrayCanvas"</span>) %&gt;%</div><div class="line">addPolylines(data=data1,~lon,~lat,color=<span class="string">"blue"</span>)%&gt;%</div><div class="line">addPolylines(data=data2,~lon,~lat,color=<span class="string">"green"</span>)%&gt;%</div><div class="line">addCircles(data=data,~lon, ~lat,popup = ~address,color=~Type)</div></pre></td></tr></table></figure>
-<p><img src="http://or029s79c.bkt.clouddn.com/image7.png" alt=""></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">leaflet()%&gt;%</div><div class="line">addProviderTiles(<span class="string">"Esri.NatGeoWorldMap"</span>)  %&gt;%</div><div class="line">addPolylines(data=data1,~lon,~lat,color=<span class="string">"blue"</span>)%&gt;%</div><div class="line">addPolylines(data=data2,~lon,~lat,color=<span class="string">"green"</span>)%&gt;%</div><div class="line">addCircles(data=data,~lon, ~lat,popup = ~address,color=~Type)</div></pre></td></tr></table></figure>
-<p><img src="http://or029s79c.bkt.clouddn.com/image8.png" alt=""></p>
-<p>是不是觉得花样不够多呀，那好吧，以下这些，全部都送给你，那好不谢！</p>
-<hr>
-<ul>
-<li>OpenStreetMap.Mapnik</li>
-<li>OpenStreetMap.BlackAndWhite</li>
-<li>OpenStreetMap.DE</li>
-<li>OpenStreetMap.France</li>
-<li>OpenStreetMap.HOT</li>
-<li>OpenTopoMap</li>
-<li>Thunderforest.OpenCycleMap</li>
-<li>Thunderforest.Transport</li>
-<li>Thunderforest.TransportDark</li>
-<li>Thunderforest.SpinalMap</li>
-<li>Thunderforest.Landscape</li>
-<li>Thunderforest.Outdoors</li>
-<li>Thunderforest.Pioneer</li>
-<li>OpenMapSurfer.Roads</li>
-<li>OpenMapSurfer.Grayscale</li>
-<li>Hydda.Full</li>
-<li>Stamen.Toner</li>
-<li>Stamen.TonerBackground</li>
-<li>Stamen.TonerLite</li>
-<li>Stamen.Watercolor</li>
-<li>Stamen.Terrain</li>
-<li>Stamen.TerrainBackground</li>
-<li>Stamen.TopOSMRelief</li>
-<li>Esri.WorldStreetMap</li>
-<li>Esri.DeLorme</li>
-<li>Esri.WorldTopoMap</li>
-<li>Esri.WorldImagery</li>
-<li>Esri.WorldTerrain</li>
-<li>Esri.WorldShadedRelief</li>
-<li>Esri.WorldPhysical</li>
-<li>Esri.OceanBasemap</li>
-<li>Esri.NatGeoWorldMap</li>
-<li>Esri.WorldGrayCanvas</li>
-<li>MtbMap</li>
-<li>CartoDB.Positron</li>
-<li>CartoDB.PositronNoLabels</li>
-<li>CartoDB.PositronOnlyLabels</li>
-<li>CartoDB.DarkMatter</li>
-<li>CartoDB.DarkMatterNoLabels</li>
-<li>CartoDB.DarkMatterOnlyLabels</li>
-<li>HikeBike.HikeBike</li>
-<li>HikeBike.HillShading</li>
-<li>NASAGIBS.ModisTerraTrueColorCR</li>
-<li>NASAGIBS.ModisTerraBands367CR</li>
-<li>NASAGIBS.ViirsEarthAtNight2012</li>
-<li>NASAGIBS.ModisTerraLSTDay</li>
-<li>NASAGIBS.ModisTerraSnowCover</li>
-<li>NASAGIBS.ModisTerraAOD</li>
-<li>NASAGIBS.ModisTerraChlorophyll</li>
-</ul>
-<hr>
-<p>细数也有好几十个，够你玩一阵子了，使用方法仅仅是通过设置图层函数进行调用，然后就可以愉快的在图层上面进行可视化操作了。<br>addProviderTiles(“地图类型”)</p>
+<p>而再加上自己文风粗陋（毕竟每一篇的错别字用十个手指头都数不完呀）、排版拙劣，还有那么多小伙伴儿不离不弃，肯于点赞，实在是感到惭愧（我一般都很少看自己写的东西的不忍直视哈哈）~</p>
+<p>可能之前限于能力和实力，一直在跟着别人的步调走，始终在模仿；再加上自己过于追求数量，在质量上用心不多。</p>
+<p>不过现在自我感觉好一些了，开始慢慢的思考一些深度的技巧运用，偶尔也会有一些纯理念的总结。</p>
+<p>以后的更新频率打算保持在一周2~3篇左右，但是每一篇的内容会向着综合性、应用性方向转变。当然，关于内容排版和文章封面图都会多花一些心思，尽可能的提升一下阅读体验。</p>
+<p><strong>下面是今天的干货~</strong></p>
+<p>今天要跟大家分享的是如何在实际图表场景中运用ggtech包的配色及主题，案例是关于全球互联网公司市值比较（数据皆为真实数据，来源于搜狐网）。</p>
+<h3 id="数据准备："><a href="#数据准备：" class="headerlink" title="数据准备："></a>数据准备：</h3><p>因为基础的ggplot2语法已经介绍过了，这里我就不介绍具体步骤了，直接使用最终调试好的代码。</p>
+<p><strong>加载包：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(<span class="string">"ggplot2"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"ggtech"</span>)</div></pre></td></tr></table></figure></p>
+<p><strong>数据导入：</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mydata &lt;- read.table(<span class="string">"clipboard"</span>, header = <span class="literal">T</span>, sep = <span class="string">'\t'</span>)</div><div class="line">newdata&lt;-mydata[<span class="number">1</span>:<span class="number">5</span>,]</div></pre></td></tr></table></figure>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image1.png" alt=""></p>
+<h3 id="案例演示："><a href="#案例演示：" class="headerlink" title="案例演示："></a>案例演示：</h3><h4 id="柱形图（全球市值top5互联网公司-）"><a href="#柱形图（全球市值top5互联网公司-）" class="headerlink" title="柱形图（全球市值top5互联网公司 ）"></a>柱形图（全球市值top5互联网公司 ）</h4><blockquote>
+<p>数据截止2015年，单位：十亿美元</p>
+</blockquote>
+<p><strong>Airbnb风格:</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata,aes(reorder(Name,-Value),Value,fill=Name))+geom_bar(stat=<span class="string">"identity"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"airbnb"</span>) + </div><div class="line">      scale_fill_tech(theme=<span class="string">"airbnb"</span>) +</div><div class="line">      labs(title=<span class="string">"Top5 Internet Companies"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in 2015"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      theme(axis.title = element_blank(),</div><div class="line">      legend.position=c(<span class="number">0.85</span>,<span class="number">0.8</span>)</div><div class="line">      )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image2.png" alt=""></p>
+<p><strong>Esty风格：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata,aes(reorder(Name,-Value),Value,fill=Name))+geom_bar(stat=<span class="string">"identity"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"etsy"</span>) + </div><div class="line">      scale_fill_tech(theme=<span class="string">"etsy"</span>) +</div><div class="line">      labs(title=<span class="string">"Top5 Internet Companies"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in 2015"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      theme(axis.title = element_blank(),</div><div class="line">      legend.position=c(<span class="number">0.85</span>,<span class="number">0.8</span>)</div><div class="line">      )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image3.png" alt=""></p>
+<p><strong>Fackbook风格：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata[<span class="number">1</span>:<span class="number">4</span>,],aes(reorder(Name,-Value),Value,fill=Name))+geom_bar(stat=<span class="string">"identity"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"facebook"</span>) +</div><div class="line">      scale_fill_tech(theme=<span class="string">"facebook"</span>) + </div><div class="line">      labs(title=<span class="string">"Top5 Internet Companies"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in 2015"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      theme(axis.title = element_blank(),</div><div class="line">      legend.position=c(<span class="number">0.85</span>,<span class="number">0.8</span>)</div><div class="line">      )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image4.png" alt=""></p>
+<p><strong>Google风格：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata[<span class="number">1</span>:<span class="number">4</span>,],aes(reorder(Name,-Value),Value,fill=Name))+geom_bar(stat=<span class="string">"identity"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"google"</span>) + </div><div class="line">      scale_fill_tech(theme=<span class="string">"google"</span>) + </div><div class="line">      labs(title=<span class="string">"Top5 Internet Companies"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in 2015"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      theme(axis.title = element_blank(),</div><div class="line">      legend.position=c(<span class="number">0.85</span>,<span class="number">0.8</span>)</div><div class="line">      )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image5.png" alt=""></p>
+<p><strong>Twitter风格：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata[<span class="number">1</span>:<span class="number">4</span>,],aes(reorder(Name,-Value),Value,fill=Name))+geom_bar(stat=<span class="string">"identity"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"twitter"</span>) + </div><div class="line">      scale_fill_tech(theme=<span class="string">"twitter"</span>) + </div><div class="line">      labs(title=<span class="string">"Top5 Internet Companies"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in 2015"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      theme(axis.title = element_blank(),</div><div class="line">      legend.position=c(<span class="number">0.85</span>,<span class="number">0.8</span>)</div><div class="line">      )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image6.png" alt=""></p>
+<h4 id="饼图"><a href="#饼图" class="headerlink" title="饼图"></a>饼图</h4><p>以下用饼图来呈现前五大互联网公司的相对市值大小：</p>
+<p><strong>Airbnb风格:</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata,aes(x=<span class="number">1</span>,y=Value,fill=Name))+</div><div class="line">      geom_bar(stat=<span class="string">"identity"</span>,color=<span class="string">"white"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"airbnb"</span>) + </div><div class="line">      scale_fill_tech(theme=<span class="string">"airbnb"</span>) +</div><div class="line">      coord_polar(theta = <span class="string">"y"</span>,start=<span class="number">0</span>)+</div><div class="line">      labs(title=<span class="string">"Top5 Internet Companies"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in 2015"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">      theme(</div><div class="line">           panel.grid=element_blank(),</div><div class="line">           panel.background=element_blank(),</div><div class="line">           axis.text = element_blank(),</div><div class="line">           axis.ticks = element_blank(),</div><div class="line">           axis.title = element_blank(),</div><div class="line">           axis.line=element_blank(),</div><div class="line">           legend.position=c(<span class="number">0.1</span>,<span class="number">0.1</span>)</div><div class="line">           )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image7.png" alt=""></p>
+<p><strong>Esty风格：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata,aes(x=<span class="number">1</span>,y=Value,fill=Name))+</div><div class="line">      geom_bar(stat=<span class="string">"identity"</span>,color=<span class="string">"white"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"etsy"</span>) + </div><div class="line">      scale_fill_tech(theme=<span class="string">"etsy"</span>) +</div><div class="line">      coord_polar(theta = <span class="string">"y"</span>,start=<span class="number">0</span>)+</div><div class="line">      labs(title=<span class="string">"Top5 Internet Companies"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in 2015"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">      theme(</div><div class="line">           panel.grid=element_blank(),</div><div class="line">           panel.background=element_blank(),</div><div class="line">           axis.text = element_blank(),</div><div class="line">           axis.ticks = element_blank(),</div><div class="line">           axis.title = element_blank(),</div><div class="line">           axis.line=element_blank(),</div><div class="line">           legend.position=c(<span class="number">0.1</span>,<span class="number">0.1</span>)</div><div class="line">           )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image8.png" alt=""></p>
+<p><strong>Fackbook风格：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata[<span class="number">1</span>:<span class="number">4</span>,],aes(x=<span class="number">1</span>,y=Value,fill=Name))+</div><div class="line">      geom_bar(stat=<span class="string">"identity"</span>,color=<span class="string">"white"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"facebook"</span>) +</div><div class="line">      scale_fill_tech(theme=<span class="string">"facebook"</span>) + </div><div class="line">      coord_polar(theta = <span class="string">"y"</span>,start=<span class="number">0</span>)+</div><div class="line">      labs(title=<span class="string">"Top5 Internet Companies"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in 2015"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">      theme(</div><div class="line">           panel.grid=element_blank(),</div><div class="line">           panel.background=element_blank(),</div><div class="line">           axis.text = element_blank(),</div><div class="line">           axis.ticks = element_blank(),</div><div class="line">           axis.title = element_blank(),</div><div class="line">           axis.line=element_blank(),</div><div class="line">           legend.position=c(<span class="number">0.1</span>,<span class="number">0.1</span>)</div><div class="line">           )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image9.png" alt=""></p>
+<p><strong>Google风格：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata[<span class="number">1</span>:<span class="number">4</span>,],aes(x=<span class="number">1</span>,y=Value,fill=Name))+</div><div class="line">      geom_bar(stat=<span class="string">"identity"</span>,color=<span class="string">"white"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"google"</span>) + </div><div class="line">      scale_fill_tech(theme=<span class="string">"google"</span>) + </div><div class="line">      coord_polar(theta = <span class="string">"y"</span>,start=<span class="number">0</span>)+</div><div class="line">      labs(title=<span class="string">"Top5 Internet Companies"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in 2015"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">      theme(</div><div class="line">           panel.grid=element_blank(),</div><div class="line">           panel.background=element_blank(),</div><div class="line">           axis.text = element_blank(),</div><div class="line">           axis.ticks = element_blank(),</div><div class="line">           axis.title = element_blank(),</div><div class="line">           axis.line=element_blank(),</div><div class="line">           legend.position=c(<span class="number">0.1</span>,<span class="number">0.1</span>)</div><div class="line">           )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image10.png" alt=""></p>
+<p><strong>Twitter风格：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata[<span class="number">1</span>:<span class="number">4</span>,],aes(x=<span class="number">1</span>,y=Value,fill=Name))+</div><div class="line">      geom_bar(stat=<span class="string">"identity"</span>,color=<span class="string">"white"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"twitter"</span>) + </div><div class="line">      scale_fill_tech(theme=<span class="string">"twitter"</span>) + </div><div class="line">      coord_polar(theta = <span class="string">"y"</span>,start=<span class="number">0</span>)+</div><div class="line">      labs(title=<span class="string">"Top5 Internet Companies"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in 2015"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">      theme(</div><div class="line">           panel.grid=element_blank(),</div><div class="line">           panel.background=element_blank(),</div><div class="line">           axis.text = element_blank(),</div><div class="line">           axis.ticks = element_blank(),</div><div class="line">           axis.title = element_blank(),</div><div class="line">           axis.line=element_blank(),</div><div class="line">           legend.position=c(<span class="number">0.1</span>,<span class="number">0.1</span>)</div><div class="line">           )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image11.png" alt=""></p>
+<h4 id="粗边面积图"><a href="#粗边面积图" class="headerlink" title="粗边面积图"></a>粗边面积图</h4><p>接下来用国内BAT三巨头的连续7年市值数据制作堆积的粗边面积图：</p>
+<p>数据来源于<a href="http://www.14du.com/" target="_blank" rel="external">www.14du.com</a>  截止2015年，单位：亿美元</p>
+<p><strong>导入数据：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mynewdata &lt;- read.table(<span class="string">"clipboard"</span>, header = <span class="literal">T</span>, sep = <span class="string">'\t'</span>)</div></pre></td></tr></table></figure></p>
+<p>使用reshape2包进行转置塑性：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(<span class="string">"reshape2"</span>)</div><div class="line">newmydata &lt;- melt(mynewdata, id.vars = c(<span class="string">"Year"</span>),variable.name = <span class="string">"Name"</span>, value.name = <span class="string">"Value"</span>)</div></pre></td></tr></table></figure></p>
+<p><strong>Airbnb风格:</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">ggplot(newmydata,aes(Year,Value,group=Name,fill=Name))+</div><div class="line">      geom_area(position=<span class="string">"stack"</span>)+</div><div class="line">      geom_line(col=<span class="string">"grey60"</span>,size=<span class="number">2</span>,position=<span class="string">"stack"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"airbnb"</span>) + </div><div class="line">      scale_fill_tech(theme=<span class="string">"airbnb"</span>) +</div><div class="line">      labs(title=<span class="string">"Three Big Giant of Internet Companies in China"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in China"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">      theme(</div><div class="line">           panel.grid=element_blank(),</div><div class="line">           panel.background=element_blank(),</div><div class="line">           axis.title = element_blank(),</div><div class="line">           legend.position=c(<span class="number">0.2</span>,<span class="number">0.6</span>)</div><div class="line">           )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image14.png" alt=""></p>
+<p><strong>Esty风格：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">ggplot(newmydata,aes(Year,Value,group=Name,fill=Name))+</div><div class="line">      geom_area(position=<span class="string">"stack"</span>)+</div><div class="line">      geom_line(col=<span class="string">"grey60"</span>,size=<span class="number">2</span>,position=<span class="string">"stack"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"etsy"</span>) + </div><div class="line">      scale_fill_tech(theme=<span class="string">"etsy"</span>) +</div><div class="line">      labs(title=<span class="string">"Three Big Giant of Internet Companies in China"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in China"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">      theme(</div><div class="line">           panel.grid=element_blank(),</div><div class="line">           panel.background=element_blank(),</div><div class="line">           axis.title = element_blank(),</div><div class="line">           legend.position=c(<span class="number">0.2</span>,<span class="number">0.6</span>)</div><div class="line">           )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image15.png" alt=""></p>
+<p><strong>Fackbook风格：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">ggplot(newmydata,aes(Year,Value,group=Name,fill=Name))+</div><div class="line">      geom_area(position=<span class="string">"stack"</span>)+</div><div class="line">      geom_line(col=<span class="string">"grey60"</span>,size=<span class="number">2</span>,position=<span class="string">"stack"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"facebook"</span>) +</div><div class="line">      scale_fill_tech(theme=<span class="string">"facebook"</span>) +</div><div class="line">      labs(title=<span class="string">"Three Big Giant of Internet Companies in China"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in China"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">      theme(</div><div class="line">           panel.grid=element_blank(),</div><div class="line">           panel.background=element_blank(),</div><div class="line">           axis.title = element_blank(),</div><div class="line">           legend.position=c(<span class="number">0.2</span>,<span class="number">0.6</span>)</div><div class="line">           )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image16.png" alt=""></p>
+<p><strong>Google风格：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">ggplot(newmydata,aes(Year,Value,group=Name,fill=Name))+</div><div class="line">      geom_area(position=<span class="string">"stack"</span>)+</div><div class="line">      geom_line(col=<span class="string">"grey60"</span>,size=<span class="number">2</span>,position=<span class="string">"stack"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"google"</span>) + </div><div class="line">      scale_fill_tech(theme=<span class="string">"google"</span>) + </div><div class="line">      labs(title=<span class="string">"Three Big Giant of Internet Companies in China"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in China"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">      theme(</div><div class="line">           panel.grid=element_blank(),</div><div class="line">           panel.background=element_blank(),</div><div class="line">           axis.title = element_blank(),</div><div class="line">           legend.position=c(<span class="number">0.2</span>,<span class="number">0.6</span>)</div><div class="line">           )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image17.png" alt=""></p>
+<p><strong>Twitter风格：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">ggplot(newmydata,aes(Year,Value,group=Name,fill=Name))+</div><div class="line">      geom_area(position=<span class="string">"stack"</span>)+</div><div class="line">      geom_line(col=<span class="string">"orange"</span>,size=<span class="number">2</span>,position=<span class="string">"stack"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"twitter"</span>) + </div><div class="line">      scale_fill_tech(theme=<span class="string">"twitter"</span>) + </div><div class="line">      labs(title=<span class="string">"Three Big Giant of Internet Companies in China"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in China"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">      theme(</div><div class="line">           panel.grid=element_blank(),</div><div class="line">           panel.background=element_blank(),</div><div class="line">           axis.title = element_blank(),</div><div class="line">           legend.position=c(<span class="number">0.2</span>,<span class="number">0.6</span>)</div><div class="line">           )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image18.png" alt=""></p>
+<p>真是不好意思，没有刹住车，糊里糊涂的就写了这么多，也忘记对代码做变量中转了，其实核心代码我就写了三个，其他都是Ctrl+V、Ctrl+V不停地狂点鼠标。</p>
+<p>这个ggtech包前天刚分享过的，配色上很惊艳，很有科技范，非常适合用在商业数据分析中，说不定还能给你的领导带来惊喜呢，还等什么呢，赶快来试一试吧！</p>
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
@@ -611,15 +595,11 @@
           
             <a href="/tags/数据可视化/" rel="tag"># 数据可视化</a>
           
-            <a href="/tags/地理信息可视化/" rel="tag"># 地理信息可视化</a>
+            <a href="/tags/图表美化/" rel="tag"># 图表美化</a>
           
-            <a href="/tags/在线地图/" rel="tag"># 在线地图</a>
+            <a href="/tags/ggplot2/" rel="tag"># ggplot2</a>
           
-            <a href="/tags/leaflet/" rel="tag"># leaflet</a>
-          
-            <a href="/tags/路径图/" rel="tag"># 路径图</a>
-          
-            <a href="/tags/mini柱形-条形图/" rel="tag"># mini柱形/条形图</a>
+            <a href="/tags/ggtech/" rel="tag"># ggtech</a>
           
         </div>
       
@@ -632,8 +612,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/03/动态地理信息可视化——散点地图系列/" rel="next" title="动态地理信息可视化——散点地图系列">
-                <i class="fa fa-chevron-left"></i> 动态地理信息可视化——散点地图系列
+              <a href="/2017/06/23/不经意间又发现了一个有趣又炫酷的包/" rel="next" title="不经意间又发现了一个有趣又炫酷的包">
+                <i class="fa fa-chevron-left"></i> 不经意间又发现了一个有趣又炫酷的包
               </a>
             
           </div>
@@ -641,10 +621,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/05/动态地理信息可视化——leaflet填充地图/" rel="prev" title="动态地理信息可视化——leaflet填充地图">
-                动态地理信息可视化——leaflet填充地图 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -843,7 +819,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#加载包："><span class="nav-number">1.</span> <span class="nav-text">加载包：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导入数据集："><span class="nav-number">2.</span> <span class="nav-text">导入数据集：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本语法解释："><span class="nav-number">3.</span> <span class="nav-text">基本语法解释：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造色盘："><span class="nav-number">4.</span> <span class="nav-text">构造色盘：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可视化过程："><span class="nav-number">5.</span> <span class="nav-text">可视化过程：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#作图函数：使用默认点标识"><span class="nav-number">5.1.</span> <span class="nav-text">作图函数：使用默认点标识</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用可自定义的圆点标识车站位置"><span class="nav-number">5.2.</span> <span class="nav-text">使用可自定义的圆点标识车站位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以下是几种比较常用的地图背景素材"><span class="nav-number">5.3.</span> <span class="nav-text">以下是几种比较常用的地图背景素材</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#几张常见的素材风格："><span class="nav-number">5.4.</span> <span class="nav-text">几张常见的素材风格：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据准备："><span class="nav-number">1.</span> <span class="nav-text">数据准备：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#案例演示："><span class="nav-number">2.</span> <span class="nav-text">案例演示：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#柱形图（全球市值top5互联网公司-）"><span class="nav-number">2.1.</span> <span class="nav-text">柱形图（全球市值top5互联网公司 ）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#饼图"><span class="nav-number">2.2.</span> <span class="nav-text">饼图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#粗边面积图"><span class="nav-number">2.3.</span> <span class="nav-text">粗边面积图</span></a></li></ol></li></ol></div>
             
 
           </div>

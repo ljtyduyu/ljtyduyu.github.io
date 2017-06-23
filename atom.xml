@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.raindu.com/"/>
-  <updated>2017-06-23T01:07:27.441Z</updated>
+  <updated>2017-06-23T01:33:06.481Z</updated>
   <id>http://www.raindu.com/</id>
   
   <author>
@@ -14,6 +14,96 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>用优雅的配色来缔造图表专业主义~</title>
+    <link href="http://www.raindu.com/2017/06/23/%E7%94%A8%E4%BC%98%E9%9B%85%E7%9A%84%E9%85%8D%E8%89%B2%E6%9D%A5%E7%BC%94%E9%80%A0%E5%9B%BE%E8%A1%A8%E4%B8%93%E4%B8%9A%E4%B8%BB%E4%B9%89/"/>
+    <id>http://www.raindu.com/2017/06/23/用优雅的配色来缔造图表专业主义/</id>
+    <published>2017-06-23T01:10:23.000Z</published>
+    <updated>2017-06-23T01:33:06.481Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://orz7qelg0.bkt.clouddn.com/%E6%BC%94%E7%A4%BA%E6%96%87%E7%A8%BF1.jpg" alt=""></p>
+<p>总觉得以前自己写的东西太过琐碎，纠结于步骤和技巧，而没有任何体系上和理念上的输出；</p>
+<a id="more"></a>
+<p>而再加上自己文风粗陋（毕竟每一篇的错别字用十个手指头都数不完呀）、排版拙劣，还有那么多小伙伴儿不离不弃，肯于点赞，实在是感到惭愧（我一般都很少看自己写的东西的不忍直视哈哈）~</p>
+<p>可能之前限于能力和实力，一直在跟着别人的步调走，始终在模仿；再加上自己过于追求数量，在质量上用心不多。</p>
+<p>不过现在自我感觉好一些了，开始慢慢的思考一些深度的技巧运用，偶尔也会有一些纯理念的总结。</p>
+<p>以后的更新频率打算保持在一周2~3篇左右，但是每一篇的内容会向着综合性、应用性方向转变。当然，关于内容排版和文章封面图都会多花一些心思，尽可能的提升一下阅读体验。</p>
+<p><strong>下面是今天的干货~</strong></p>
+<p>今天要跟大家分享的是如何在实际图表场景中运用ggtech包的配色及主题，案例是关于全球互联网公司市值比较（数据皆为真实数据，来源于搜狐网）。</p>
+<h3 id="数据准备："><a href="#数据准备：" class="headerlink" title="数据准备："></a>数据准备：</h3><p>因为基础的ggplot2语法已经介绍过了，这里我就不介绍具体步骤了，直接使用最终调试好的代码。</p>
+<p><strong>加载包：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(<span class="string">"ggplot2"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"ggtech"</span>)</div></pre></td></tr></table></figure></p>
+<p><strong>数据导入：</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mydata &lt;- read.table(<span class="string">"clipboard"</span>, header = <span class="literal">T</span>, sep = <span class="string">'\t'</span>)</div><div class="line">newdata&lt;-mydata[<span class="number">1</span>:<span class="number">5</span>,]</div></pre></td></tr></table></figure>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image1.png" alt=""></p>
+<h3 id="案例演示："><a href="#案例演示：" class="headerlink" title="案例演示："></a>案例演示：</h3><h4 id="柱形图（全球市值top5互联网公司-）"><a href="#柱形图（全球市值top5互联网公司-）" class="headerlink" title="柱形图（全球市值top5互联网公司 ）"></a>柱形图（全球市值top5互联网公司 ）</h4><blockquote>
+<p>数据截止2015年，单位：十亿美元</p>
+</blockquote>
+<p><strong>Airbnb风格:</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata,aes(reorder(Name,-Value),Value,fill=Name))+geom_bar(stat=<span class="string">"identity"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"airbnb"</span>) + </div><div class="line">      scale_fill_tech(theme=<span class="string">"airbnb"</span>) +</div><div class="line">      labs(title=<span class="string">"Top5 Internet Companies"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in 2015"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      theme(axis.title = element_blank(),</div><div class="line">      legend.position=c(<span class="number">0.85</span>,<span class="number">0.8</span>)</div><div class="line">      )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image2.png" alt=""></p>
+<p><strong>Esty风格：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata,aes(reorder(Name,-Value),Value,fill=Name))+geom_bar(stat=<span class="string">"identity"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"etsy"</span>) + </div><div class="line">      scale_fill_tech(theme=<span class="string">"etsy"</span>) +</div><div class="line">      labs(title=<span class="string">"Top5 Internet Companies"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in 2015"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      theme(axis.title = element_blank(),</div><div class="line">      legend.position=c(<span class="number">0.85</span>,<span class="number">0.8</span>)</div><div class="line">      )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image3.png" alt=""></p>
+<p><strong>Fackbook风格：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata[<span class="number">1</span>:<span class="number">4</span>,],aes(reorder(Name,-Value),Value,fill=Name))+geom_bar(stat=<span class="string">"identity"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"facebook"</span>) +</div><div class="line">      scale_fill_tech(theme=<span class="string">"facebook"</span>) + </div><div class="line">      labs(title=<span class="string">"Top5 Internet Companies"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in 2015"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      theme(axis.title = element_blank(),</div><div class="line">      legend.position=c(<span class="number">0.85</span>,<span class="number">0.8</span>)</div><div class="line">      )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image4.png" alt=""></p>
+<p><strong>Google风格：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata[<span class="number">1</span>:<span class="number">4</span>,],aes(reorder(Name,-Value),Value,fill=Name))+geom_bar(stat=<span class="string">"identity"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"google"</span>) + </div><div class="line">      scale_fill_tech(theme=<span class="string">"google"</span>) + </div><div class="line">      labs(title=<span class="string">"Top5 Internet Companies"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in 2015"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      theme(axis.title = element_blank(),</div><div class="line">      legend.position=c(<span class="number">0.85</span>,<span class="number">0.8</span>)</div><div class="line">      )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image5.png" alt=""></p>
+<p><strong>Twitter风格：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata[<span class="number">1</span>:<span class="number">4</span>,],aes(reorder(Name,-Value),Value,fill=Name))+geom_bar(stat=<span class="string">"identity"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"twitter"</span>) + </div><div class="line">      scale_fill_tech(theme=<span class="string">"twitter"</span>) + </div><div class="line">      labs(title=<span class="string">"Top5 Internet Companies"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in 2015"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      theme(axis.title = element_blank(),</div><div class="line">      legend.position=c(<span class="number">0.85</span>,<span class="number">0.8</span>)</div><div class="line">      )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image6.png" alt=""></p>
+<h4 id="饼图"><a href="#饼图" class="headerlink" title="饼图"></a>饼图</h4><p>以下用饼图来呈现前五大互联网公司的相对市值大小：</p>
+<p><strong>Airbnb风格:</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata,aes(x=<span class="number">1</span>,y=Value,fill=Name))+</div><div class="line">      geom_bar(stat=<span class="string">"identity"</span>,color=<span class="string">"white"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"airbnb"</span>) + </div><div class="line">      scale_fill_tech(theme=<span class="string">"airbnb"</span>) +</div><div class="line">      coord_polar(theta = <span class="string">"y"</span>,start=<span class="number">0</span>)+</div><div class="line">      labs(title=<span class="string">"Top5 Internet Companies"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in 2015"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">      theme(</div><div class="line">           panel.grid=element_blank(),</div><div class="line">           panel.background=element_blank(),</div><div class="line">           axis.text = element_blank(),</div><div class="line">           axis.ticks = element_blank(),</div><div class="line">           axis.title = element_blank(),</div><div class="line">           axis.line=element_blank(),</div><div class="line">           legend.position=c(<span class="number">0.1</span>,<span class="number">0.1</span>)</div><div class="line">           )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image7.png" alt=""></p>
+<p><strong>Esty风格：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata,aes(x=<span class="number">1</span>,y=Value,fill=Name))+</div><div class="line">      geom_bar(stat=<span class="string">"identity"</span>,color=<span class="string">"white"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"etsy"</span>) + </div><div class="line">      scale_fill_tech(theme=<span class="string">"etsy"</span>) +</div><div class="line">      coord_polar(theta = <span class="string">"y"</span>,start=<span class="number">0</span>)+</div><div class="line">      labs(title=<span class="string">"Top5 Internet Companies"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in 2015"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">      theme(</div><div class="line">           panel.grid=element_blank(),</div><div class="line">           panel.background=element_blank(),</div><div class="line">           axis.text = element_blank(),</div><div class="line">           axis.ticks = element_blank(),</div><div class="line">           axis.title = element_blank(),</div><div class="line">           axis.line=element_blank(),</div><div class="line">           legend.position=c(<span class="number">0.1</span>,<span class="number">0.1</span>)</div><div class="line">           )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image8.png" alt=""></p>
+<p><strong>Fackbook风格：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata[<span class="number">1</span>:<span class="number">4</span>,],aes(x=<span class="number">1</span>,y=Value,fill=Name))+</div><div class="line">      geom_bar(stat=<span class="string">"identity"</span>,color=<span class="string">"white"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"facebook"</span>) +</div><div class="line">      scale_fill_tech(theme=<span class="string">"facebook"</span>) + </div><div class="line">      coord_polar(theta = <span class="string">"y"</span>,start=<span class="number">0</span>)+</div><div class="line">      labs(title=<span class="string">"Top5 Internet Companies"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in 2015"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">      theme(</div><div class="line">           panel.grid=element_blank(),</div><div class="line">           panel.background=element_blank(),</div><div class="line">           axis.text = element_blank(),</div><div class="line">           axis.ticks = element_blank(),</div><div class="line">           axis.title = element_blank(),</div><div class="line">           axis.line=element_blank(),</div><div class="line">           legend.position=c(<span class="number">0.1</span>,<span class="number">0.1</span>)</div><div class="line">           )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image9.png" alt=""></p>
+<p><strong>Google风格：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata[<span class="number">1</span>:<span class="number">4</span>,],aes(x=<span class="number">1</span>,y=Value,fill=Name))+</div><div class="line">      geom_bar(stat=<span class="string">"identity"</span>,color=<span class="string">"white"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"google"</span>) + </div><div class="line">      scale_fill_tech(theme=<span class="string">"google"</span>) + </div><div class="line">      coord_polar(theta = <span class="string">"y"</span>,start=<span class="number">0</span>)+</div><div class="line">      labs(title=<span class="string">"Top5 Internet Companies"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in 2015"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">      theme(</div><div class="line">           panel.grid=element_blank(),</div><div class="line">           panel.background=element_blank(),</div><div class="line">           axis.text = element_blank(),</div><div class="line">           axis.ticks = element_blank(),</div><div class="line">           axis.title = element_blank(),</div><div class="line">           axis.line=element_blank(),</div><div class="line">           legend.position=c(<span class="number">0.1</span>,<span class="number">0.1</span>)</div><div class="line">           )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image10.png" alt=""></p>
+<p><strong>Twitter风格：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">ggplot(newdata[<span class="number">1</span>:<span class="number">4</span>,],aes(x=<span class="number">1</span>,y=Value,fill=Name))+</div><div class="line">      geom_bar(stat=<span class="string">"identity"</span>,color=<span class="string">"white"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"twitter"</span>) + </div><div class="line">      scale_fill_tech(theme=<span class="string">"twitter"</span>) + </div><div class="line">      coord_polar(theta = <span class="string">"y"</span>,start=<span class="number">0</span>)+</div><div class="line">      labs(title=<span class="string">"Top5 Internet Companies"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in 2015"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">      theme(</div><div class="line">           panel.grid=element_blank(),</div><div class="line">           panel.background=element_blank(),</div><div class="line">           axis.text = element_blank(),</div><div class="line">           axis.ticks = element_blank(),</div><div class="line">           axis.title = element_blank(),</div><div class="line">           axis.line=element_blank(),</div><div class="line">           legend.position=c(<span class="number">0.1</span>,<span class="number">0.1</span>)</div><div class="line">           )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image11.png" alt=""></p>
+<h4 id="粗边面积图"><a href="#粗边面积图" class="headerlink" title="粗边面积图"></a>粗边面积图</h4><p>接下来用国内BAT三巨头的连续7年市值数据制作堆积的粗边面积图：</p>
+<p>数据来源于<a href="http://www.14du.com/" target="_blank" rel="external">www.14du.com</a>  截止2015年，单位：亿美元</p>
+<p><strong>导入数据：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mynewdata &lt;- read.table(<span class="string">"clipboard"</span>, header = <span class="literal">T</span>, sep = <span class="string">'\t'</span>)</div></pre></td></tr></table></figure></p>
+<p>使用reshape2包进行转置塑性：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(<span class="string">"reshape2"</span>)</div><div class="line">newmydata &lt;- melt(mynewdata, id.vars = c(<span class="string">"Year"</span>),variable.name = <span class="string">"Name"</span>, value.name = <span class="string">"Value"</span>)</div></pre></td></tr></table></figure></p>
+<p><strong>Airbnb风格:</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">ggplot(newmydata,aes(Year,Value,group=Name,fill=Name))+</div><div class="line">      geom_area(position=<span class="string">"stack"</span>)+</div><div class="line">      geom_line(col=<span class="string">"grey60"</span>,size=<span class="number">2</span>,position=<span class="string">"stack"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"airbnb"</span>) + </div><div class="line">      scale_fill_tech(theme=<span class="string">"airbnb"</span>) +</div><div class="line">      labs(title=<span class="string">"Three Big Giant of Internet Companies in China"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in China"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">      theme(</div><div class="line">           panel.grid=element_blank(),</div><div class="line">           panel.background=element_blank(),</div><div class="line">           axis.title = element_blank(),</div><div class="line">           legend.position=c(<span class="number">0.2</span>,<span class="number">0.6</span>)</div><div class="line">           )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image14.png" alt=""></p>
+<p><strong>Esty风格：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">ggplot(newmydata,aes(Year,Value,group=Name,fill=Name))+</div><div class="line">      geom_area(position=<span class="string">"stack"</span>)+</div><div class="line">      geom_line(col=<span class="string">"grey60"</span>,size=<span class="number">2</span>,position=<span class="string">"stack"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"etsy"</span>) + </div><div class="line">      scale_fill_tech(theme=<span class="string">"etsy"</span>) +</div><div class="line">      labs(title=<span class="string">"Three Big Giant of Internet Companies in China"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in China"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">      theme(</div><div class="line">           panel.grid=element_blank(),</div><div class="line">           panel.background=element_blank(),</div><div class="line">           axis.title = element_blank(),</div><div class="line">           legend.position=c(<span class="number">0.2</span>,<span class="number">0.6</span>)</div><div class="line">           )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image15.png" alt=""></p>
+<p><strong>Fackbook风格：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">ggplot(newmydata,aes(Year,Value,group=Name,fill=Name))+</div><div class="line">      geom_area(position=<span class="string">"stack"</span>)+</div><div class="line">      geom_line(col=<span class="string">"grey60"</span>,size=<span class="number">2</span>,position=<span class="string">"stack"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"facebook"</span>) +</div><div class="line">      scale_fill_tech(theme=<span class="string">"facebook"</span>) +</div><div class="line">      labs(title=<span class="string">"Three Big Giant of Internet Companies in China"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in China"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">      theme(</div><div class="line">           panel.grid=element_blank(),</div><div class="line">           panel.background=element_blank(),</div><div class="line">           axis.title = element_blank(),</div><div class="line">           legend.position=c(<span class="number">0.2</span>,<span class="number">0.6</span>)</div><div class="line">           )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image16.png" alt=""></p>
+<p><strong>Google风格：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">ggplot(newmydata,aes(Year,Value,group=Name,fill=Name))+</div><div class="line">      geom_area(position=<span class="string">"stack"</span>)+</div><div class="line">      geom_line(col=<span class="string">"grey60"</span>,size=<span class="number">2</span>,position=<span class="string">"stack"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"google"</span>) + </div><div class="line">      scale_fill_tech(theme=<span class="string">"google"</span>) + </div><div class="line">      labs(title=<span class="string">"Three Big Giant of Internet Companies in China"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in China"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">      theme(</div><div class="line">           panel.grid=element_blank(),</div><div class="line">           panel.background=element_blank(),</div><div class="line">           axis.title = element_blank(),</div><div class="line">           legend.position=c(<span class="number">0.2</span>,<span class="number">0.6</span>)</div><div class="line">           )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image17.png" alt=""></p>
+<p><strong>Twitter风格：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">ggplot(newmydata,aes(Year,Value,group=Name,fill=Name))+</div><div class="line">      geom_area(position=<span class="string">"stack"</span>)+</div><div class="line">      geom_line(col=<span class="string">"orange"</span>,size=<span class="number">2</span>,position=<span class="string">"stack"</span>)+</div><div class="line">      theme_tech(theme=<span class="string">"twitter"</span>) + </div><div class="line">      scale_fill_tech(theme=<span class="string">"twitter"</span>) + </div><div class="line">      labs(title=<span class="string">"Three Big Giant of Internet Companies in China"</span>, </div><div class="line">      subtitle=<span class="string">"Market value of Internet Co in China"</span>,</div><div class="line">      caption = <span class="string">"http://www.sohu.com/"</span>)+</div><div class="line">      guides(fill=guide_legend(title=<span class="literal">NULL</span>))+</div><div class="line">      theme(</div><div class="line">           panel.grid=element_blank(),</div><div class="line">           panel.background=element_blank(),</div><div class="line">           axis.title = element_blank(),</div><div class="line">           legend.position=c(<span class="number">0.2</span>,<span class="number">0.6</span>)</div><div class="line">           )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orz7qelg0.bkt.clouddn.com/image18.png" alt=""></p>
+<p>真是不好意思，没有刹住车，糊里糊涂的就写了这么多，也忘记对代码做变量中转了，其实核心代码我就写了三个，其他都是Ctrl+V、Ctrl+V不停地狂点鼠标。</p>
+<p>这个ggtech包前天刚分享过的，配色上很惊艳，很有科技范，非常适合用在商业数据分析中，说不定还能给你的领导带来惊喜呢，还等什么呢，赶快来试一试吧！</p>
+<hr>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
+<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
+<hr>
+<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://orz7qelg0.bkt.clouddn.com/%E6%BC%94%E7%A4%BA%E6%96%87%E7%A8%BF1.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;总觉得以前自己写的东西太过琐碎，纠结于步骤和技巧，而没有任何体系上和理念上的输出；&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="图表美化" scheme="http://www.raindu.com/tags/%E5%9B%BE%E8%A1%A8%E7%BE%8E%E5%8C%96/"/>
+    
+      <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
+    
+      <category term="ggtech" scheme="http://www.raindu.com/tags/ggtech/"/>
+    
+  </entry>
   
   <entry>
     <title>不经意间又发现了一个有趣又炫酷的包</title>
@@ -75,9 +165,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -142,9 +232,9 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -292,11 +382,11 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="商务图表" scheme="http://www.raindu.com/tags/%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
-    
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="数据地图" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%9C%B0%E5%9B%BE/"/>
     
@@ -345,11 +435,11 @@
       <category term="R语言" scheme="http://www.raindu.com/categories/R%E8%AF%AD%E8%A8%80/"/>
     
     
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="商务图表" scheme="http://www.raindu.com/tags/%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
-    
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="数据地图" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%9C%B0%E5%9B%BE/"/>
     
@@ -431,11 +521,11 @@
       <category term="R语言" scheme="http://www.raindu.com/categories/R%E8%AF%AD%E8%A8%80/"/>
     
     
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="商务图表" scheme="http://www.raindu.com/tags/%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
-    
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="数据地图" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%9C%B0%E5%9B%BE/"/>
     
@@ -528,9 +618,9 @@
       <category term="Excel" scheme="http://www.raindu.com/categories/Excel/"/>
     
     
-      <category term="Excel" scheme="http://www.raindu.com/tags/Excel/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="Excel" scheme="http://www.raindu.com/tags/Excel/"/>
     
       <category term="商务图表" scheme="http://www.raindu.com/tags/%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
     
@@ -599,9 +689,9 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="图表美化" scheme="http://www.raindu.com/tags/%E5%9B%BE%E8%A1%A8%E7%BE%8E%E5%8C%96/"/>
     
@@ -668,9 +758,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="气泡云图.superbubble" scheme="http://www.raindu.com/tags/%E6%B0%94%E6%B3%A1%E4%BA%91%E5%9B%BE-superbubble/"/>
     
@@ -755,9 +845,9 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="图表美化" scheme="http://www.raindu.com/tags/%E5%9B%BE%E8%A1%A8%E7%BE%8E%E5%8C%96/"/>
     
@@ -828,9 +918,9 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="数据地图" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%9C%B0%E5%9B%BE/"/>
     
@@ -905,9 +995,9 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="图表美化" scheme="http://www.raindu.com/tags/%E5%9B%BE%E8%A1%A8%E7%BE%8E%E5%8C%96/"/>
     
@@ -966,9 +1056,9 @@
       <category term="地理信息可视化" scheme="http://www.raindu.com/categories/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
@@ -1032,9 +1122,9 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -1096,9 +1186,9 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -1162,9 +1252,9 @@
       <category term="可视化案例呈现" scheme="http://www.raindu.com/categories/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%A1%88%E4%BE%8B%E5%91%88%E7%8E%B0/"/>
     
     
-      <category term="Excel" scheme="http://www.raindu.com/tags/Excel/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="Excel" scheme="http://www.raindu.com/tags/Excel/"/>
     
       <category term="商务图表" scheme="http://www.raindu.com/tags/%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
     
@@ -1211,11 +1301,11 @@
       <category term="可视化案例呈现" scheme="http://www.raindu.com/categories/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%A1%88%E4%BE%8B%E5%91%88%E7%8E%B0/"/>
     
     
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="商务图表" scheme="http://www.raindu.com/tags/%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
-    
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   
@@ -1270,9 +1360,9 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -1323,105 +1413,15 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="地理信息可视化" scheme="http://www.raindu.com/tags/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
       <category term="数据地图" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%9C%B0%E5%9B%BE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>用R语言抓取网页图片——从此高效存图告别手工时代</title>
-    <link href="http://www.raindu.com/2017/06/13/%E7%94%A8R%E8%AF%AD%E8%A8%80%E6%8A%93%E5%8F%96%E7%BD%91%E9%A1%B5%E5%9B%BE%E7%89%87%E2%80%94%E2%80%94%E4%BB%8E%E6%AD%A4%E9%AB%98%E6%95%88%E5%AD%98%E5%9B%BE%E5%91%8A%E5%88%AB%E6%89%8B%E5%B7%A5%E6%97%B6%E4%BB%A3/"/>
-    <id>http://www.raindu.com/2017/06/13/用R语言抓取网页图片——从此高效存图告别手工时代/</id>
-    <published>2017-06-13T07:19:50.000Z</published>
-    <updated>2017-06-16T14:17:26.010Z</updated>
-    
-    <content type="html"><![CDATA[<p>今天这个标题实在是有点言过其实了，对于R的爬虫知识，我只是领会了一点儿皮毛。</p>
-<p>主要看不懂正则表达式，特别是那种一个括号里要匹配多种类型文本的语句，特像火星文，估计短期很难搞懂了。</p>
-<p>再加上对于HTML结构没啥感觉，在目标定位上很苦恼。</p>
-<p>但是相对于文本信息而言，图片在html中的地址比较好获取，这里仅以图片抓取为例，会Python爬虫的大神还求轻喷~</p>
-<a id="more"></a>
-<p>今天要爬取的是一个多图的知乎网页，是一个外拍的帖子，里面介绍了巨多各种外拍技巧，很实用的干货。</p>
-<h3 id="网页分析："><a href="#网页分析：" class="headerlink" title="网页分析："></a>网页分析：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(rvest)</div><div class="line"><span class="keyword">library</span>(downloader)</div><div class="line"><span class="keyword">library</span>(stringr)</div><div class="line"><span class="keyword">library</span>(dplyr)</div></pre></td></tr></table></figure>
-<p><a href="https://www.zhihu.com/question/19647535" target="_blank" rel="external">知乎某外拍帖子</a></p>
-<p>打开网页之后，在帖子内容里随便定位一张图片，然后单击右键——检查元素（Ctrl+Shift+I），页面右侧弹出的网页结构会自动定位到该图片的地址，你会看到该图片在html结构中的名称标签：——（img）;地址标签——（src）。</p>
-<p><img src="http://orh5ym86b.bkt.clouddn.com/image1.png" alt=""><br><img src="http://orh5ym86b.bkt.clouddn.com/image9.jpg" alt=""></p>
-<p>我们想要获取的就是该图片的地址信息，你可以尝试着使用downlond函数下载单张图片。</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">url&lt;-<span class="string">"https://pic4.zhimg.com/2db250e935ca4f1b8b2b546c60104067_b.jpg"</span></div><div class="line">download(url,<span class="string">"D:/R/Image/picturebbb.jpg"</span>, mode = <span class="string">"wb"</span>)</div></pre></td></tr></table></figure>
-<p>这样就完成了自动下载过程，但是图片地址仍然是肉眼观察获取的，显然不够智能，我们想要的效果是通过一个函数自动的批量获取图片地址并下载图片。</p>
-<p>那么下一步的目标就很明确了，如何通过函数批评获取图片地址，然后将包含图片地址的字符串向量传递给下载函数。</p>
-<p>以上就需要我们大致了解html的构建了，知道所有的图片存放在html构建的那一部分里面，通过网址定位到图片存放区间，通过获取图片存放的区间，批量获取图片地址，然后传递给下载函数执行。</p>
-<p>太深入的我也不太了解，但是html的常用结构无非是head/body/,head中存放网页标题和导航栏的信息（我是小白，不要吐槽以上每一句话的准确性哈~），而我们要抓取的目标图片肯定是存放在body中啦。</p>
-<p><img src="http://orh5ym86b.bkt.clouddn.com/image2.png" alt=""></p>
-<p>继续打开body部分，你会被一大摞的<div> </div>结构晃瞎眼，不要担心，我已经瞎了好几回了~—~</p>
-<p><img src="http://orh5ym86b.bkt.clouddn.com/image3.png" alt=""></p>
-<p>div是html里面的分区结构，每一个分区都是以<div>开头,以</div>结尾。（html中几乎所有结构都是这种方式，仔细观察一下其他形式的结构就会发现）。</p>
-<p>当然div分区有N多个，而且div结构本身可以层层嵌套。对于太复杂的网页，在你发现图片存放的div分区之前估计会先被div语句晃瞎眼。</p>
-<p>那怎么办呢，还记得在本文开始部分，说的那个手动定位吗，依靠浏览器的审查元素功能，我们可以先定位要下载的第一张图片，右键——检查，找到该图片的div分支结构。</p>
-<p>我们需要获取的信息是该图片的div分区名称信息（就是div结构中的class属性或者ID属性）</p>
-<p>class和ID获取其中一个就行，如果是class属性，则地址书写规则是：div.class，如果是ID则规则是div#ID。</p>
-<p>如果class和ID中字符较长，且单词间存在空格，空格以英文.号替换。</p>
-<p>以上图片的div分支结构定位信息就可以写作div.zm-editable-content.clearfix</p>
-<p>其实这里有一个简便方法，如果你不确定自己定位的区间是否正确的话，可以查看右下角的html路径（可以自动根据你的鼠标所在的html位置定位父级路径）。</p>
-<p><img src="http://orh5ym86b.bkt.clouddn.com/image4.png" alt=""></p>
-<h3 id="简单爬取测试："><a href="#简单爬取测试：" class="headerlink" title="简单爬取测试："></a>简单爬取测试：</h3><p>接下来使用read_html函数获取网页并一步一步的定位图片地址。</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">url &lt;- <span class="string">'https://www.zhihu.com/question/19647535'</span></div><div class="line">link&lt;- read_html(url)%&gt;% html_nodes(<span class="string">"div.zm-editable-content.clearfix"</span>)%&gt;%html_nodes(<span class="string">"img"</span>)%&gt;%html_attr(<span class="string">"src"</span>)</div></pre></td></tr></table></figure>
-<p>我们需要获取的是图片所在div分支结构中的img标签下的src内容（也就是图片地址），那么如果不想抓取一大堆不相干的图片的话，就必须明确目标图片的存放位置，以上代码过程从url(该知乎帖子页面网址)定位到目标图片所在的div分支结构，然后定位到分支结构中的img(图片标签)中的src信息（也就是目标图片网址）。</p>
-<p>运行以上两句代码并以head函数预览link向量的前几行，查看获取的图片地址是否正确。</p>
-<p><img src="http://orh5ym86b.bkt.clouddn.com/image5.png" alt=""></p>
-<p>很遗憾，我们获取的存放图片地址信息的字符串向量中，每隔一行都有一个无效网址，如果不清除掉这些无效网址或者筛选出那些完整的网址的时候，download函数执行到无效网址会终端，下载过程就会失败。</p>
-<p>这里需要使用stringr包来进行条件筛选。</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pat = <span class="string">"https"</span></div><div class="line">link&lt;-grep(pat, link,value=<span class="literal">TRUE</span>)</div></pre></td></tr></table></figure>
-<p><img src="http://orh5ym86b.bkt.clouddn.com/image6.png" alt=""></p>
-<p>匹配之后，只保留了完整的图片网址，这就是我们最终要的结果。现在可以使用一个for循环来自动执行图片批量下载任务。</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">dir.create(<span class="string">"D:R/Case/"</span>) <span class="comment">#新建文件夹</span></div><div class="line"><span class="keyword">for</span>(i <span class="keyword">in</span> <span class="number">1</span>:length(link)) </div><div class="line">&#123;</div><div class="line"> download(link[i],paste(<span class="string">"D:/R/Case/picture"</span>,i,<span class="string">".jpg"</span>,sep = <span class="string">""</span>), mode = <span class="string">"wb"</span>)</div><div class="line">&#125;  <span class="comment">#一个循环批处理所有下载任务</span></div></pre></td></tr></table></figure>
-<p><img src="http://orh5ym86b.bkt.clouddn.com/image7.png" alt=""></p>
-<p>至此，爬虫的代码部分完成，剩余的时间……嘿嘿，泡一杯咖啡，看会儿美剧，静静地等待软件完成自动下载过程吧（速度视图片原始大小和宽带速度而定）。</p>
-<p>结束之后，到D盘的Case文件夹下浏览下刚才下载的成果：</p>
-<p><img src="http://orh5ym86b.bkt.clouddn.com/image8.png" alt=""></p>
-<p>394张图片全部顺序标号，乖乖的躺在文件夹里了（当然里面还包含各种表情包图片，这个，我真的不太会分辨，暂时木办法）。</p>
-<h3 id="内容总结："><a href="#内容总结：" class="headerlink" title="内容总结："></a>内容总结：</h3><p>下面就今天分享内容总结以下几点：</p>
-<p>用R抓取图片的核心要点是获取html结构中存放图片的div分区中的img标签内的src内容（也就是图片地址，有时候可能需要使用read_src内的地址）。<br>图片的目标div分区结构的选取至关重要（如果你不指定div分区地址、只使用img标签下的src定位的话，很有可能抓取了全网页的图片网址，各种特殊符号和表情包、菜单栏和logo图表都会被抓取）<br>如果不太确定自己定位的div结构是否正确，可以借助鼠标选取+html路径信息来定位；<br>有时候有些网页的图片不是集中存放在单个div分区结构中，而是每张图片都是单独的div结构，这时候如果还是定位的最底层div分区位置的话，那么你可能只能获取单张图片地址。这时候适当的定位父级div分支结构名称（酌情观察，看那个父级结构范围可以涵盖所有目标图片的子div分支结构）<br>还有一种情况，就是有些公开的图片网站图片存储结构非常规则，分页存储，单页中单个div结构下的一组图片名称是按照数字顺序编号的：</p>
-<p>比如：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">http：//<span class="comment">################.1.jpg</span></div><div class="line"> http：//<span class="comment">################.2.jpg</span></div><div class="line"> http：//<span class="comment">################.3.jpg</span></div><div class="line"> http：//<span class="comment">################.4.jpg</span></div><div class="line"> ………………………………………</div><div class="line"> http：//<span class="comment">################.n.jpg</span></div></pre></td></tr></table></figure>
-<p>如果你碰到这种存储方式的图片网页，那你真的太幸运了，不用再傻乎乎的去从网页地址的html结构中一步一步的去定位图片地址了，直接使用for循环遍历完所有的图片网址，然后直接传递给download函数批量下载就OK了。</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(n <span class="keyword">in</span> <span class="number">1</span>:<span class="number">50</span>)</div><div class="line">  <span class="comment">#自己定位到网页最后一个子页面，查看下最大的图片编号是多少。</span></div><div class="line">    &#123;   </div><div class="line">  </div><div class="line">     link&lt;- c(paste(<span class="string">"http：//################/"</span>,n,<span class="string">".jpg"</span>,sep=<span class="string">""</span>),link)</div><div class="line">     &#125;</div><div class="line"></div><div class="line"><span class="keyword">for</span>(i <span class="keyword">in</span> <span class="number">1</span>:length(link))</div><div class="line">&#123;</div><div class="line"> download(link[i],paste(<span class="string">"D:/R/Case/picture"</span>,i,<span class="string">".jpg"</span>,sep = <span class="string">""</span>), mode = <span class="string">"wb"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这样完全避免了从网址中曾曾定位获取图片地址的麻烦，直接就可以获取全网页所有目标图片的地址，效率就更高了。</p>
-<p>以上是小魔方最近学习过程中的一丁点儿心得，会爬虫的大神别喷我，我真的是个小白~</p>
-<p>声明：</p>
-<p>以上图片爬虫代码仅作个人练习R语言爬虫使用，各位小伙伴儿练习完毕之后，请尊重知乎原答主的版权，勿将所抓取图片商用，或者直接删除。<br>学好技术也要遵守底线，做一个规矩的技术达人。</p>
-<hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
-<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<hr>
-<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;今天这个标题实在是有点言过其实了，对于R的爬虫知识，我只是领会了一点儿皮毛。&lt;/p&gt;
-&lt;p&gt;主要看不懂正则表达式，特别是那种一个括号里要匹配多种类型文本的语句，特像火星文，估计短期很难搞懂了。&lt;/p&gt;
-&lt;p&gt;再加上对于HTML结构没啥感觉，在目标定位上很苦恼。&lt;/p&gt;
-&lt;p&gt;但是相对于文本信息而言，图片在html中的地址比较好获取，这里仅以图片抓取为例，会Python爬虫的大神还求轻喷~&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="网络爬虫" scheme="http://www.raindu.com/categories/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/"/>
-    
-    
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="爬虫" scheme="http://www.raindu.com/tags/%E7%88%AC%E8%99%AB/"/>
-    
-      <category term="revst" scheme="http://www.raindu.com/tags/revst/"/>
-    
-      <category term="网络抓取" scheme="http://www.raindu.com/tags/%E7%BD%91%E7%BB%9C%E6%8A%93%E5%8F%96/"/>
     
   </entry>
   
