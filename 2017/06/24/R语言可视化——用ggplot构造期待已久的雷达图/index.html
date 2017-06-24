@@ -111,10 +111,10 @@
 <meta property="og:image" content="http://orm8l6eph.bkt.clouddn.com/ggradar/ggradar4.png">
 <meta property="og:image" content="http://orm8l6eph.bkt.clouddn.com/ggradar/ggradar5.png">
 <meta property="og:image" content="http://orm8l6eph.bkt.clouddn.com/ggradar/ggradar6.png">
-<meta property="og:image" content="http://orm8l6eph.bkt.clouddn.com/ggradar/ggradar7.png">
 <meta property="og:image" content="http://orm8l6eph.bkt.clouddn.com/ggradar/ggradar8.png">
+<meta property="og:image" content="http://orm8l6eph.bkt.clouddn.com/ggradar/ggradar7.png">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-06-24T14:22:37.111Z">
+<meta property="og:updated_time" content="2017-06-24T14:25:28.040Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="R语言可视化——用ggplot构造期待已久的雷达图">
 <meta name="twitter:description" content="之前一直苦恼于ggplot函数无法制作雷达图，心想着既然饼图可以通过柱形图+极坐标模拟出来，为啥雷达图不行。">
@@ -497,10 +497,10 @@
 <figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#为数据框增加一列文本字段：</span></div><div class="line">Name&lt;-c(<span class="string">"USA"</span>,<span class="string">"CHN"</span>,<span class="string">"UK"</span>,<span class="string">"RUS"</span>,<span class="string">"JP"</span>)</div><div class="line">mynewdata&lt;-data.frame(Name,mynewdata)</div></pre></td></tr></table></figure>
 <p><img src="http://orm8l6eph.bkt.clouddn.com/ggradar/ggradar6.png" alt=""></p>
 <h3 id="ggradar包："><a href="#ggradar包：" class="headerlink" title="ggradar包："></a>ggradar包：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggradar(mynewdata[<span class="number">1</span>,])</div></pre></td></tr></table></figure>
-<p><img src="http://orm8l6eph.bkt.clouddn.com/ggradar/ggradar7.png" alt=""></p>
+<p><img src="http://orm8l6eph.bkt.clouddn.com/ggradar/ggradar8.png" alt=""></p>
 <p>以上的图表是默认样式，ggradar函数对数据格式以及变量值范围高度敏感，而却不过多的依赖函数内的参数。</p>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggradar(mynewdata)</div></pre></td></tr></table></figure>
-<p><img src="http://orm8l6eph.bkt.clouddn.com/ggradar/ggradar8.png" alt=""></p>
+<p><img src="http://orm8l6eph.bkt.clouddn.com/ggradar/ggradar7.png" alt=""></p>
 <p>可以看出，ggradar函数支持多序列雷达图，只是对它规定的数据结构很不能理解，为啥不是列代表分类，行代表轴变量呢，跟ggplot的语法还是有一些偏离，不过只要数据构造好之后，作图函数的语法是相当简练的。</p>
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
