@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[左手用R右手Python系列——字符串格式化输出]]></title>
+    <url>%2F2017%2F06%2F24%2F%E5%B7%A6%E6%89%8B%E7%94%A8R%E5%8F%B3%E6%89%8BPython%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA%2F</url>
+    <content type="text"><![CDATA[学习Python不到一个月，虽然学的很渣，但是还是想通过这种途径分享自己的学习心得，毕竟当初学习R语言也是这么走过来的。 今天是R语言与Python综合系列的第一篇，就聊一聊两者在常用字符串输出上的差异。 R语言中的字符串格式化函数：为了方便统一案例图片的风格，今天统一在jupyter编辑器中编辑（R和Python）。 通常在R语言中我们使用最多的关于字符串输出函数是paste和paste0。 这两着之间的差别非常微小，如同其字面意思一样，前者可以自定义字符串间隔符号，后者则默认没有间隔符号。 paste和paste0都可以完成单个向量字符串的连接以及两个向量间的匹配。 生成10个随机大写字母作为案例： 1myword&lt;-sample(LETTERS,10,replace=FALSE) 我们可以打印出两个函数的详细参数表：123456pastefunction (..., sep = " ", collapse = NULL) #sep参数默认间隔为空格.Internal(paste(list(...), sep, collapse))paste0function (..., collapse = NULL) #sep没有间隔参数（无间隔）.Internal(paste0(list(...), collapse)) 单个向量的连接成字符串：12paste(myword,collapse="-")'Q-C-X-B-M-I-E-P-G-V' 在拼接单个向量之时，通过设置collapse参数来控制字符之间的间隔符，最终输出一个单值字符串。12paste0(myword,collapse="-")'Q-C-X-B-M-I-E-P-G-V' 我们可以看到，在拼接单个向量为字符串的过程中，paste和paste0两个函数并无太大区别，因为不涉及匹配参数sep。 通常情况下，我们使用paste和paste0做向量间的匹配情况比较多，这种情况多见于遍历网页，遍历日期等。 比如假如我们们要遍历一个网页的网址如下： 随机打开了网易云课堂的一个课程栏目，看到一共有22页课程，此时最简单的遍历网页方法就是通过paste或者paste0。 网易云课堂 1234url&lt;-"http://study.163.com/category/400000000146050#/?p="num&lt;-1:22myurl&lt;-paste(url,num,sep="");myurlmyurl&lt;-paste0(url,num);myurl 对比两个函数的用法，大家应该能领会其中的差别了吧，paste0把paste的sep参数简化了，直接强制设定为无间隔，此时做向量间匹配的话，paste0函数就可以不用设置sep参数，而paste则需设置，当然虽然在遍历网页时确实节省代码，但也不是任何场合都是如此。 比如我要拼接时间与日期，而且要求以“-”间隔，此时你还是需要使用传统的paste函数来完成这个任务，因为paste0已经不存在sep参数了。 1mydate&lt;-paste(2001:2005,"06",sep="-");mydate 还有一个stringr包中字符串拼接函数str_sub()也可以高效的完成上述工作，但是因为需要额外加载包，所以平时我用的频率不高。123library(stringr)str_c(myword,collapse ="")str_c(url,num,sep = "") 在R语言中，字符串格式化输出除了以上常见操作之外，还有一些非常重要的需求，比如格式化输出百分比，格式化输出日期时间等。 以百分比为例： 我们可以通过一些扩展包内提供的百分比构造函数来高效的完成百分比构造过程。12345library(sca)library(dplyr)percent(seq(0,0.1,0.01),d=2,sep="") #其中的参数控制百分比输出的小数点后位数。library(scales)percent(runif(10,0,1)) #percent函数说明了目前没法看到如何控制小数点显式位数。 接下来跟大家介绍一个重量级的函数——sprintf。此函数据说来头不小。（据说继承自C/C++）,该函数的使用可以大大简化字符串格式化输出的操作流程。 %d 整数 %02d d代表整数；2代表长度；0代表不足长度用0补齐 %f 浮点数 %4.2f 第一个数字代表总位数；第二个数字代表小数点位数 %s 字符串 %% 百分比 该函数的参数远不止这三个，太多我也记不住，而且平时使用频率最高的也就这三个，所以秉着投入回报率最高的原则，建议大家用什么记什么。 所以以上百分比过程便只剩下这么几个代码： 123456sprintf("%d%%",1:10) #遍历百分比sprintf("%d-%d-%02d",2001,12,1:30) #遍历日期：sprintf("有%.1f%%的人评价变形金刚5较差",30.7)'有30.7%的人评价变形金刚5较差' sprintf("%s是阿里巴巴的%s","马云","老板")'马云是阿里巴巴的老板' 当然，以上过程完全可以通过paste和str_c函数完成，只是sprintf函数来写这些东西看起来更优化，更有逼格。 好了重于轮到Python了，对于一个小菜鸟来说，第一次写Pyhon的教程心情很忐忑，注意了下面要换编辑器了（虽然仍然使用的jupter里）。 Pyhton字符串格式化输出函数:Pyhton中的字符串格式化输出大概有两套比较完善的系统（我所知的）。 格式化符号：%s/d/f…… .format模式 其实第一套系统应该也是源于C/C++(感觉跟R里面的格式化符号规则是一致的) 1print("I'm %s. I'm %d year old" % ('raindu',26)) 以上使用print函数输出了宝宝的大名和芳龄~_~,python中的字符串格式符规则是，在要输出的主句中对应位置插入格式符，在句尾之后使用 % 连接一个元组，元组内提供主句所有的待格式化的字符串，有几个需要格式化的字符串就需要在元组中提供几个字符串对象，而且顺序一定要与待格式化的字符串在主句的位置一一对应。 另一种方式可以使用字典进行字符传递。 1print("I'm %(name)s. I'm %(age)d year old" % &#123;'age':26,'name':'raindu'&#125;) 这种方式最大的好处就是，以命名参数的形式传入，这样可以不用考虑字典内的键值对顺序。（因为有名字可以索引） Python中的字符串格式化符号相对于R规定的更加严格、细致，上述所述R中的字符串：%s、数值%d、浮点型%f是通用的。 除此之外，格式化符号内部还可以提供更为详尽的格式控制。 12345%[(name)][flags][width].[precision]typecode(name)为名称flags可以有+,-,' '或0。+表示右对齐。-表示左对齐。' '为一个空格，表示在正数的左侧填充一个空格，从而与负数对齐。0表示使用0填充。width表示显示宽度precision表示小数点后精度 但是发现网上关于Python教程中，使用最多的还是.format这种字符串输出形式。 format 函数： 1234567'&#123;2&#125;,&#123;1&#125;,&#123;0&#125;'.format("小伟","大伟","小三")'小三,大伟,小伟''&#123;1&#125;和&#123;0&#125;是一对&#123;2&#125;'.format("大伟","小伟","基友")'小伟和大伟是一对基友' 这种传参的方式可以看做是位置参数（顺序），即在要输出的主句中插入末尾提供的对应字符串位置，即可完成格式化过程。 如果你不想在主句对应的花括号内写位置参数，你必须保证末尾提供的字符串顺序与主句对应要插入的位置保持一致。 1'&#123;&#125;和&#123;&#125;是一对好&#123;&#125;'.format("大伟","小伟","基友") 当然，你也可以在format括号内内对字符串进行命名，然后将对应名字传入主句对应花括号内部。 1"I'm &#123;name&#125;. I'm &#123;age&#125; year old".format(age=26,name='raindu') 这种情况下你也不必考虑format括号内的字符串对应顺序，因为所有的字符串都有名称，只传入名称，函数即可自动完成索引配对。 使用以上两种方式都可以方便的遍历网页： 1url="http://study.163.com/category/400000000146050#/?p=" 12345myurl1=[]for i in range(1,23): urlm=url+'%d' % i myurl1.append(urlm) print(urlm) 12345myurl1=[]for i in range(1,23): urlm=url+'&#123;&#125;'.format(i) myurl1.append(urlm) print(urlm) 好了今天就这样了，要同时贯穿两门语言真的不是一件容易的事情，长路漫漫以后日子要苦逼了。 本章汇总：R语言字符串格式化输出： paste/paste0 stringr::str_c sca::percent scales::percent sprintf Python字符串格式化输出： 格式化符号：%d/%s/%f等（规则与R中的sprintf大体一致） .format格式化输出： 关于传参的规则： 使用格式化符号可以通过位置参数【比较好用】、命名参数来实现字符串格式化输出【使用字典反而繁琐了】。 使用.format格式化输出可以通过顺序参数（编号顺序）、位置参数（前后位置顺序需一致）、名称参数（比较自由不用考虑顺序） 联系方式：wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]298236508 个人简介：杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。Mail:578708965@qq.com 备注信息：本作品采用知识共享署名-非商业性使用 4.0 国际许可协议进行许可。]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>R语言</tag>
+        <tag>ggtech</tag>
+        <tag>Python</tag>
+        <tag>字符串</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[用优雅的配色来缔造图表专业主义~]]></title>
     <url>%2F2017%2F06%2F23%2F%E7%94%A8%E4%BC%98%E9%9B%85%E7%9A%84%E9%85%8D%E8%89%B2%E6%9D%A5%E7%BC%94%E9%80%A0%E5%9B%BE%E8%A1%A8%E4%B8%93%E4%B8%9A%E4%B8%BB%E4%B9%89%2F</url>
     <content type="text"><![CDATA[总觉得以前自己写的东西太过琐碎，纠结于步骤和技巧，而没有任何体系上和理念上的输出； 而再加上自己文风粗陋（毕竟每一篇的错别字用十个手指头都数不完呀）、排版拙劣，还有那么多小伙伴儿不离不弃，肯于点赞，实在是感到惭愧（我一般都很少看自己写的东西的不忍直视哈哈）~ 可能之前限于能力和实力，一直在跟着别人的步调走，始终在模仿；再加上自己过于追求数量，在质量上用心不多。 不过现在自我感觉好一些了，开始慢慢的思考一些深度的技巧运用，偶尔也会有一些纯理念的总结。 以后的更新频率打算保持在一周2~3篇左右，但是每一篇的内容会向着综合性、应用性方向转变。当然，关于内容排版和文章封面图都会多花一些心思，尽可能的提升一下阅读体验。 下面是今天的干货~ 今天要跟大家分享的是如何在实际图表场景中运用ggtech包的配色及主题，案例是关于全球互联网公司市值比较（数据皆为真实数据，来源于搜狐网）。 数据准备：因为基础的ggplot2语法已经介绍过了，这里我就不介绍具体步骤了，直接使用最终调试好的代码。 加载包：12library("ggplot2")library("ggtech") 数据导入： 12mydata &lt;- read.table("clipboard", header = T, sep = '\t')newdata&lt;-mydata[1:5,] 案例演示：柱形图（全球市值top5互联网公司 ） 数据截止2015年，单位：十亿美元 Airbnb风格:123456789ggplot(newdata,aes(reorder(Name,-Value),Value,fill=Name))+geom_bar(stat="identity")+ theme_tech(theme="airbnb") + scale_fill_tech(theme="airbnb") + labs(title="Top5 Internet Companies", subtitle="Market value of Internet Co in 2015", caption = "http://www.sohu.com/")+ theme(axis.title = element_blank(), legend.position=c(0.85,0.8) ) Esty风格：123456789ggplot(newdata,aes(reorder(Name,-Value),Value,fill=Name))+geom_bar(stat="identity")+ theme_tech(theme="etsy") + scale_fill_tech(theme="etsy") + labs(title="Top5 Internet Companies", subtitle="Market value of Internet Co in 2015", caption = "http://www.sohu.com/")+ theme(axis.title = element_blank(), legend.position=c(0.85,0.8) ) Fackbook风格：123456789ggplot(newdata[1:4,],aes(reorder(Name,-Value),Value,fill=Name))+geom_bar(stat="identity")+ theme_tech(theme="facebook") + scale_fill_tech(theme="facebook") + labs(title="Top5 Internet Companies", subtitle="Market value of Internet Co in 2015", caption = "http://www.sohu.com/")+ theme(axis.title = element_blank(), legend.position=c(0.85,0.8) ) Google风格：123456789ggplot(newdata[1:4,],aes(reorder(Name,-Value),Value,fill=Name))+geom_bar(stat="identity")+ theme_tech(theme="google") + scale_fill_tech(theme="google") + labs(title="Top5 Internet Companies", subtitle="Market value of Internet Co in 2015", caption = "http://www.sohu.com/")+ theme(axis.title = element_blank(), legend.position=c(0.85,0.8) ) Twitter风格：123456789ggplot(newdata[1:4,],aes(reorder(Name,-Value),Value,fill=Name))+geom_bar(stat="identity")+ theme_tech(theme="twitter") + scale_fill_tech(theme="twitter") + labs(title="Top5 Internet Companies", subtitle="Market value of Internet Co in 2015", caption = "http://www.sohu.com/")+ theme(axis.title = element_blank(), legend.position=c(0.85,0.8) ) 饼图以下用饼图来呈现前五大互联网公司的相对市值大小： Airbnb风格:123456789101112131415161718ggplot(newdata,aes(x=1,y=Value,fill=Name))+ geom_bar(stat="identity",color="white")+ theme_tech(theme="airbnb") + scale_fill_tech(theme="airbnb") + coord_polar(theta = "y",start=0)+ labs(title="Top5 Internet Companies", subtitle="Market value of Internet Co in 2015", caption = "http://www.sohu.com/")+ guides(fill=guide_legend(title=NULL))+ theme( panel.grid=element_blank(), panel.background=element_blank(), axis.text = element_blank(), axis.ticks = element_blank(), axis.title = element_blank(), axis.line=element_blank(), legend.position=c(0.1,0.1) ) Esty风格：123456789101112131415161718ggplot(newdata,aes(x=1,y=Value,fill=Name))+ geom_bar(stat="identity",color="white")+ theme_tech(theme="etsy") + scale_fill_tech(theme="etsy") + coord_polar(theta = "y",start=0)+ labs(title="Top5 Internet Companies", subtitle="Market value of Internet Co in 2015", caption = "http://www.sohu.com/")+ guides(fill=guide_legend(title=NULL))+ theme( panel.grid=element_blank(), panel.background=element_blank(), axis.text = element_blank(), axis.ticks = element_blank(), axis.title = element_blank(), axis.line=element_blank(), legend.position=c(0.1,0.1) ) Fackbook风格：123456789101112131415161718ggplot(newdata[1:4,],aes(x=1,y=Value,fill=Name))+ geom_bar(stat="identity",color="white")+ theme_tech(theme="facebook") + scale_fill_tech(theme="facebook") + coord_polar(theta = "y",start=0)+ labs(title="Top5 Internet Companies", subtitle="Market value of Internet Co in 2015", caption = "http://www.sohu.com/")+ guides(fill=guide_legend(title=NULL))+ theme( panel.grid=element_blank(), panel.background=element_blank(), axis.text = element_blank(), axis.ticks = element_blank(), axis.title = element_blank(), axis.line=element_blank(), legend.position=c(0.1,0.1) ) Google风格：123456789101112131415161718ggplot(newdata[1:4,],aes(x=1,y=Value,fill=Name))+ geom_bar(stat="identity",color="white")+ theme_tech(theme="google") + scale_fill_tech(theme="google") + coord_polar(theta = "y",start=0)+ labs(title="Top5 Internet Companies", subtitle="Market value of Internet Co in 2015", caption = "http://www.sohu.com/")+ guides(fill=guide_legend(title=NULL))+ theme( panel.grid=element_blank(), panel.background=element_blank(), axis.text = element_blank(), axis.ticks = element_blank(), axis.title = element_blank(), axis.line=element_blank(), legend.position=c(0.1,0.1) ) Twitter风格：123456789101112131415161718ggplot(newdata[1:4,],aes(x=1,y=Value,fill=Name))+ geom_bar(stat="identity",color="white")+ theme_tech(theme="twitter") + scale_fill_tech(theme="twitter") + coord_polar(theta = "y",start=0)+ labs(title="Top5 Internet Companies", subtitle="Market value of Internet Co in 2015", caption = "http://www.sohu.com/")+ guides(fill=guide_legend(title=NULL))+ theme( panel.grid=element_blank(), panel.background=element_blank(), axis.text = element_blank(), axis.ticks = element_blank(), axis.title = element_blank(), axis.line=element_blank(), legend.position=c(0.1,0.1) ) 粗边面积图接下来用国内BAT三巨头的连续7年市值数据制作堆积的粗边面积图： 数据来源于www.14du.com 截止2015年，单位：亿美元 导入数据：1mynewdata &lt;- read.table("clipboard", header = T, sep = '\t') 使用reshape2包进行转置塑性：12library("reshape2")newmydata &lt;- melt(mynewdata, id.vars = c("Year"),variable.name = "Name", value.name = "Value") Airbnb风格:123456789101112131415ggplot(newmydata,aes(Year,Value,group=Name,fill=Name))+ geom_area(position="stack")+ geom_line(col="grey60",size=2,position="stack")+ theme_tech(theme="airbnb") + scale_fill_tech(theme="airbnb") + labs(title="Three Big Giant of Internet Companies in China", subtitle="Market value of Internet Co in China", caption = "http://www.sohu.com/")+ guides(fill=guide_legend(title=NULL))+ theme( panel.grid=element_blank(), panel.background=element_blank(), axis.title = element_blank(), legend.position=c(0.2,0.6) ) Esty风格：123456789101112131415ggplot(newmydata,aes(Year,Value,group=Name,fill=Name))+ geom_area(position="stack")+ geom_line(col="grey60",size=2,position="stack")+ theme_tech(theme="etsy") + scale_fill_tech(theme="etsy") + labs(title="Three Big Giant of Internet Companies in China", subtitle="Market value of Internet Co in China", caption = "http://www.sohu.com/")+ guides(fill=guide_legend(title=NULL))+ theme( panel.grid=element_blank(), panel.background=element_blank(), axis.title = element_blank(), legend.position=c(0.2,0.6) ) Fackbook风格：123456789101112131415ggplot(newmydata,aes(Year,Value,group=Name,fill=Name))+ geom_area(position="stack")+ geom_line(col="grey60",size=2,position="stack")+ theme_tech(theme="facebook") + scale_fill_tech(theme="facebook") + labs(title="Three Big Giant of Internet Companies in China", subtitle="Market value of Internet Co in China", caption = "http://www.sohu.com/")+ guides(fill=guide_legend(title=NULL))+ theme( panel.grid=element_blank(), panel.background=element_blank(), axis.title = element_blank(), legend.position=c(0.2,0.6) ) Google风格：123456789101112131415ggplot(newmydata,aes(Year,Value,group=Name,fill=Name))+ geom_area(position="stack")+ geom_line(col="grey60",size=2,position="stack")+ theme_tech(theme="google") + scale_fill_tech(theme="google") + labs(title="Three Big Giant of Internet Companies in China", subtitle="Market value of Internet Co in China", caption = "http://www.sohu.com/")+ guides(fill=guide_legend(title=NULL))+ theme( panel.grid=element_blank(), panel.background=element_blank(), axis.title = element_blank(), legend.position=c(0.2,0.6) ) Twitter风格：123456789101112131415ggplot(newmydata,aes(Year,Value,group=Name,fill=Name))+ geom_area(position="stack")+ geom_line(col="orange",size=2,position="stack")+ theme_tech(theme="twitter") + scale_fill_tech(theme="twitter") + labs(title="Three Big Giant of Internet Companies in China", subtitle="Market value of Internet Co in China", caption = "http://www.sohu.com/")+ guides(fill=guide_legend(title=NULL))+ theme( panel.grid=element_blank(), panel.background=element_blank(), axis.title = element_blank(), legend.position=c(0.2,0.6) ) 真是不好意思，没有刹住车，糊里糊涂的就写了这么多，也忘记对代码做变量中转了，其实核心代码我就写了三个，其他都是Ctrl+V、Ctrl+V不停地狂点鼠标。 这个ggtech包前天刚分享过的，配色上很惊艳，很有科技范，非常适合用在商业数据分析中，说不定还能给你的领导带来惊喜呢，还等什么呢，赶快来试一试吧！ 联系方式：wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]298236508 个人简介：杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。Mail:578708965@qq.com 备注信息：本作品采用知识共享署名-非商业性使用 4.0 国际许可协议进行许可。]]></content>
@@ -8,8 +22,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>图表美化</tag>
         <tag>ggplot2</tag>
         <tag>ggtech</tag>
@@ -23,8 +37,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>ggtech</tag>
       </tags>
@@ -37,8 +51,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -64,9 +78,9 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>商务图表</tag>
+        <tag>R语言</tag>
         <tag>数据地图</tag>
       </tags>
   </entry>
@@ -78,9 +92,9 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>商务图表</tag>
+        <tag>R语言</tag>
         <tag>数据地图</tag>
       </tags>
   </entry>
@@ -92,9 +106,9 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>商务图表</tag>
+        <tag>R语言</tag>
         <tag>数据地图</tag>
       </tags>
   </entry>
@@ -106,8 +120,8 @@
         <category>Excel</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>Excel</tag>
+        <tag>数据可视化</tag>
         <tag>商务图表</tag>
       </tags>
   </entry>
@@ -119,8 +133,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>图表美化</tag>
         <tag>theme</tag>
         <tag>视觉信号</tag>
@@ -134,8 +148,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>气泡云图.superbubble</tag>
         <tag>PowerBI</tag>
         <tag>Tableau</tag>
@@ -149,8 +163,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>图表美化</tag>
         <tag>配色技巧</tag>
       </tags>
@@ -163,8 +177,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>数据地图</tag>
         <tag>九段线</tag>
         <tag>mini导航窗口</tag>
@@ -178,8 +192,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>图表美化</tag>
         <tag>主题定制</tag>
       </tags>
@@ -192,8 +206,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -208,8 +222,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>版面控制</tag>
       </tags>
@@ -222,8 +236,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>动态图表</tag>
         <tag>版面控制</tag>
@@ -237,8 +251,8 @@
         <category>可视化案例呈现</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>Excel</tag>
+        <tag>数据可视化</tag>
         <tag>商务图表</tag>
       </tags>
   </entry>
@@ -250,9 +264,9 @@
         <category>可视化案例呈现</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>商务图表</tag>
+        <tag>R语言</tag>
       </tags>
   </entry>
   <entry>
@@ -263,8 +277,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>版式设计</tag>
         <tag>grid</tag>
@@ -278,8 +292,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>ggplot2</tag>
         <tag>数据地图</tag>
@@ -307,8 +321,8 @@
         <category>PowerBI</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>在线地图</tag>
         <tag>PowerBI</tag>
       </tags>
@@ -321,8 +335,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>多边形填充</tag>
       </tags>
@@ -340,8 +354,8 @@
         <category>图表配色</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>配色</tag>
       </tags>
   </entry>
@@ -353,8 +367,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>极坐标</tag>
         <tag>饼图</tag>
@@ -370,8 +384,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -383,8 +397,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -398,8 +412,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>REmap</tag>
         <tag>热力密度地图</tag>
@@ -413,8 +427,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>REmap</tag>
         <tag>填充地图</tag>
@@ -428,8 +442,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>REmap</tag>
@@ -443,8 +457,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>REmap</tag>
@@ -459,8 +473,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>REmap</tag>
@@ -474,8 +488,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -490,11 +504,11 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
-        <tag>json</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
+        <tag>json</tag>
         <tag>leaflet</tag>
       </tags>
   </entry>
@@ -506,8 +520,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -522,12 +536,12 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
-        <tag>leaflet</tag>
         <tag>路径图</tag>
+        <tag>leaflet</tag>
         <tag>mini柱形/条形图</tag>
       </tags>
   </entry>
@@ -539,8 +553,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -555,8 +569,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -571,8 +585,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>ggplot2</tag>
         <tag>mini柱形/条形图</tag>
@@ -586,8 +600,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>ggplot2</tag>
         <tag>mini饼图</tag>
@@ -601,8 +615,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>爬虫</tag>
         <tag>国产电影</tag>
@@ -617,8 +631,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>爬虫</tag>
         <tag>空气质量可视化</tag>
@@ -632,8 +646,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>路径图</tag>
         <tag>ggplot2</tag>
       </tags>
@@ -646,8 +660,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>热力地图</tag>
       </tags>
@@ -660,8 +674,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>信息图</tag>
         <tag>版面设计</tag>
@@ -676,8 +690,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>信息图</tag>
       </tags>
@@ -690,8 +704,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>动态图表</tag>
         <tag>gif</tag>
@@ -705,8 +719,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>gif</tag>
         <tag>动态地图</tag>
@@ -720,8 +734,8 @@
         <category>仪表盘</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>仪表盘</tag>
         <tag>排版</tag>
@@ -735,8 +749,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>信息图</tag>
       </tags>
@@ -749,8 +763,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>爬虫</tag>
         <tag>emoji</tag>
@@ -764,8 +778,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -777,8 +791,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>爬虫</tag>
       </tags>
@@ -791,8 +805,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>爬虫</tag>
         <tag>PowerBI</tag>
       </tags>
@@ -805,8 +819,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -818,8 +832,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -831,8 +845,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
