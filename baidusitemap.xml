@@ -4,6 +4,30 @@
 
     
   <url>
+    <loc>http://www.raindu.com/2017/06/25/%E7%94%A8R%E8%AF%AD%E8%A8%80%E5%A4%8D%E7%9B%98%E7%BE%8E%E5%9B%BD%E6%80%BB%E7%BB%9F%E5%A4%A7%E9%80%89%E7%BB%93%E6%9E%9C/</loc>
+    <lastmod>2017-06-25T01:38:04.636Z</lastmod>
+    <data>
+        <display>
+        <title>用R语言复盘美国总统大选结果~</title>
+        <pubTime>2017-06-25T01:13:19.000Z</pubTime>
+        
+        <tag>数据可视化</tag>
+         
+        <tag>R语言</tag>
+         
+        <tag>ggplot2</tag>
+         
+         
+           
+             
+              <breadCrumb title="数据可视化" url="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.raindu.com/2017/06/24/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94%E7%94%A8ggplot%E6%9E%84%E9%80%A0%E6%9C%9F%E5%BE%85%E5%B7%B2%E4%B9%85%E7%9A%84%E9%9B%B7%E8%BE%BE%E5%9B%BE/</loc>
     <lastmod>2017-06-24T14:25:28.040Z</lastmod>
     <data>
@@ -67,9 +91,9 @@
          
         <tag>R语言</tag>
          
-        <tag>图表美化</tag>
-         
         <tag>ggplot2</tag>
+         
+        <tag>图表美化</tag>
          
         <tag>ggtech</tag>
          
