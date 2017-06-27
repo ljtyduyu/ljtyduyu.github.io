@@ -117,7 +117,7 @@
 <meta property="og:image" content="http://orp205tiu.bkt.clouddn.com/R_Python/merge/image9.jpg">
 <meta property="og:image" content="http://orp205tiu.bkt.clouddn.com/R_Python/merge/image10.jpg">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-06-27T04:00:10.383Z">
+<meta property="og:updated_time" content="2017-06-27T04:11:34.808Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="左手用R右手Python系列——数据合并与追加">
 <meta name="twitter:description" content="今天这篇跟大家介绍R语言与Python数据处理中的第二个小知识点——数据合并与追加。">
@@ -443,7 +443,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,386 字
+                  1,377 字
                 </span>
               
 
@@ -528,26 +528,30 @@
 <p>如果是使用canat函数也可以非常轻松的完成数据追加：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">result = pd.concat([df1, df2, df3]);print(result)</div></pre></td></tr></table></figure></p>
 <p><img src="http://orp205tiu.bkt.clouddn.com/R_Python/merge/image10.jpg" alt=""></p>
 <p>本文汇总：</p>
-<p>数据合并（简单合并）</p>
-<p>R：</p>
-<p>cbind()</p>
-<p>dplyr::bind_cols()</p>
-<p>Python:</p>
-<p>Pandas-cancat()</p>
-<p>数据合并（匹配和并）</p>
-<p>R:</p>
-<p>merge</p>
-<p>plyr::join()</p>
-<p>dplyr::left/right/inter/full_join()</p>
-<p>Python:</p>
-<p>Pandas-merge</p>
-<p>数据追加：</p>
-<p>R：</p>
-<p>rbind()</p>
-<p>dplyr::bind_rows()</p>
-<p>Python:</p>
-<p>Pandas-append()</p>
-<p>Pandas-cancat()</p>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>数据合并（简单合并）</th>
+<th>数据合并（匹配和并）</th>
+<th>数据追加：</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R：</td>
+<td>cbind<br>dplyr::bind_cols</td>
+<td>merge<br>plyr::join<br>dplyr::left/right/inter/full_join</td>
+<td>rbindd<br>plyr::bind_rows</td>
+</tr>
+<tr>
+<td>Python:</td>
+<td>Pandas-cancat</td>
+<td>merge<br>cancat</td>
+<td>append<br>cancat</td>
+</tr>
+</tbody>
+</table>
 <p>以上仅是个人常用的几种，方法肯定不至于此，欢迎大家补充！</p>
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
