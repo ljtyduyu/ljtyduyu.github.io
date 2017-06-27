@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="数据可视化,R语言,地理信息可视化,在线地图,REmap," />
+  <meta name="keywords" content="R语言,ggtech,Python,数据合并与追加," />
 
 
 
@@ -97,23 +97,31 @@
 
 
 
-<meta name="description" content="今天跟大家介绍一个REmap包的新函数——REmapB。 它是REmap包中诸多组函数中的一位，功能上要强大于之前介绍的REmap函数，不仅可以完成REmap函数的所有图表效果，而且可以做出前者没有的地图效果。">
-<meta name="keywords" content="数据可视化,R语言,地理信息可视化,在线地图,REmap">
+<meta name="description" content="今天这篇跟大家介绍R语言与Python数据处理中的第二个小知识点——数据合并与追加。">
+<meta name="keywords" content="R语言,ggtech,Python,数据合并与追加">
 <meta property="og:type" content="article">
-<meta property="og:title" content="R语言可视化——案例综合运用">
-<meta property="og:url" content="http://www.raindu.com/2017/06/08/R语言可视化——案例综合运用/index.html">
+<meta property="og:title" content="左手用R右手Python系列——数据合并与追加">
+<meta property="og:url" content="http://www.raindu.com/2017/06/27/左手用R右手Python系列——数据合并与追加/index.html">
 <meta property="og:site_name" content="raindu&#39;s home">
-<meta property="og:description" content="今天跟大家介绍一个REmap包的新函数——REmapB。 它是REmap包中诸多组函数中的一位，功能上要强大于之前介绍的REmap函数，不仅可以完成REmap函数的所有图表效果，而且可以做出前者没有的地图效果。">
-<meta property="og:image" content="http://or7gx50mg.bkt.clouddn.com/GIF.gif">
-<meta property="og:image" content="http://or7gx50mg.bkt.clouddn.com/GIF1.gif">
-<meta property="og:image" content="http://or7gx50mg.bkt.clouddn.com/GIF2.gif">
-<meta property="og:image" content="http://or7gx50mg.bkt.clouddn.com/GIF3.gif">
+<meta property="og:description" content="今天这篇跟大家介绍R语言与Python数据处理中的第二个小知识点——数据合并与追加。">
+<meta property="og:image" content="http://orp205tiu.bkt.clouddn.com/R_Python/merge/face.jpg">
+<meta property="og:image" content="http://orp205tiu.bkt.clouddn.com/R_Python/merge/image1.jpg">
+<meta property="og:image" content="http://orp205tiu.bkt.clouddn.com/R_Python/merge/image2.jpg">
+<meta property="og:image" content="http://orp205tiu.bkt.clouddn.com/R_Python/merge/image3.jpg">
+<meta property="og:image" content="http://orp205tiu.bkt.clouddn.com/R_Python/merge/image4.jpg">
+<meta property="og:image" content="http://orp205tiu.bkt.clouddn.com/R_Python/merge/image5.jpg">
+<meta property="og:image" content="http://orp205tiu.bkt.clouddn.com/R_Python/merge/image6.jpg">
+<meta property="og:image" content="http://orp205tiu.bkt.clouddn.com/R_Python/merge/image7.jpg">
+<meta property="og:image" content="http://orp205tiu.bkt.clouddn.com/R_Python/merge/image8.jpg">
+<meta property="og:image" content="http://orp205tiu.bkt.clouddn.com/R_Python/merge/image11.jpg">
+<meta property="og:image" content="http://orp205tiu.bkt.clouddn.com/R_Python/merge/image9.jpg">
+<meta property="og:image" content="http://orp205tiu.bkt.clouddn.com/R_Python/merge/image10.jpg">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-06-16T14:17:25.787Z">
+<meta property="og:updated_time" content="2017-06-27T04:00:10.383Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="R语言可视化——案例综合运用">
-<meta name="twitter:description" content="今天跟大家介绍一个REmap包的新函数——REmapB。 它是REmap包中诸多组函数中的一位，功能上要强大于之前介绍的REmap函数，不仅可以完成REmap函数的所有图表效果，而且可以做出前者没有的地图效果。">
-<meta name="twitter:image" content="http://or7gx50mg.bkt.clouddn.com/GIF.gif">
+<meta name="twitter:title" content="左手用R右手Python系列——数据合并与追加">
+<meta name="twitter:description" content="今天这篇跟大家介绍R语言与Python数据处理中的第二个小知识点——数据合并与追加。">
+<meta name="twitter:image" content="http://orp205tiu.bkt.clouddn.com/R_Python/merge/face.jpg">
 
 
 
@@ -141,13 +149,13 @@
 
 
 
-  <link rel="canonical" href="http://www.raindu.com/2017/06/08/R语言可视化——案例综合运用/"/>
+  <link rel="canonical" href="http://www.raindu.com/2017/06/27/左手用R右手Python系列——数据合并与追加/"/>
 
 
 
 
 
-  <title>R语言可视化——案例综合运用 | raindu's home</title>
+  <title>左手用R右手Python系列——数据合并与追加 | raindu's home</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -331,7 +339,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/06/08/R语言可视化——案例综合运用/">
+    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/06/27/左手用R右手Python系列——数据合并与追加/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="RainDu">
@@ -348,7 +356,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">R语言可视化——案例综合运用</h1>
+          <h1 class="post-title" itemprop="name headline">左手用R右手Python系列——数据合并与追加</h1>
         
 
         <div class="post-meta">
@@ -360,8 +368,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-08T09:36:58+08:00">
-                2017-06-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-27T11:44:02+08:00">
+                2017-06-27
               </time>
             
 
@@ -383,8 +391,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/地理信息可视化/" itemprop="url" rel="index">
-                    <span itemprop="name">地理信息可视化</span>
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
                   </a>
                 </span>
 
@@ -401,7 +409,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2017/06/08/R语言可视化——案例综合运用/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2017/06/27/左手用R右手Python系列——数据合并与追加/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -410,7 +418,7 @@
 
           
           
-             <span id="/2017/06/08/R语言可视化——案例综合运用/" class="leancloud_visitors" data-flag-title="R语言可视化——案例综合运用">
+             <span id="/2017/06/27/左手用R右手Python系列——数据合并与追加/" class="leancloud_visitors" data-flag-title="左手用R右手Python系列——数据合并与追加">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -435,7 +443,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,903 字
+                  1,386 字
                 </span>
               
 
@@ -451,7 +459,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  8 分钟
+                  7 分钟
                 </span>
               
             </div>
@@ -469,63 +477,78 @@
       
 
       
-        <p>今天跟大家介绍一个REmap包的新函数——REmapB。</p>
-<p>它是REmap包中诸多组函数中的一位，功能上要强大于之前介绍的REmap函数，不仅可以完成REmap函数的所有图表效果，而且可以做出前者没有的地图效果。</p>
+        <p><img src="http://orp205tiu.bkt.clouddn.com/R_Python/merge/face.jpg" alt=""></p>
+<p>今天这篇跟大家介绍R语言与Python数据处理中的第二个小知识点——数据合并与追加。</p>
 <a id="more"></a>
-<h3 id="语法简介："><a href="#语法简介：" class="headerlink" title="语法简介："></a>语法简介：</h3><p><strong>以下是该函数的详细语法及参数：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">?remapB</div><div class="line">remapB(center = c(<span class="number">104.114129</span>,<span class="number">37.550339</span>),</div><div class="line">       zoom = <span class="number">5</span>,</div><div class="line">       color = <span class="string">"Bright"</span>,</div><div class="line">       title = <span class="string">""</span>,</div><div class="line">       subtitle = <span class="string">""</span>,</div><div class="line">       markLineData = <span class="literal">NA</span>,</div><div class="line">       markPointData = <span class="literal">NA</span>,</div><div class="line">       markLineTheme = markLineControl(),</div><div class="line">       markPointTheme = markPointControl(),</div><div class="line">       geoData = <span class="literal">NA</span>)</div></pre></td></tr></table></figure></p>
-<p><strong>参数说明：</strong></p>
+<h3 id="主要内容："><a href="#主要内容：" class="headerlink" title="主要内容："></a>主要内容：</h3><p>针对数据合并与追加，R与Python中都有对应的函数可以快速完成需求，根据合并与追加的使用场景，这里我将本文内容分成三部分：</p>
 <ul>
-<li>参数一：center为地图中心，经纬度格式；</li>
-<li>参数二：zoom为缩放设置，默认为5，代表全国地图，增大至10可放大至地市</li>
-<li>参数三：color为地图颜色，可选有”Bright”, “Blue”, “light”, “dark”, “redalert”, “googlelite”, “grassgreen”, “midnight”, “pink”, “darkgreen”, “bluish”, “grayscale”, “hardedge”</li>
-<li>参数四：title为地图主标题</li>
-<li>参数五：subtitle为地图副标题</li>
-<li>参数六：markLineData为绘制线条需要的数据，包括起点和终点两列</li>
-<li>参数七：markPointDate为绘制点需要的数据，仅终点一列</li>
-<li>参数八：markLineTheme为线条主题设置，通过markLineControl( )函数设置</li>
-<li>参数九：markPointTheme为点主题设置，通过markPointControl( )函数设置</li>
-<li>参数十：geoData为点、线绘制的地理位置数据存储，可以只是输入经纬度数据，也可通过get_geo_position(‘地点’)获取</li>
+<li>数据合并（简单合并，无需匹配）</li>
+<li>数据合并（匹配合并）</li>
+<li>数据追加</li>
 </ul>
-<p>其中以上参数中，markLineTheme和markLineTheme内含有诸多属性设置，类似REmap中的theme设置：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">markLineTheme = markLineControl(symbol = <span class="literal">NA</span>,<span class="comment">#控制线型</span></div><div class="line">symbolSize = c(<span class="number">0</span>,<span class="number">4</span>),    <span class="comment">#线条粗度变动范围</span></div><div class="line">smooth = <span class="literal">T</span>,             <span class="comment">#启用线条平滑度设置</span></div><div class="line">smoothness =<span class="number">0.2</span>,        <span class="comment">#线条平滑度</span></div><div class="line">effect = <span class="literal">T</span>,             <span class="comment">#线条动效</span></div><div class="line">lineWidth = <span class="number">2</span>,          <span class="comment">#线宽</span></div><div class="line">lineType = ‘dotted’,    <span class="comment">#线条类别</span></div><div class="line">color =‘Random’)        <span class="comment">#线条颜色</span></div></pre></td></tr></table></figure></p>
-<p><strong>参数说明：</strong></p>
+<h3 id="数据合并（简单合并，无需匹配）"><a href="#数据合并（简单合并，无需匹配）" class="headerlink" title="数据合并（简单合并，无需匹配）"></a>数据合并（简单合并，无需匹配）</h3><p>针对简单合并而言，在R语言中主要通过以下两个函数来实现：</p>
 <ul>
-<li>参数一：symbol为标记样式，具体指线条两端的标记的形状，两个值分别为起点和终点，经过实际使用symbol参数不可修改</li>
-<li>参数二：symbolSize为线条两端标记大小，对应symbol参数的两个值，实际上第一个值没用，因为开始标记为none</li>
-<li>参数三：smooth为逻辑参数，设置线条是否平滑</li>
-<li>参数四：smoothness为平滑度，smooth参数设置为T时有效，体现线条的弧度，减小到0时为直线</li>
-<li>参数五：effect为逻辑参数，是否显示动态效果</li>
-<li>参数六：lineWidth为线条粗细</li>
-<li>参数七：lineType为线条类型，可选有solid（实线）、dotted（点线）、dashed（虚线）</li>
-<li>参数八：color为线条颜色</li>
+<li>cbind()</li>
+<li>dplyr::bind_cols()<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">df1 &lt;- data.frame(A=c(<span class="string">'A0'</span>, <span class="string">'A1'</span>, <span class="string">'A2'</span>, <span class="string">'A3'</span>),</div><div class="line">                     B= c(<span class="string">'B0'</span>, <span class="string">'B1'</span>, <span class="string">'B2'</span>, <span class="string">'B3'</span>),</div><div class="line">                     C= c(<span class="string">'C0'</span>, <span class="string">'C1'</span>, <span class="string">'C2'</span>, <span class="string">'C3'</span>),</div><div class="line">                     D=c(<span class="string">'D0'</span>, <span class="string">'D1'</span>, <span class="string">'D2'</span>, <span class="string">'D3'</span>)</div><div class="line">                    )</div><div class="line">df2 &lt;- data.frame(E=c(<span class="string">'A4'</span>, <span class="string">'A5'</span>, <span class="string">'A6'</span>, <span class="string">'A7'</span>),</div><div class="line">                    <span class="literal">F</span>= c(<span class="string">'B4'</span>, <span class="string">'B5'</span>, <span class="string">'B6'</span>, <span class="string">'B7'</span>),</div><div class="line">                    G=c(<span class="string">'C4'</span>, <span class="string">'C5'</span>, <span class="string">'C6'</span>, <span class="string">'C7'</span>),</div><div class="line">                     H= c(<span class="string">'D4'</span>, <span class="string">'D5'</span>, <span class="string">'D6'</span>, <span class="string">'D7'</span>))</div><div class="line">df3 &lt;-data.frame(I=c(<span class="string">'A8'</span>, <span class="string">'A9'</span>, <span class="string">'A10'</span>, <span class="string">'A11'</span>),</div><div class="line">                     J= c(<span class="string">'B8'</span>, <span class="string">'B9'</span>, <span class="string">'B10'</span>, <span class="string">'B11'</span>),</div><div class="line">                    K=c(<span class="string">'C8'</span>, <span class="string">'C9'</span>, <span class="string">'C10'</span>, <span class="string">'C11'</span>),</div><div class="line">                    L=c(<span class="string">'D8'</span>, <span class="string">'D9'</span>, <span class="string">'D10'</span>, <span class="string">'D11'</span>)</div><div class="line">                   )</div><div class="line">df1;df2;df3</div><div class="line">mydata1&lt;-cbind(df1,df2,df3);mydata1</div><div class="line">mydata2&lt;-dplyr::bind_cols(df1,df2,df3);mydata1</div></pre></td></tr></table></figure>
+</li>
 </ul>
-<p>根据以上参数名称，可以大致了解每一个参数的含义：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">markPointTheme = markPointControl(symbol = <span class="string">"heart"</span>, <span class="comment">#点形状</span></div><div class="line">symbolSize = <span class="string">"Random"</span>,   <span class="comment">#点大小</span></div><div class="line">effect = <span class="literal">T</span>,              <span class="comment">#动效启用</span></div><div class="line">effectType = <span class="string">"scale"</span>,    <span class="comment">#动效类型</span></div><div class="line">color = <span class="string">"Random"</span>)        <span class="comment">#颜色</span></div></pre></td></tr></table></figure></p>
-<p><strong>参数说明：</strong></p>
+<p><img src="http://orp205tiu.bkt.clouddn.com/R_Python/merge/image1.jpg" alt=""></p>
+<p>在Python中，简单的合并可以通过Pandas中的concat函数来实现的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">df1 = pd.DataFrame(&#123;<span class="string">'A'</span>: [<span class="string">'A0'</span>, <span class="string">'A1'</span>, <span class="string">'A2'</span>, <span class="string">'A3'</span>],</div><div class="line">                     <span class="string">'B'</span>: [<span class="string">'B0'</span>, <span class="string">'B1'</span>, <span class="string">'B2'</span>, <span class="string">'B3'</span>],</div><div class="line">                     <span class="string">'C'</span>: [<span class="string">'C0'</span>, <span class="string">'C1'</span>, <span class="string">'C2'</span>, <span class="string">'C3'</span>],</div><div class="line">                     <span class="string">'D'</span>: [<span class="string">'D0'</span>, <span class="string">'D1'</span>, <span class="string">'D2'</span>, <span class="string">'D3'</span>]&#125;,</div><div class="line">                     index=[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</div><div class="line">df2 = pd.DataFrame(&#123;<span class="string">'E'</span>: [<span class="string">'A4'</span>, <span class="string">'A5'</span>, <span class="string">'A6'</span>, <span class="string">'A7'</span>],</div><div class="line">                    <span class="string">'F'</span>: [<span class="string">'B4'</span>, <span class="string">'B5'</span>, <span class="string">'B6'</span>, <span class="string">'B7'</span>],</div><div class="line">                    <span class="string">'G'</span>: [<span class="string">'C4'</span>, <span class="string">'C5'</span>, <span class="string">'C6'</span>, <span class="string">'C7'</span>],</div><div class="line">                     <span class="string">'H'</span>: [<span class="string">'D4'</span>, <span class="string">'D5'</span>, <span class="string">'D6'</span>, <span class="string">'D7'</span>]&#125;,</div><div class="line">                      index=[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</div><div class="line">df3 = pd.DataFrame(&#123;<span class="string">'I'</span>: [<span class="string">'A8'</span>, <span class="string">'A9'</span>, <span class="string">'A10'</span>, <span class="string">'A11'</span>],</div><div class="line">                     <span class="string">'J'</span>: [<span class="string">'B8'</span>, <span class="string">'B9'</span>, <span class="string">'B10'</span>, <span class="string">'B11'</span>],</div><div class="line">                    <span class="string">'K'</span>: [<span class="string">'C8'</span>, <span class="string">'C9'</span>, <span class="string">'C10'</span>, <span class="string">'C11'</span>],</div><div class="line">                    <span class="string">'L'</span>: [<span class="string">'D8'</span>, <span class="string">'D9'</span>, <span class="string">'D10'</span>, <span class="string">'D11'</span>]&#125;,</div><div class="line">                    index=[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</div><div class="line">result1 = pd.concat([df1,df2,df3],axis=<span class="number">1</span>,join_axes=[df1.index])</div></pre></td></tr></table></figure>
+<p><img src="http://orp205tiu.bkt.clouddn.com/R_Python/merge/image2.jpg" alt=""></p>
+<h3 id="横向合并：（需匹配）"><a href="#横向合并：（需匹配）" class="headerlink" title="横向合并：（需匹配）"></a>横向合并：（需匹配）</h3><p>在R语言中，这种操作有很多可选方案，如基础函数merge、plyr包中的join函数以及dplyr包中的left/right/inter/full_join等函数。</p>
 <ul>
-<li>参数一：symbol为点样式，可选项none、circle、rectangle、triangle、diamond、emptyCirle、emptyRectangle、emptyTriangle、emptyDiamond、heart、droplet、pin、arrow、star</li>
-<li>参数二：symbolSize为点大小</li>
-<li>参数三：effect为逻辑参数，是否显示动态效果</li>
-<li>参数四：effectType为动态效果样式，可选scale（放大）和bounce（跳动）</li>
-<li>参数五：color为点颜色</li>
+<li>merge</li>
+<li>plyr::join</li>
+<li>dplyr::left/right/inter/full_join</li>
 </ul>
-<p>解读：effect参数在点太多时，动态效果会失效，这时建议设置为FALSE。在remapB( )函数中通过另外一个参数markPointData也可以设置点颜色，优先级高于color参数。</p>
-<h3 id="案例应用："><a href="#案例应用：" class="headerlink" title="案例应用："></a>案例应用：</h3><h4 id="接下来我们可以根据以上参数说明制作一个一对多的流向图："><a href="#接下来我们可以根据以上参数说明制作一个一对多的流向图：" class="headerlink" title="接下来我们可以根据以上参数说明制作一个一对多的流向图："></a>接下来我们可以根据以上参数说明制作一个一对多的流向图：</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">destination&lt;- c(<span class="string">"shanghai"</span>,<span class="string">"guangzhou"</span>,<span class="string">"济南"</span>,<span class="string">"dalian"</span>,<span class="string">"xian"</span>,<span class="string">"chengdu"</span>,<span class="string">"changchun"</span>,<span class="string">"taiyuan"</span>,<span class="string">"nanyang"</span>,<span class="string">"zhengzhou"</span>)  <span class="comment">#终点</span></div><div class="line">origin&lt;- rep(<span class="string">"nanyang"</span>,length(destination))  <span class="comment">#起点</span></div><div class="line">map_data&lt;- data.frame(origin,destination)  <span class="comment">#合成数据框格式的作图数据</span></div></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">map_out&lt;-remapB(zoom=<span class="number">5</span>, <span class="comment">#参数5绘制省级国家地图</span></div><div class="line">                   color=<span class="string">"dark"</span>,</div><div class="line">                   title=<span class="string">"我是主标题"</span>,</div><div class="line">                   subtitle=<span class="string">"我是副标题"</span>,</div><div class="line">                   markLineData=map_data,</div><div class="line">                   markPointData=destination,</div><div class="line">                   markLineTheme=markLineControl(),</div><div class="line">                   markPointTheme=markPointControl()</div><div class="line">                   )</div><div class="line">plot(map_out)</div></pre></td></tr></table></figure>
-<p><img src="http://or7gx50mg.bkt.clouddn.com/GIF.gif" alt=""></p>
-<p>####通过设置markLineTheme、markPointTheme两个主题内部的详细风格参数，你可以对线条以及数据点的气泡进行个性化设置。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">map_out1&lt;-remapB(zoom=<span class="number">5</span>, </div><div class="line">                 color=<span class="string">"dark"</span>,</div><div class="line">                 title=<span class="string">"我是主标题"</span>,</div><div class="line">                 subtitle=<span class="string">"我是副标题"</span>,</div><div class="line">                 markLineData=map_data,</div><div class="line">                 markPointData=destination,                </div><div class="line">                 markLineTheme = markLineControl(</div><div class="line">                 symbol = <span class="literal">NA</span>,            </div><div class="line">                 symbolSize = c(<span class="number">0</span>,<span class="number">4</span>),   </div><div class="line">                 smooth = <span class="literal">T</span>,             </div><div class="line">                 smoothness =<span class="number">0.2</span>,      </div><div class="line">                 effect = <span class="literal">T</span>,            </div><div class="line">                 lineWidth = <span class="number">2</span>,         </div><div class="line">                 lineType =<span class="string">"dotted"</span>,  </div><div class="line">                 color =<span class="string">"white"</span>),</div><div class="line">                 markPointTheme = markPointControl(</div><div class="line">                 symbol = <span class="string">"heart"</span>, </div><div class="line">                 symbolSize = <span class="string">"Random"</span>,  </div><div class="line">                 effect = <span class="literal">T</span>,              </div><div class="line">                 effectType = <span class="string">"scale"</span>,   </div><div class="line">                 color = <span class="string">"white"</span>) </div><div class="line">                 )</div><div class="line">plot(map_out1)</div></pre></td></tr></table></figure></p>
-<p><img src="http://or7gx50mg.bkt.clouddn.com/GIF1.gif" alt=""></p>
-<p>如果只想要绘制流向线而不需要终点的点的话，直接给markPointData赋值为NA就可以了。</p>
-<h4 id="只要将我们的数据结构重新整理，就可以制作出路径地图："><a href="#只要将我们的数据结构重新整理，就可以制作出路径地图：" class="headerlink" title="只要将我们的数据结构重新整理，就可以制作出路径地图："></a>只要将我们的数据结构重新整理，就可以制作出路径地图：</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">newdata&lt;- c(<span class="string">"shanghai"</span>,<span class="string">"guangzhou"</span>,<span class="string">"chengdu"</span>,<span class="string">"xian"</span>,<span class="string">"taiyuan"</span>,<span class="string">"济南"</span>,<span class="string">"shanghai"</span>) </div><div class="line">origin&lt;-c(newdata[-<span class="number">7</span>])</div><div class="line">destination&lt;-c(newdata[-<span class="number">1</span>])</div><div class="line">map_data&lt;- data.frame(origin,destination)</div><div class="line"></div><div class="line">map_out2&lt;-remapB(zoom=<span class="number">5</span>, </div><div class="line">                 color=<span class="string">"dark"</span>,</div><div class="line">                 title=<span class="string">"我是主标题"</span>,</div><div class="line">                 subtitle=<span class="string">"我是副标题"</span>,</div><div class="line">                 markLineData=map_data,</div><div class="line">                 markPointData=destination,                </div><div class="line">                 markLineTheme = markLineControl(</div><div class="line">                 symbol = <span class="literal">NA</span>,            </div><div class="line">                 symbolSize = c(<span class="number">0</span>,<span class="number">4</span>),   </div><div class="line">                 smooth = <span class="literal">T</span>,             </div><div class="line">                 smoothness =<span class="number">0.2</span>,      </div><div class="line">                 effect = <span class="literal">T</span>,            </div><div class="line">                 lineWidth = <span class="number">2</span>,         </div><div class="line">                 lineType =<span class="string">"dotted"</span>,  </div><div class="line">                 color =<span class="string">"white"</span>),</div><div class="line">                 markPointTheme = markPointControl(</div><div class="line">                 symbol = <span class="string">"heart"</span>, </div><div class="line">                 symbolSize = <span class="string">"Random"</span>,  </div><div class="line">                 effect = <span class="literal">T</span>,              </div><div class="line">                 effectType = <span class="string">"scale"</span>,   </div><div class="line">                 color = <span class="string">"white"</span>) </div><div class="line">                 )</div><div class="line">plot(map_out2)</div></pre></td></tr></table></figure>
-<p><img src="http://or7gx50mg.bkt.clouddn.com/GIF2.gif" alt=""></p>
-<h4 id="最后一个案例使用REmapB函数制作目标分布图："><a href="#最后一个案例使用REmapB函数制作目标分布图：" class="headerlink" title="最后一个案例使用REmapB函数制作目标分布图："></a>最后一个案例使用REmapB函数制作目标分布图：</h4><p>首先搜索大连地区的大学：</p>
-<p>加载百度地图包：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(<span class="string">"baidumap"</span>)</div><div class="line"><span class="comment">#查找大连的所有大学</span></div><div class="line">dl_college &lt;- getPlace(<span class="string">"大学"</span>,<span class="string">"大连"</span>)</div><div class="line">Get <span class="number">125</span> records, <span class="number">7</span> page. </div><div class="line">    Getting  <span class="number">0</span> th page </div><div class="line">    Getting  <span class="number">1</span> th page </div><div class="line">    Getting  <span class="number">2</span> th page </div><div class="line">    Getting  <span class="number">3</span> th page </div><div class="line">    Getting  <span class="number">4</span> th page </div><div class="line">    Getting  <span class="number">5</span> th page </div><div class="line">    Getting  <span class="number">6</span> th page </div><div class="line">Done!</div></pre></td></tr></table></figure></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#预览数据：</span></div><div class="line">head(dl_college)</div><div class="line"></div><div class="line">                        name                                           address      lat      lon</div><div class="line"><span class="number">1</span>               大连工业大学                                         轻工苑<span class="number">1</span>号 <span class="number">38.97890</span> <span class="number">121.5332</span></div><div class="line"><span class="number">2</span>               大连理工大学                     辽宁省大连市甘井子区凌工路<span class="number">2</span>号 <span class="number">38.88868</span> <span class="number">121.5362</span></div><div class="line"><span class="number">3</span>               大连海事大学                             辽宁省大连市凌海路<span class="number">1</span>号 <span class="number">38.87753</span> <span class="number">121.5387</span></div><div class="line"><span class="number">4</span> 大连交通大学（沙河口校区） 沙河口区黄河路<span class="number">794</span>号交通大学小吃一条街内(近西南路) <span class="number">38.91790</span> <span class="number">121.5770</span></div><div class="line"><span class="number">5</span>   大连外国语大学(旅顺校区)                   中国辽宁省大连市旅顺南路西段<span class="number">6</span>号 <span class="number">38.81853</span> <span class="number">121.3154</span></div><div class="line"><span class="number">6</span>                   大连大学                                      学府大街<span class="number">10</span>号 <span class="number">39.10660</span> <span class="number">121.8282</span></div><div class="line">       telephone</div><div class="line"><span class="number">1</span> (<span class="number">0411</span>)<span class="number">86323693</span></div><div class="line"><span class="number">2</span>           &lt;<span class="literal">NA</span>&gt;</div><div class="line"><span class="number">3</span>           &lt;<span class="literal">NA</span>&gt;</div><div class="line"><span class="number">4</span> (<span class="number">0411</span>)<span class="number">84106313</span></div><div class="line"><span class="number">5</span> (<span class="number">0411</span>)<span class="number">86111157</span></div><div class="line"><span class="number">6</span> (<span class="number">0411</span>)<span class="number">87402114</span></div></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">str(dl_college)</div><div class="line"></div><div class="line"><span class="string">'data.frame'</span>:	<span class="number">125</span> obs. of  <span class="number">5</span> variables:</div><div class="line"> $ name     : chr  <span class="string">"大连工业大学"</span> <span class="string">"大连理工大学"</span> <span class="string">"大连海事大学"</span> <span class="string">"大连交通大学（沙河口校区）"</span> <span class="keyword">...</span></div><div class="line"> $ address  : chr  <span class="string">"轻工苑1号"</span> <span class="string">"辽宁省大连市甘井子区凌工路2号"</span> <span class="string">"辽宁省大连市凌海路1号"</span> <span class="string">"沙河口区黄河路794号交通大学小吃一条街内(近西南路)"</span> <span class="keyword">...</span></div><div class="line"> $ lat      : num  <span class="number">39</span> <span class="number">38.9</span> <span class="number">38.9</span> <span class="number">38.9</span> <span class="number">38.8</span> <span class="keyword">...</span></div><div class="line"> $ lon      : num  <span class="number">122</span> <span class="number">122</span> <span class="number">122</span> <span class="number">122</span> <span class="number">121</span> <span class="keyword">...</span></div><div class="line"> $ telephone: chr  <span class="string">"(0411)86323693"</span> <span class="literal">NA</span> <span class="literal">NA</span> <span class="string">"(0411)84106313"</span> <span class="keyword">...</span></div></pre></td></tr></table></figure>
-<p>一共抓取了大连地区的125个带有大学的机构经纬度地址：</p>
-<p><strong>构造作图数据：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">newdata1&lt;-dl_college[,c(<span class="number">3</span>,<span class="number">4</span>,<span class="number">1</span>)]</div><div class="line">head(newdata1)</div><div class="line">                        name      lat      lon</div><div class="line"><span class="number">1</span>               大连工业大学 <span class="number">38.97890</span> <span class="number">121.5332</span></div><div class="line"><span class="number">2</span>               大连理工大学 <span class="number">38.88868</span> <span class="number">121.5362</span></div><div class="line"><span class="number">3</span>               大连海事大学 <span class="number">38.87753</span> <span class="number">121.5387</span></div><div class="line"><span class="number">4</span> 大连交通大学（沙河口校区） <span class="number">38.91790</span> <span class="number">121.5770</span></div><div class="line"><span class="number">5</span>   大连外国语大学(旅顺校区) <span class="number">38.81853</span> <span class="number">121.3154</span></div><div class="line"><span class="number">6</span>                   大连大学 <span class="number">39.10660</span> <span class="number">121.8282</span></div></pre></td></tr></table></figure></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">newdata2&lt;-newdata1[,c(<span class="number">2</span>,<span class="number">1</span>,<span class="number">3</span>)]</div><div class="line">map_out3 &lt;- remapB(center = c(<span class="number">121.62139</span>,<span class="number">38.91934</span>),  </div><div class="line">                zoom = <span class="number">14</span>,</div><div class="line">                color = <span class="string">"Blue"</span>,</div><div class="line">                title = <span class="string">"大连高校分布图"</span>,</div><div class="line">                markPointData =newdata2[<span class="number">3</span>],</div><div class="line">                markPointTheme = markPointControl(</div><div class="line">                symbol = <span class="string">"pin"</span>,</div><div class="line">                symbolSize = <span class="number">3</span>,</div><div class="line">                effect = <span class="literal">T</span>,</div><div class="line">                color = <span class="string">"yellow"</span>),</div><div class="line">                geoData =newdata2 </div><div class="line">               )</div><div class="line">plot(map_out3)</div></pre></td></tr></table></figure>
-<p><img src="http://or7gx50mg.bkt.clouddn.com/GIF3.gif" alt=""></p>
-<p>如果想要存储该HTML对象，需要设定临时目录：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">setwd(<span class="string">"D:/R/Rscript"</span>)      <span class="comment">#保存图片的位置，不做修改默认为R的工作路径</span></div><div class="line">options(remap.js.web=<span class="literal">T</span>)    <span class="comment">#动态网页图保存命令</span></div><div class="line">plot(map_out3)             <span class="comment">#保存的同时自动调用浏览器窗口</span></div></pre></td></tr></table></figure>
+<p>这里为了节省时间，只介绍第一种基础函数，欲了解详情，可以查看这篇历史文章：</p>
+<p><a href="https://zhuanlan.zhihu.com/p/27577410" target="_blank" rel="external">R语言数据处理——数据合并与追加</a></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">merge(x, y,  <span class="comment">#带合并的数据集名称（左右顺序）</span></div><div class="line">  by = intersect(names(x), names(y)), <span class="comment">#合并依据字段（名称相同）</span></div><div class="line">  by.x = by,  <span class="comment">#名称不同时需同时时声明</span></div><div class="line">  by.y = by,  <span class="comment">#名称不同时需同时时声明</span></div><div class="line">  all = <span class="literal">FALSE</span>,<span class="comment">#合并类型，TRUE为全连接 （full），FALSE为内连接 （inter）</span></div><div class="line">  all.x = all,<span class="comment">#左连接</span></div><div class="line">  all.y = all,<span class="comment">#右连接</span></div><div class="line">  )</div><div class="line">``` </div><div class="line"></div><div class="line">```r </div><div class="line">df3&lt;-data.frame(id=c(<span class="number">1001</span>,<span class="number">1002</span>,<span class="number">1003</span>,<span class="number">1004</span>,<span class="number">1005</span>,<span class="number">1006</span>,<span class="number">1007</span>,<span class="number">1008</span>),</div><div class="line">gender=c(<span class="string">'male'</span>,<span class="string">'female'</span>,<span class="string">'male'</span>,<span class="string">'female'</span>,<span class="string">'male'</span>,<span class="string">'female'</span>,<span class="string">'male'</span>,<span class="string">'female'</span>),</div><div class="line">pay=c(<span class="string">'Y'</span>,<span class="string">'N'</span>,<span class="string">'Y'</span>,<span class="string">'Y'</span>,<span class="string">'N'</span>,<span class="string">'Y'</span>,<span class="string">'N'</span>,<span class="string">'Y'</span>),</div><div class="line">m_point=c(<span class="number">10</span>,<span class="number">12</span>,<span class="number">20</span>,<span class="number">40</span>,<span class="number">40</span>,<span class="number">40</span>,<span class="number">30</span>,<span class="number">20</span>))</div><div class="line">df4&lt;-data.frame(id=c(<span class="number">1001</span>,<span class="number">1002</span>,<span class="number">1003</span>,<span class="number">1004</span>,<span class="number">1005</span>,<span class="number">1006</span>),</div><div class="line">city=c(<span class="string">'Beijing '</span>, <span class="string">'Shenzhen'</span>,<span class="string">'Guangzhou'</span>, <span class="string">'Shenzhen'</span>, <span class="string">'Shanghai'</span>,<span class="string">'Beijing'</span>),</div><div class="line">age=c(<span class="number">23</span>,<span class="number">44</span>,<span class="number">54</span>,<span class="number">32</span>,<span class="number">34</span>,<span class="number">32</span>),</div><div class="line">category=c(<span class="string">'100-A'</span>,<span class="string">'100-B'</span>,<span class="string">'110-A'</span>,<span class="string">'110-C'</span>,<span class="string">'210-A'</span>,<span class="string">'130-F'</span>),</div><div class="line">price=c(<span class="number">1200</span>,<span class="number">2900</span>,<span class="number">2133</span>,<span class="number">5433</span>,<span class="number">1346</span>,<span class="number">4432</span>))</div><div class="line">print(df3);print(df4)</div></pre></td></tr></table></figure>
+<p><img src="http://orp205tiu.bkt.clouddn.com/R_Python/merge/image3.jpg" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mydata3&lt;-merge(df3,df4,by=<span class="string">"id"</span>,all=<span class="literal">TRUE</span>);print(mydata3)</div><div class="line">mydata3&lt;-merge(df3,df4,by=<span class="string">"id"</span>,all=<span class="literal">FALSE</span>);print(mydata3)</div><div class="line">mydata3&lt;-merge(df3,df4,by=<span class="string">"id"</span>,all.x=<span class="literal">TRUE</span>);print(mydata3)</div><div class="line">mydata3&lt;-merge(df3,df4,by=<span class="string">"id"</span>,all.y=<span class="literal">TRUE</span>);print(mydata3)</div></pre></td></tr></table></figure>
+<p><img src="http://orp205tiu.bkt.clouddn.com/R_Python/merge/image4.jpg" alt=""><br><img src="http://orp205tiu.bkt.clouddn.com/R_Python/merge/image5.jpg" alt=""></p>
+<p>在Python中，这一操作也可以通过函数Pandas库中的cancat函数或者merge函数来完成。</p>
+<p><strong>Pandas-merge</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">df3=pd.DataFrame(&#123;<span class="string">"id"</span>:[<span class="number">1001</span>,<span class="number">1002</span>,<span class="number">1003</span>,<span class="number">1004</span>,<span class="number">1005</span>,<span class="number">1006</span>,<span class="number">1007</span>,<span class="number">1008</span>],</div><div class="line"><span class="string">"gender"</span>:[<span class="string">'male'</span>,<span class="string">'female'</span>,<span class="string">'male'</span>,<span class="string">'female'</span>,<span class="string">'male'</span>,</div><div class="line"><span class="string">'female'</span>,<span class="string">'male'</span>,<span class="string">'female'</span>],</div><div class="line"><span class="string">"pay"</span>:[<span class="string">'Y'</span>,<span class="string">'N'</span>,<span class="string">'Y'</span>,<span class="string">'Y'</span>,<span class="string">'N'</span>,<span class="string">'Y'</span>,<span class="string">'N'</span>,<span class="string">'Y'</span>],</div><div class="line"><span class="string">"m-point"</span>:[<span class="number">10</span>,<span class="number">12</span>,<span class="number">20</span>,<span class="number">40</span>,<span class="number">40</span>,<span class="number">40</span>,<span class="number">30</span>,<span class="number">20</span>]&#125;)</div><div class="line">df4= pd.DataFrame(&#123;<span class="string">"id"</span>:[<span class="number">1001</span>,<span class="number">1002</span>,<span class="number">1003</span>,<span class="number">1004</span>,<span class="number">1005</span>,<span class="number">1006</span>],</div><div class="line"><span class="string">"date"</span>:pd.date_range(<span class="string">'20130102'</span>,periods=<span class="number">6</span>),</div><div class="line"><span class="string">"city"</span>:[<span class="string">'Beijing'</span>, <span class="string">'Shenzhen'</span>,<span class="string">'Guangzhou'</span>,<span class="string">'Shenzhen'</span>,<span class="string">'Shanghai'</span>,<span class="string">'Beijing'</span>],</div><div class="line"><span class="string">"age"</span>:[<span class="number">23</span>,<span class="number">44</span>,<span class="number">54</span>,<span class="number">32</span>,<span class="number">34</span>,<span class="number">32</span>],</div><div class="line"><span class="string">"category"</span>:[<span class="string">'100-A'</span>,<span class="string">'100-B'</span>,<span class="string">'110-A'</span>,<span class="string">'110-C'</span>,<span class="string">'210-A'</span>,<span class="string">'130-F'</span>],</div><div class="line"><span class="string">"price"</span>:[<span class="number">1200</span>,np.nan,<span class="number">2133</span>,<span class="number">5433</span>,np.nan,<span class="number">4432</span>]&#125;,</div><div class="line">columns =[<span class="string">'id'</span>,<span class="string">'date'</span>,<span class="string">'city'</span>,<span class="string">'category'</span>,<span class="string">'age'</span>,<span class="string">'price'</span>])</div><div class="line">print(df3);print(df4)</div></pre></td></tr></table></figure>
+<p><img src="http://orp205tiu.bkt.clouddn.com/R_Python/merge/image6.jpg" alt=""></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">df_inner=pd.merge(df3,df4,how=<span class="string">'inner'</span>);print(df_inner) <span class="comment">#数据表合并（内连接：inter join）</span></div><div class="line">df_left=pd.merge(df3,df4, how=<span class="string">'left'</span>) ;print(df_left)  <span class="comment">#数据表合并（左连接：left join）</span></div><div class="line">df_right=pd.merge(df3,df4,how=<span class="string">'right'</span>);print(df_right) <span class="comment">#数据表合并（右连接:right join）</span></div><div class="line">df_outer=pd.merge(df3,df4,how=<span class="string">'outer'</span>);print(df_outer) <span class="comment">#数据表合并（全连接:full join）</span></div></pre></td></tr></table></figure>
+<p><img src="http://orp205tiu.bkt.clouddn.com/R_Python/merge/image7.jpg" alt=""><br><img src="http://orp205tiu.bkt.clouddn.com/R_Python/merge/image8.jpg" alt=""></p>
+<h3 id="数据追加："><a href="#数据追加：" class="headerlink" title="数据追加："></a>数据追加：</h3><p>数据追加通常只需保证数据及的宽度一致且列字段名称一致，相对来说比较简单。在R语言和Python中，也很好实现。</p>
+<p>在R语言中，可视化朱数据追加的函数有：</p>
+<ul>
+<li>rbind()</li>
+<li>dplyr::bind_rows()</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mydata3&lt;-rbind(df1,df2,df3);mydata3</div><div class="line">mydata4&lt;-dplyr::bind_rows(df1,df2,df3);mydata4</div></pre></td></tr></table></figure>
+<p><img src="http://orp205tiu.bkt.clouddn.com/R_Python/merge/image11.jpg" alt=""></p>
+<p>python中则可以很容易的通过数据框本身的append函数来实现简单的数据追加：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">df1 = pd.DataFrame(&#123;<span class="string">'A'</span>: [<span class="string">'A0'</span>, <span class="string">'A1'</span>, <span class="string">'A2'</span>, <span class="string">'A3'</span>],</div><div class="line">                     <span class="string">'B'</span>: [<span class="string">'B0'</span>, <span class="string">'B1'</span>, <span class="string">'B2'</span>, <span class="string">'B3'</span>],</div><div class="line">                     <span class="string">'C'</span>: [<span class="string">'C0'</span>, <span class="string">'C1'</span>, <span class="string">'C2'</span>, <span class="string">'C3'</span>],</div><div class="line">                     <span class="string">'D'</span>: [<span class="string">'D0'</span>, <span class="string">'D1'</span>, <span class="string">'D2'</span>, <span class="string">'D3'</span>]&#125;,</div><div class="line">                     index=[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</div><div class="line">df2 = pd.DataFrame(&#123;<span class="string">'A'</span>: [<span class="string">'A4'</span>, <span class="string">'A5'</span>, <span class="string">'A6'</span>, <span class="string">'A7'</span>],</div><div class="line">                    <span class="string">'B'</span>: [<span class="string">'B4'</span>, <span class="string">'B5'</span>, <span class="string">'B6'</span>, <span class="string">'B7'</span>],</div><div class="line">                    <span class="string">'C'</span>: [<span class="string">'C4'</span>, <span class="string">'C5'</span>, <span class="string">'C6'</span>, <span class="string">'C7'</span>],</div><div class="line">                     <span class="string">'D'</span>: [<span class="string">'D4'</span>, <span class="string">'D5'</span>, <span class="string">'D6'</span>, <span class="string">'D7'</span>]&#125;,</div><div class="line">                      index=[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>])</div><div class="line">df3 = pd.DataFrame(&#123;<span class="string">'A'</span>: [<span class="string">'A8'</span>, <span class="string">'A9'</span>, <span class="string">'A10'</span>, <span class="string">'A11'</span>],</div><div class="line">                     <span class="string">'B'</span>: [<span class="string">'B8'</span>, <span class="string">'B9'</span>, <span class="string">'B10'</span>, <span class="string">'B11'</span>],</div><div class="line">                    <span class="string">'C'</span>: [<span class="string">'C8'</span>, <span class="string">'C9'</span>, <span class="string">'C10'</span>, <span class="string">'C11'</span>],</div><div class="line">                    <span class="string">'D'</span>: [<span class="string">'D8'</span>, <span class="string">'D9'</span>, <span class="string">'D10'</span>, <span class="string">'D11'</span>]&#125;,</div><div class="line">                    index=[<span class="number">8</span>, <span class="number">9</span>,<span class="number">10</span>,<span class="number">11</span>])</div><div class="line">result = df1.append(df2);print(result)</div><div class="line">result = result.append(df3);print(result)</div></pre></td></tr></table></figure>
+<p><img src="http://orp205tiu.bkt.clouddn.com/R_Python/merge/image9.jpg" alt=""></p>
+<p>如果是使用canat函数也可以非常轻松的完成数据追加：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">result = pd.concat([df1, df2, df3]);print(result)</div></pre></td></tr></table></figure></p>
+<p><img src="http://orp205tiu.bkt.clouddn.com/R_Python/merge/image10.jpg" alt=""></p>
+<p>本文汇总：</p>
+<p>数据合并（简单合并）</p>
+<p>R：</p>
+<p>cbind()</p>
+<p>dplyr::bind_cols()</p>
+<p>Python:</p>
+<p>Pandas-cancat()</p>
+<p>数据合并（匹配和并）</p>
+<p>R:</p>
+<p>merge</p>
+<p>plyr::join()</p>
+<p>dplyr::left/right/inter/full_join()</p>
+<p>Python:</p>
+<p>Pandas-merge</p>
+<p>数据追加：</p>
+<p>R：</p>
+<p>rbind()</p>
+<p>dplyr::bind_rows()</p>
+<p>Python:</p>
+<p>Pandas-append()</p>
+<p>Pandas-cancat()</p>
+<p>以上仅是个人常用的几种，方法肯定不至于此，欢迎大家补充！</p>
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
@@ -581,15 +604,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/数据可视化/" rel="tag"># 数据可视化</a>
-          
             <a href="/tags/R语言/" rel="tag"># R语言</a>
           
-            <a href="/tags/地理信息可视化/" rel="tag"># 地理信息可视化</a>
+            <a href="/tags/ggtech/" rel="tag"># ggtech</a>
           
-            <a href="/tags/在线地图/" rel="tag"># 在线地图</a>
+            <a href="/tags/Python/" rel="tag"># Python</a>
           
-            <a href="/tags/REmap/" rel="tag"># REmap</a>
+            <a href="/tags/数据合并与追加/" rel="tag"># 数据合并与追加</a>
           
         </div>
       
@@ -602,8 +623,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/07/R语言可视化——REmap-路径图/" rel="next" title="R语言可视化——REmap(路径图)">
-                <i class="fa fa-chevron-left"></i> R语言可视化——REmap(路径图)
+              <a href="/2017/06/25/用R语言复盘美国总统大选结果/" rel="next" title="用R语言复盘美国总统大选结果~">
+                <i class="fa fa-chevron-left"></i> 用R语言复盘美国总统大选结果~
               </a>
             
           </div>
@@ -611,10 +632,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/08/R语言可视化——REmapC-填充地图/" rel="prev" title="R语言可视化——REmapC(填充地图)">
-                R语言可视化——REmapC(填充地图) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -813,7 +830,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#语法简介："><span class="nav-number">1.</span> <span class="nav-text">语法简介：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#案例应用："><span class="nav-number">2.</span> <span class="nav-text">案例应用：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#接下来我们可以根据以上参数说明制作一个一对多的流向图："><span class="nav-number">2.1.</span> <span class="nav-text">接下来我们可以根据以上参数说明制作一个一对多的流向图：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#只要将我们的数据结构重新整理，就可以制作出路径地图："><span class="nav-number">2.2.</span> <span class="nav-text">只要将我们的数据结构重新整理，就可以制作出路径地图：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最后一个案例使用REmapB函数制作目标分布图："><span class="nav-number">2.3.</span> <span class="nav-text">最后一个案例使用REmapB函数制作目标分布图：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#主要内容："><span class="nav-number">1.</span> <span class="nav-text">主要内容：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据合并（简单合并，无需匹配）"><span class="nav-number">2.</span> <span class="nav-text">数据合并（简单合并，无需匹配）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#横向合并：（需匹配）"><span class="nav-number">3.</span> <span class="nav-text">横向合并：（需匹配）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据追加："><span class="nav-number">4.</span> <span class="nav-text">数据追加：</span></a></li></ol></div>
             
 
           </div>
