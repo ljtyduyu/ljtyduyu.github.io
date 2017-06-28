@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.raindu.com/"/>
-  <updated>2017-06-27T04:23:58.005Z</updated>
+  <updated>2017-06-28T03:50:17.326Z</updated>
   <id>http://www.raindu.com/</id>
   
   <author>
@@ -14,6 +14,128 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>R语言数据处理——数据合并与追加</title>
+    <link href="http://www.raindu.com/2017/06/28/R%E8%AF%AD%E8%A8%80%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E5%90%88%E5%B9%B6%E4%B8%8E%E8%BF%BD%E5%8A%A0/"/>
+    <id>http://www.raindu.com/2017/06/28/R语言数据处理——数据合并与追加/</id>
+    <published>2017-06-28T02:47:39.000Z</published>
+    <updated>2017-06-28T03:50:17.326Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/%E6%BC%94%E7%A4%BA%E6%96%87%E7%A8%BF1.jpg" alt=""></p>
+<p>数据结构的塑造是数据可视化前重要的一环，虽说本公众号重心在于数据可视化，可是涉及到一些至关重要的数据整合技巧，还是有必要跟大家分享一下的。</p>
+<a id="more"></a>
+<p>在可视化前的数据处理技巧中，导入导出、长宽转换已经跟大家详细的介绍过了。</p>
+<p>今天跟大大家分享数据集的合并与追加，并且这里根据所依赖函数的处理效率，给出诺干套解决方案。</p>
+<h3 id="本文主要内容："><a href="#本文主要内容：" class="headerlink" title="本文主要内容："></a>本文主要内容：</h3><p><strong>数据合并操作涉及以下几个问题：</strong></p>
+<ul>
+<li><p>横向合并；</p>
+<ul>
+<li><p>是否需要匹配字段</p>
+<ul>
+<li><p>匹配字段合并  </p>
+<ul>
+<li><p>主字段同名</p>
+</li>
+<li><p>主字段不同名</p>
+</li>
+</ul>
+</li>
+<li><p>无需匹配字段合并</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>纵向合并：（情况比较简单，列字段数量相同，名称相同）</p>
+</li>
+</ul>
+<p>因为纵向合并情况比较简单，所以本篇讲解也着重以横向合并为主，按照以上几个问题，需要用到的函数列举如下：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cbind rbind merge plyr::join tidyr:: inner_join/full_join/left_join/right_join</div></pre></td></tr></table></figure>
+<h3 id="首先介绍base内置的两三个函数："><a href="#首先介绍base内置的两三个函数：" class="headerlink" title="首先介绍base内置的两三个函数："></a>首先介绍base内置的两三个函数：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cbind rbind merge</div></pre></td></tr></table></figure>
+<h4 id="横向追加（无需匹配字段）"><a href="#横向追加（无需匹配字段）" class="headerlink" title="横向追加（无需匹配字段）"></a>横向追加（无需匹配字段）</h4><p>数据集构造如下：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">ID&lt;-c(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</div><div class="line">Name&lt;-c(<span class="string">"A"</span>,<span class="string">"B"</span>,<span class="string">"C"</span>,<span class="string">"D"</span>)</div><div class="line">Score&lt;-c(<span class="number">60</span>,<span class="number">70</span>,<span class="number">80</span>,<span class="number">90</span>)</div><div class="line">Sex&lt;-c(<span class="string">"M"</span>,<span class="string">"F"</span>,<span class="string">"M"</span>,<span class="string">"M"</span>)</div><div class="line">One&lt;-data.frame(ID,Name)</div><div class="line">Two&lt;-data.frame(Score,Sex)</div></pre></td></tr></table></figure></p>
+<p><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image1.png" alt=""></p>
+<p>合并:<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Total&lt;-cbind(One,Two)</div></pre></td></tr></table></figure></p>
+<p><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image2.png" alt=""></p>
+<p>可以看到cbind函数横向合并无需匹配主字段，仅仅是将两个数据集横向拼接在一起。</p>
+<h4 id="纵向合并"><a href="#纵向合并" class="headerlink" title="纵向合并:"></a>纵向合并:</h4><p>构造数据集：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">ID&lt;-c(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</div><div class="line">Name&lt;-c(<span class="string">"A"</span>,<span class="string">"B"</span>,<span class="string">"C"</span>,<span class="string">"D"</span>)</div><div class="line">Student1&lt;-data.frame(ID,Name)</div><div class="line">ID&lt;-c(<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>)</div><div class="line">Name&lt;-c(<span class="string">"E"</span>,<span class="string">"F"</span>,<span class="string">"G"</span>,<span class="string">"H"</span>)</div><div class="line">Student2&lt;-data.frame(ID,Name)</div></pre></td></tr></table></figure></p>
+<p><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image3.png" alt=""></p>
+<p>合并：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Total_student3&lt;-rbind(Student1,Student2)</div></pre></td></tr></table></figure>
+<p><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image4.png" alt=""></p>
+<p>以上通过rbind函数对Student1,Student2两个数据集进行纵向合并（也称追加）。</p>
+<h3 id="merge函数："><a href="#merge函数：" class="headerlink" title="merge函数："></a>merge函数：</h3><p>merge函数主要针对横向（列字段）合并，而且可以针对主字段（主键）进行匹配，如果主字段名称不同，还可以指定前后相匹配的主字段。</p>
+<p>基本语法如下：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">merge(x, y, by = , by.x = , by.y = , all = , all.x = , all.y = , sort = , suffixes = , incomparables = , <span class="keyword">...</span>)</div></pre></td></tr></table></figure>
+<p>具体参数解释如下：</p>
+<p><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image5.png" alt=""></p>
+<p>接下来按照名相同与不同分两种情况介绍；</p>
+<p>列名相同：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">ID&lt;-c(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</div><div class="line">name&lt;-c(<span class="string">"A"</span>,<span class="string">"B"</span>,<span class="string">"C"</span>,<span class="string">"D"</span>)</div><div class="line">score&lt;-c(<span class="number">60</span>,<span class="number">70</span>,<span class="number">80</span>,<span class="number">90</span>)</div><div class="line">student1&lt;-data.frame(ID,name)</div><div class="line">student2&lt;-data.frame(ID,score)</div><div class="line">total_student1&lt;-merge(student1,student2,by=<span class="string">"ID"</span>)</div></pre></td></tr></table></figure></p>
+<p><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image6.png" alt=""></p>
+<p>以上两个数据集有相同的列名（ID）时，by参数可以省略（by=”ID”）</p>
+<p>以上两个数据集中，authors和books中有相同属性的主字段（surname&amp;name）但是主字段名称不同，这里需要给merge函数指定匹配的主字段。</p>
+<p><strong>横向合并的四种类型：</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#inner（内部链接）只合并交集</span></div><div class="line">m1 &lt;- merge(authors, books, by.x = <span class="string">"surname"</span>, by.y = <span class="string">"name"</span>)</div><div class="line"><span class="comment">#left join（左连接）</span></div><div class="line">m2 &lt;- merge(authors, books, by.x = <span class="string">"surname"</span>, by.y = <span class="string">"name"</span>,all.x=<span class="literal">TRUE</span>)</div><div class="line"><span class="comment">#right join（右连接）</span></div><div class="line">m3 &lt;- merge(authors, books, by.x = <span class="string">"surname"</span>, by.y = <span class="string">"name"</span>,all.y=<span class="literal">TRUE</span>)</div><div class="line"><span class="comment">#all_join（外连接）</span></div><div class="line">m4 &lt;- merge(authors, books, by.x = <span class="string">"surname"</span>, by.y = <span class="string">"name"</span>,all=<span class="literal">TRUE</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image7.png" alt=""><br><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image8.png" alt=""><br><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image9.png" alt=""><br><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image10.png" alt=""><br><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image11.png" alt=""></p>
+<h3 id="plyr-join函数"><a href="#plyr-join函数" class="headerlink" title="plyr::join函数"></a>plyr::join函数</h3><p>join函数源于plyr包（该包作者就是大名鼎鼎的Hadley Wickham，就是ggplot2的开发者，当然它开发的包还有很多），使用前需要加载：</p>
+<p>以下是该函数语法：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">join(x, y, by = <span class="literal">NULL</span>, type = <span class="string">"left"</span>, match = <span class="string">"all"</span>)</div></pre></td></tr></table></figure></p>
+<p>当两个数据集主字段有相同名称时，by参数可以省略（by=”name”）,当名称不同时，需指定左右两个数据集匹配的主字段名称。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">join(x,y,by=intersect(<span class="string">"Name"</span>,<span class="string">"name"</span>),type = <span class="string">"left"</span>)</div></pre></td></tr></table></figure></p>
+<p>以下我只演示相同主字段名称下的四种类型合并语句：</p>
+<p>构造待合并数据集:<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">x&lt;-data.frame(name=c(<span class="string">"John"</span>,<span class="string">"Paul"</span>,<span class="string">"George"</span>,<span class="string">"Ringo"</span>,<span class="string">"Stuart"</span>,<span class="string">"Pete"</span>),instrument=c(<span class="string">"guitar"</span>,<span class="string">"bass"</span>,<span class="string">"guitar"</span>,<span class="string">"drums"</span>,<span class="string">"bass"</span>,<span class="string">"drums"</span>))</div><div class="line">y&lt;-data.frame(name=c(<span class="string">"John"</span>,<span class="string">"Paul"</span>,<span class="string">"George"</span>,<span class="string">"Ringo"</span>,<span class="string">"Brian"</span>),band=c(<span class="string">"TRUE"</span>,<span class="string">"TRUE"</span>,<span class="string">"TRUE"</span>,<span class="string">"TRUE"</span>,<span class="string">"FALSE"</span>))</div></pre></td></tr></table></figure></p>
+<p><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image12.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#left_join</span></div><div class="line">data1&lt;-join(x,y,by=<span class="string">"name"</span>,type = <span class="string">"left"</span>)</div><div class="line"><span class="comment">#right_join</span></div><div class="line">data2&lt;-join(x,y,by=<span class="string">"name"</span>,type = <span class="string">"right"</span>)</div><div class="line"><span class="comment">#inner_join</span></div><div class="line">data3&lt;-join(x,y,by=<span class="string">"name"</span>,type = <span class="string">"inner"</span>)</div><div class="line"><span class="comment">#full_join</span></div><div class="line">data4&lt;-join(x,y,by=<span class="string">"name"</span>,type = <span class="string">"full"</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image13.png" alt=""><br><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image14.png" alt=""></p>
+<p>合并函数与merge函数基本相同。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dplyr::inner_join/full_join/left_join/right_join</div></pre></td></tr></table></figure>
+<p>（告诉你一个不幸的消息，该包作者还是Hadley Wickham，没办法，一个赢者通吃的时代，谁让人家有才任性呢哈哈~_~）</p>
+<p>dplyr的数据合并语句要比plyr还要精练：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">x&lt;-data.frame(Name=c(<span class="string">"John"</span>,<span class="string">"Paul"</span>,<span class="string">"George"</span>,<span class="string">"Ringo"</span>,<span class="string">"Stuart"</span>,<span class="string">"Pete"</span>),instrument=c(<span class="string">"guitar"</span>,<span class="string">"bass"</span>,<span class="string">"guitar"</span>,<span class="string">"drums"</span>,<span class="string">"bass"</span>,<span class="string">"drums"</span>))</div><div class="line">y&lt;-data.frame(name=c(<span class="string">"John"</span>,<span class="string">"Paul"</span>,<span class="string">"George"</span>,<span class="string">"Ringo"</span>,<span class="string">"Brian"</span>),band=c(<span class="string">"TRUE"</span>,<span class="string">"TRUE"</span>,<span class="string">"TRUE"</span>,<span class="string">"TRUE"</span>,<span class="string">"FALSE"</span>))</div></pre></td></tr></table></figure></p>
+<p><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image15.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#(1)inner_join(x, y) ：只包含同时出现在x,y表中的行</span></div><div class="line">data1&lt;-inner_join(x,y,by=c(<span class="string">"Name"</span>=<span class="string">"name"</span>))</div><div class="line"><span class="comment">#(2)left_join(x, y) ：包含所有x中以及y中匹配的行</span></div><div class="line">data2&lt;-left_join(x,y,by=c(<span class="string">"Name"</span>=<span class="string">"name"</span>))</div><div class="line"><span class="comment">#(3)right_join(x, y,by=c("Name"="name")) ：包含所有y中以及x中匹配的行</span></div><div class="line">data3&lt;-right_join(x,y,by=c(<span class="string">"Name"</span>=<span class="string">"name"</span>))</div><div class="line"><span class="comment">#(4)full_join(x,y,by=c("Name"="name")) ：包含所以x、y中的行</span></div><div class="line">data4&lt;-full_join(x,y,by=c(<span class="string">"Name"</span>=<span class="string">"name"</span>))</div><div class="line"><span class="comment">#(5)semi_join(x, y) ：包含x中，在y中有匹配的行，结果为x的子集</span></div><div class="line">data5&lt;-semi_join(x,y,by=c(<span class="string">"Name"</span>=<span class="string">"name"</span>))</div><div class="line"><span class="comment">#(6)anti_join(x, y) ：包含x中，不匹配y的行，结果为x的子集，与semi_join相反</span></div><div class="line">data6&lt;-anti_join(x,y)</div></pre></td></tr></table></figure>
+<p><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image16.png" alt=""><br><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image17.png" alt=""></p>
+<p>以上连接类型中，前四个（内连接、外连接、左连接、右连接）最为常用，大家可以将dplyr和plyr以及merge函数三种连接方式进行对比记忆。</p>
+<p>下面聊一列为啥要专门讲一节数据连接方式：</p>
+<p>因为……</p>
+<p>在excel中……</p>
+<p>这种数据连接真的……真的……真的……太费劲了</p>
+<p>我所知道的连接方式——</p>
+<ul>
+<li>第一：手动复制黏贴；（大家不要随便作死）</li>
+<li>第二：最古老的Microsoft Query（藏在excel数据导入菜单的最底层，据说微软也不更新了，如果的excel是精简版的，可能都没法调用，菜单特丑）</li>
+<li>第三：数据透视表；Alt+D+P（为啥微软要把调用数据透视表多表合并的菜单隐藏起来只能用快捷键，太烦人了）</li>
+<li>第四：微软的最新商务智能应用——PowerBI(其中的PowerQuery、PowerPivot)</li>
+<li>第五：第三方的效率插件（很多VBA大神写过这些办公插件，但是我就不爱用，多装一个，Excel启动拖后两秒钟，时间就是金钱啊你说是不）</li>
+</ul>
+<p>以上四种方式（第一种除外），虽说都可以完成数据合并操作，但是效率上不敢恭维，每次都得走一遍菜单流程。如果有点R语言基础的同学，强烈建议将这些操作放在R中操作，数据导入导出、长宽转换、横纵合并，只需修改一下代码路径、参数分分钟搞定。</p>
+<p>当然对于有数据库基础的同学(相信大部分同学都有吧，应该是大学本科的必修课)来讲，写几个SQL也可以瞬间完成。</p>
+<p>虽然已经N多年没有用过了，但是还是想在这里献丑一下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">内连接 inner join</div><div class="line">语法：<span class="keyword">select</span> * <span class="keyword">from</span> x <span class="keyword">inner</span> <span class="keyword">join</span> y <span class="keyword">on</span> x.Name =y.name</div><div class="line"></div><div class="line">左连接 <span class="keyword">left</span> <span class="keyword">join</span>（左表中所有数据，右表中对应数据）</div><div class="line">语法：<span class="keyword">select</span> * <span class="keyword">from</span> x <span class="keyword">left</span> <span class="keyword">join</span> y <span class="keyword">on</span> x.Name = y.name</div><div class="line"></div><div class="line">右连接 <span class="keyword">right</span> <span class="keyword">join</span>（右表中所有数据，左表中对应数据）</div><div class="line">语法：<span class="keyword">select</span> * <span class="keyword">from</span> x <span class="keyword">right</span> <span class="keyword">join</span> y <span class="keyword">on</span> x.Name = y.name</div><div class="line"></div><div class="line">全连接 <span class="keyword">full</span> <span class="keyword">join</span></div><div class="line">语法：<span class="keyword">select</span> * <span class="keyword">from</span> x <span class="keyword">full</span> <span class="keyword">join</span> y <span class="keyword">on</span> x.Name = y.name</div></pre></td></tr></table></figure>
+<p><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image18.png" alt=""></p>
+<p>我是一个比较懒、嫌麻烦但注重效率的人，很多关于数据处理上的需求，如果能用简单的方式解决（比如VBA、R或者效率函数）,我都不会去选择安装插件或者外部软件，一方面太浪费时间，操作麻烦；另一方面，使用插件大多需要用菜单点选，以后遇到同样的需要还得从新走一遍流程，所以我更倾向用简单的可重复利用的代码来解决。</p>
+<p>简单、省事儿、快捷、可重复……</p>
+<hr>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
+<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
+<hr>
+<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://orrrzlir6.bkt.clouddn.com/R/merge/%E6%BC%94%E7%A4%BA%E6%96%87%E7%A8%BF1.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;数据结构的塑造是数据可视化前重要的一环，虽说本公众号重心在于数据可视化，可是涉及到一些至关重要的数据整合技巧，还是有必要跟大家分享一下的。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="R语言" scheme="http://www.raindu.com/categories/R%E8%AF%AD%E8%A8%80/"/>
+    
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据清洗" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E6%B8%85%E6%B4%97/"/>
+    
+      <category term="数据合并与追加" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%90%88%E5%B9%B6%E4%B8%8E%E8%BF%BD%E5%8A%A0/"/>
+    
+  </entry>
   
   <entry>
     <title>左手用R右手Python系列——数据合并与追加</title>
@@ -117,11 +239,11 @@
     
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
+      <category term="数据合并与追加" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%90%88%E5%B9%B6%E4%B8%8E%E8%BF%BD%E5%8A%A0/"/>
+    
       <category term="ggtech" scheme="http://www.raindu.com/tags/ggtech/"/>
     
       <category term="Python" scheme="http://www.raindu.com/tags/Python/"/>
-    
-      <category term="数据合并与追加" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%90%88%E5%B9%B6%E4%B8%8E%E8%BF%BD%E5%8A%A0/"/>
     
   </entry>
   
@@ -1516,72 +1638,6 @@
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
-    
-      <category term="版面控制" scheme="http://www.raindu.com/tags/%E7%89%88%E9%9D%A2%E6%8E%A7%E5%88%B6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>R语言可视化——ggplot携手plotly，让你的图表灵动起来！</title>
-    <link href="http://www.raindu.com/2017/06/16/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94ggplot%E6%90%BA%E6%89%8Bplotly%EF%BC%8C%E8%AE%A9%E4%BD%A0%E7%9A%84%E5%9B%BE%E8%A1%A8%E7%81%B5%E5%8A%A8%E8%B5%B7%E6%9D%A5%EF%BC%81/"/>
-    <id>http://www.raindu.com/2017/06/16/R语言可视化——ggplot携手plotly，让你的图表灵动起来！/</id>
-    <published>2017-06-16T14:11:17.000Z</published>
-    <updated>2017-06-16T14:37:37.267Z</updated>
-    
-    <content type="html"><![CDATA[<p>这段时间一直在研究ggplot2这个神奇的可视化利器，可是ggplot2纵然所向披靡，唯独无法呈现动态效果！</p>
-<p>最近发现R语言的官方CRAN中有一款名叫plotly的包，详细了解了下，这个plotly是基于js脚本语言开发的专用于动态交互可视化的利器，开发有在线版和桌面本，而且效果相当不错！</p>
-<a id="more"></a>
-<p>而这里提到的plotly包就是该机构专门针对R语言环境发布的可视化包（具有不仅R语言，给MATLAB和Python都留有接口），不但可以协助ggplot2包将静态图表动态化，而且拥有自己独特的作图函数语法（语法非常精炼，据说是参考ggplot的语法写的，基本上一看就懂）。</p>
-<p>今天只涉及ggplot结合plotly而动态化图表的功能，暂不涉及plotly的独有作图函数。（主要是自己也正摸索中，找个合适的时间再跟大家分享）。</p>
-<p>这个包因为是辅助ggplot2开发的，所以需要ggplot2包同时加载协同工作。</p>
-<h3 id="包下载及加载："><a href="#包下载及加载：" class="headerlink" title="包下载及加载："></a>包下载及加载：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">devtools::install_github(<span class="string">"ropensci/plotly"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"plotly"</span>)</div><div class="line"><span class="keyword">library</span>(ggplot2)</div></pre></td></tr></table></figure>
-<h3 id="数据集预览："><a href="#数据集预览：" class="headerlink" title="数据集预览："></a>数据集预览：</h3><p>这里我将使用ggplot2的内置数据集diamonds先做出图表，然后使用plotly函数进行动态化。</p>
-<p>为了更加明显的看出最终的动效，这里使用随机取样，只抽取500个记录。</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">set.seed(<span class="number">2333</span>)</div><div class="line">mydata &lt;- mydata[sample(nrow(mydata), <span class="number">500</span>), ]</div><div class="line">head(mydata)</div></pre></td></tr></table></figure>
-<p><img src="http://orn9f9laz.bkt.clouddn.com/image1.png" alt=""><br><img src="http://orn9f9laz.bkt.clouddn.com/image2.png" alt=""></p>
-<h3 id="plotly动态图表演示："><a href="#plotly动态图表演示：" class="headerlink" title="plotly动态图表演示："></a>plotly动态图表演示：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(carat,price,colour=color))+geom_point()</div></pre></td></tr></table></figure>
-<p><img src="http://orn9f9laz.bkt.clouddn.com/image3.png" alt=""></p>
-<p>接下来是我们要重点关注的地方，以上使用ggplot函数制作的默认的散点图，是一张静态的不带任何交互效果的图表。</p>
-<p>尽管ggplot的作者在图表背后针对默认的图表主题及背景做了深度美化，但是没有动态效果这一点儿着实让人感觉有点儿美中不足：</p>
-<p>我所说的动态效果是指：当鼠标悬浮到任何一个数据点，立马会有弹出文本框显示该数据点的具体指标信息，当鼠标点击图例中的分类标识时，显示对应分类项下的数据点，而其他未被选中的数据点均会自动隐藏或者淡化（变成浅灰色）。这是我所理解的动态图表的最基础属性。</p>
-<p>但是有了plotly包的辅助，ggplot所做出来的图表立马可是实现以上所述的功能：</p>
-<p>而所需要的函数却极其简单：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplotly()</div></pre></td></tr></table></figure>
-<p><img src="http://orn9f9laz.bkt.clouddn.com/image4.png" alt=""></p>
-<p>运行完以上代码，再次zoom你的图表，仔细观察你会发现，图表右上角多出了一行菜单，而且当你将鼠标悬浮在任意一个数据点上时，立马回弹出对应的文本信息对对应数据点进行详细注释。</p>
-<p>更加不可思议的是，当你用鼠标单击右侧图例对应分类项，则图表中会对应只显示选中的分类项目数据点；</p>
-<p>右上角的菜单中你可以自由选择将图表聚焦呈现、放大缩小、保存为图片等多种功能。</p>
-<p><img src="http://orn9f9laz.bkt.clouddn.com/image5.png" alt=""></p>
-<p>下面是我录制的一个动态小视频，可以感受下plotly带给ggplot的动态交互体验：<br><img src="http://orn9f9laz.bkt.clouddn.com/image6.png" alt=""></p>
-<iframe frameborder="0" width="640" height="498" src="https://v.qq.com/iframe/player.html?vid=t13096cfgh5&tiny=0&auto=0" allowfullscreen></iframe>
-
-<p>而且这种动态效果机会不受ggplot图表类型及版面的限制，在分面情况下，动态效果依然如故：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(carat,price,colour=color))+geom_point()+theme_economist()+scale_colour_economist()+facet_wrap(~cut)</div><div class="line">ggplotly()</div></pre></td></tr></table></figure></p>
-<p><img src="http://orn9f9laz.bkt.clouddn.com/image7.png" alt=""></p>
-<p>以上图表中加入了经济学人的主题及配色模板，动态效果依然还在，有了这种动态效果，展示呈现多维数据方面，省去了不少麻烦，特别是分类较多时，一时半会很难弄清楚某种分类的整体分布情况，而通过动态选择，可以很容易的过滤掉暂时无关的分类项对信息获取的障碍。</p>
-<hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
-<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<hr>
-<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;这段时间一直在研究ggplot2这个神奇的可视化利器，可是ggplot2纵然所向披靡，唯独无法呈现动态效果！&lt;/p&gt;
-&lt;p&gt;最近发现R语言的官方CRAN中有一款名叫plotly的包，详细了解了下，这个plotly是基于js脚本语言开发的专用于动态交互可视化的利器，开发有在线版和桌面本，而且效果相当不错！&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
-    
-    
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
-    
-      <category term="动态图表" scheme="http://www.raindu.com/tags/%E5%8A%A8%E6%80%81%E5%9B%BE%E8%A1%A8/"/>
     
       <category term="版面控制" scheme="http://www.raindu.com/tags/%E7%89%88%E9%9D%A2%E6%8E%A7%E5%88%B6/"/>
     
