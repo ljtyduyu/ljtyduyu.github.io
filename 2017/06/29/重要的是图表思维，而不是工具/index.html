@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="数据可视化,R语言,地理信息可视化,在线地图,REmap,路径图," />
+  <meta name="keywords" content="数据可视化,R语言,ggplot2,信息图," />
 
 
 
@@ -97,26 +97,29 @@
 
 
 
-<meta name="description" content="今天紧接昨天的内容，跟大家分享如何使用REmap函数制作路径图。 路径图所需要的数据结构非常简单，两列数据，左侧是起点，右侧是终点，并且每一行的终点是下一行的起点，这样最终才可以制作出连接在一起的路径图。">
-<meta name="keywords" content="数据可视化,R语言,地理信息可视化,在线地图,REmap,路径图">
+<meta name="description" content="很久没有作图了，主要是一时找不到应该练手的案例。 然后昨天逛网易数独栏目的数据新闻，看到一幅还不错的案例，对于我来说值得一试，然后就手痒给照葫芦画瓢弄出来了。（主要是其中涉及到的细节处理很麻烦）  当然过程是花了些时间的，主要是需要慢慢打磨其中的细节，需要利用很多技术来处理图形版面的交接位置。 令我感触最深的是，想要用ggplot2随心所欲的画图，ggplot2掌握的再熟练，也只是勉强过的了技术">
+<meta name="keywords" content="数据可视化,R语言,ggplot2,信息图">
 <meta property="og:type" content="article">
-<meta property="og:title" content="R语言可视化——REmap(路径图)">
-<meta property="og:url" content="http://www.raindu.com/2017/06/07/R语言可视化——REmap-路径图/index.html">
+<meta property="og:title" content="重要的是图表思维，而不是工具">
+<meta property="og:url" content="http://www.raindu.com/2017/06/29/重要的是图表思维，而不是工具/index.html">
 <meta property="og:site_name" content="raindu&#39;s home">
-<meta property="og:description" content="今天紧接昨天的内容，跟大家分享如何使用REmap函数制作路径图。 路径图所需要的数据结构非常简单，两列数据，左侧是起点，右侧是终点，并且每一行的终点是下一行的起点，这样最终才可以制作出连接在一起的路径图。">
-<meta property="og:image" content="http://or6biw7ir.bkt.clouddn.com/image1.png">
-<meta property="og:image" content="http://or6biw7ir.bkt.clouddn.com/image2.png">
-<meta property="og:image" content="http://or6biw7ir.bkt.clouddn.com/image3.png">
-<meta property="og:image" content="http://or6biw7ir.bkt.clouddn.com/image4.png">
-<meta property="og:image" content="http://or6biw7ir.bkt.clouddn.com/image5.png">
-<meta property="og:image" content="http://or6biw7ir.bkt.clouddn.com/image6.png">
-<meta property="og:image" content="http://or6biw7ir.bkt.clouddn.com/image8.gif">
-<meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-06-16T14:17:25.701Z">
+<meta property="og:description" content="很久没有作图了，主要是一时找不到应该练手的案例。 然后昨天逛网易数独栏目的数据新闻，看到一幅还不错的案例，对于我来说值得一试，然后就手痒给照葫芦画瓢弄出来了。（主要是其中涉及到的细节处理很麻烦）  当然过程是花了些时间的，主要是需要慢慢打磨其中的细节，需要利用很多技术来处理图形版面的交接位置。 令我感触最深的是，想要用ggplot2随心所欲的画图，ggplot2掌握的再熟练，也只是勉强过的了技术">
+<meta property="og:image" content="http://ory93arir.bkt.clouddn.com/tea_bump/%E5%B0%81%E9%9D%A2%E5%9B%BE.png">
+<meta property="og:image" content="http://ory93arir.bkt.clouddn.com/tea_bump/image1.png">
+<meta property="og:image" content="http://ory93arir.bkt.clouddn.com/tea_bump/image2.jpg">
+<meta property="og:image" content="http://ory93arir.bkt.clouddn.com/tea_bump/image3.jpg">
+<meta property="og:image" content="http://ory93arir.bkt.clouddn.com/tea_bump/image4.png">
+<meta property="og:image" content="http://ory93arir.bkt.clouddn.com/tea_bump/image5.jpg">
+<meta property="og:image" content="http://ory93arir.bkt.clouddn.com/tea_bump/image6.jpg">
+<meta property="og:image" content="http://ory93arir.bkt.clouddn.com/tea_bump/image7.jpg">
+<meta property="og:image" content="http://ory93arir.bkt.clouddn.com/tea_bump/image8.jpg">
+<meta property="og:image" content="http://ory93arir.bkt.clouddn.com/tea_bump/image9.png">
+<meta property="og:image" content="http://ory93arir.bkt.clouddn.com/tea_bump/image10.png">
+<meta property="og:updated_time" content="2017-06-29T04:04:58.946Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="R语言可视化——REmap(路径图)">
-<meta name="twitter:description" content="今天紧接昨天的内容，跟大家分享如何使用REmap函数制作路径图。 路径图所需要的数据结构非常简单，两列数据，左侧是起点，右侧是终点，并且每一行的终点是下一行的起点，这样最终才可以制作出连接在一起的路径图。">
-<meta name="twitter:image" content="http://or6biw7ir.bkt.clouddn.com/image1.png">
+<meta name="twitter:title" content="重要的是图表思维，而不是工具">
+<meta name="twitter:description" content="很久没有作图了，主要是一时找不到应该练手的案例。 然后昨天逛网易数独栏目的数据新闻，看到一幅还不错的案例，对于我来说值得一试，然后就手痒给照葫芦画瓢弄出来了。（主要是其中涉及到的细节处理很麻烦）  当然过程是花了些时间的，主要是需要慢慢打磨其中的细节，需要利用很多技术来处理图形版面的交接位置。 令我感触最深的是，想要用ggplot2随心所欲的画图，ggplot2掌握的再熟练，也只是勉强过的了技术">
+<meta name="twitter:image" content="http://ory93arir.bkt.clouddn.com/tea_bump/%E5%B0%81%E9%9D%A2%E5%9B%BE.png">
 
 
 
@@ -144,13 +147,13 @@
 
 
 
-  <link rel="canonical" href="http://www.raindu.com/2017/06/07/R语言可视化——REmap-路径图/"/>
+  <link rel="canonical" href="http://www.raindu.com/2017/06/29/重要的是图表思维，而不是工具/"/>
 
 
 
 
 
-  <title>R语言可视化——REmap(路径图) | raindu's home</title>
+  <title>重要的是图表思维，而不是工具 | raindu's home</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -334,7 +337,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/06/07/R语言可视化——REmap-路径图/">
+    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/06/29/重要的是图表思维，而不是工具/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="RainDu">
@@ -351,7 +354,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">R语言可视化——REmap(路径图)</h1>
+          <h1 class="post-title" itemprop="name headline">重要的是图表思维，而不是工具</h1>
         
 
         <div class="post-meta">
@@ -363,8 +366,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-07T18:49:51+08:00">
-                2017-06-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-29T11:49:43+08:00">
+                2017-06-29
               </time>
             
 
@@ -386,8 +389,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/地理信息可视化/" itemprop="url" rel="index">
-                    <span itemprop="name">地理信息可视化</span>
+                  <a href="/categories/数据可视化/" itemprop="url" rel="index">
+                    <span itemprop="name">数据可视化</span>
                   </a>
                 </span>
 
@@ -404,7 +407,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2017/06/07/R语言可视化——REmap-路径图/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2017/06/29/重要的是图表思维，而不是工具/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -413,7 +416,7 @@
 
           
           
-             <span id="/2017/06/07/R语言可视化——REmap-路径图/" class="leancloud_visitors" data-flag-title="R语言可视化——REmap(路径图)">
+             <span id="/2017/06/29/重要的是图表思维，而不是工具/" class="leancloud_visitors" data-flag-title="重要的是图表思维，而不是工具">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -438,7 +441,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  776 字
+                  1,559 字
                 </span>
               
 
@@ -454,7 +457,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  3 分钟
+                  7 分钟
                 </span>
               
             </div>
@@ -472,40 +475,43 @@
       
 
       
-        <p>今天紧接昨天的内容，跟大家分享如何使用REmap函数制作路径图。</p>
-<p>路径图所需要的数据结构非常简单，两列数据，左侧是起点，右侧是终点，并且每一行的终点是下一行的起点，这样最终才可以制作出连接在一起的路径图。</p>
-<a id="more"></a>
-<p><strong>首先我们来构造所需的数据：</strong></p>
-<h3 id="构造数据："><a href="#构造数据：" class="headerlink" title="构造数据："></a>构造数据：</h3><p><strong>起点数据：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">origin&lt;- c(<span class="string">"beijing"</span>,<span class="string">"shijiazhuang"</span>,<span class="string">"zhengzhou"</span>,<span class="string">"hefei"</span>,<span class="string">"nanjing"</span>,<span class="string">"济南"</span>,<span class="string">"dalian"</span>)</div></pre></td></tr></table></figure></p>
-<p><strong>终点数据：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">destination&lt;- c(origin[-<span class="number">1</span>],origin[<span class="number">1</span>]) <span class="comment">#将起点数据首尾互换，并构造终点数据</span></div></pre></td></tr></table></figure></p>
-<p><strong>将终点数据、起点数据合并为数据框格式的作图数据：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">map_data&lt;- data.frame(origin,destination)</div></pre></td></tr></table></figure></p>
-<p><img src="http://or6biw7ir.bkt.clouddn.com/image1.png" alt=""></p>
-<h3 id="绘图过程："><a href="#绘图过程：" class="headerlink" title="绘图过程："></a>绘图过程：</h3><p><strong>绘图：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">map_out1&lt;- remap(mapdata=map_data,        </div><div class="line">          title =<span class="string">"我是主标题"</span>,</div><div class="line">          subtitle =<span class="string">"我是副标题"</span>,</div><div class="line">          theme =get_theme(theme=<span class="string">'Dark'</span>)</div><div class="line">          )</div><div class="line">plot(map_out1)  <span class="comment">#在web上展示图形</span></div></pre></td></tr></table></figure></p>
-<p><img src="http://or6biw7ir.bkt.clouddn.com/image2.png" alt=""></p>
-<p>上面的例子中，为了使得路径图首尾相连，终点数据是起点数据调换首尾行而得到的。</p>
-<p><strong>那么如果不要求路径图首尾相连的话可以设置如下结构：</strong></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">map_data1&lt;-map_data[-<span class="number">7</span>,]</div><div class="line"></div><div class="line">map_out2&lt;- remap(mapdata=map_data1,        </div><div class="line">          title =<span class="string">"我是主标题"</span>,</div><div class="line">          subtitle =<span class="string">"我是副标题"</span>,</div><div class="line">          theme =get_theme(theme=<span class="string">'Dark'</span>)</div><div class="line">          )</div><div class="line">plot(map_out2)  <span class="comment">#在web上展示图形</span></div></pre></td></tr></table></figure>
-<p><img src="http://or6biw7ir.bkt.clouddn.com/image3.png" alt=""></p>
-<p>这种路径图的形式非常适合用于表达带有很多中间节点的动态路线。</p>
-<p><strong>当然如果你也可以将数据源设置成两条毫不相干的路线：</strong></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">data1&lt;-c(<span class="string">"西安"</span>,<span class="string">"zhengzhou"</span>,<span class="string">"shijiazhuang"</span>,<span class="string">"beijing"</span>,<span class="string">"shenyang"</span>,<span class="string">"changhcun"</span>,<span class="string">"哈尔滨"</span>) </div><div class="line">data2&lt;-c(<span class="string">"nanyang"</span>,<span class="string">"wuhan"</span>,<span class="string">"changsha"</span>,<span class="string">"南昌"</span>,<span class="string">"guangzhou"</span>,<span class="string">"南宁"</span>,<span class="string">"贵阳"</span>)</div></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">origin&lt;-c(data1[<span class="number">1</span>:<span class="number">6</span>],data2[<span class="number">1</span>:<span class="number">6</span>])</div><div class="line">destination&lt;-c(data1[<span class="number">2</span>:<span class="number">7</span>],data2[<span class="number">2</span>:<span class="number">7</span>])</div><div class="line">map_data1&lt;- data.frame(origin,destination)</div></pre></td></tr></table></figure>
-<p><img src="http://or6biw7ir.bkt.clouddn.com/image4.png" alt=""></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">map_out3&lt;- remap(mapdata=map_data1,        </div><div class="line">          title =<span class="string">"我是主标题"</span>,</div><div class="line">          subtitle =<span class="string">"我是副标题"</span>,</div><div class="line">          theme =get_theme(theme=<span class="string">'Dark'</span>)</div><div class="line">          )</div><div class="line">plot(map_out3)</div></pre></td></tr></table></figure>
-<p><img src="http://or6biw7ir.bkt.clouddn.com/image5.png" alt=""></p>
-<p><strong>随机生成的线条和气泡颜色看着挺别扭，我们可以将其修改为自定义颜色：</strong></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">map_out4&lt;- remap(mapdata=map_data1,        </div><div class="line">          title =<span class="string">"我是主标题"</span>,</div><div class="line">          subtitle =<span class="string">"我是副标题"</span>,</div><div class="line">          theme =get_theme(theme=<span class="string">'none'</span>,</div><div class="line">          lineColor = <span class="string">"white"</span>,    </div><div class="line">          backgroundColor=<span class="string">"black"</span>      </div><div class="line">          )</div><div class="line">           )</div><div class="line">plot(map_out4)</div></pre></td></tr></table></figure>
-<p><img src="http://or6biw7ir.bkt.clouddn.com/image6.png" alt=""></p>
-<p>你可以用这种方法，结合自己的数据来表达多个地域之间的流动方向：比如一打一路、长征、贸易路线、铁路路线图等都非常适合这种表达。</p>
-<p>gif效果：</p>
-<p><img src="http://or6biw7ir.bkt.clouddn.com/image8.gif" alt=""></p>
-<p>如果想要存储该HTML对象，需要设定临时目录：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">setwd(<span class="string">"D:/R/Rscript"</span>)      <span class="comment">#保存图片的位置，不做修改默认为R的工作路径</span></div><div class="line">options(remap.js.web=<span class="literal">T</span>)    <span class="comment">#动态网页图保存命令</span></div><div class="line">plot(map_out5)             <span class="comment">#保存的同时自动调用浏览器窗口</span></div></pre></td></tr></table></figure>
-<hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
-<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<hr>
-<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+        <p><img src="http://ory93arir.bkt.clouddn.com/tea_bump/%E5%B0%81%E9%9D%A2%E5%9B%BE.png" alt=""></p>
+<p>很久没有作图了，主要是一时找不到应该练手的案例。</p>
+<p>然后昨天逛网易数独栏目的数据新闻，看到一幅还不错的案例，对于我来说值得一试，然后就手痒给照葫芦画瓢弄出来了。（主要是其中涉及到的细节处理很麻烦）</p>
+<p><img src="http://ory93arir.bkt.clouddn.com/tea_bump/image1.png" alt=""></p>
+<p>当然过程是花了些时间的，主要是需要慢慢打磨其中的细节，需要利用很多技术来处理图形版面的交接位置。</p>
+<p>令我感触最深的是，想要用ggplot2随心所欲的画图，ggplot2掌握的再熟练，也只是勉强过的了技术关，而图表背后的思维和结构更考验人，更具有挑战性。</p>
+<p>好在我学习R语言之前，就已经利用Excel临摹了大量的高难度信息图，这一点可视化素养的积累，再结合对ggplot2勤加练习获得的图感，分分钟做出一副自己喜欢的作品，已经不在话下了。</p>
+<h3 id="数据准备："><a href="#数据准备：" class="headerlink" title="数据准备："></a>数据准备：</h3><p>以下是该案例涉及到的扩展包：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(<span class="string">"plyr"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"tidyr"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"ggthemes"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"sca"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"dplyr"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"showtext"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"Cairo"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"grid"</span>)</div><div class="line">font.add(<span class="string">"myfont"</span>,<span class="string">"msyh.ttc"</span>)</div><div class="line">font.add(<span class="string">"myfzhzh"</span>,<span class="string">"方正正粗黑简体.TTF"</span>)</div></pre></td></tr></table></figure></p>
+<p>我把该案例切割成了两部分来做：</p>
+<p>（实际上如果放在一个图里做也是可以实现的，无非是多写一些代码罢了，但是涉及到颜色标度重复的问题，一时半会儿找不到解决方案，为了更加逼真的还原案例效果，我决定分开来做）。</p>
+<ul>
+<li>原图中的下半部分（条形图）（以下简称模块1）</li>
+<li>上半部分（堆积柱形图+连接带）（以下简称模块2）</li>
+</ul>
+<h3 id="导入数据源："><a href="#导入数据源：" class="headerlink" title="导入数据源："></a>导入数据源：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tea_data&lt;-read.csv(<span class="string">"D:/R/File/tea_data.csv"</span>,stringsAsFactors=<span class="literal">FALSE</span>,check.names=<span class="literal">FALSE</span>)</div><div class="line">tea_data$State[<span class="number">12</span>]&lt;-<span class="string">"印度尼\n西亚"</span></div></pre></td></tr></table></figure>
+<p><img src="http://ory93arir.bkt.clouddn.com/tea_bump/image2.jpg" alt=""></p>
+<p>tea_bump是上半部分（模块2）中堆积柱形图的数据源，我没有使用传统的堆积柱形图去做，而是使用了矩形几何对象，所以数据源中需要指定X轴起始点，Y轴起始点。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">tea_bump&lt;-na.omit(tea_data[,c(<span class="string">"State"</span>,<span class="string">"Yield"</span>,<span class="string">"Ratio"</span>)])</div><div class="line">tea_bump&lt;-arrange(tea_bump,-Yield)</div><div class="line">other_Ratio&lt;-<span class="number">1</span>-sum(tea_bump$Ratio)</div><div class="line">other_Yield&lt;-sum(tea_bump$Yield)/sum(tea_bump$Ratio)-sum(tea_bump$Yield)</div><div class="line">data1&lt;-data.frame(State=<span class="string">"其他"</span>,Yield=other_Yield,Ratio=other_Ratio)</div><div class="line">tea_bump&lt;-rbind(tea_bump,data1)</div><div class="line">tea_bump$end&lt;-cumsum(tea_bump$Yield)</div><div class="line">tea_bump$start&lt;-c(<span class="number">0</span>,tea_bump$end[<span class="number">1</span>:nrow(tea_bump)-<span class="number">1</span>])</div><div class="line">tea_bump$id&lt;-<span class="number">1</span>:nrow(tea_bump)</div><div class="line">tea_bump&lt;-merge(tea_bump,tea_data[,c(<span class="string">"State"</span>,<span class="string">"Consum"</span>)],by=<span class="string">"State"</span>,all.x=<span class="literal">TRUE</span>)</div><div class="line">tea_bump&lt;-arrange(tea_bump,-Yield)</div></pre></td></tr></table></figure></p>
+<p><img src="http://ory93arir.bkt.clouddn.com/tea_bump/image3.jpg" alt=""></p>
+<p>以下是下半部分柱形图的数据源，同样我也没有使用普通的柱形图几何对象去做，而是使用了范围线图（geom_linerange），这样可以节省调整步骤，但须额外设置线的起始点。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">tea_bar&lt;-tea_data[,c(<span class="string">"State"</span>,<span class="string">"Consum"</span>)]</div><div class="line">tea_bar$id&lt;-<span class="number">1</span>:nrow(tea_bar)</div><div class="line">colorpal&lt;-ifelse(tea_data$State %<span class="keyword">in</span>% tea_bump$State,<span class="string">"#B4BFB4"</span>,<span class="string">"#E5E5E5"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"ggplot2"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"showtext"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"Cairo"</span>)</div></pre></td></tr></table></figure></p>
+<h3 id="底部柱形图对象："><a href="#底部柱形图对象：" class="headerlink" title="底部柱形图对象："></a>底部柱形图对象：</h3><p>（因为需要拼图，所以图形对象要临时存储）<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">p1&lt;-ggplot()+</div><div class="line">geom_hline(aes(yintercept=<span class="number">1</span>:<span class="number">7</span>*<span class="number">400</span>),colour=<span class="string">"grey"</span>,linetype=<span class="number">2</span>)+</div><div class="line">geom_linerange(data=tea_bar,aes(x=id,ymin=max(tea_bar$Consum)-Consum,ymax=max(tea_bar$Consum),colour=Consum),size=<span class="number">24</span>)+</div><div class="line">geom_point(data=tea_bar,aes(x=id,y=max(tea_bar$Consum)+<span class="number">165</span>,fill=colorpal),shape=<span class="number">22</span>,colour=<span class="string">"white"</span>,size=<span class="number">37.5</span>)+</div><div class="line">geom_text(data=tea_bar,aes(x=id,y=max(tea_bar$Consum)+<span class="number">165</span>,label=State),size=<span class="number">6</span>,family=<span class="string">"myfont"</span>,vjust=<span class="number">.5</span>)+</div><div class="line">geom_text(data=tea_bar,aes(x=id,y=max(tea_bar$Consum)-Consum+<span class="number">80</span>,label=Consum),size=<span class="number">6</span>,family=<span class="string">"myfont"</span>,vjust=<span class="number">0.5</span>,colour=<span class="string">"white"</span>)+</div><div class="line">annotate(<span class="string">"text"</span>,x =<span class="number">5</span>,y=<span class="number">80</span>,label=<span class="string">"各国每年人均茶叶消费量（克）"</span>,family=<span class="string">"myfzhzh"</span>,size=<span class="number">11</span>,colour=<span class="string">"#515551"</span>)+</div><div class="line">ylim(<span class="number">0</span>,<span class="number">4800</span>)+</div><div class="line">geom_linerange()+</div><div class="line">guides(fill=<span class="literal">FALSE</span>,colour=<span class="literal">FALSE</span>)+</div><div class="line">scale_colour_gradient(low=<span class="string">"#A1C997"</span>,high=<span class="string">"#47734A"</span>)+</div><div class="line">scale_fill_manual(values=c(<span class="string">"#B4BFB4"</span>,<span class="string">"#E5E5E5"</span>))+</div><div class="line">theme_map(base_family=<span class="string">"myfont"</span>) %+replace% </div><div class="line">theme(</div><div class="line">      plot.margin=unit(c(<span class="number">0</span>,<span class="number">1.5</span>,<span class="number">0</span>,<span class="number">1.5</span>), <span class="string">"cm"</span>),</div><div class="line">      )</div></pre></td></tr></table></figure></p>
+<p><img src="http://ory93arir.bkt.clouddn.com/tea_bump/image4.png" alt=""></p>
+<p><strong>以下数据是构造模块2辅助数据：</strong></p>
+<p>（上半部分堆积柱形图的下侧连接带数据）的辅助数据，我打算使用多边形几何对象了来模拟那些参差交错的连接带。这就意味着我要找到每一条带子，即四边形的四个拐点坐标，并按顺序排列。）</p>
+<p>如果你看的不是很懂，实属正常，这种笨拙的想法，我也不知道是从哪里学来的。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">tea_chord&lt;-data.frame(State=tea_data$State)</div><div class="line">tea_chord$id&lt;-<span class="number">1</span>:nrow(tea_chord)</div><div class="line">tea_chord$mean&lt;-sum(tea_bump$Yield)/nrow(tea_chord)</div><div class="line">tea_chord$xend&lt;-cumsum(tea_chord$mean)</div><div class="line">tea_chord$xstart&lt;-c(<span class="number">0</span>,tea_chord$xend[<span class="number">1</span>:nrow(tea_chord)-<span class="number">1</span>])</div></pre></td></tr></table></figure></p>
+<p><img src="http://ory93arir.bkt.clouddn.com/tea_bump/image5.jpg" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">tea_chord_data&lt;-tea_chord[tea_chord$State %<span class="keyword">in</span>% tea_bump$State,c(<span class="string">"State"</span>,<span class="string">"xstart"</span>,<span class="string">"xend"</span>)]</div><div class="line">tea_chord_data&lt;-merge(tea_chord_data,tea_bump[tea_bump$State!=<span class="string">"其他"</span>,c(<span class="string">"State"</span>,<span class="string">"start"</span>,<span class="string">"end"</span>)],by=<span class="string">"State"</span>)</div><div class="line">tea_chord_data&lt;-tea_chord_data[,c(<span class="string">"State"</span>,<span class="string">"start"</span>,<span class="string">"end"</span>,<span class="string">"xend"</span>,<span class="string">"xstart"</span>)]</div><div class="line">tea_chord_newdata&lt;-data.frame(t(tea_chord_data),stringsAsFactors=<span class="literal">FALSE</span>)</div><div class="line">names(tea_chord_newdata)&lt;-tea_chord_data$State;tea_chord_newdata&lt;-tea_chord_newdata[-<span class="number">1</span>,]</div><div class="line">rownames(tea_chord_newdata)&lt;-<span class="literal">NULL</span></div><div class="line">tea_chord_newdata$order&lt;-<span class="number">1</span>:nrow(tea_chord_newdata)</div></pre></td></tr></table></figure>
+<p><img src="http://ory93arir.bkt.clouddn.com/tea_bump/image6.jpg" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">tea_chord_newdata_final&lt;-gather(tea_chord_newdata,State,long,-order)</div><div class="line">tea_chord_newdata_final$lat&lt;-<span class="number">5</span></div><div class="line">tea_chord_newdata_final$lat[tea_chord_newdata_final$order==<span class="number">3</span>|tea_chord_newdata_final$order==<span class="number">4</span>]&lt;--<span class="number">5</span></div><div class="line">tea_chord_newdata_final$long&lt;-as.numeric(tea_chord_newdata_final$long)</div></pre></td></tr></table></figure>
+<p><img src="http://ory93arir.bkt.clouddn.com/tea_bump/image7.jpg" alt=""></p>
+<p>所以说上半部分的堆积柱形图（附加连接带）其实是用了两份不同的数据源模拟出来的。</p>
+<h3 id="以下是模块2的可视化代码部分："><a href="#以下是模块2的可视化代码部分：" class="headerlink" title="以下是模块2的可视化代码部分："></a>以下是模块2的可视化代码部分：</h3><p>（也需临时存储）<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">p2&lt;-ggplot()+</div><div class="line">geom_rect(data=tea_bump,aes(xmin=start,xmax=end,ymin=<span class="number">5</span>,ymax=<span class="number">15</span>,fill=Consum),colour=<span class="string">"white"</span>)+</div><div class="line">geom_polygon(data=tea_chord_newdata_final,aes(x=long,y=lat,group=State),fill=<span class="string">"#B1C6B0"</span>,colour=<span class="literal">NA</span>,size=<span class="number">.25</span>,alpha=<span class="number">.8</span>)+</div><div class="line">labs(title=<span class="string">"全国茶叶年产量406.7（万吨）"</span>)+</div><div class="line">geom_text(data=tea_bump[tea_bump$State!=<span class="string">"其他"</span>,],aes(x=start+<span class="number">5.5</span>,y=<span class="number">13</span>,label=round(Yield,<span class="number">1</span>)),size=<span class="number">5.5</span>,family=<span class="string">"myfont"</span>,vjust=<span class="number">0.5</span>,colour=<span class="string">"white"</span>)+</div><div class="line">geom_text(data=tea_bump[tea_bump$State!=<span class="string">"其他"</span>,],aes(x=start+<span class="number">6</span>,y=<span class="number">7</span>,label=percent(Ratio,d=<span class="number">1</span>,sep=<span class="string">""</span>)),size=<span class="number">5.5</span>,family=<span class="string">"myfont"</span>,vjust=<span class="number">0.5</span>,colour=<span class="string">"white"</span>)+</div><div class="line">scale_fill_gradient(low=<span class="string">"#A1C997"</span>,high=<span class="string">"#47734A"</span>,na.value=<span class="string">"#E5E5E5"</span>,guide=<span class="literal">FALSE</span>)+</div><div class="line">theme_map() %+replace% </div><div class="line">theme(</div><div class="line">      plot.title=element_text(size=<span class="number">35</span>,family=<span class="string">"myfzhzh"</span>,hjust=<span class="number">.5</span>)</div><div class="line">      )</div></pre></td></tr></table></figure></p>
+<p><img src="http://ory93arir.bkt.clouddn.com/tea_bump/image8.jpg" alt=""></p>
+<p>有了上下两部分的对象，剩下的就好办了，无非就是拼接起来嘛，但是拼接的过程相当考验人的耐性和毅力，不适合浮躁型的人来做。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">CairoPNG(file=<span class="string">"E:/bump_bar.png"</span>,width=<span class="number">1550</span>,height=<span class="number">1200</span>)</div><div class="line">showtext.begin()</div><div class="line">vie&lt;-viewport(width=<span class="number">1</span>,height=<span class="number">0.215</span>,x=<span class="number">0.5</span>,y=<span class="number">0.8</span>)</div><div class="line">p1;print(p2,vp=vie)</div><div class="line">grid.text(label=<span class="string">"全球茶叶消费排行榜\n喝茶最多的不是中国人"</span>,x=<span class="number">.80</span>,y=<span class="number">.20</span>,gp=gpar(col=<span class="string">"black"</span>,fontsize=<span class="number">45</span>,fontfamily=<span class="string">"myfzhzh"</span>,draw=<span class="literal">TRUE</span>,just=<span class="string">"right"</span>))</div><div class="line">grid.text(label=<span class="string">"数据来源：Euromonitor、国际茶叶委员会（ITC）"</span>,x=<span class="number">.80</span>,y=<span class="number">.13</span>,gp=gpar(col=<span class="string">"black"</span>,fontsize=<span class="number">20</span>,fontfamily=<span class="string">"myfzhzh"</span>,draw=<span class="literal">TRUE</span>,just=<span class="string">"right"</span>))</div><div class="line">showtext.end()</div><div class="line">dev.off()</div></pre></td></tr></table></figure>
+<p><img src="http://ory93arir.bkt.clouddn.com/tea_bump/image9.png" alt=""></p>
+<p>为了与原图对比，我使用PS修饰了一些细节：<br><img src="http://ory93arir.bkt.clouddn.com/tea_bump/image10.png" alt=""></p>
+<p>做完回头想想，做这个图我也是真够无聊的，大概要耗费半天的时间去调试，不过调试的过程能学到的东西倒是很有趣，最近看了不起的匠人，感觉多少有些被感染到了，这算不算是强迫症~_~</p>
 
       
     </div>
@@ -560,13 +566,9 @@
           
             <a href="/tags/R语言/" rel="tag"># R语言</a>
           
-            <a href="/tags/地理信息可视化/" rel="tag"># 地理信息可视化</a>
+            <a href="/tags/ggplot2/" rel="tag"># ggplot2</a>
           
-            <a href="/tags/在线地图/" rel="tag"># 在线地图</a>
-          
-            <a href="/tags/REmap/" rel="tag"># REmap</a>
-          
-            <a href="/tags/路径图/" rel="tag"># 路径图</a>
+            <a href="/tags/信息图/" rel="tag"># 信息图</a>
           
         </div>
       
@@ -579,8 +581,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/07/R语言可视化——REmap动态地图/" rel="next" title="R语言可视化——REmap动态地图">
-                <i class="fa fa-chevron-left"></i> R语言可视化——REmap动态地图
+              <a href="/2017/06/28/R语言数据处理——数据合并与追加/" rel="next" title="R语言数据处理——数据合并与追加">
+                <i class="fa fa-chevron-left"></i> R语言数据处理——数据合并与追加
               </a>
             
           </div>
@@ -588,10 +590,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/08/R语言可视化——案例综合运用/" rel="prev" title="R语言可视化——案例综合运用">
-                R语言可视化——案例综合运用 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -790,7 +788,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#构造数据："><span class="nav-number">1.</span> <span class="nav-text">构造数据：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绘图过程："><span class="nav-number">2.</span> <span class="nav-text">绘图过程：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据准备："><span class="nav-number">1.</span> <span class="nav-text">数据准备：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导入数据源："><span class="nav-number">2.</span> <span class="nav-text">导入数据源：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#底部柱形图对象："><span class="nav-number">3.</span> <span class="nav-text">底部柱形图对象：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#以下是模块2的可视化代码部分："><span class="nav-number">4.</span> <span class="nav-text">以下是模块2的可视化代码部分：</span></a></li></ol></div>
             
 
           </div>
