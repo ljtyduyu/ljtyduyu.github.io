@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.raindu.com/"/>
-  <updated>2017-06-30T10:05:14.493Z</updated>
+  <updated>2017-07-02T01:23:46.351Z</updated>
   <id>http://www.raindu.com/</id>
   
   <author>
@@ -14,6 +14,103 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>左手用R右手Python系列——数据塑型与长宽转换</title>
+    <link href="http://www.raindu.com/2017/07/02/%E5%B7%A6%E6%89%8B%E7%94%A8R%E5%8F%B3%E6%89%8BPython%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E5%A1%91%E5%9E%8B%E4%B8%8E%E9%95%BF%E5%AE%BD%E8%BD%AC%E6%8D%A2/"/>
+    <id>http://www.raindu.com/2017/07/02/左手用R右手Python系列——数据塑型与长宽转换/</id>
+    <published>2017-07-02T01:08:23.000Z</published>
+    <updated>2017-07-02T01:23:46.351Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://orn9f9laz.bkt.clouddn.com/cleaning/title.jpg" alt=""></p>
+<p>今天这篇是R语言 with Python系列的第三篇，主要跟大家分享数据处理过程中的数据塑型与长宽转换。</p>
+<a id="more"></a>
+<p>其实这个系列算是我对于之前学习的R语言系列的一个总结，再加上刚好最近入门Python，这样在总结R语言的同时，对比R语言与Pyhton在数据处理中常用解决方案的差异，每一个小节只讲一个小知识点，但是这些知识点都是日常数据处理与清洗过程中非常高频的需求。</p>
+<p>不会跟大家啰嗦太多每一个函数的详细参数，只列出那些参数中的必要设定，总体以简单实用为原则。如若需要详细了解每一个函数的内部参数，还是需要自己查阅官方文档。</p>
+<p>数据长宽转换是很常用的需求，特别是当是从Excel中导入的汇总表时，常常需要转换成一维表（长数据）才能提供给图表函数或者模型使用。</p>
+<h3 id="R语言数据塑型："><a href="#R语言数据塑型：" class="headerlink" title="R语言数据塑型："></a>R语言数据塑型：</h3><p>在R语言中，提供数据长宽转换的包主要有两个：</p>
+<ul>
+<li>reshape2::melt/dcast</li>
+<li>tidyr::gather/spread</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(<span class="string">"reshape2"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"tidyr"</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">mydata&lt;-data.frame(</div><div class="line">       Name = c(<span class="string">"苹果"</span>,<span class="string">"谷歌"</span>,<span class="string">"脸书"</span>,<span class="string">"亚马逊"</span>,<span class="string">"腾讯"</span>),</div><div class="line">       Conpany = c(<span class="string">"Apple"</span>,<span class="string">"Google"</span>,<span class="string">"Facebook"</span>,<span class="string">"Amozon"</span>,<span class="string">"Tencent"</span>),</div><div class="line">       Sale2013 = c(<span class="number">5000</span>,<span class="number">3500</span>,<span class="number">2300</span>,<span class="number">2100</span>,<span class="number">3100</span>),</div><div class="line">       Sale2014 = c(<span class="number">5050</span>,<span class="number">3800</span>,<span class="number">2900</span>,<span class="number">2500</span>,<span class="number">3300</span>),</div><div class="line">       Sale2015 = c(<span class="number">5050</span>,<span class="number">3800</span>,<span class="number">2900</span>,<span class="number">2500</span>,<span class="number">3300</span>),</div><div class="line">       Sale2016 = c(<span class="number">5050</span>,<span class="number">3800</span>,<span class="number">2900</span>,<span class="number">2500</span>,<span class="number">3300</span>)</div><div class="line">       )</div></pre></td></tr></table></figure>
+<p><img src="http://orn9f9laz.bkt.clouddn.com/cleaning/image1.jpg" alt=""></p>
+<h4 id="数据重塑（宽转长）："><a href="#数据重塑（宽转长）：" class="headerlink" title="数据重塑（宽转长）："></a>数据重塑（宽转长）：</h4><p>melt函数是reshape2包中的数据宽转长的函数<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mydata&lt;-melt(</div><div class="line">       mydata,                                      <span class="comment">#待转换的数据集名称</span></div><div class="line">       id.vars=c(<span class="string">"Conpany"</span>,<span class="string">"Name"</span>),  <span class="comment">#要保留的主字段</span></div><div class="line">       variable.name=<span class="string">"Year"</span>,               <span class="comment">#转换后的分类字段名称（维度）</span></div><div class="line">       value.name=<span class="string">"Sale"</span>                    <span class="comment">#转换后的度量值名称</span></div><div class="line">       )</div></pre></td></tr></table></figure></p>
+<p><img src="http://orn9f9laz.bkt.clouddn.com/cleaning/image2.jpg" alt=""></p>
+<p>转换之后，长数据结构保留了原始宽数据中的Name、Conpany字段，同时将剩余的年度指标进行堆栈，转换为一个代表年度的类别维度和对应年度的指标。（即转换后，所有年度字段被降维化了）。</p>
+<p>在tidyr包中的gather也可以非常快捷的完成宽转长的任务：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">data1&lt;-gather(</div><div class="line">      data=mydata,             <span class="comment">#待转换的数据集名称</span></div><div class="line">      key=<span class="string">"Year"</span>,                <span class="comment">#转换后的分类字段名称（维度）</span></div><div class="line">      value=<span class="string">"Sale"</span> ,             <span class="comment">#转换后的度量值名称</span></div><div class="line">      Sale2013:Sale2016    <span class="comment">#选择将要被拉长的字段组合</span></div><div class="line">      )                                  <span class="comment">#（可以使用x:y的格式选择连续列，也可以以-z的格式排除主字段）</span></div></pre></td></tr></table></figure></p>
+<p><img src="http://orn9f9laz.bkt.clouddn.com/cleaning/image3.jpg" alt=""></p>
+<p>而相对于数据宽转长而言，数据长转宽就显得不是很常用，因为长转宽是数据透视，这种透视过程可以通过汇总函数或者类数据透视表函数来完成。</p>
+<p>但是既然数据长宽转换是成对的需求，自然有对应的长转宽函数。</p>
+<h4 id="数据塑型（长转宽）："><a href="#数据塑型（长转宽）：" class="headerlink" title="数据塑型（长转宽）："></a>数据塑型（长转宽）：</h4><p>reshape2中的dcast函数可以完成数据长转宽的需求：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">dcast(</div><div class="line">     data=data1,         <span class="comment">#数据集名称</span></div><div class="line">     Name+Conpany~Year   <span class="comment">#x1+x2+……~class </span></div><div class="line">    <span class="comment">#这一项是一个转换表达式，表达式左侧列       </span></div><div class="line">    <span class="comment">#出要保留的主字段（即不会被扩宽的字段，右侧则是要分割的分类变量，扩展之后的       </span></div><div class="line">    <span class="comment">#宽数据会增加若干列度量值，列数等于表达式右侧分类变量的类别个数</span></div><div class="line">  ）</div></pre></td></tr></table></figure></p>
+<p><img src="http://orn9f9laz.bkt.clouddn.com/cleaning/image4.jpg" alt=""></p>
+<p>除此之外，tidyr包中的spread函数在解决数据长转宽方面也是很好的一个选择。</p>
+<p><strong>spread：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">spread(</div><div class="line">   data=data1,   <span class="comment">#带转换长数据框名称</span></div><div class="line">   key=Year,     <span class="comment">#带扩宽的类别变量（编程新增列名称）  </span></div><div class="line">   value=Sale)   <span class="comment">#带扩宽的度量值 （编程新增列度量值）</span></div></pre></td></tr></table></figure></p>
+<p><img src="http://orn9f9laz.bkt.clouddn.com/cleaning/image5.jpg" alt=""></p>
+<p>从以上代码的复杂度来看，reshape2内的两个函数melt\dcast和tidyr内的两个函数gather\spread相比，gather\spread这一对函数完胜，不愧是哈神的最新力作，tidyr内的两个函数所需参数少，逻辑上更好理解，自始至终都围绕着data，key、value三个参数来进行设定，而相对老旧的包reshape2内的melt\dcast函数在参数配置上就显得不是很友好，他是围绕着一直不变的主字段来进行设定的，tidyr包则围绕着转换过程中会变形的维度和度量来设定的。</p>
+<p>接下来是Python中的数据塑性与长宽转换。</p>
+<h3 id="Python数据长宽转换："><a href="#Python数据长宽转换：" class="headerlink" title="Python数据长宽转换："></a>Python数据长宽转换：</h3><p>Python中我只讲两个函数：</p>
+<ul>
+<li>melt  #数据宽转长</li>
+<li>pivot_table  #数据长转宽</li>
+</ul>
+<p>Python中的Pandas包提供了与R语言中reshape2包内几乎同名的melt函数来对数据进行塑型（宽转长）操作，甚至连内部参数都保持了一致的风格。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"></div><div class="line">mydata=pd.DataFrame(&#123;</div><div class="line"><span class="string">"Name"</span>:[<span class="string">"苹果"</span>,<span class="string">"谷歌"</span>,<span class="string">"脸书"</span>,<span class="string">"亚马逊"</span>,<span class="string">"腾讯"</span>],</div><div class="line"><span class="string">"Conpany"</span>:[<span class="string">"Apple"</span>,<span class="string">"Google"</span>,<span class="string">"Facebook"</span>,<span class="string">"Amozon"</span>,<span class="string">"Tencent"</span>],</div><div class="line"><span class="string">"Sale2013"</span>:[<span class="number">5000</span>,<span class="number">3500</span>,<span class="number">2300</span>,<span class="number">2100</span>,<span class="number">3100</span>],</div><div class="line"><span class="string">"Sale2014"</span>:[<span class="number">5050</span>,<span class="number">3800</span>,<span class="number">2900</span>,<span class="number">2500</span>,<span class="number">3300</span>],</div><div class="line"><span class="string">"Sale2015"</span>:[<span class="number">5050</span>,<span class="number">3800</span>,<span class="number">2900</span>,<span class="number">2500</span>,<span class="number">3300</span>],</div><div class="line"><span class="string">"Sale2016"</span>:[<span class="number">5050</span>,<span class="number">3800</span>,<span class="number">2900</span>,<span class="number">2500</span>,<span class="number">3300</span>]</div><div class="line">       &#125;)</div></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mydata1=mydata.melt(</div><div class="line">id_vars=[<span class="string">"Name"</span>,<span class="string">"Conpany"</span>],   <span class="comment">#要保留的主字段</span></div><div class="line">var_name=<span class="string">"Year"</span>,              <span class="comment">#拉长的分类变量</span></div><div class="line">value_name=<span class="string">"Sale"</span>             <span class="comment">#拉长的度量值名称</span></div><div class="line">        )</div></pre></td></tr></table></figure>
+<p><img src="http://orn9f9laz.bkt.clouddn.com/cleaning/image6.jpg" alt=""></p>
+<p>除此之外，我了解到还可以通过stack、wide_to_long函数来进行宽转长，但是个人觉得melt函数比较直观一些，也与R语言中的数据宽转长用法一致，推荐使用。</p>
+<p>奇怪的是我好像没有在pandas中找到对应melt的数据长转宽函数（R语言中都是成对出现的）。还在Python中提供了非常便捷的数据透视表操作函数，刚开始就已经说过是，长数据转宽数据就是数据透视的过程（自然宽转长就可以被称为逆透视咯，PowerBI也是这么称呼的）。</p>
+<p>pandas中的数据透视表函数提供如同Excel原生透视表一样的使用体验，即行标签、列标签、度量值等操作，根据使用规则，行列主要操作维度指标，值主要操作度量指标。</p>
+<p>那么以上长数据mydata1就可以通过这种方式实现透视。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mydata1.pivot_table(</div><div class="line">index=[<span class="string">"Name"</span>,<span class="string">"Conpany"</span>], <span class="comment">#行索引（可以使多个类别变量）</span></div><div class="line">columns=[<span class="string">"Year"</span>],         <span class="comment">#列索引（可以使多个类别变量）</span></div><div class="line">values=[<span class="string">"Sale"</span>]           <span class="comment">#值（一般是度量指标）</span></div><div class="line">     )</div></pre></td></tr></table></figure>
+<p><img src="http://orn9f9laz.bkt.clouddn.com/cleaning/image7.jpg" alt=""></p>
+<p>通常这种操作也可以借助堆栈函数来达到同样的目的。(但是使用stack\unstack需要额外设置多索引，灰常麻烦，所以不是很推荐，有兴趣可以查看pandas中的stack/unstack方法，这里不再赘述)。</p>
+<p>综上所述，本文主要提供了R语言与Python中用于处理数据重塑（长宽转换的常用解决方案）。</p>
+<table>
+<thead>
+<tr>
+<th>语言</th>
+<th>宽转长</th>
+<th>长转宽</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R语言</td>
+<td>reshape2::melt<br>tidyr::gather</td>
+<td>reshape2::dcast<br>tidyr::spread</td>
+</tr>
+<tr>
+<td>Python</td>
+<td>pandas-melt</td>
+<td>pandas-pivot_table<br>备选方案——stack/unstack、wide_to_long</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
+<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
+<hr>
+<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://orn9f9laz.bkt.clouddn.com/cleaning/title.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;今天这篇是R语言 with Python系列的第三篇，主要跟大家分享数据处理过程中的数据塑型与长宽转换。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://www.raindu.com/categories/Python/"/>
+    
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="Python" scheme="http://www.raindu.com/tags/Python/"/>
+    
+      <category term="数据长宽转换" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E9%95%BF%E5%AE%BD%E8%BD%AC%E6%8D%A2/"/>
+    
+  </entry>
   
   <entry>
     <title>一篇全是代码的数据可视化案例</title>
@@ -56,9 +153,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -129,9 +226,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -266,7 +363,7 @@
     <link href="http://www.raindu.com/2017/06/27/%E5%B7%A6%E6%89%8B%E7%94%A8R%E5%8F%B3%E6%89%8BPython%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E5%90%88%E5%B9%B6%E4%B8%8E%E8%BF%BD%E5%8A%A0/"/>
     <id>http://www.raindu.com/2017/06/27/左手用R右手Python系列——数据合并与追加/</id>
     <published>2017-06-27T03:44:02.000Z</published>
-    <updated>2017-06-27T04:23:58.005Z</updated>
+    <updated>2017-07-02T01:09:16.359Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://orp205tiu.bkt.clouddn.com/R_Python/merge/face.jpg" alt=""></p>
 <p>今天这篇跟大家介绍R语言与Python数据处理中的第二个小知识点——数据合并与追加。</p>
@@ -365,8 +462,6 @@
     
       <category term="数据合并与追加" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%90%88%E5%B9%B6%E4%B8%8E%E8%BF%BD%E5%8A%A0/"/>
     
-      <category term="ggtech" scheme="http://www.raindu.com/tags/ggtech/"/>
-    
       <category term="Python" scheme="http://www.raindu.com/tags/Python/"/>
     
   </entry>
@@ -453,9 +548,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -513,9 +608,9 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -728,9 +823,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -800,9 +895,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -867,9 +962,9 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -1017,11 +1112,11 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="商务图表" scheme="http://www.raindu.com/tags/%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
-    
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="数据地图" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%9C%B0%E5%9B%BE/"/>
     
@@ -1070,11 +1165,11 @@
       <category term="R语言" scheme="http://www.raindu.com/categories/R%E8%AF%AD%E8%A8%80/"/>
     
     
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="商务图表" scheme="http://www.raindu.com/tags/%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
-    
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="数据地图" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%9C%B0%E5%9B%BE/"/>
     
@@ -1156,11 +1251,11 @@
       <category term="R语言" scheme="http://www.raindu.com/categories/R%E8%AF%AD%E8%A8%80/"/>
     
     
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="商务图表" scheme="http://www.raindu.com/tags/%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
-    
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="数据地图" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%9C%B0%E5%9B%BE/"/>
     
@@ -1253,9 +1348,9 @@
       <category term="Excel" scheme="http://www.raindu.com/categories/Excel/"/>
     
     
-      <category term="Excel" scheme="http://www.raindu.com/tags/Excel/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="Excel" scheme="http://www.raindu.com/tags/Excel/"/>
     
       <category term="商务图表" scheme="http://www.raindu.com/tags/%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
     
@@ -1324,9 +1419,9 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="图表美化" scheme="http://www.raindu.com/tags/%E5%9B%BE%E8%A1%A8%E7%BE%8E%E5%8C%96/"/>
     
@@ -1393,9 +1488,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="气泡云图.superbubble" scheme="http://www.raindu.com/tags/%E6%B0%94%E6%B3%A1%E4%BA%91%E5%9B%BE-superbubble/"/>
     
@@ -1480,9 +1575,9 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="图表美化" scheme="http://www.raindu.com/tags/%E5%9B%BE%E8%A1%A8%E7%BE%8E%E5%8C%96/"/>
     
@@ -1553,90 +1648,15 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="数据地图" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%9C%B0%E5%9B%BE/"/>
     
       <category term="九段线" scheme="http://www.raindu.com/tags/%E4%B9%9D%E6%AE%B5%E7%BA%BF/"/>
     
       <category term="mini导航窗口" scheme="http://www.raindu.com/tags/mini%E5%AF%BC%E8%88%AA%E7%AA%97%E5%8F%A3/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>R语言可视化——ggplot的theme订制</title>
-    <link href="http://www.raindu.com/2017/06/17/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94ggplot%E7%9A%84theme%E8%AE%A2%E5%88%B6/"/>
-    <id>http://www.raindu.com/2017/06/17/R语言可视化——ggplot的theme订制/</id>
-    <published>2017-06-17T13:41:13.000Z</published>
-    <updated>2017-06-17T13:54:25.140Z</updated>
-    
-    <content type="html"><![CDATA[<p>ggplot作图系统在R预言诸多可视化包中之所以如此的风靡，除了它拥有自己的图层理念之外，我觉得还要归功于它对于图表细节元素的灵活调整。</p>
-<p>对于ggplot的初学者而言，可能没有太多的在意图表的主题是否优雅，配色是否美观，仅求能够准确无误的出图就OK了。</p>
-<p>但是如果仅限于此，那么使用ggplot作图真的就是杀鸡用了宰牛刀了。</p>
-<a id="more"></a>
-<p>就拿默认的图表来说，虽然你只靠两句代码就可以跑出来一幅还算及格的图表，可是ggplot语法博大精深，背后给你的代码默认匹配的参数不计其数。</p>
-<p>其中有一组特别庞大的参数组就是<code>theme（）</code>参数：</p>
-<p>默认的图表再不添加任何自定义主题和配色的情况下，软件会给出默认的主题和配色：</p>
-<p>默认主题是<code>theme_gray</code>,中一共给出了两套主题，分别是<code>theme_gray</code>、<code>theme_bw</code></p>
-<p>接下来我们来一步步验证：</p>
-<h3 id="首先加载包："><a href="#首先加载包：" class="headerlink" title="首先加载包："></a>首先加载包：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>（ggplot2）</div><div class="line"><span class="keyword">library</span>（reshape2）</div><div class="line"><span class="keyword">library</span>(ggtheme)</div></pre></td></tr></table></figure>
-<h3 id="构造作图数据："><a href="#构造作图数据：" class="headerlink" title="构造作图数据："></a>构造作图数据：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">data&lt;-data.frame(Name = c(<span class="string">"苹果"</span>,<span class="string">"谷歌"</span>,<span class="string">"脸书"</span>,<span class="string">"亚马逊"</span>,<span class="string">"腾讯"</span>),Conpany = c(<span class="string">"Apple"</span>,<span class="string">"Google"</span>,<span class="string">"Facebook"</span>,<span class="string">"Amozon"</span>,<span class="string">"Tencent"</span>),Sale2013 = c(<span class="number">5000</span>,<span class="number">3500</span>,<span class="number">2300</span>,<span class="number">2100</span>,<span class="number">3100</span>),Sale2014 = c(<span class="number">5050</span>,<span class="number">3800</span>,<span class="number">2900</span>,<span class="number">2500</span>,<span class="number">3300</span>),Sale2015 = c(<span class="number">5050</span>,<span class="number">3800</span>,<span class="number">2900</span>,<span class="number">2500</span>,<span class="number">3300</span>),Sale2016 = c(<span class="number">5050</span>,<span class="number">3800</span>,<span class="number">2900</span>,<span class="number">2500</span>,<span class="number">3300</span>))</div><div class="line">mydata&lt;-melt(data,id.vars=c(<span class="string">"Name"</span>,<span class="string">"Conpany"</span>),variable.name=<span class="string">"Year"</span>,value.name=<span class="string">"Sale"</span>)</div></pre></td></tr></table></figure>
-<h3 id="初始化绘图："><a href="#初始化绘图：" class="headerlink" title="初始化绘图："></a>初始化绘图：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(Conpany,Sale,fill=Year))+geom_bar(stat=<span class="string">"identity"</span>)</div></pre></td></tr></table></figure>
-<p><img src="http://orp205tiu.bkt.clouddn.com/image2.png" alt=""></p>
-<p>以上代码（已经简化的不能再简化了，不夸张的说，再少一个标点符号，就要报错了）跑出来的默认堆积条形图。</p>
-<h3 id="添加主题："><a href="#添加主题：" class="headerlink" title="添加主题："></a>添加主题：</h3><p>可是在R预言可视化这个领域内，以上图表绝对是一个烂大街的货色，怎么说呢，因为你不修改主题，它搭配的主题永远都是<code>theme_gray</code></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(Conpany,Sale,fill=Year))+geom_bar(stat=<span class="string">"identity"</span>)+theme_gray()</div><div class="line">ggplot(mydata,aes(Conpany,Sale,fill=Year))+geom_bar(stat=<span class="string">"identity"</span>)+theme_bw()</div></pre></td></tr></table></figure>
-<p><img src="http://orp205tiu.bkt.clouddn.com/image1.png" alt=""><br><img src="http://orp205tiu.bkt.clouddn.com/image3.png" alt=""></p>
-<p>以上两个图表分别套用了默认主题<code>theme_gray()</code>和备用主题<code>theme_bw()</code>，所以看去来前者与第一幅图无异，后者则差别很大。</p>
-<p>虽然看起来修改主题好像很简单的样纸，殊不知，在主题内部，该函数是设定了不计其数、让人眼花缭乱的参数。</p>
-<h3 id="主题函数结构："><a href="#主题函数结构：" class="headerlink" title="主题函数结构："></a>主题函数结构：</h3><p>你可以通过<code>theme_gray</code> 查看主题函数内的参数配置：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">theme_gray</div></pre></td></tr></table></figure>
-<p><img src="http://orp205tiu.bkt.clouddn.com/image4.png" alt=""></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">theme_bw</div></pre></td></tr></table></figure>
-<p><img src="http://orp205tiu.bkt.clouddn.com/image5.png" alt=""></p>
-<p>哈哈看傻眼了吧，其实仔细捋一捋，主题函数内的参数虽然繁杂，但是绝对算不上晦涩。</p>
-<p><strong>以下是自己整理的主题参数列表：</strong></p>
-<p><img src="http://orp205tiu.bkt.clouddn.com/image6.png" alt=""></p>
-<p>通过设定主题参数，你也可以制作专属的图表主题模板。</p>
-<p>接下来我将设定一个简单的主题模板用于修改以上的图表主题；</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">theme_xmf &lt;- <span class="keyword">function</span>(<span class="keyword">...</span>, bg=<span class="string">'white'</span>)&#123;</div><div class="line">    <span class="keyword">require</span>(grid)</div><div class="line">    theme_classic(<span class="keyword">...</span>) +</div><div class="line">        theme(rect=element_rect(fill=bg),</div><div class="line">              plot.margin=unit(rep(<span class="number">0.5</span>,<span class="number">4</span>), <span class="string">'lines'</span>),</div><div class="line">              panel.background=element_rect(fill=<span class="string">'transparent'</span>, color=<span class="string">'transparent'</span>),</div><div class="line">              panel.border=element_rect(fill=<span class="string">'transparent'</span>, color=<span class="string">'transparent'</span>),</div><div class="line">              panel.grid=element_blank(),</div><div class="line">              axis.title = element_text(color=<span class="string">'black'</span>, vjust=<span class="number">0.1</span>),</div><div class="line">              axis.ticks.length = unit(-<span class="number">0.3</span>,<span class="string">"lines"</span>),</div><div class="line">              axis.ticks = element_line(colour = <span class="string">"grey20"</span>),             </div><div class="line">              legend.title=element_blank(),</div><div class="line">              legend.key=element_rect(fill=<span class="string">'transparent'</span>, color=<span class="string">'transparent'</span>))</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="套用自己的自定义主题："><a href="#套用自己的自定义主题：" class="headerlink" title="套用自己的自定义主题："></a>套用自己的自定义主题：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(Conpany,Sale,fill=Year))+geom_bar(stat=<span class="string">"identity"</span>)+theme_xmf()</div></pre></td></tr></table></figure>
-<p><img src="http://orp205tiu.bkt.clouddn.com/image7.png" alt=""></p>
-<p>这里要强调一点，主题中是不包含颜色模板设定的，因为颜色的使用场景及类别比较复杂，会有专门的颜色标度进行设定，其实就是<code>scale_colour_xxx()/scale_fill_xxx()</code>进行设定（分别为点、线色以及区域色）</p>
-<p>这里暂且使用一个<code>RColorbrewer</code>色板中的渐变色装饰一下，不做过多解释，下一节，专门讨论颜色。</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(Conpany,Sale,fill=Year))+geom_bar(stat=<span class="string">"identity"</span>)+theme_xmf()+scale_fill_brewer(palette=<span class="string">"Blues"</span>)</div></pre></td></tr></table></figure>
-<p><img src="http://orp205tiu.bkt.clouddn.com/image8.png" alt=""></p>
-<p>至于图表中的颜色填充顺序和图例相反，这个问题只需追加一句代码即可：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata,aes(Conpany,Sale,fill=Year))+geom_bar(stat=<span class="string">"identity"</span>)+theme_xmf()+scale_fill_brewer(palette=<span class="string">"Blues"</span>)+guides(fill = guide_legend(reverse = <span class="literal">TRUE</span>))</div></pre></td></tr></table></figure>
-<p><img src="http://orp205tiu.bkt.clouddn.com/image9.png" alt=""></p>
-<p>其他的细节设定，下次讲。</p>
-<hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
-<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<hr>
-<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;ggplot作图系统在R预言诸多可视化包中之所以如此的风靡，除了它拥有自己的图层理念之外，我觉得还要归功于它对于图表细节元素的灵活调整。&lt;/p&gt;
-&lt;p&gt;对于ggplot的初学者而言，可能没有太多的在意图表的主题是否优雅，配色是否美观，仅求能够准确无误的出图就OK了。&lt;/p&gt;
-&lt;p&gt;但是如果仅限于此，那么使用ggplot作图真的就是杀鸡用了宰牛刀了。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
-    
-    
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="图表美化" scheme="http://www.raindu.com/tags/%E5%9B%BE%E8%A1%A8%E7%BE%8E%E5%8C%96/"/>
-    
-      <category term="主题定制" scheme="http://www.raindu.com/tags/%E4%B8%BB%E9%A2%98%E5%AE%9A%E5%88%B6/"/>
     
   </entry>
   
