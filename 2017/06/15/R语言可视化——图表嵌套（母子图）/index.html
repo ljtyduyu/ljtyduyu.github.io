@@ -111,7 +111,7 @@
 <meta property="og:image" content="http://orkcefhda.bkt.clouddn.com/image3.png">
 <meta property="og:image" content="http://orkcefhda.bkt.clouddn.com/image4.png">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-06-16T14:17:25.752Z">
+<meta property="og:updated_time" content="2017-07-03T13:58:45.713Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="R语言可视化——图表嵌套（母子图）">
 <meta name="twitter:description" content="之前在学习ggplot的时候，一直存在着一个困惑。 就是这个函数是否允许两个做出来的两个相关图表重叠嵌套（也就是在一个大图（主图）的边缘位置，放置另一个缩小版的小图）。 这个想法很奇葩，本来想着没啥希望，鉴于该包的开发者那犀利的审美观，估计也不能允许这种情况的发生。 不过最近浏览一位大神的博客，真的有这种情况的解决措施，喜出望外，赶紧在这里分享给大家。">
@@ -437,7 +437,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,117 字
+                  1,111 字
                 </span>
               
 
@@ -497,7 +497,8 @@
 <p><strong>下面我将附图的类型更换为堆积直方图大家看下效果：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">chart1&lt;-ggplot(diamonds,aes(carat,price,colour=cut))+geom_point()+theme(legend.position=c(<span class="number">0.9</span>,<span class="number">0.72</span>),legend.background=element_rect(I(<span class="number">0</span>)))</div><div class="line">chart1</div><div class="line">vie&lt;-viewport(width=<span class="number">0.669</span>,height=<span class="number">0.4</span>,x=<span class="number">0.7</span>,y=<span class="number">0.306</span>)</div><div class="line">chart2 &lt;-ggplot(diamonds,aes(depth,fill=color))+geom_histogram()+xlim(<span class="number">54</span>,<span class="number">70</span>) +</div><div class="line">       theme(axis.text.y=element_text(face=<span class="string">"bold"</span>,colour=<span class="string">"black"</span>),</div><div class="line">             axis.title.y=element_blank(),</div><div class="line">             axis.text.x=element_text(face=<span class="string">"bold"</span>,colour=<span class="string">"black"</span>),</div><div class="line">             plot.background=element_rect(I(<span class="number">0</span>),linetype=<span class="number">0</span>),</div><div class="line">             panel.background=element_rect(I(<span class="number">0</span>)),</div><div class="line">             panel.grid.major=element_line(colour=<span class="literal">NA</span>),</div><div class="line">             panel.grid.minor=element_line(colour=<span class="literal">NA</span>),</div><div class="line">             legend.background=element_rect(I(<span class="number">0</span>),linetype=<span class="number">1</span>),</div><div class="line">             legend.position=c(<span class="number">0.85</span>,<span class="number">0.72</span>))</div><div class="line">print(chart2,vp=vie)</div></pre></td></tr></table></figure></p>
 <p><img src="http://orkcefhda.bkt.clouddn.com/image4.png" alt=""></p>
 <hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）</p>
+<p>qq交流群：[魔方学院]298236508</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
@@ -681,7 +682,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">66</span>
+                <span class="site-state-item-count">67</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -828,7 +829,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共101.8k字</span>
+  <span class="post-count">博客全站共102.0k字</span>
 </div>
 
 <div class="theme-info">

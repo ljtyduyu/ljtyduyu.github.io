@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="R语言,数据可视化,ggplot2,极坐标,饼图,圆环图,玫瑰图," />
+  <meta name="keywords" content="R语言,数据可视化,商务图表,ggplot2," />
 
 
 
@@ -97,31 +97,33 @@
 
 
 
-<meta name="description" content="今天这篇内容会比较杂乱一点，因为会讲到ggplot函数中的一大类通过极坐标支持才能呈现出来的图表效果。 ggplot作图背后的图表哲学，没有给予饼图（以及衍生出的圆环图、玫瑰图等放射状图表类型）存在的空间（主要是该包的开发者个人的审美观，比较反感次坐标轴以及功能类型雷同的重复性图层函数，所以它宁可开发出分面图层原理也不愿意增加次坐标轴，不愿意为原本柱形图可以表达的图表形式再单独开发一种功能雷同的饼">
-<meta name="keywords" content="R语言,数据可视化,ggplot2,极坐标,饼图,圆环图,玫瑰图">
+<meta name="description" content="数据可视化是我平时最大的爱好。但是作为一个初学者、行外人。总觉得自己学的不够扎实、没有系统、缺乏一线的业务锻炼。 我只能以不停地写代码、开脑洞来避开自己的弱项。 所以有了这个合集，我最喜欢的几张图表，其中所用的到的大部分数据也是自己写爬虫从网上抓取来的，经历过各种失败和的困扰、各种排错、同一段代码要不停地调参做细节优化。 常常是别人觉得已经做得很精致的图表了，自己还是能找出很多瑕疵。虽然自己是白羊">
+<meta name="keywords" content="R语言,数据可视化,商务图表,ggplot2">
 <meta property="og:type" content="article">
-<meta property="og:title" content="R语言可视化——极坐标变换与衍生图表类型">
-<meta property="og:url" content="http://www.raindu.com/2017/06/11/R语言可视化——极坐标变换与衍生图表类型/index.html">
+<meta property="og:title" content="那些年做过的图表">
+<meta property="og:url" content="http://www.raindu.com/2017/07/03/那些年做过的图表/index.html">
 <meta property="og:site_name" content="raindu&#39;s home">
-<meta property="og:description" content="今天这篇内容会比较杂乱一点，因为会讲到ggplot函数中的一大类通过极坐标支持才能呈现出来的图表效果。 ggplot作图背后的图表哲学，没有给予饼图（以及衍生出的圆环图、玫瑰图等放射状图表类型）存在的空间（主要是该包的开发者个人的审美观，比较反感次坐标轴以及功能类型雷同的重复性图层函数，所以它宁可开发出分面图层原理也不愿意增加次坐标轴，不愿意为原本柱形图可以表达的图表形式再单独开发一种功能雷同的饼">
-<meta property="og:image" content="http://ord0k5mhu.bkt.clouddn.com/image1.png">
-<meta property="og:image" content="http://ord0k5mhu.bkt.clouddn.com/image2.png">
-<meta property="og:image" content="http://ord0k5mhu.bkt.clouddn.com/image3.png">
-<meta property="og:image" content="http://ord0k5mhu.bkt.clouddn.com/image4.png">
-<meta property="og:image" content="http://ord0k5mhu.bkt.clouddn.com/image5.png">
-<meta property="og:image" content="http://ord0k5mhu.bkt.clouddn.com/image6.png">
-<meta property="og:image" content="http://ord0k5mhu.bkt.clouddn.com/image7.png">
-<meta property="og:image" content="http://ord0k5mhu.bkt.clouddn.com/image8.png">
-<meta property="og:image" content="http://ord0k5mhu.bkt.clouddn.com/image9.png">
-<meta property="og:image" content="http://ord0k5mhu.bkt.clouddn.com/image10.png">
-<meta property="og:image" content="http://ord0k5mhu.bkt.clouddn.com/image11.png">
-<meta property="og:image" content="http://ord0k5mhu.bkt.clouddn.com/image12.png">
+<meta property="og:description" content="数据可视化是我平时最大的爱好。但是作为一个初学者、行外人。总觉得自己学的不够扎实、没有系统、缺乏一线的业务锻炼。 我只能以不停地写代码、开脑洞来避开自己的弱项。 所以有了这个合集，我最喜欢的几张图表，其中所用的到的大部分数据也是自己写爬虫从网上抓取来的，经历过各种失败和的困扰、各种排错、同一段代码要不停地调参做细节优化。 常常是别人觉得已经做得很精致的图表了，自己还是能找出很多瑕疵。虽然自己是白羊">
+<meta property="og:image" content="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-1.jpg">
+<meta property="og:image" content="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-2.jpg">
+<meta property="og:image" content="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-3.jpg">
+<meta property="og:image" content="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-4.jpg">
+<meta property="og:image" content="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-5.jpg">
+<meta property="og:image" content="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-6.jpg">
+<meta property="og:image" content="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-7.jpg">
+<meta property="og:image" content="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-8.jpg">
+<meta property="og:image" content="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-9.jpg">
+<meta property="og:image" content="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-10.jpg">
+<meta property="og:image" content="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-11.jpg">
+<meta property="og:image" content="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-12.jpg">
+<meta property="og:image" content="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-13.jpg">
+<meta property="og:image" content="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F.png">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-07-03T13:58:45.824Z">
+<meta property="og:updated_time" content="2017-07-03T14:00:27.219Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="R语言可视化——极坐标变换与衍生图表类型">
-<meta name="twitter:description" content="今天这篇内容会比较杂乱一点，因为会讲到ggplot函数中的一大类通过极坐标支持才能呈现出来的图表效果。 ggplot作图背后的图表哲学，没有给予饼图（以及衍生出的圆环图、玫瑰图等放射状图表类型）存在的空间（主要是该包的开发者个人的审美观，比较反感次坐标轴以及功能类型雷同的重复性图层函数，所以它宁可开发出分面图层原理也不愿意增加次坐标轴，不愿意为原本柱形图可以表达的图表形式再单独开发一种功能雷同的饼">
-<meta name="twitter:image" content="http://ord0k5mhu.bkt.clouddn.com/image1.png">
+<meta name="twitter:title" content="那些年做过的图表">
+<meta name="twitter:description" content="数据可视化是我平时最大的爱好。但是作为一个初学者、行外人。总觉得自己学的不够扎实、没有系统、缺乏一线的业务锻炼。 我只能以不停地写代码、开脑洞来避开自己的弱项。 所以有了这个合集，我最喜欢的几张图表，其中所用的到的大部分数据也是自己写爬虫从网上抓取来的，经历过各种失败和的困扰、各种排错、同一段代码要不停地调参做细节优化。 常常是别人觉得已经做得很精致的图表了，自己还是能找出很多瑕疵。虽然自己是白羊">
+<meta name="twitter:image" content="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-1.jpg">
 
 
 
@@ -149,13 +151,13 @@
 
 
 
-  <link rel="canonical" href="http://www.raindu.com/2017/06/11/R语言可视化——极坐标变换与衍生图表类型/"/>
+  <link rel="canonical" href="http://www.raindu.com/2017/07/03/那些年做过的图表/"/>
 
 
 
 
 
-  <title>R语言可视化——极坐标变换与衍生图表类型 | raindu's home</title>
+  <title>那些年做过的图表 | raindu's home</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -339,7 +341,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/06/11/R语言可视化——极坐标变换与衍生图表类型/">
+    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/07/03/那些年做过的图表/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="RainDu">
@@ -356,7 +358,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">R语言可视化——极坐标变换与衍生图表类型</h1>
+          <h1 class="post-title" itemprop="name headline">那些年做过的图表</h1>
         
 
         <div class="post-meta">
@@ -368,8 +370,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-11T09:20:45+08:00">
-                2017-06-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-03T21:35:31+08:00">
+                2017-07-03
               </time>
             
 
@@ -391,8 +393,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/R语言/" itemprop="url" rel="index">
-                    <span itemprop="name">R语言</span>
+                  <a href="/categories/数据可视化/" itemprop="url" rel="index">
+                    <span itemprop="name">数据可视化</span>
                   </a>
                 </span>
 
@@ -409,7 +411,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2017/06/11/R语言可视化——极坐标变换与衍生图表类型/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2017/07/03/那些年做过的图表/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -418,7 +420,7 @@
 
           
           
-             <span id="/2017/06/11/R语言可视化——极坐标变换与衍生图表类型/" class="leancloud_visitors" data-flag-title="R语言可视化——极坐标变换与衍生图表类型">
+             <span id="/2017/07/03/那些年做过的图表/" class="leancloud_visitors" data-flag-title="那些年做过的图表">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -443,7 +445,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,184 字
+                  658 字
                 </span>
               
 
@@ -459,7 +461,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  5 分钟
+                  2 分钟
                 </span>
               
             </div>
@@ -477,53 +479,21 @@
       
 
       
-        <p>今天这篇内容会比较杂乱一点，因为会讲到ggplot函数中的一大类通过极坐标支持才能呈现出来的图表效果。</p>
-<p>ggplot作图背后的图表哲学，没有给予饼图（以及衍生出的圆环图、玫瑰图等放射状图表类型）存在的空间（主要是该包的开发者个人的审美观，比较反感次坐标轴以及功能类型雷同的重复性图层函数，所以它宁可开发出分面图层原理也不愿意增加次坐标轴，不愿意为原本柱形图可以表达的图表形式再单独开发一种功能雷同的饼图函数）。</p>
-<p>但是巧的是，在常见的三种坐标形式中，极坐标转换可以非常轻松的将常见的柱形图（条形图）、堆积柱形图通过只一句极坐标函数就神奇的转化为饼图、玫瑰图、圆环图等（不知道是有意为之还是偶然的巧合）。</p>
-<a id="more"></a>
-<h3 id="饼图的实现原理："><a href="#饼图的实现原理：" class="headerlink" title="饼图的实现原理："></a>饼图的实现原理：</h3><p>饼图需要借助柱形图结合极坐标进行转化：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ggplot(diamonds,aes(x=factor(<span class="number">1</span>),fill=cut))+</div><div class="line">geom_bar()</div></pre></td></tr></table></figure>
-<p><img src="http://ord0k5mhu.bkt.clouddn.com/image1.png" alt=""></p>
-<p>当使用一个因子变量作为横轴，使用分类变量进行填充时，该柱形图变成了单条堆积柱形图。</p>
-<p>接下来我们通过以上函数添加极坐标（注意极坐标的设定是如何影响最终的图表形式的）</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ggplot(diamonds,aes(x=factor(<span class="number">1</span>),fill=cut))+</div><div class="line">geom_bar()+</div><div class="line">coord_polar(theta = <span class="string">"y"</span>)</div></pre></td></tr></table></figure>
-<p><img src="http://ord0k5mhu.bkt.clouddn.com/image2.png" alt=""></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ggplot(diamonds,aes(x=factor(<span class="number">1</span>),fill=cut))+</div><div class="line">geom_bar()+</div><div class="line">coord_polar(theta = <span class="string">"x"</span>)</div></pre></td></tr></table></figure>
-<p><img src="http://ord0k5mhu.bkt.clouddn.com/image3.png" alt=""></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ggplot(diamonds,aes(x=factor(<span class="number">1</span>),fill=cut))+</div><div class="line">geom_bar()+</div><div class="line">coord_polar()</div></pre></td></tr></table></figure>
-<p><img src="http://ord0k5mhu.bkt.clouddn.com/image4.png" alt=""></p>
-<p>从做出的图表以及极坐标函数内的参数我们可以看出来，当参数指定为x时，最终柱形图的x轴会被指定为极坐标的x轴（圆周），而柱形图的y轴则会成为极坐标的y轴（半径）。当指定为y轴时，柱形图的y轴为成为极坐标的x轴（圆周），柱形图的x轴会成为极坐标的y轴（半径）。</p>
-<p>同时极坐标状态下，饼图的半径是由柱形图（条形图）宽度决定的，以上图表中圆心有个空白，如果我们将柱形图柱形图宽度定义为1,则会成为正圆。</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ggplot(diamonds,aes(x=factor(<span class="number">1</span>),fill=cut))+</div><div class="line">geom_bar(width=<span class="number">1</span>)+</div><div class="line">coord_polar(theta = <span class="string">"y"</span>)</div></pre></td></tr></table></figure>
-<p><img src="http://ord0k5mhu.bkt.clouddn.com/image5.png" alt=""></p>
-<h3 id="极坐标系下图表元素控制："><a href="#极坐标系下图表元素控制：" class="headerlink" title="极坐标系下图表元素控制："></a>极坐标系下图表元素控制：</h3><p>图中其他的元素控制方式与往常的柱形图做法一样：</p>
-<p>去掉极坐标轴的轴刻度标签，去掉两个轴标题、更换配色：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">ggplot(diamonds,aes(x=factor(<span class="number">1</span>),fill=cut))+</div><div class="line">geom_bar(width=<span class="number">1</span>)+</div><div class="line">coord_polar(theta = <span class="string">"y"</span>,start=<span class="number">0</span>)+</div><div class="line">theme(</div><div class="line">    panel.grid = element_blank(),</div><div class="line">	panel.background = element_blank(),</div><div class="line">	axis.text = element_blank(),</div><div class="line">	axis.ticks = element_blank(),</div><div class="line">	axis.title = element_blank()</div><div class="line">	)+</div><div class="line">scale_fill_brewer(palette=<span class="string">"Blues"</span>)+</div><div class="line">guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))</div></pre></td></tr></table></figure>
-<p><img src="http://ord0k5mhu.bkt.clouddn.com/image6.png" alt=""></p>
-<p>当有多个序列时：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ggplot(diamonds,aes(cut))+</div><div class="line">geom_bar(width=<span class="number">1</span>)</div></pre></td></tr></table></figure></p>
-<p><img src="http://ord0k5mhu.bkt.clouddn.com/image7.png" alt=""></p>
-<p>通过极坐标转换可以实现圆环图、圆条图效果：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">ggplot(diamonds,aes(cut))+</div><div class="line">geom_bar(width=<span class="number">1</span>,fill=<span class="string">"steelblue"</span>,colour=<span class="string">"white"</span>)+</div><div class="line">coord_polar(theta = <span class="string">"y"</span>,start=<span class="number">0</span>)+</div><div class="line">theme(</div><div class="line">    panel.grid = element_blank(),</div><div class="line">	panel.background = element_blank(),</div><div class="line">	axis.text.x = element_blank(),</div><div class="line">	axis.title = element_blank())</div></pre></td></tr></table></figure>
-<p><img src="http://ord0k5mhu.bkt.clouddn.com/image8.png" alt=""></p>
-<p>改变极坐标轴参数设置，可以模拟南丁格尔玫瑰图效果：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">ggplot(diamonds,aes(cut))+</div><div class="line">geom_bar(width=<span class="number">0.95</span>,fill=<span class="string">"#3182BD"</span>)+</div><div class="line">coord_polar(theta = <span class="string">"x"</span>,start=<span class="number">0</span>)+</div><div class="line">theme(</div><div class="line">    panel.grid = element_blank(),</div><div class="line">	panel.background = element_blank(),</div><div class="line">	axis.text.y = element_blank(),</div><div class="line">	axis.ticks= element_blank(),</div><div class="line">	axis.title = element_blank())+</div><div class="line">ylim(c(-<span class="number">3000</span>,<span class="number">22500</span>))</div></pre></td></tr></table></figure>
-<p><img src="http://ord0k5mhu.bkt.clouddn.com/image9.png" alt=""></p>
-<h3 id="极坐标系下多序列图表："><a href="#极坐标系下多序列图表：" class="headerlink" title="极坐标系下多序列图表："></a>极坐标系下多序列图表：</h3><p>当然如果你使用的原始柱形图数据中添加了分类序列（也就是堆积柱形图），按照上面的方式可以制作更加复杂的圆环图、堆叠玫瑰图</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">ggplot(diamonds,aes(x=color,fill=cut))+</div><div class="line">geom_bar(width=<span class="number">0.95</span>,colour=<span class="string">"white"</span>)+</div><div class="line">coord_polar(theta = <span class="string">"y"</span>,start=<span class="number">0</span>)+</div><div class="line">theme(</div><div class="line">    panel.grid = element_blank(),</div><div class="line">	panel.background = element_blank(),</div><div class="line">	axis.text.x = element_blank(),</div><div class="line">	axis.title = element_blank())+</div><div class="line">scale_fill_brewer(palette=<span class="string">"Blues"</span>)+</div><div class="line">guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))</div></pre></td></tr></table></figure>
-<p><img src="http://ord0k5mhu.bkt.clouddn.com/image10.png" alt=""></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">ggplot(diamonds,aes(x=color,fill=cut))+</div><div class="line">geom_bar(width=<span class="number">0.95</span>,colour=<span class="string">"white"</span>)+</div><div class="line">coord_polar(theta = <span class="string">"x"</span>,start=<span class="number">0</span>)+</div><div class="line">theme(</div><div class="line">    axis.text.y = element_blank(),</div><div class="line">	axis.title = element_blank())+</div><div class="line">scale_fill_brewer(palette=<span class="string">"Blues"</span>)+</div><div class="line">guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))+</div><div class="line">ylim(c(-<span class="number">2000</span>,<span class="number">12000</span>))+</div><div class="line">theme_bw()</div></pre></td></tr></table></figure>
-<p><img src="http://ord0k5mhu.bkt.clouddn.com/image11.png" alt=""></p>
-<p>尝试着用分面来解决多序列问题：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">ggplot(diamonds,aes(x=color,fill=cut))+</div><div class="line">geom_bar(width=<span class="number">0.95</span>,colour=<span class="string">"white"</span>)+</div><div class="line">coord_polar(theta = <span class="string">"x"</span>,start=<span class="number">0</span>)+</div><div class="line">theme(</div><div class="line">    axis.text.y = element_blank(),</div><div class="line">	axis.title = element_blank())+</div><div class="line">scale_fill_brewer(palette=<span class="string">"Blues"</span>)+</div><div class="line">guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))+</div><div class="line">ylim(c(-<span class="number">2000</span>,<span class="number">6000</span>))+</div><div class="line">theme_bw()+</div><div class="line">facet_grid(.~cut)</div></pre></td></tr></table></figure></p>
-<p><img src="http://ord0k5mhu.bkt.clouddn.com/image12.png" alt=""></p>
+        <p>数据可视化是我平时最大的爱好。<br>但是作为一个初学者、行外人。总觉得自己学的不够扎实、没有系统、缺乏一线的业务锻炼。</p>
+<p>我只能以不停地写代码、开脑洞来避开自己的弱项。</p>
+<p>所以有了这个合集，我最喜欢的几张图表，其中所用的到的大部分数据也是自己写爬虫从网上抓取来的，经历过各种失败和的困扰、各种排错、同一段代码要不停地调参做细节优化。</p>
+<p>常常是别人觉得已经做得很精致的图表了，自己还是能找出很多瑕疵。虽然自己是白羊座，可是硬生生的给逼成了处女座。</p>
+<p>所以才有了这些看起来赏心悦目的可视化作品。</p>
+<p>作为一个双非财经大学的文科硕士，我没有循着传统的老路走（尽管包了全科的CPA，也不曾去过一次考场）。尽管自己也顶着很大的职业压力，可是 不想强迫自己做不喜欢的事情，毕竟我本就不是一个逆来顺受的人。</p>
+<p>学的久了最大的感触就是，如果能寻得一些心法，那么自己的技能会形成网络效应，即你会发现同样的问题用不同的工具来解决，其大体的思路都是差不多的，不同的只是软件的界面、不同的菜单以及命名方法的差异。</p>
+<p>那么这种学习的好处，最终可以让你对同一个领域的不同工具之间能够无师自通、信手拈来。</p>
+<p>我学了很长一段时间Excel，之后才入手的R语言，掌握到一定程度，我可以用两种不同的工具来模仿同一个图表案例，而且仿制的结果根本无法分辨有任何工具的痕迹。</p>
+<p><img src="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-1.jpg" alt=""><br><img src="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-2.jpg" alt=""><br><img src="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-3.jpg" alt=""><br><img src="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-4.jpg" alt=""><br><img src="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-5.jpg" alt=""><br><img src="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-6.jpg" alt=""><br><img src="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-7.jpg" alt=""><br><img src="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-8.jpg" alt=""><br><img src="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-9.jpg" alt=""><br><img src="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-10.jpg" alt=""><br><img src="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-11.jpg" alt=""><br><img src="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-12.jpg" alt=""><br><img src="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-13.jpg" alt=""><br><img src="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F.png" alt=""></p>
 <hr>
-<p><strong>联系方式：</strong></p>
-<p>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）  </p>
-<p>qq交流群：[魔方学院]298236508  </p>
-<p><strong>个人简介：</strong></p>
-<p><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。 <br><br>Mail:578708965@qq.com </p>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
+<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
 <hr>
-<p><strong>备注信息：</strong></p>
-<p><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
 
       
     </div>
@@ -578,15 +548,9 @@
           
             <a href="/tags/数据可视化/" rel="tag"># 数据可视化</a>
           
+            <a href="/tags/商务图表/" rel="tag"># 商务图表</a>
+          
             <a href="/tags/ggplot2/" rel="tag"># ggplot2</a>
-          
-            <a href="/tags/极坐标/" rel="tag"># 极坐标</a>
-          
-            <a href="/tags/饼图/" rel="tag"># 饼图</a>
-          
-            <a href="/tags/圆环图/" rel="tag"># 圆环图</a>
-          
-            <a href="/tags/玫瑰图/" rel="tag"># 玫瑰图</a>
           
         </div>
       
@@ -599,8 +563,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/10/R语言图表美化——巧用分面表达优化图表布局，做出堪比杂志级视觉体验的商务图表/" rel="next" title="R语言图表美化——巧用分面表达优化图表布局，做出堪比杂志级视觉体验的商务图表">
-                <i class="fa fa-chevron-left"></i> R语言图表美化——巧用分面表达优化图表布局，做出堪比杂志级视觉体验的商务图表
+              <a href="/2017/07/02/左手用R右手Python系列——数据塑型与长宽转换/" rel="next" title="左手用R右手Python系列——数据塑型与长宽转换">
+                <i class="fa fa-chevron-left"></i> 左手用R右手Python系列——数据塑型与长宽转换
               </a>
             
           </div>
@@ -608,10 +572,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/11/R预设配色系统及自定义色板/" rel="prev" title="R预设配色系统及自定义色板">
-                R预设配色系统及自定义色板 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -683,17 +643,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.png"
@@ -800,22 +751,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#饼图的实现原理："><span class="nav-number">1.</span> <span class="nav-text">饼图的实现原理：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#极坐标系下图表元素控制："><span class="nav-number">2.</span> <span class="nav-text">极坐标系下图表元素控制：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#极坐标系下多序列图表："><span class="nav-number">3.</span> <span class="nav-text">极坐标系下多序列图表：</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

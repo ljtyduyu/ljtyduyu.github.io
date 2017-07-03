@@ -108,7 +108,7 @@
 <meta property="og:image" content="http://or9afbo77.bkt.clouddn.com/image2.png">
 <meta property="og:image" content="http://or9afbo77.bkt.clouddn.com/image3.png">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-06-16T14:17:25.629Z">
+<meta property="og:updated_time" content="2017-07-03T13:58:45.473Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="leaflet在线地图进阶宝典——高级交互特性">
 <meta name="twitter:description" content="本文针对leaflet的高级交互特性进行展开，主要涉及到leaflet中等值线地图的鼠标悬浮效果及点击效果的动态呈现。这也是leaflet的天然HTML属性所具有的强大优势。 在制作高质量在线数据地图的项目中，leaflet结合扩展的HTML性能，可以呈现非常人性化的动态效果，如能结合css、shiny等装饰器和交互框架，几乎可以胜任常见的动态交互网站的制作。">
@@ -434,7 +434,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  756 字
+                  750 字
                 </span>
               
 
@@ -491,7 +491,8 @@
 <p>以下是该案例的完整代码：<br><code>From http://leafletjs.com/examples/choropleth/us-states.js</code><br>（数据源，js格式记得保存为geojson格式）</p>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">bins &lt;- c(<span class="number">0</span>, <span class="number">10</span>, <span class="number">20</span>, <span class="number">50</span>, <span class="number">100</span>, <span class="number">200</span>, <span class="number">500</span>, <span class="number">1000</span>, <span class="literal">Inf</span>)</div><div class="line">pal &lt;- colorBin(<span class="string">"YlOrRd"</span>, domain = states$density, bins = bins)</div><div class="line"></div><div class="line">labels &lt;- sprintf(</div><div class="line">  <span class="string">"&lt;strong&gt;%s&lt;/strong&gt;&lt;br/&gt;%g people / mi&lt;sup&gt;2&lt;/sup&gt;"</span>,</div><div class="line">  states$name, states$density</div><div class="line">) %&gt;% lapply(htmltools::HTML)</div><div class="line"></div><div class="line">leaflet(states) %&gt;%</div><div class="line">  setView(-<span class="number">96</span>, <span class="number">37.8</span>, <span class="number">4</span>) %&gt;%</div><div class="line">  addProviderTiles(<span class="string">"MapBox"</span>, options = providerTileOptions(</div><div class="line">    id = <span class="string">"mapbox.light"</span>,</div><div class="line">    accessToken = Sys.getenv(<span class="string">'MAPBOX_ACCESS_TOKEN'</span>))) %&gt;%</div><div class="line">  addPolygons(</div><div class="line">    fillColor = ~pal(density),</div><div class="line">    weight = <span class="number">2</span>,</div><div class="line">    opacity = <span class="number">1</span>,</div><div class="line">    color = <span class="string">"white"</span>,</div><div class="line">    dashArray = <span class="string">"3"</span>,</div><div class="line">    fillOpacity = <span class="number">0.7</span>,</div><div class="line">    highlight = highlightOptions(</div><div class="line">      weight = <span class="number">5</span>,</div><div class="line">      color = <span class="string">"#666"</span>,</div><div class="line">      dashArray = <span class="string">""</span>,</div><div class="line">      fillOpacity = <span class="number">0.7</span>,</div><div class="line">      bringToFront = <span class="literal">TRUE</span>),</div><div class="line">    label = labels,</div><div class="line">    labelOptions = labelOptions(</div><div class="line">      style = list(<span class="string">"font-weight"</span> = <span class="string">"normal"</span>, padding = <span class="string">"3px 8px"</span>),</div><div class="line">      textsize = <span class="string">"15px"</span>,</div><div class="line">      direction = <span class="string">"auto"</span>)) %&gt;%</div><div class="line">  addLegend(pal = pal, values = ~density, opacity = <span class="number">0.7</span>, title = <span class="literal">NULL</span>,</div><div class="line">    position = <span class="string">"bottomright"</span>)</div></pre></td></tr></table></figure>
 <hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）</p>
+<p>qq交流群：[魔方学院]298236508</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
@@ -675,7 +676,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">66</span>
+                <span class="site-state-item-count">67</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -822,7 +823,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共101.8k字</span>
+  <span class="post-count">博客全站共102.0k字</span>
 </div>
 
 <div class="theme-info">

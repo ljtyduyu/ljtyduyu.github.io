@@ -111,7 +111,7 @@
 <meta property="og:image" content="http://oqrauaruh.bkt.clouddn.com/image4.png">
 <meta property="og:image" content="http://oqrauaruh.bkt.clouddn.com/image5.png">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-06-16T14:17:25.693Z">
+<meta property="og:updated_time" content="2017-07-03T13:58:45.620Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="R语言可视化——ggplot绘制中心密度辐射图">
 <meta name="twitter:description" content="今天这篇算是之前ggplot2图表系列的增补。 因为在ggplot2中一直没有看到好的关于密度辐射图（或者称它为热力辐射图，就是那种PowerMap中可以通过颜色色度探查区域指标分布密度的图表类型）的合适解决方案，最近在看github官网上ggmap的介绍帖，看到作者在ggmap函数中嵌套了geom_polygon图层并并使用fill=..level..参数和stat=”density_2d”来来">
@@ -437,7 +437,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,082 字
+                  1,076 字
                 </span>
               
 
@@ -500,7 +500,8 @@
 <p>总结下，用到的所有代码如下：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">ggplot()+</div><div class="line">geom_polygon(data=china_map1,aes(x=long,y=lat,group=group),fill=<span class="string">"#005A32"</span>,col=<span class="string">"white"</span>)+</div><div class="line">geom_polygon(data=data,aes(x=lon,y=lat,fill = ..level..), stat=<span class="string">"density_2d"</span>, alpha = <span class="number">.3</span>, color = <span class="literal">NA</span>)+</div><div class="line">coord_map(<span class="string">"polyconic"</span>) +</div><div class="line">geom_point(data=data,aes(x=lon,y=lat,size=prob),col=<span class="string">"white"</span>)+</div><div class="line">scale_size_area(max_size=<span class="number">6</span>)+</div><div class="line">scale_fill_gradient2( low = <span class="string">"white"</span>,mid=<span class="string">"yellow"</span>, high = <span class="string">"red"</span>)+</div><div class="line">theme_nothing()  <span class="comment">#这一句清空主题的代码是ggmap包中的，必须加载才能用</span></div></pre></td></tr></table></figure></p>
 <p>感兴趣的小伙伴儿可以移步去github官网上搜索ggmap官方介绍，里面使用ggmap调用谷歌地图做的热度图，效果很棒。</p>
 <hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）</p>
+<p>qq交流群：[魔方学院]298236508</p>
 <p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
 <hr>
 <p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
@@ -682,7 +683,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">66</span>
+                <span class="site-state-item-count">67</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -829,7 +830,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共101.8k字</span>
+  <span class="post-count">博客全站共102.0k字</span>
 </div>
 
 <div class="theme-info">
