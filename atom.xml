@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.raindu.com/"/>
-  <updated>2017-07-03T14:00:27.219Z</updated>
+  <updated>2017-07-03T14:04:27.162Z</updated>
   <id>http://www.raindu.com/</id>
   
   <author>
@@ -20,10 +20,13 @@
     <link href="http://www.raindu.com/2017/07/03/%E9%82%A3%E4%BA%9B%E5%B9%B4%E5%81%9A%E8%BF%87%E7%9A%84%E5%9B%BE%E8%A1%A8/"/>
     <id>http://www.raindu.com/2017/07/03/那些年做过的图表/</id>
     <published>2017-07-03T13:35:31.000Z</published>
-    <updated>2017-07-03T14:00:27.219Z</updated>
+    <updated>2017-07-03T14:04:27.162Z</updated>
     
-    <content type="html"><![CDATA[<p>数据可视化是我平时最大的爱好。<br>但是作为一个初学者、行外人。总觉得自己学的不够扎实、没有系统、缺乏一线的业务锻炼。</p>
+    <content type="html"><![CDATA[<p>数据可视化是我平时最大的爱好。</p>
+<p>但是作为一个初学者、行外人。总觉得自己学的不够扎实、没有系统、缺乏一线的业务锻炼。</p>
 <p>我只能以不停地写代码、开脑洞来避开自己的弱项。</p>
+<p><img src="http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-3.jpg" alt=""></p>
+<a id="more"></a>
 <p>所以有了这个合集，我最喜欢的几张图表，其中所用的到的大部分数据也是自己写爬虫从网上抓取来的，经历过各种失败和的困扰、各种排错、同一段代码要不停地调参做细节优化。</p>
 <p>常常是别人觉得已经做得很精致的图表了，自己还是能找出很多瑕疵。虽然自己是白羊座，可是硬生生的给逼成了处女座。</p>
 <p>所以才有了这些看起来赏心悦目的可视化作品。</p>
@@ -41,9 +44,10 @@
     
     <summary type="html">
     
-      &lt;p&gt;数据可视化是我平时最大的爱好。&lt;br&gt;但是作为一个初学者、行外人。总觉得自己学的不够扎实、没有系统、缺乏一线的业务锻炼。&lt;/p&gt;
+      &lt;p&gt;数据可视化是我平时最大的爱好。&lt;/p&gt;
+&lt;p&gt;但是作为一个初学者、行外人。总觉得自己学的不够扎实、没有系统、缺乏一线的业务锻炼。&lt;/p&gt;
 &lt;p&gt;我只能以不停地写代码、开脑洞来避开自己的弱项。&lt;/p&gt;
-&lt;p&gt;所以有了这个合集，我最喜欢的几张图表，其中所用的到的大部分数据也是自己写爬虫
+&lt;p&gt;&lt;img src=&quot;http://ortu7ddty.bkt.clouddn.com/visualization/%E6%A1%88%E4%BE%8B%E6%AC%A3%E8%B5%8F-3.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
     
     </summary>
     
