@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.raindu.com/"/>
-  <updated>2017-07-03T14:04:27.162Z</updated>
+  <updated>2017-07-04T02:00:40.429Z</updated>
   <id>http://www.raindu.com/</id>
   
   <author>
@@ -14,6 +14,93 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>这么牛X的包，一般人我不告诉他！！！</title>
+    <link href="http://www.raindu.com/2017/07/04/%E8%BF%99%E4%B9%88%E7%89%9BX%E7%9A%84%E5%8C%85%EF%BC%8C%E4%B8%80%E8%88%AC%E4%BA%BA%E6%88%91%E4%B8%8D%E5%91%8A%E8%AF%89%E4%BB%96%EF%BC%81%EF%BC%81%EF%BC%81/"/>
+    <id>http://www.raindu.com/2017/07/04/这么牛X的包，一般人我不告诉他！！！/</id>
+    <published>2017-07-04T01:17:37.000Z</published>
+    <updated>2017-07-04T02:00:40.429Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://ory93arir.bkt.clouddn.com/us-map/image1.png" alt=""></p>
+<a id="more"></a>
+<p>本文将给大家介绍一个ggplot2灰常牛X的可视化扩展包，我将该包主页的包用法介绍整理成中文，分享给大家。</p>
+<p>包名叫geofacet，有经验的charter大概能猜出来个大概，没错该包是关于可视化数据中的地理信息，以及维度分面。</p>
+<p>作者命名非常讲究，将该包的两个主要核心功能进行组合命名。</p>
+<p>地理信息可视化分面，这么吊的包你肯定是第一次看到吧（其实之前介绍过一些地图上的mini 柱形图、饼图等都算这一类），但是这里的分面功能做的更加彻底，作者还是遵循惯例，将这种基于地理信息分面的可视化功能对接了ggplot2,并以分面函数facet_geo()的形式呈现。</p>
+<p>这样了解ggplot2的用户学习成本就低了很多，因为只需了解这个分面参数的具体设定，组织对应数据源格式就OK了。</p>
+<p><strong>以下是本文的主要内容：</strong></p>
+<p>geofacet包扩展了ggplot2的分面函数，进而提供了基于地理信息的更加灵活的数据可视化方案。这个分面函数并无特别指出，如同内置的分面函数（facet_grid、facet_wrap等）用法没有太大差别。唯一的区别是，在最终的图形版面呈现结果上，允许单个图表分面刻画在对应的地理多边形中心位置。</p>
+<p>该包的核心功能可以概括为以下几点：</p>
+<p>每一个分面单元格都可以呈现一个维度的数据（而非单个数值）；</p>
+<p>每一个分面单元格可以容纳任何一种ggplot2内置图表对象（看清楚了，是任何一种，任何一种，任何一种，就问你这包屌不屌！）；</p>
+<p>分面系统支持任何的地理多边形（可以是内建的，也可以是用户自定义的）。</p>
+<p>该包的强大优势绝不仅仅只有以下展示的这些内容，很快我们将会建立一个该包的专属博客（如果建好了会将其网站分享在本页面）。</p>
+<h3 id="下载安装："><a href="#下载安装：" class="headerlink" title="下载安装："></a>下载安装：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">install.packages(<span class="string">"geofacet"</span>)</div><div class="line"><span class="comment"># or from github:</span></div><div class="line"><span class="comment"># devtools::install_github("hafen/geofacet")</span></div><div class="line"><span class="keyword">library</span>(geofacet)</div><div class="line"><span class="keyword">library</span>(ggplot2)</div><div class="line"><span class="keyword">library</span>(ggthemes)</div></pre></td></tr></table></figure>
+<h3 id="使用方法："><a href="#使用方法：" class="headerlink" title="使用方法："></a>使用方法：</h3><p>该包内的主要函数是facet_geo()，它的用法可以类比ggplot2的内置分面函数facet_warp()\facet_grid()(当然在输出方式上略有不同)。只要你已经熟练掌握了ggplot2语法，那么你就可以轻松搞定这个包。</p>
+<p>接下来让我们展示一个例子，该包内置了一个数据集——state_ranks。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">head(state_ranks)</div></pre></td></tr></table></figure></p>
+<p><img src="http://ory93arir.bkt.clouddn.com/us-map/image13.jpg" alt=""></p>
+<p>这是一个包含美国各州不同社会指标优略程度的数据集（按照排名由低到高排序）。</p>
+<p>然后让我们使用geofacet来给每一个州都创造一个柱形图，我仅需使用一个ggplot2内的geom_col()函数即可，至于分面参数，这里我们摒弃使用传统的facet_wrap（）分面函数，而是使用geofacet包提供的facet_geo（）函数来替代。</p>
+<h3 id="定义一个主题："><a href="#定义一个主题：" class="headerlink" title="定义一个主题："></a>定义一个主题：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">mytheme&lt;-<span class="keyword">function</span> (base_size = <span class="number">12</span>, base_family = <span class="string">""</span>)&#123;</div><div class="line">    theme_bw(base_size = base_size, base_family = base_family) %+replace% </div><div class="line">    theme(axis.line = element_blank(), axis.text.x=element_blank(), </div><div class="line">          axis.ticks=element_blank(), axis.title = element_blank(), </div><div class="line">          panel.background=element_blank(),panel.border =element_blank(), </div><div class="line">          panel.grid = element_blank(), plot.background = element_blank(), </div><div class="line">          strip.background=element_blank(),legend.position = c(<span class="number">0.9</span>,<span class="number">0.15</span>))</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="案例赏析："><a href="#案例赏析：" class="headerlink" title="案例赏析："></a>案例赏析：</h3><p><strong>分面柱形图：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">ggplot(state_ranks, aes(variable,rank,fill=variable)) +</div><div class="line">  geom_col() +</div><div class="line">  coord_flip() +</div><div class="line">  scale_fill_wsj()+</div><div class="line">  facet_geo(~state)+</div><div class="line">  mytheme()</div></pre></td></tr></table></figure></p>
+<p><img src="http://ory93arir.bkt.clouddn.com/us-map/image2.jpg" alt=""></p>
+<p><strong>geofacet内部重要参数：</strong></p>
+<ul>
+<li>grid参数：可以理解为网格id，可以选择内建的id名称，或者是提供一个自建的已经命名有网格名称的数据框。</li>
+<li>label参数：可以指定任何我们想要指定的变量作为网格显示的标签。</li>
+</ul>
+<p>以下是两一个自带数据集的例子：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">head(us_state_grid2)</div></pre></td></tr></table></figure></p>
+<p><img src="http://ory93arir.bkt.clouddn.com/us-map/image3.jpg" alt=""></p>
+<p>这一次，我们用来呈现美国季节调整后的失业率随时间的变化。使用对应州名作为对应网格标签。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">ggplot(state_unemp, aes(year, rate)) +</div><div class="line">  geom_line() +</div><div class="line">  facet_geo(~ state, grid = <span class="string">"us_state_grid2"</span>, label = <span class="string">"name"</span>) +</div><div class="line">  scale_x_continuous(labels = <span class="keyword">function</span>(x) paste0(<span class="string">"'"</span>, substr(x, <span class="number">3</span>, <span class="number">4</span>))) +</div><div class="line">  labs(title = <span class="string">"Seasonally Adjusted US Unemployment Rate 2000-2016"</span>,</div><div class="line">    caption = <span class="string">"Data Source: bls.gov"</span>,</div><div class="line">    x = <span class="string">"Year"</span>,</div><div class="line">    y = <span class="string">"Unemployment Rate (%)"</span>) +</div><div class="line">  theme(strip.text.x = element_text(size = <span class="number">6</span>))</div></pre></td></tr></table></figure></p>
+<p><img src="http://ory93arir.bkt.clouddn.com/us-map/image4.jpg" alt=""></p>
+<p>指定网格非常容易，我们只需提供一个内含地区名称和地区代码的数据框即可。</p>
+<p>以下是该包内已经内建好的，我们画图可利用的带地区编码的数据集。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">get_grid_names()</div><div class="line"><span class="comment">#[1] "us_state_grid1" "us_state_grid2" "eu_grid1" "aus_grid1" "sa_prov_grid1" "london_boroughs_grid"</span></div><div class="line"><span class="comment">#[7] "nhs_scot_grid" "india_grid1" "india_grid2" "argentina_grid1" "br_grid1"</span></div></pre></td></tr></table></figure></p>
+<p>OMG，WAKM ,竟然没有China，这不科学啊（等我弄明白了我亲自给大家做一个）。</p>
+<p>接下来是其他国家的几个例子！</p>
+<p><strong>欧盟成员国GDP增长情况：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">ggplot(aus_pop, aes(age_group, pop / <span class="number">1e6</span>, fill = age_group)) +</div><div class="line">  geom_col() +</div><div class="line">  facet_geo(~ code, grid = <span class="string">"aus_grid1"</span>) +</div><div class="line">  coord_flip() +</div><div class="line">  labs(</div><div class="line">    title = <span class="string">"Australian Population Breakdown"</span>,</div><div class="line">    caption = <span class="string">"Data Source: ABS Labour Force Survey, 12 month average"</span>,</div><div class="line">    y = <span class="string">"Population [Millions]"</span>) +</div><div class="line">  theme_bw()</div></pre></td></tr></table></figure></p>
+<p><img src="http://ory93arir.bkt.clouddn.com/us-map/image5.jpg" alt=""></p>
+<p><strong>奥地利人口分组可视化：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">ggplot(aus_pop, aes(age_group, pop / <span class="number">1e6</span>, fill = age_group)) +  </div><div class="line">geom_col() +  </div><div class="line">facet_geo(~ code, grid = <span class="string">"aus_grid1"</span>) +  </div><div class="line">coord_flip() +  </div><div class="line">labs(    title = <span class="string">"Australian Population Breakdown"</span>,    caption = <span class="string">"Data Source: ABS Labour Force Survey, 12 month average"</span>,    y = <span class="string">"Population [Millions]"</span>) +  </div><div class="line">theme_bw()</div></pre></td></tr></table></figure></p>
+<p><img src="http://ory93arir.bkt.clouddn.com/us-map/image6.jpg" alt=""></p>
+<p><strong>南非</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ggplot(sa_pop_dens, aes(factor(year), density, fill = factor(year))) +</div><div class="line">  geom_col() +</div><div class="line">  facet_geo(~ province, grid = <span class="string">"sa_prov_grid1"</span>) +</div><div class="line">  labs(title = <span class="string">"South Africa population density by province"</span>,</div><div class="line">    caption = <span class="string">"Data Source: Statistics SA Census"</span>,</div><div class="line">    y = <span class="string">"Population density per square km"</span>) +</div><div class="line">  theme_bw()</div></pre></td></tr></table></figure></p>
+<p><img src="http://ory93arir.bkt.clouddn.com/us-map/image7.jpg" alt=""></p>
+<p><strong>关于伦敦房价</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">ggplot(london_afford, aes(x = year, y = starts, fill = year)) +</div><div class="line">  geom_col(position = position_dodge()) +</div><div class="line">  facet_geo(~ code, grid = <span class="string">"london_boroughs_grid"</span>, label = <span class="string">"name"</span>) +</div><div class="line">  labs(title = <span class="string">"Affordable Housing Starts in London"</span>,</div><div class="line">    subtitle = <span class="string">"Each Borough, 2015-16 to 2016-17"</span>,</div><div class="line">    caption = <span class="string">"Source: London Datastore"</span>, x = <span class="string">""</span>, y = <span class="string">""</span>)</div></pre></td></tr></table></figure></p>
+<p><img src="http://ory93arir.bkt.clouddn.com/us-map/image8.jpg" alt=""></p>
+<p><strong>苏格兰居民牙齿健康程度</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">ggplot(nhs_scot_dental, aes(x = year, y = percent)) +</div><div class="line">  geom_line() +</div><div class="line">  facet_geo(~ name, grid = <span class="string">"nhs_scot_grid"</span>) +</div><div class="line">  scale_x_continuous(breaks = c(<span class="number">2004</span>, <span class="number">2007</span>, <span class="number">2010</span>, <span class="number">2013</span>)) +</div><div class="line">  scale_y_continuous(breaks = c(<span class="number">40</span>, <span class="number">60</span>, <span class="number">80</span>)) +</div><div class="line">  labs(title = <span class="string">"Child Dental Health in Scotland"</span>,</div><div class="line">    subtitle = <span class="string">"Percentage of P1 children in Scotland with no obvious decay experience."</span>,</div><div class="line">    caption = <span class="string">"Source: statistics.gov.scot"</span>, x = <span class="string">""</span>, y = <span class="string">""</span>)</div></pre></td></tr></table></figure></p>
+<p><img src="http://ory93arir.bkt.clouddn.com/us-map/image9.jpg" alt=""></p>
+<p><strong>印度人口分布</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">ggplot(subset(india_pop, type == <span class="string">"state"</span>),</div><div class="line">  aes(pop_type, value / <span class="number">1e6</span>, fill = pop_type)) +</div><div class="line">  geom_col() +</div><div class="line">  facet_geo(~ name, grid = <span class="string">"india_grid2"</span>, label = <span class="string">"code"</span>) +</div><div class="line">  labs(title = <span class="string">"Indian Population Breakdown"</span>,</div><div class="line">       caption = <span class="string">"Data Source: Wikipedia"</span>,</div><div class="line">       x = <span class="string">""</span>,</div><div class="line">       y = <span class="string">"Population [Millions]"</span>) +</div><div class="line">  theme_bw() +</div><div class="line">  theme(axis.text.x = element_text(angle = <span class="number">40</span>, hjust = <span class="number">1</span>))</div></pre></td></tr></table></figure></p>
+<p><img src="http://ory93arir.bkt.clouddn.com/us-map/image10.jpg" alt=""></p>
+<p><strong>2016年美国总统大选：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">ggplot(election, aes(<span class="string">""</span>, pct, fill = candidate)) +</div><div class="line">  geom_col(alpha = <span class="number">0.8</span>, width = <span class="number">1</span>) +</div><div class="line">  scale_fill_manual(values = c(<span class="string">"#4e79a7"</span>, <span class="string">"#e15759"</span>, <span class="string">"#59a14f"</span>)) +</div><div class="line">  facet_geo(~ state, grid = <span class="string">"us_state_grid2"</span>) +</div><div class="line">  scale_y_continuous(expand = c(<span class="number">0</span>, <span class="number">0</span>)) +</div><div class="line">  labs(title = <span class="string">"2016 Election Results"</span>,</div><div class="line">    caption = <span class="string">"Data Source: http://bit.ly/2016votecount"</span>,</div><div class="line">    x = <span class="literal">NULL</span>,</div><div class="line">    y = <span class="string">"Percentage of Voters"</span>) +</div><div class="line">  theme(axis.title.x = element_blank(),</div><div class="line">    axis.text.x = element_blank(),</div><div class="line">    axis.ticks.x = element_blank(),</div><div class="line">    strip.text.x = element_text(size = <span class="number">6</span>))</div></pre></td></tr></table></figure></p>
+<p><img src="http://ory93arir.bkt.clouddn.com/us-map/image11.jpg" alt=""></p>
+<p><strong>换成条形图：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">ggplot(election, aes(candidate, pct, fill = candidate)) +</div><div class="line">  geom_col() +</div><div class="line">  scale_fill_manual(values = c(<span class="string">"#4e79a7"</span>, <span class="string">"#e15759"</span>, <span class="string">"#59a14f"</span>)) +</div><div class="line">  facet_geo(~ state, grid = <span class="string">"us_state_grid2"</span>) +</div><div class="line">  theme_bw() +</div><div class="line">  coord_flip() +</div><div class="line">  labs(title = <span class="string">"2016 Election Results"</span>,</div><div class="line">    caption = <span class="string">"Data Source: http://bit.ly/2016votecount"</span>,</div><div class="line">    x = <span class="literal">NULL</span>,</div><div class="line">    y = <span class="string">"Percentage of Voters"</span>) +</div><div class="line">  theme(strip.text.x = element_text(size = <span class="number">6</span>))</div></pre></td></tr></table></figure></p>
+<p><img src="http://ory93arir.bkt.clouddn.com/us-map/image12.jpg" alt=""></p>
+<p>好了就写这几个吧，看完是不是觉得这个包很牛掰啊哈哈哈~_~</p>
+<p>我也是被他给惊艳到才立马写出来分享给大家，不过可惜的是这些只能使用内建数据，如果你要呈现的地域包含在内建的地区里面，应该是可以用的，但是内部没有定义的地区编码，需要自己使用JS编辑器定义、提交、审核，灰常麻烦，但是我有信心把源码搞明白，然后写一套可以自定义的地区分面系统。（不知道要猴年马月才能出来哈哈哈~）</p>
+<hr>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
+<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
+<hr>
+<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://ory93arir.bkt.clouddn.com/us-map/image1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
+    
+      <category term="数据地图" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%9C%B0%E5%9B%BE/"/>
+    
+  </entry>
   
   <entry>
     <title>那些年做过的图表</title>
@@ -54,11 +141,11 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="商务图表" scheme="http://www.raindu.com/tags/%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -204,9 +291,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -278,9 +365,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -603,9 +690,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -664,9 +751,9 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -881,13 +968,13 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
-      <category term="图表美化" scheme="http://www.raindu.com/tags/%E5%9B%BE%E8%A1%A8%E7%BE%8E%E5%8C%96/"/>
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
+    
+      <category term="图表美化" scheme="http://www.raindu.com/tags/%E5%9B%BE%E8%A1%A8%E7%BE%8E%E5%8C%96/"/>
     
       <category term="ggtech" scheme="http://www.raindu.com/tags/ggtech/"/>
     
@@ -954,9 +1041,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -1022,9 +1109,9 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -1174,11 +1261,11 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="商务图表" scheme="http://www.raindu.com/tags/%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="数据地图" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%9C%B0%E5%9B%BE/"/>
     
@@ -1228,11 +1315,11 @@
       <category term="R语言" scheme="http://www.raindu.com/categories/R%E8%AF%AD%E8%A8%80/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="商务图表" scheme="http://www.raindu.com/tags/%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="数据地图" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%9C%B0%E5%9B%BE/"/>
     
@@ -1315,11 +1402,11 @@
       <category term="R语言" scheme="http://www.raindu.com/categories/R%E8%AF%AD%E8%A8%80/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="商务图表" scheme="http://www.raindu.com/tags/%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="数据地图" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%9C%B0%E5%9B%BE/"/>
     
@@ -1413,9 +1500,9 @@
       <category term="Excel" scheme="http://www.raindu.com/categories/Excel/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="Excel" scheme="http://www.raindu.com/tags/Excel/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="商务图表" scheme="http://www.raindu.com/tags/%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
     
@@ -1485,9 +1572,9 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="图表美化" scheme="http://www.raindu.com/tags/%E5%9B%BE%E8%A1%A8%E7%BE%8E%E5%8C%96/"/>
     
@@ -1555,101 +1642,15 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="气泡云图.superbubble" scheme="http://www.raindu.com/tags/%E6%B0%94%E6%B3%A1%E4%BA%91%E5%9B%BE-superbubble/"/>
     
       <category term="PowerBI" scheme="http://www.raindu.com/tags/PowerBI/"/>
     
       <category term="Tableau" scheme="http://www.raindu.com/tags/Tableau/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>R语言可视化——ggplot图表配色技巧</title>
-    <link href="http://www.raindu.com/2017/06/18/R%E8%AF%AD%E8%A8%80%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%94%E2%80%94ggplot%E5%9B%BE%E8%A1%A8%E9%85%8D%E8%89%B2%E6%8A%80%E5%B7%A7/"/>
-    <id>http://www.raindu.com/2017/06/18/R语言可视化——ggplot图表配色技巧/</id>
-    <published>2017-06-18T14:03:45.000Z</published>
-    <updated>2017-07-03T13:58:45.568Z</updated>
-    
-    <content type="html"><![CDATA[<p>今天跟大家分享ggplot图表的配色原理与基本技巧。</p>
-<p>图表配色是一个很深奥的话题，多亏了R语言平台的众多开发者贡献的配色包，让图表的配色不再深不可测。</p>
-<a id="more"></a>
-<h3 id="图表配色常用类型："><a href="#图表配色常用类型：" class="headerlink" title="图表配色常用类型："></a>图表配色常用类型：</h3><p><strong>这里我暂且将所有的配色场景划分为两类：</strong></p>
-<blockquote>
-<p>离散变量配色与连续变量配色</p>
-</blockquote>
-<p><code>ggplot</code>函数的配色机制相对来说比较智能，当你给<code>colour</code>或者<code>fill</code>属性指定给变量映射的时候，该函数就会自动的区分变量属性（是离散变量或者是连续变量），进而给出适用于两种情况的配色风格。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(diamonds,aes(carat,price,colour=cut))+geom_point()</div></pre></td></tr></table></figure></p>
-<p><img src="http://orqx7zr30.bkt.clouddn.com/image1.png" alt=""><br><img src="http://orqx7zr30.bkt.clouddn.com/image2.png" alt=""></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(diamonds,aes(carat,price,colour=depth))+geom_point()</div></pre></td></tr></table></figure>
-<p><img src="http://orqx7zr30.bkt.clouddn.com/image3.png" alt=""></p>
-<p>大家可以对比以上两句代码：我并没有指定任何实际的颜色，只是将<code>colour</code>颜色属性指定给离散变量cut或者连续变量<code>depth</code>,而输出的图表已经完成了默认的离散颜色映射和连续颜色渐变映射。</p>
-<p>对于以上两种类型颜色使用场景，如果是要自行修改，则需要自行定义颜色标度：</p>
-<h3 id="常用配色方案简介："><a href="#常用配色方案简介：" class="headerlink" title="常用配色方案简介："></a>常用配色方案简介：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scale_colour_XXX:</div></pre></td></tr></table></figure>
-<p>这里最经常适用的三种情况</p>
-<p>第一种情况，使用<code>ggthemes</code>包中的颜色主题，其中有些非常流行的颜色主题，如经济学人的主题<code>scale_colour_economist()</code>、<code>scale_colour_wsj()</code>,还有<code>excel</code>的主题、<code>tableau</code>主题以及<code>stata</code>主题。</p>
-<p>第二种情况，可以使用<code>RColorBrewer</code>包中的配色卡，以下是该包<code>scale_colour_brewer()</code>函数所允许使用的所有离散颜色色卡。</p>
-<p>该配色系统方案给予我们三种关于分类变量的配色场景：</p>
-<p><img src="http://orqx7zr30.bkt.clouddn.com/image4.png" alt=""></p>
-<ul>
-<li><p>同色系方案，即在同一个色系中均匀取出若干个色段，用于分类变量填充，最终呈现的效果，看起来非常清爽，图中最上面的一排颜色均为此类。（适用于表达有序因子分类变量，比如GDP的分段呈现等）</p>
-</li>
-<li><p>二分色系方案，即两个色系方向平滑过渡，均匀取值，中间色一般为白色或者淡色。（适用于表达含有正负值的分类数量段，譬如增长率指标、利润率等）</p>
-</li>
-<li><p>多分类不同色系方案，取不同色系相对协调的一组颜色，这种情况比较适合用于表达仅作分类，分类项之间没有顺序和大小的普通情况。</p>
-</li>
-</ul>
-<p>以上色卡以及配色包是由一个著名的专做地图可视化配色方案的团队所开发的，网址如下，提供在线配色并免费下载服务。（网站可能被屏蔽，如无法打开需要使用VPN）</p>
-<p><a href="http://colorbrewer2.org/#" target="_blank" rel="external">RColorBrewer</a></p>
-<p>当然第三种就是自己DIY了，R支持直接调用可识别的颜色名称以及颜色代码（16进制代码）。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scale_fill_manual(values=c(<span class="string">"#FB882C"</span>,<span class="string">"#5B88A0"</span>))</div></pre></td></tr></table></figure></p>
-<p>或者<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scale_fill_manual(values=c(&quot;Linen&quot;,&quot;Peru&quot;,&quot;PeachPuff&quot;,&quot;SandyBrown&quot;,&quot;Chocolate&quot;))</div></pre></td></tr></table></figure></p>
-<p>连续型配色方案：</p>
-<p>而针对连续型变量颜色修改的情况，可探讨的余地不多：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">scale_fill_gradient（）</div><div class="line">scale_fill_gradient2（）</div><div class="line">scale_fill_gradient（） <span class="comment">#允许分配一组双色连续渐变，low="white",high="red"</span></div><div class="line">scale_fill_gradient2（）<span class="comment">#允许分配一组三色连续渐变，low="blue",mid="white",high="red"</span></div></pre></td></tr></table></figure>
-<h3 id="配色方案案例演示："><a href="#配色方案案例演示：" class="headerlink" title="配色方案案例演示："></a>配色方案案例演示：</h3><p>接下来针对以上几种情况，我分别演示一个案例：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(<span class="string">"ggthemes"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"RColorBrewer"</span>)</div></pre></td></tr></table></figure>
-<p><strong>离散型配色方案：</strong></p>
-<p>使用ggthemes包中的颜色主题（华尔街日报的主题色模板）<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(diamonds,aes(carat,price,colour=cut))+geom_point()+scale_colour_wsj()</div></pre></td></tr></table></figure></p>
-<p><img src="http://orqx7zr30.bkt.clouddn.com/image5.png" alt=""></p>
-<p>使用RColorBrewer包中的配色卡</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(diamonds,aes(carat,price,colour=cut))+geom_point()+scale_colour_brewer(palette=<span class="string">"Greens"</span>)</div></pre></td></tr></table></figure>
-<p><img src="http://orqx7zr30.bkt.clouddn.com/image6.png" alt=""></p>
-<p>使用DIY方式自己制作配色卡</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(diamonds,aes(carat,price,colour=cut))+geom_point()+scale_colour_manual(values=c(<span class="string">"#84CEFC"</span>,<span class="string">"#ACDAE4"</span>,<span class="string">"#5C9EA4"</span>,<span class="string">"#04FEFC"</span>,<span class="string">"#4CD2CC"</span>))</div></pre></td></tr></table></figure>
-<p><img src="http://orqx7zr30.bkt.clouddn.com/image7.png" alt=""></p>
-<p><strong>连续型：</strong></p>
-<p>双色渐变：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(diamonds,aes(carat,price,colour=depth))+geom_point()+scale_colour_gradient(low=<span class="string">"white"</span>,high=<span class="string">"Blue"</span>)</div></pre></td></tr></table></figure></p>
-<p><img src="http://orqx7zr30.bkt.clouddn.com/image8.png" alt=""></p>
-<p>三色渐变：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(diamonds,aes(carat,price,colour=depth))+geom_point()+scale_colour_gradient2(low=<span class="string">"#8E0F2E"</span>, mid=<span class="string">"#BFBEBE"</span>, high=<span class="string">"#0E4E75"</span>,midpoint=median(na.omit(diamonds$depth)))</div></pre></td></tr></table></figure></p>
-<p><img src="http://orqx7zr30.bkt.clouddn.com/image9.png" alt=""></p>
-<p>以上就是R中最常用到的配色技巧，可以满足我们大部分使用场景的需求。</p>
-<hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）</p>
-<p>qq交流群：[魔方学院]298236508</p>
-<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<hr>
-<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;今天跟大家分享ggplot图表的配色原理与基本技巧。&lt;/p&gt;
-&lt;p&gt;图表配色是一个很深奥的话题，多亏了R语言平台的众多开发者贡献的配色包，让图表的配色不再深不可测。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
-    
-    
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
-      <category term="图表美化" scheme="http://www.raindu.com/tags/%E5%9B%BE%E8%A1%A8%E7%BE%8E%E5%8C%96/"/>
-    
-      <category term="配色技巧" scheme="http://www.raindu.com/tags/%E9%85%8D%E8%89%B2%E6%8A%80%E5%B7%A7/"/>
     
   </entry>
   
