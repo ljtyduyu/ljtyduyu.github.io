@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[让执着成为一种习惯——仿网易数独玫瑰气泡图]]></title>
+    <url>%2F2017%2F07%2F06%2F%E8%AE%A9%E6%89%A7%E7%9D%80%E6%88%90%E4%B8%BA%E4%B8%80%E7%A7%8D%E4%B9%A0%E6%83%AF%E2%80%94%E2%80%94%E4%BB%BF%E7%BD%91%E6%98%93%E6%95%B0%E7%8B%AC%E7%8E%AB%E7%91%B0%E6%B0%94%E6%B3%A1%E5%9B%BE%2F</url>
+    <content type="text"><![CDATA[没有难学的技艺，只有不够辛勤的付出！ 今天这篇文章推送仿的的是网易数独的一幅信息图，内容呈现的是全球各国人民对于养老所持的态度，数据来源于Pew Reserch Centre。 图表整体难度中等，使用ggplot2来写代码，主要考察关于极坐标转换与应用。（ggplot2系统中，两个较为高阶的用法分别为：极坐标系、地理空间的多边形填充）。 环境准备加载包：加载包：123456library("ggplot2")library("tidyr")library("ggthemes")library("dplyr")library("Cairo")library("showtext") 载入字体：123font.add("myfontl","msyhl.ttc")font.add("myfont","msyh.ttc")font.add("myfzhzh","方正正粗黑简体.TTF") 锁定文件临时目录：1setwd("D:/R/File") 导入并整理数据:1circle_bubble&lt;-read.csv("circle_bubble.csv",stringsAsFactors = FALSE,check.names = FALSE) 仔细观察该图，你会发现，玫瑰图内侧并非底边对齐，而是靠上下中心对齐，要想做到这种效果，必须将一个 细分维度转化为负值（柱形图堆积时会自动将负值堆积在负坐标轴上）。 123circle_bubble$Government&lt;--circle_bubble$Governmentlevel&lt;-circle_bubble[,"State"]circle_bubble$State&lt;-factor(circle_bubble$State,levels=level,ordered=TRUE) 筛选出制作堆积条形图的数据源：12circle_data&lt;-circle_bubble %&gt;% select(State,Government,Family,Youself) %&gt;% gather(Class,Value,-State)circle_data$Class&lt;-factor(circle_data$Class,levels=c("Government","Youself","Family"),ordered=TRUE) 构造三个序列的气泡图数据：123circle_point&lt;-circle_bubble[,c("State","General","Very","Raito")]circle_point_data&lt;-gather(circle_point,Class,Value,-State)circle_point_data$Class&lt;-factor(circle_point_data$Class,levels=c("General","Very","Raito"),order=TRUE) 构造作图数据：构造气泡图模拟Y轴：12345circle_point_data &lt;- within(circle_point_data,&#123; mood_y &lt;- NA mood_y[Class=="General"]&lt;--150 mood_y[Class=="Very"]&lt;--100 mood_y[Class=="Raito"]&lt;-140&#125;) 构造模拟气泡大小1circle_point_data$Value_y&lt;-ifelse(circle_point_data$Class=="Raito",circle_point_data$Value,0.3*circle_point_data$Value) （这里没有使用气泡图对应真实值作为气泡大小，而是将除Raito系列之外的两个序列真实值缩小了70%，这么做的目的是为了整体的气泡大小比例显示更为匀称和谐，因为Ratio序列是单值序列，其与自身的100%单位标度比较，剩余两个序列相互比较）。 构造模拟标签位置12345circle_data &lt;- within(circle_data,&#123; label_y &lt;- NA label_y[Class=="Government"]&lt;-circle_bubble$Government/2 label_y[Class=="Family"]&lt;-circle_bubble$Family/2 label_y[Class=="Youself"]&lt;-circle_bubble$Family+circle_bubble$Youself-circle_bubble$Youself/2&#125;) 可视化过程：极坐标化前的柱形图：123ggplot()+geom_linerange(data=circle_bubble,aes(x=State,ymin=-150,ymax=140),size=.25,color="#D8E5F2",alpha=0.8)+geom_col(data=circle_data,aes(x=State,y=Value,fill=Class),width=1,colour="white",size=.25) 极坐标化前的柱形图和气泡图123456789ggplot()+geom_linerange(data=circle_bubble,aes(x=State,ymin=-150,ymax=140),size=.25,color="#D8E5F2",alpha=0.8)+geom_col(data=circle_data,aes(x=State,y=Value,fill=Class),width=1,colour="white",size=.25)+geom_point(data=circle_bubble,aes(State,y=140),size=40,colour="#FEFCD3",alpha=.8)+geom_point(data=circle_point_data,aes(State,y=mood_y,size=Value_y,colour=Class))+geom_text(data=circle_data,aes(x=State,y=label_y,group=Class,label=abs(Value)),family="myfont",colour="white",size=5)+geom_text(data=filter(circle_point_data,mood_y==-150),aes(x=State,y=mood_y,label=Value),family="myfontl",colour="#AA1A66",size=4)+geom_text(data=filter(circle_point_data,mood_y==-100),aes(x=State,y=mood_y,label=Value),family="myfontl",colour="#A31067",size=4)+geom_text(data=filter(circle_point_data,mood_y==140),aes(x=State,y=mood_y,label=Value),family="myfontl",colour="#F29E4A",size=5) 极坐标化后的柱形图和气泡图（完整标签版）1234567891011121314ggplot()+geom_linerange(data=circle_bubble,aes(x=State,ymin=-150,ymax=140),size=.25,color="#D8E5F2",alpha=0.8)+geom_col(data=circle_data,aes(x=State,y=Value,fill=Class),width=1,colour="white",size=.25)+geom_point(data=circle_bubble,aes(State,y=140),size=40,colour="#FEFCD3",alpha=.8)+geom_point(data=circle_point_data,aes(State,y=mood_y,size=Value_y,colour=Class))+geom_text(data=circle_data,aes(x=State,y=label_y,group=Class,label=abs(Value)),family="myfont",colour="white",size=5)+geom_text(data=filter(circle_point_data,mood_y==-150),aes(x=State,y=mood_y,label=Value),family="myfontl",colour="#AA1A66",size=4)+geom_text(data=filter(circle_point_data,mood_y==-100),aes(x=State,y=mood_y,label=Value),family="myfontl",colour="#A31067",size=4)+geom_text(data=filter(circle_point_data,mood_y==140),aes(x=State,y=mood_y,label=Value),family="myfontl",colour="#F29E4A",size=5)+scale_fill_manual(values=c("#FA844F","#BDCCD4","#00C4B5"))+scale_colour_manual(values=c("#FAC0A1","#F35C57","#FBEB1B"))+labs(title="各国人民\n对于养老的态度")+scale_size_area(max_size=34.8)+coord_polar() 最终成品图：12345678910111213141516171819202122CairoPNG(file="circle_bubble.png",width=1000,height=1000)showtext.begin()ggplot()+geom_linerange(data=circle_bubble,aes(x=State,ymin=-150,ymax=140),size=.25,color="#D8E5F2",alpha=0.8)+geom_col(data=circle_data,aes(x=State,y=Value,fill=Class),width=1,colour="white",size=.25)+geom_point(data=circle_bubble,aes(State,y=140),size=40,colour="#FEFCD3",alpha=.8)+geom_point(data=circle_point_data,aes(State,y=mood_y,size=Value_y,colour=Class))+geom_text(data=circle_data,aes(x=State,y=label_y,group=Class,label=abs(Value)),family="myfont",colour="white",size=5)+geom_text(data=filter(circle_point_data,mood_y==-150),aes(x=State,y=mood_y,label=Value),family="myfontl",colour="#AA1A66",size=4)+geom_text(data=filter(circle_point_data,mood_y==-100),aes(x=State,y=mood_y,label=Value),family="myfontl",colour="#A31067",size=4)+geom_text(data=filter(circle_point_data,mood_y==140),aes(x=State,y=mood_y,label=Value),family="myfontl",colour="#F29E4A",size=5)+geom_text(data=circle_bubble,aes(State,y=Government-12,label=State,angle=angle),family="myfontl",size=4,alpha=.8)+scale_fill_manual(values=c("#FA844F","#BDCCD4","#00C4B5"))+scale_colour_manual(values=c("#FAC0A1","#F35C57","#FBEB1B"))+labs(title="各国人民\n对于养老的态度")+scale_size_area(max_size=34.8)+coord_polar()+ylim(-250,150)+guides(colour=FALSE,size=FALSE,fill=FALSE)+theme_map() %+replace%theme(plot.title=element_text(family="myfzhzh",size=50,hjust=0,lineheight=1.2))showtext.end()dev.off() 最终效果图： PS修饰后的最终效果（以上进过PS修饰细节）。 联系方式：wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]298236508 个人简介：杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。Mail:578708965@qq.com 备注信息：本作品采用知识共享署名-非商业性使用 4.0 国际许可协议进行许可。]]></content>
+      <categories>
+        <category>数据可视化</category>
+      </categories>
+      <tags>
+        <tag>数据可视化</tag>
+        <tag>R语言</tag>
+        <tag>ggplot2</tag>
+        <tag>信息图</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[这么牛X的包，一般人我不告诉他！！！]]></title>
     <url>%2F2017%2F07%2F04%2F%E8%BF%99%E4%B9%88%E7%89%9BX%E7%9A%84%E5%8C%85%EF%BC%8C%E4%B8%80%E8%88%AC%E4%BA%BA%E6%88%91%E4%B8%8D%E5%91%8A%E8%AF%89%E4%BB%96%EF%BC%81%EF%BC%81%EF%BC%81%2F</url>
     <content type="text"><![CDATA[本文将给大家介绍一个ggplot2灰常牛X的可视化扩展包，我将该包主页的包用法介绍整理成中文，分享给大家。 包名叫geofacet，有经验的charter大概能猜出来个大概，没错该包是关于可视化数据中的地理信息，以及维度分面。 作者命名非常讲究，将该包的两个主要核心功能进行组合命名。 地理信息可视化分面，这么吊的包你肯定是第一次看到吧（其实之前介绍过一些地图上的mini 柱形图、饼图等都算这一类），但是这里的分面功能做的更加彻底，作者还是遵循惯例，将这种基于地理信息分面的可视化功能对接了ggplot2,并以分面函数facet_geo()的形式呈现。 这样了解ggplot2的用户学习成本就低了很多，因为只需了解这个分面参数的具体设定，组织对应数据源格式就OK了。 以下是本文的主要内容： geofacet包扩展了ggplot2的分面函数，进而提供了基于地理信息的更加灵活的数据可视化方案。这个分面函数并无特别指出，如同内置的分面函数（facet_grid、facet_wrap等）用法没有太大差别。唯一的区别是，在最终的图形版面呈现结果上，允许单个图表分面刻画在对应的地理多边形中心位置。 该包的核心功能可以概括为以下几点： 每一个分面单元格都可以呈现一个维度的数据（而非单个数值）； 每一个分面单元格可以容纳任何一种ggplot2内置图表对象（看清楚了，是任何一种，任何一种，任何一种，就问你这包屌不屌！）； 分面系统支持任何的地理多边形（可以是内建的，也可以是用户自定义的）。 该包的强大优势绝不仅仅只有以下展示的这些内容，很快我们将会建立一个该包的专属博客（如果建好了会将其网站分享在本页面）。 下载安装：123456install.packages("geofacet")# or from github:# devtools::install_github("hafen/geofacet")library(geofacet)library(ggplot2)library(ggthemes) 使用方法：该包内的主要函数是facet_geo()，它的用法可以类比ggplot2的内置分面函数facet_warp()\facet_grid()(当然在输出方式上略有不同)。只要你已经熟练掌握了ggplot2语法，那么你就可以轻松搞定这个包。 接下来让我们展示一个例子，该包内置了一个数据集——state_ranks。1head(state_ranks) 这是一个包含美国各州不同社会指标优略程度的数据集（按照排名由低到高排序）。 然后让我们使用geofacet来给每一个州都创造一个柱形图，我仅需使用一个ggplot2内的geom_col()函数即可，至于分面参数，这里我们摒弃使用传统的facet_wrap（）分面函数，而是使用geofacet包提供的facet_geo（）函数来替代。 定义一个主题：12345678mytheme&lt;-function (base_size = 12, base_family = "")&#123; theme_bw(base_size = base_size, base_family = base_family) %+replace% theme(axis.line = element_blank(), axis.text.x=element_blank(), axis.ticks=element_blank(), axis.title = element_blank(), panel.background=element_blank(),panel.border =element_blank(), panel.grid = element_blank(), plot.background = element_blank(), strip.background=element_blank(),legend.position = c(0.9,0.15))&#125; 案例赏析：分面柱形图：123456ggplot(state_ranks, aes(variable,rank,fill=variable)) + geom_col() + coord_flip() + scale_fill_wsj()+ facet_geo(~state)+ mytheme() geofacet内部重要参数： grid参数：可以理解为网格id，可以选择内建的id名称，或者是提供一个自建的已经命名有网格名称的数据框。 label参数：可以指定任何我们想要指定的变量作为网格显示的标签。 以下是两一个自带数据集的例子：1head(us_state_grid2) 这一次，我们用来呈现美国季节调整后的失业率随时间的变化。使用对应州名作为对应网格标签。123456789ggplot(state_unemp, aes(year, rate)) + geom_line() + facet_geo(~ state, grid = "us_state_grid2", label = "name") + scale_x_continuous(labels = function(x) paste0("'", substr(x, 3, 4))) + labs(title = "Seasonally Adjusted US Unemployment Rate 2000-2016", caption = "Data Source: bls.gov", x = "Year", y = "Unemployment Rate (%)") + theme(strip.text.x = element_text(size = 6)) 指定网格非常容易，我们只需提供一个内含地区名称和地区代码的数据框即可。 以下是该包内已经内建好的，我们画图可利用的带地区编码的数据集。123get_grid_names()#[1] "us_state_grid1" "us_state_grid2" "eu_grid1" "aus_grid1" "sa_prov_grid1" "london_boroughs_grid"#[7] "nhs_scot_grid" "india_grid1" "india_grid2" "argentina_grid1" "br_grid1" OMG，WAKM ,竟然没有China，这不科学啊（等我弄明白了我亲自给大家做一个）。 接下来是其他国家的几个例子！ 欧盟成员国GDP增长情况：123456789ggplot(aus_pop, aes(age_group, pop / 1e6, fill = age_group)) + geom_col() + facet_geo(~ code, grid = "aus_grid1") + coord_flip() + labs( title = "Australian Population Breakdown", caption = "Data Source: ABS Labour Force Survey, 12 month average", y = "Population [Millions]") + theme_bw() 奥地利人口分组可视化：123456ggplot(aus_pop, aes(age_group, pop / 1e6, fill = age_group)) + geom_col() + facet_geo(~ code, grid = "aus_grid1") + coord_flip() + labs( title = "Australian Population Breakdown", caption = "Data Source: ABS Labour Force Survey, 12 month average", y = "Population [Millions]") + theme_bw() 南非1234567ggplot(sa_pop_dens, aes(factor(year), density, fill = factor(year))) + geom_col() + facet_geo(~ province, grid = "sa_prov_grid1") + labs(title = "South Africa population density by province", caption = "Data Source: Statistics SA Census", y = "Population density per square km") + theme_bw() 关于伦敦房价123456ggplot(london_afford, aes(x = year, y = starts, fill = year)) + geom_col(position = position_dodge()) + facet_geo(~ code, grid = "london_boroughs_grid", label = "name") + labs(title = "Affordable Housing Starts in London", subtitle = "Each Borough, 2015-16 to 2016-17", caption = "Source: London Datastore", x = "", y = "") 苏格兰居民牙齿健康程度12345678ggplot(nhs_scot_dental, aes(x = year, y = percent)) + geom_line() + facet_geo(~ name, grid = "nhs_scot_grid") + scale_x_continuous(breaks = c(2004, 2007, 2010, 2013)) + scale_y_continuous(breaks = c(40, 60, 80)) + labs(title = "Child Dental Health in Scotland", subtitle = "Percentage of P1 children in Scotland with no obvious decay experience.", caption = "Source: statistics.gov.scot", x = "", y = "") 印度人口分布12345678910ggplot(subset(india_pop, type == "state"), aes(pop_type, value / 1e6, fill = pop_type)) + geom_col() + facet_geo(~ name, grid = "india_grid2", label = "code") + labs(title = "Indian Population Breakdown", caption = "Data Source: Wikipedia", x = "", y = "Population [Millions]") + theme_bw() + theme(axis.text.x = element_text(angle = 40, hjust = 1)) 2016年美国总统大选：12345678910111213ggplot(election, aes("", pct, fill = candidate)) + geom_col(alpha = 0.8, width = 1) + scale_fill_manual(values = c("#4e79a7", "#e15759", "#59a14f")) + facet_geo(~ state, grid = "us_state_grid2") + scale_y_continuous(expand = c(0, 0)) + labs(title = "2016 Election Results", caption = "Data Source: http://bit.ly/2016votecount", x = NULL, y = "Percentage of Voters") + theme(axis.title.x = element_blank(), axis.text.x = element_blank(), axis.ticks.x = element_blank(), strip.text.x = element_text(size = 6)) 换成条形图：1234567891011ggplot(election, aes(candidate, pct, fill = candidate)) + geom_col() + scale_fill_manual(values = c("#4e79a7", "#e15759", "#59a14f")) + facet_geo(~ state, grid = "us_state_grid2") + theme_bw() + coord_flip() + labs(title = "2016 Election Results", caption = "Data Source: http://bit.ly/2016votecount", x = NULL, y = "Percentage of Voters") + theme(strip.text.x = element_text(size = 6)) 好了就写这几个吧，看完是不是觉得这个包很牛掰啊哈哈哈~_~ 我也是被他给惊艳到才立马写出来分享给大家，不过可惜的是这些只能使用内建数据，如果你要呈现的地域包含在内建的地区里面，应该是可以用的，但是内部没有定义的地区编码，需要自己使用JS编辑器定义、提交、审核，灰常麻烦，但是我有信心把源码搞明白，然后写一套可以自定义的地区分面系统。（不知道要猴年马月才能出来哈哈哈~） 联系方式：wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]298236508 个人简介：杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。Mail:578708965@qq.com 备注信息：本作品采用知识共享署名-非商业性使用 4.0 国际许可协议进行许可。]]></content>
@@ -146,8 +160,8 @@
       <tags>
         <tag>数据可视化</tag>
         <tag>R语言</tag>
-        <tag>ggplot2</tag>
         <tag>图表美化</tag>
+        <tag>ggplot2</tag>
         <tag>ggtech</tag>
       </tags>
   </entry>
@@ -316,8 +330,8 @@
       <tags>
         <tag>数据可视化</tag>
         <tag>R语言</tag>
-        <tag>主题定制</tag>
         <tag>图表美化</tag>
+        <tag>主题定制</tag>
       </tags>
   </entry>
   <entry>
@@ -552,8 +566,8 @@
         <tag>数据可视化</tag>
         <tag>R语言</tag>
         <tag>地理信息可视化</tag>
-        <tag>填充地图</tag>
         <tag>REmap</tag>
+        <tag>填充地图</tag>
       </tags>
   </entry>
   <entry>
@@ -628,9 +642,9 @@
       <tags>
         <tag>数据可视化</tag>
         <tag>R语言</tag>
-        <tag>json</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
+        <tag>json</tag>
         <tag>leaflet</tag>
       </tags>
   </entry>
@@ -662,8 +676,8 @@
         <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
-        <tag>leaflet</tag>
         <tag>路径图</tag>
+        <tag>leaflet</tag>
         <tag>mini柱形/条形图</tag>
       </tags>
   </entry>
@@ -770,8 +784,8 @@
       <tags>
         <tag>数据可视化</tag>
         <tag>R语言</tag>
-        <tag>ggplot2</tag>
         <tag>路径图</tag>
+        <tag>ggplot2</tag>
       </tags>
   </entry>
   <entry>

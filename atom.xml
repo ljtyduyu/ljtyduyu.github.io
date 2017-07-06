@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.raindu.com/"/>
-  <updated>2017-07-04T02:00:40.429Z</updated>
+  <updated>2017-07-06T15:01:46.721Z</updated>
   <id>http://www.raindu.com/</id>
   
   <author>
@@ -14,6 +14,72 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>让执着成为一种习惯——仿网易数独玫瑰气泡图</title>
+    <link href="http://www.raindu.com/2017/07/06/%E8%AE%A9%E6%89%A7%E7%9D%80%E6%88%90%E4%B8%BA%E4%B8%80%E7%A7%8D%E4%B9%A0%E6%83%AF%E2%80%94%E2%80%94%E4%BB%BF%E7%BD%91%E6%98%93%E6%95%B0%E7%8B%AC%E7%8E%AB%E7%91%B0%E6%B0%94%E6%B3%A1%E5%9B%BE/"/>
+    <id>http://www.raindu.com/2017/07/06/让执着成为一种习惯——仿网易数独玫瑰气泡图/</id>
+    <published>2017-07-06T14:49:33.000Z</published>
+    <updated>2017-07-06T15:01:46.721Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://orvigieh3.bkt.clouddn.com/circle_bubble/%E5%B0%81%E9%9D%A2%E5%9B%BE.png" alt=""></p>
+<p>没有难学的技艺，只有不够辛勤的付出！</p>
+<a id="more"></a>
+<p>今天这篇文章推送仿的的是网易数独的一幅信息图，内容呈现的是全球各国人民对于养老所持的态度，数据来源于Pew Reserch Centre。</p>
+<p>图表整体难度中等，使用ggplot2来写代码，主要考察关于极坐标转换与应用。（ggplot2系统中，两个较为高阶的用法分别为：极坐标系、地理空间的多边形填充）。</p>
+<h3 id="环境准备加载包："><a href="#环境准备加载包：" class="headerlink" title="环境准备加载包："></a>环境准备加载包：</h3><p><strong>加载包：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(<span class="string">"ggplot2"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"tidyr"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"ggthemes"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"dplyr"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"Cairo"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"showtext"</span>)</div></pre></td></tr></table></figure></p>
+<p><strong>载入字体：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">font.add(<span class="string">"myfontl"</span>,<span class="string">"msyhl.ttc"</span>)</div><div class="line">font.add(<span class="string">"myfont"</span>,<span class="string">"msyh.ttc"</span>)</div><div class="line">font.add(<span class="string">"myfzhzh"</span>,<span class="string">"方正正粗黑简体.TTF"</span>)</div></pre></td></tr></table></figure></p>
+<p><strong>锁定文件临时目录：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">setwd(<span class="string">"D:/R/File"</span>)</div></pre></td></tr></table></figure></p>
+<h3 id="导入并整理数据"><a href="#导入并整理数据" class="headerlink" title="导入并整理数据:"></a>导入并整理数据:</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">circle_bubble&lt;-read.csv(<span class="string">"circle_bubble.csv"</span>,stringsAsFactors = <span class="literal">FALSE</span>,check.names = <span class="literal">FALSE</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://orvigieh3.bkt.clouddn.com/circle_bubble/image2.jpg" alt=""></p>
+<p><img src="http://orvigieh3.bkt.clouddn.com/circle_bubble/image1.png" alt=""></p>
+<p>仔细观察该图，你会发现，玫瑰图内侧并非底边对齐，而是靠上下中心对齐，要想做到这种效果，必须将一个 细分维度转化为负值（柱形图堆积时会自动将负值堆积在负坐标轴上）。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">circle_bubble$Government&lt;--circle_bubble$Government</div><div class="line">level&lt;-circle_bubble[,<span class="string">"State"</span>]</div><div class="line">circle_bubble$State&lt;-factor(circle_bubble$State,levels=level,ordered=<span class="literal">TRUE</span>)</div></pre></td></tr></table></figure>
+<p><strong>筛选出制作堆积条形图的数据源：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">circle_data&lt;-circle_bubble %&gt;% select(State,Government,Family,Youself) %&gt;% gather(Class,Value,-State)</div><div class="line">circle_data$Class&lt;-factor(circle_data$Class,levels=c(<span class="string">"Government"</span>,<span class="string">"Youself"</span>,<span class="string">"Family"</span>),ordered=<span class="literal">TRUE</span>)</div></pre></td></tr></table></figure></p>
+<p><img src="http://orvigieh3.bkt.clouddn.com/circle_bubble/image3.jpg" alt=""></p>
+<p><strong>构造三个序列的气泡图数据：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">circle_point&lt;-circle_bubble[,c(<span class="string">"State"</span>,<span class="string">"General"</span>,<span class="string">"Very"</span>,<span class="string">"Raito"</span>)]</div><div class="line">circle_point_data&lt;-gather(circle_point,Class,Value,-State)</div><div class="line">circle_point_data$Class&lt;-factor(circle_point_data$Class,levels=c(<span class="string">"General"</span>,<span class="string">"Very"</span>,<span class="string">"Raito"</span>),order=<span class="literal">TRUE</span>)</div></pre></td></tr></table></figure></p>
+<p><img src="http://orvigieh3.bkt.clouddn.com/circle_bubble/image4.jpg" alt=""></p>
+<h3 id="构造作图数据："><a href="#构造作图数据：" class="headerlink" title="构造作图数据："></a>构造作图数据：</h3><p><strong>构造气泡图模拟Y轴：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">circle_point_data &lt;- within(circle_point_data,&#123;</div><div class="line"> mood_y &lt;- <span class="literal">NA</span></div><div class="line"> mood_y[Class==<span class="string">"General"</span>]&lt;--<span class="number">150</span></div><div class="line"> mood_y[Class==<span class="string">"Very"</span>]&lt;--<span class="number">100</span></div><div class="line"> mood_y[Class==<span class="string">"Raito"</span>]&lt;-<span class="number">140</span>&#125;)</div></pre></td></tr></table></figure></p>
+<p><strong>构造模拟气泡大小</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">circle_point_data$Value_y&lt;-ifelse(circle_point_data$Class==<span class="string">"Raito"</span>,circle_point_data$Value,<span class="number">0.3</span>*circle_point_data$Value)</div></pre></td></tr></table></figure></p>
+<p>（这里没有使用气泡图对应真实值作为气泡大小，而是将除Raito系列之外的两个序列真实值缩小了70%，这么做的目的是为了整体的气泡大小比例显示更为匀称和谐，因为Ratio序列是单值序列，其与自身的100%单位标度比较，剩余两个序列相互比较）。</p>
+<p><strong>构造模拟标签位置</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">circle_data &lt;- within(circle_data,&#123;</div><div class="line"> label_y &lt;- <span class="literal">NA</span></div><div class="line"> label_y[Class==<span class="string">"Government"</span>]&lt;-circle_bubble$Government/<span class="number">2</span></div><div class="line"> label_y[Class==<span class="string">"Family"</span>]&lt;-circle_bubble$Family/<span class="number">2</span></div><div class="line"> label_y[Class==<span class="string">"Youself"</span>]&lt;-circle_bubble$Family+circle_bubble$Youself-circle_bubble$Youself/<span class="number">2</span>&#125;)</div></pre></td></tr></table></figure></p>
+<h3 id="可视化过程："><a href="#可视化过程：" class="headerlink" title="可视化过程："></a>可视化过程：</h3><p><strong>极坐标化前的柱形图：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ggplot()+</div><div class="line">geom_linerange(data=circle_bubble,aes(x=State,ymin=-<span class="number">150</span>,ymax=<span class="number">140</span>),size=<span class="number">.25</span>,color=<span class="string">"#D8E5F2"</span>,alpha=<span class="number">0.8</span>)+</div><div class="line">geom_col(data=circle_data,aes(x=State,y=Value,fill=Class),width=<span class="number">1</span>,colour=<span class="string">"white"</span>,size=<span class="number">.25</span>)</div></pre></td></tr></table></figure></p>
+<p><img src="http://orvigieh3.bkt.clouddn.com/circle_bubble/image5.jpg" alt=""></p>
+<p><strong>极坐标化前的柱形图和气泡图</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">ggplot()+</div><div class="line">geom_linerange(data=circle_bubble,aes(x=State,ymin=-<span class="number">150</span>,ymax=<span class="number">140</span>),size=<span class="number">.25</span>,color=<span class="string">"#D8E5F2"</span>,alpha=<span class="number">0.8</span>)+</div><div class="line">geom_col(data=circle_data,aes(x=State,y=Value,fill=Class),width=<span class="number">1</span>,colour=<span class="string">"white"</span>,size=<span class="number">.25</span>)+</div><div class="line">geom_point(data=circle_bubble,aes(State,y=<span class="number">140</span>),size=<span class="number">40</span>,colour=<span class="string">"#FEFCD3"</span>,alpha=<span class="number">.8</span>)+</div><div class="line">geom_point(data=circle_point_data,aes(State,y=mood_y,size=Value_y,colour=Class))+</div><div class="line">geom_text(data=circle_data,aes(x=State,y=label_y,group=Class,label=abs(Value)),family=<span class="string">"myfont"</span>,colour=<span class="string">"white"</span>,size=<span class="number">5</span>)+</div><div class="line">geom_text(data=filter(circle_point_data,mood_y==-<span class="number">150</span>),aes(x=State,y=mood_y,label=Value),family=<span class="string">"myfontl"</span>,colour=<span class="string">"#AA1A66"</span>,size=<span class="number">4</span>)+</div><div class="line">geom_text(data=filter(circle_point_data,mood_y==-<span class="number">100</span>),aes(x=State,y=mood_y,label=Value),family=<span class="string">"myfontl"</span>,colour=<span class="string">"#A31067"</span>,size=<span class="number">4</span>)+</div><div class="line">geom_text(data=filter(circle_point_data,mood_y==<span class="number">140</span>),aes(x=State,y=mood_y,label=Value),family=<span class="string">"myfontl"</span>,colour=<span class="string">"#F29E4A"</span>,size=<span class="number">5</span>)</div></pre></td></tr></table></figure></p>
+<p><img src="http://orvigieh3.bkt.clouddn.com/circle_bubble/image6.jpg" alt=""></p>
+<p><strong>极坐标化后的柱形图和气泡图</strong>（完整标签版）<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">ggplot()+</div><div class="line">geom_linerange(data=circle_bubble,aes(x=State,ymin=-<span class="number">150</span>,ymax=<span class="number">140</span>),size=<span class="number">.25</span>,color=<span class="string">"#D8E5F2"</span>,alpha=<span class="number">0.8</span>)+</div><div class="line">geom_col(data=circle_data,aes(x=State,y=Value,fill=Class),width=<span class="number">1</span>,colour=<span class="string">"white"</span>,size=<span class="number">.25</span>)+</div><div class="line">geom_point(data=circle_bubble,aes(State,y=<span class="number">140</span>),size=<span class="number">40</span>,colour=<span class="string">"#FEFCD3"</span>,alpha=<span class="number">.8</span>)+</div><div class="line">geom_point(data=circle_point_data,aes(State,y=mood_y,size=Value_y,colour=Class))+</div><div class="line">geom_text(data=circle_data,aes(x=State,y=label_y,group=Class,label=abs(Value)),family=<span class="string">"myfont"</span>,colour=<span class="string">"white"</span>,size=<span class="number">5</span>)+</div><div class="line">geom_text(data=filter(circle_point_data,mood_y==-<span class="number">150</span>),aes(x=State,y=mood_y,label=Value),family=<span class="string">"myfontl"</span>,colour=<span class="string">"#AA1A66"</span>,size=<span class="number">4</span>)+</div><div class="line">geom_text(data=filter(circle_point_data,mood_y==-<span class="number">100</span>),aes(x=State,y=mood_y,label=Value),family=<span class="string">"myfontl"</span>,colour=<span class="string">"#A31067"</span>,size=<span class="number">4</span>)+</div><div class="line">geom_text(data=filter(circle_point_data,mood_y==<span class="number">140</span>),aes(x=State,y=mood_y,label=Value),family=<span class="string">"myfontl"</span>,colour=<span class="string">"#F29E4A"</span>,size=<span class="number">5</span>)+</div><div class="line">scale_fill_manual(values=c(<span class="string">"#FA844F"</span>,<span class="string">"#BDCCD4"</span>,<span class="string">"#00C4B5"</span>))+</div><div class="line">scale_colour_manual(values=c(<span class="string">"#FAC0A1"</span>,<span class="string">"#F35C57"</span>,<span class="string">"#FBEB1B"</span>))+</div><div class="line">labs(title=<span class="string">"各国人民\n对于养老的态度"</span>)+</div><div class="line">scale_size_area(max_size=<span class="number">34.8</span>)+</div><div class="line">coord_polar()</div></pre></td></tr></table></figure></p>
+<p><img src="http://orvigieh3.bkt.clouddn.com/circle_bubble/image7.jpg" alt=""></p>
+<p><strong>最终成品图：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">CairoPNG(file=<span class="string">"circle_bubble.png"</span>,width=<span class="number">1000</span>,height=<span class="number">1000</span>)</div><div class="line">showtext.begin()</div><div class="line">ggplot()+</div><div class="line">geom_linerange(data=circle_bubble,aes(x=State,ymin=-<span class="number">150</span>,ymax=<span class="number">140</span>),size=<span class="number">.25</span>,color=<span class="string">"#D8E5F2"</span>,alpha=<span class="number">0.8</span>)+</div><div class="line">geom_col(data=circle_data,aes(x=State,y=Value,fill=Class),width=<span class="number">1</span>,colour=<span class="string">"white"</span>,size=<span class="number">.25</span>)+</div><div class="line">geom_point(data=circle_bubble,aes(State,y=<span class="number">140</span>),size=<span class="number">40</span>,colour=<span class="string">"#FEFCD3"</span>,alpha=<span class="number">.8</span>)+</div><div class="line">geom_point(data=circle_point_data,aes(State,y=mood_y,size=Value_y,colour=Class))+</div><div class="line">geom_text(data=circle_data,aes(x=State,y=label_y,group=Class,label=abs(Value)),family=<span class="string">"myfont"</span>,colour=<span class="string">"white"</span>,size=<span class="number">5</span>)+</div><div class="line">geom_text(data=filter(circle_point_data,mood_y==-<span class="number">150</span>),aes(x=State,y=mood_y,label=Value),family=<span class="string">"myfontl"</span>,colour=<span class="string">"#AA1A66"</span>,size=<span class="number">4</span>)+</div><div class="line">geom_text(data=filter(circle_point_data,mood_y==-<span class="number">100</span>),aes(x=State,y=mood_y,label=Value),family=<span class="string">"myfontl"</span>,colour=<span class="string">"#A31067"</span>,size=<span class="number">4</span>)+</div><div class="line">geom_text(data=filter(circle_point_data,mood_y==<span class="number">140</span>),aes(x=State,y=mood_y,label=Value),family=<span class="string">"myfontl"</span>,colour=<span class="string">"#F29E4A"</span>,size=<span class="number">5</span>)+</div><div class="line">geom_text(data=circle_bubble,aes(State,y=Government-<span class="number">12</span>,label=State,angle=angle),family=<span class="string">"myfontl"</span>,size=<span class="number">4</span>,alpha=<span class="number">.8</span>)+</div><div class="line">scale_fill_manual(values=c(<span class="string">"#FA844F"</span>,<span class="string">"#BDCCD4"</span>,<span class="string">"#00C4B5"</span>))+</div><div class="line">scale_colour_manual(values=c(<span class="string">"#FAC0A1"</span>,<span class="string">"#F35C57"</span>,<span class="string">"#FBEB1B"</span>))+</div><div class="line">labs(title=<span class="string">"各国人民\n对于养老的态度"</span>)+</div><div class="line">scale_size_area(max_size=<span class="number">34.8</span>)+</div><div class="line">coord_polar()+</div><div class="line">ylim(-<span class="number">250</span>,<span class="number">150</span>)+</div><div class="line">guides(colour=<span class="literal">FALSE</span>,size=<span class="literal">FALSE</span>,fill=<span class="literal">FALSE</span>)+</div><div class="line">theme_map() %+replace%theme(plot.title=element_text(family=<span class="string">"myfzhzh"</span>,size=<span class="number">50</span>,hjust=<span class="number">0</span>,lineheight=<span class="number">1.2</span>))</div><div class="line">showtext.end()</div><div class="line">dev.off()</div></pre></td></tr></table></figure></p>
+<p><img src="http://orvigieh3.bkt.clouddn.com/circle_bubble/image8.png" alt=""></p>
+<p>最终效果图：</p>
+<p><img src="http://orvigieh3.bkt.clouddn.com/circle_bubble/image9.jpg" alt=""></p>
+<p>PS修饰后的最终效果（以上进过PS修饰细节）。</p>
+<hr>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
+<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
+<hr>
+<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://orvigieh3.bkt.clouddn.com/circle_bubble/%E5%B0%81%E9%9D%A2%E5%9B%BE.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;没有难学的技艺，只有不够辛勤的付出！&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
+    
+      <category term="信息图" scheme="http://www.raindu.com/tags/%E4%BF%A1%E6%81%AF%E5%9B%BE/"/>
+    
+  </entry>
   
   <entry>
     <title>这么牛X的包，一般人我不告诉他！！！</title>
@@ -972,9 +1038,9 @@
     
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
-      <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
-    
       <category term="图表美化" scheme="http://www.raindu.com/tags/%E5%9B%BE%E8%A1%A8%E7%BE%8E%E5%8C%96/"/>
+    
+      <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
       <category term="ggtech" scheme="http://www.raindu.com/tags/ggtech/"/>
     
@@ -1581,76 +1647,6 @@
       <category term="theme" scheme="http://www.raindu.com/tags/theme/"/>
     
       <category term="视觉信号" scheme="http://www.raindu.com/tags/%E8%A7%86%E8%A7%89%E4%BF%A1%E5%8F%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Word天呀，气泡图居然还有这种操作~</title>
-    <link href="http://www.raindu.com/2017/06/19/Word%E5%A4%A9%E5%91%80%EF%BC%8C%E6%B0%94%E6%B3%A1%E5%9B%BE%E5%B1%85%E7%84%B6%E8%BF%98%E6%9C%89%E8%BF%99%E7%A7%8D%E6%93%8D%E4%BD%9C/"/>
-    <id>http://www.raindu.com/2017/06/19/Word天呀，气泡图居然还有这种操作/</id>
-    <published>2017-06-19T00:49:56.000Z</published>
-    <updated>2017-07-03T13:58:45.978Z</updated>
-    
-    <content type="html"><![CDATA[<p>在之前写实习僧爬虫可视化案例之时，曾经用过一个很类似气泡图的图表——气泡云图（superbubble）。</p>
-<p>它的图表信息呈现与文字云非常相似，都是在控制一组元素的大小，文字云的大小是文字，气泡云图的大小是形状（气泡）。</p>
-<a id="more"></a>
-<h3 id="关于可视思维的一些感想："><a href="#关于可视思维的一些感想：" class="headerlink" title="关于可视思维的一些感想："></a>关于可视思维的一些感想：</h3><p>虽然看起来，它与普通气泡图比起来非常相似，但是实质上数据信息含量已经大相径庭，气泡图实际上使用了三个指标变量，而气泡云图仅适用了两个（而且仅有大小变量是数值型的）。</p>
-<p>实际上以上对比是为了启发大家一种认识图表的思路：</p>
-<p>通常情况下，我们被各种课程或者书籍指导着，认识到的可视化无一例外的是从数据如何转换为图表，坦白的说，这中思路问题不大，至少没有方向性的失误。</p>
-<p>但是可视化是一套理念，而非流程或者过程，从数据到图表仅仅解决的是数据（变量）通过视觉信号映射到图表的过程，更为完善的可视化视角应该是：</p>
-<p>你既要知道视觉元素是是如何通过数据映射到图表上的，更要知道一张已经被映射完成的图表，其视觉信号如何还原为原始的数据结构，毕竟很多职场人士是先看到自己觉得满意的图表之后，再回过头来思考自己的数据怎么做成那种理想的图表。</p>
-<p>即可视化是一套从数据信息到视觉信息，再由视觉信息还原数据信息的过程。（个人愚见）</p>
-<p>今天要讲的气泡云图，你可以这么理解，我们有一组指标（离散），并且想要呈现（从宏观上）该组指标的客观大小。以上属于正向的从数据到图表的可视化思维。</p>
-<p>更加常见的情况是，我看到了一张非常漂亮的气泡云图，我想要将其用在我的项目或者业务报告之中，那么你一定要搞明白，你是否有这么一组指标（数据），仅需从宏观上呈现其大小。（因为这种需求有很多图表类型可以运用，而且达到的目的大同小异）。</p>
-<p>这里仍然以之前那个实习僧职位需求top100企业为例：</p>
-<p>我会分别使用PowerBI、Tableau、R语言来制作这一案例。</p>
-<h3 id="PowerBI："><a href="#PowerBI：" class="headerlink" title="PowerBI："></a>PowerBI：</h3><p>我完成后的整个软件界面是这样的，大家可以看到，我只使用了两个字段：分别是一个文本标签和一组对应频率。</p>
-<p><img src="http://orrrzlir6.bkt.clouddn.com/image1.jpg" alt=""></p>
-<p>在superbubble的菜单中，刚好对应category选项和Role_DisplayName_Values字段。</p>
-<p>就这样，完成了PowerBI中的气泡云图的制作。（该图表对象并非PowerBI内置图表对象，需要在其官方的在线社区中下载对应插件并加载之后才可用）。</p>
-<p><img src="http://orrrzlir6.bkt.clouddn.com/image2.jpg" alt=""></p>
-<h3 id="Tableau"><a href="#Tableau" class="headerlink" title="Tableau:"></a>Tableau:</h3><p>在Tableau操作界面中，仍然是使用两个字段，我将文本字段作为标签，freq作为大小映射给了该图表对象，同时因为Tableau系统中的图形对于颜色设置了非常严格的使用标准，所以默认是单色的，为了不过于单调，我将freq又映射给了一个颜色标度。（由此可见Tableau在数据可视化领域的专业性和权威性，PowerBI一直是在替用户选择，Tbaleau是用户掌握选择权）。</p>
-<p><img src="http://orrrzlir6.bkt.clouddn.com/image3.jpg" alt=""><br><img src="http://orrrzlir6.bkt.clouddn.com/image4.jpg" alt=""></p>
-<h3 id="R语言："><a href="#R语言：" class="headerlink" title="R语言："></a>R语言：</h3><p>R语言的官方社区中没有气泡云图（superbubble），但是在HTMLwidgets的开发者社区里，有一个制作该图表的扩展包：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">devtools::install_github(<span class="string">"jcheng5/bubbles"</span>)</div><div class="line"><span class="keyword">library</span>(bubbles)</div><div class="line"><span class="keyword">library</span>(RColorBrewer)</div></pre></td></tr></table></figure></p>
-<p><strong>example：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bubbles(value = runif(<span class="number">26</span>),label=LETTERS,color=rainbow(<span class="number">26</span>, alpha=<span class="literal">NULL</span>)[sample(<span class="number">26</span>)])</div></pre></td></tr></table></figure></p>
-<p><strong>以下接前面案例：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mydata&lt;-read.csv(&quot;D:R/File/shixiseng_job.csv&quot;,stringsAsFactors=FALSE,check.names=FALSE)</div><div class="line">color1&lt;-brewer.pal(9,&quot;YlOrRd&quot;)</div><div class="line">color2&lt;-brewer.pal(9,&quot;Greens&quot;)</div><div class="line">color&lt;-c(color1,color2)</div><div class="line">colorpan&lt;-sample(color,100,replace = TRUE)</div><div class="line">bubbles(value =mydata$Freq,label=mydata$Var1,color=colorpan)</div></pre></td></tr></table></figure>
-<p><img src="http://orrrzlir6.bkt.clouddn.com/image5.jpg" alt=""></p>
-<p>简单几行代码，一幅还算看的过眼的superbubble图表就完美出炉了，关键是，它的信息呈现角度与众不同，给人的视觉感受比较震撼，令人耳目一新，心领神会。</p>
-<h3 id="本文总结："><a href="#本文总结：" class="headerlink" title="本文总结："></a>本文总结：</h3><p><strong>总结一下今天的分享概要：</strong></p>
-<p>1 可视化的两个环节：</p>
-<ul>
-<li>从数据到图表——数据元素到视觉信号的映射过程</li>
-<li>从图表到数据——视觉信号还原为数据结构的过程<br>2 图表的数据信息含量一致，与所使用的软件无关：</li>
-</ul>
-<p>因而所有的可视化工具在设计底层理念的时候，都是有规律的，不要害怕软件操作难，我们掌握心法就好。</p>
-<hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）</p>
-<p>qq交流群：[魔方学院]298236508</p>
-<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<hr>
-<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在之前写实习僧爬虫可视化案例之时，曾经用过一个很类似气泡图的图表——气泡云图（superbubble）。&lt;/p&gt;
-&lt;p&gt;它的图表信息呈现与文字云非常相似，都是在控制一组元素的大小，文字云的大小是文字，气泡云图的大小是形状（气泡）。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
-    
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="气泡云图.superbubble" scheme="http://www.raindu.com/tags/%E6%B0%94%E6%B3%A1%E4%BA%91%E5%9B%BE-superbubble/"/>
-    
-      <category term="PowerBI" scheme="http://www.raindu.com/tags/PowerBI/"/>
-    
-      <category term="Tableau" scheme="http://www.raindu.com/tags/Tableau/"/>
     
   </entry>
   
