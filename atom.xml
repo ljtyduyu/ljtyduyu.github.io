@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.raindu.com/"/>
-  <updated>2017-07-08T03:05:27.152Z</updated>
+  <updated>2017-07-10T04:55:28.558Z</updated>
   <id>http://www.raindu.com/</id>
   
   <author>
@@ -14,6 +14,96 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>左手用R右手Python系列——因子变量与分类重编码</title>
+    <link href="http://www.raindu.com/2017/07/10/%E5%B7%A6%E6%89%8B%E7%94%A8R%E5%8F%B3%E6%89%8BPython%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94%E5%9B%A0%E5%AD%90%E5%8F%98%E9%87%8F%E4%B8%8E%E5%88%86%E7%B1%BB%E9%87%8D%E7%BC%96%E7%A0%81/"/>
+    <id>http://www.raindu.com/2017/07/10/左手用R右手Python系列——因子变量与分类重编码/</id>
+    <published>2017-07-10T04:44:32.000Z</published>
+    <updated>2017-07-10T04:55:28.558Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://orssvamao.bkt.clouddn.com/factor/image.jpg" alt=""></p>
+<p>今天这篇介绍数据类型中因子变量的运用在R语言和Python中的实现。</p>
+<a id="more"></a>
+<p>因子变量是数据结构中用于描述分类事物的一类重要变量。其在现实生活中对应着大量具有实际意义的分类事物。</p>
+<p>比如年龄段、性别、职位、爱好，星座等。</p>
+<p>之所以给其单独列出一个篇幅进行讲解，除了其在数据结构中的特殊地位之外，在数据可视化和数据分析与建模过程中，因子变量往往也承担中描述某一事物重要维度特征的作用，其意义非同寻常，无论是在数据处理过程中还是后期的分析与建模，都不容忽视。</p>
+<p>通常意义上，按照其所描述的维度实际意义，因子变量一般又可细分为无序因子（类别之间没有特定顺序，水平相等）和有序因子（类别中间存在某种约定俗成的顺序，如年龄段、职称、学历、体重等）。</p>
+<p>在统计学中对变量进行了如下四类划分：定类变量、定序变量、定距变量、定比变量。而其中的定类和定比变量就对应着我们今天将要讲解的因子变量（无序因子和有序因子变量）。</p>
+<p>因子变量从信息含量上来看，其要比单纯的定性变量（文本变量）所包含的描述信息多一些，但是又比数值型变量（定距变量和定比变量）所表述的信息含量少一些。</p>
+<p>因而原则上来讲，数值型变量可以转换为因子变量，因子变量可以转换为文本型变量，但是以上顺序却是不可逆的（信息含量多的变量可以放弃信息量，转换为信息含量较少的变量类型，但是信息含量较少的变量却无法增加信息含量）。</p>
+<p>以下将分别讲解在R语言和Python中如何生成因子变量、如何将数值型变量转换为因子变量、以及如何对因子变量进行重编码。</p>
+<h3 id="R语言因子变量处理函数："><a href="#R语言因子变量处理函数：" class="headerlink" title="R语言因子变量处理函数："></a>R语言因子变量处理函数：</h3><p>在R语言中，通常使用factor直接生成因子变量，我们仅需一个向量（原则上可以是文本型、也可以是数字型，但是通常从实际意义上来说，被转换的应该是一个含有多类别的类别型文本变量）。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">factor(x, levels,labels=levels,ordered=)</div></pre></td></tr></table></figure>
+<p>以上参数中，x即是我们将要转换的变量，levels是将要设定的因子水平（可选参数，省略则自动以向量中的不重复对象为因子水平），labels作为因子标签（可选参数，与前述因子水平对应，若设置，则打印时显示的是对应因子标签，省略则同因子水平一样，使用向量中不重复值【即类别】作为标签），ordered是逻辑参数，设定是否对因子水平排序。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">vector&lt;-rep(LETTERS[<span class="number">1</span>:<span class="number">5</span>],<span class="number">6</span>);print(vector);plyr::count(vector)</div><div class="line">myfactor&lt;-(factor(vector,levels=c(<span class="string">"E"</span>,<span class="string">"D"</span>,<span class="string">"C"</span>,<span class="string">"B"</span>,<span class="string">"A"</span>),labels=c(<span class="string">"EEE"</span>,<span class="string">"DDD"</span>,<span class="string">"CCC"</span>,<span class="string">"BBB"</span>,<span class="string">"AAA"</span>),ordered=<span class="literal">TRUE</span>)</div></pre></td></tr></table></figure></p>
+<p><img src="http://orssvamao.bkt.clouddn.com/factor/image1.jpg" alt=""></p>
+<p>通常来说，factor函数中，levels一般不用设置，函数会自动判断向量内有几个水平，但是倘若要生成有序因子的话，默认会根据字母顺序排列，如果自然顺序与目标有序因子顺序不一致，则一定要指定levels，labels则视具体需求而定，如果本身就是文本类别的话，一般无需设定标签。</p>
+<p>如果是问卷类数据，而且编码为数值，则一定要通过labels标签的设定来还原每一个编码的真实意义。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">factor(vector,labels=c(<span class="string">"AAA"</span>,<span class="string">"BBB"</span>,<span class="string">"CCC"</span>,<span class="string">"DDD"</span>,<span class="string">"EEE"</span>),ordered=<span class="literal">TRUE</span>)</div></pre></td></tr></table></figure></p>
+<p><img src="http://orssvamao.bkt.clouddn.com/factor/image2.jpg" alt=""></p>
+<p>因子变量与文本变量数值变量之间的互转则通过as.character()或者as.numeric()函数来实现。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(dplyr)</div><div class="line">as.character(as.factor(<span class="number">1</span>:<span class="number">10</span>))%&gt;%str()</div><div class="line">as.numeric(as.factor(<span class="number">1</span>:<span class="number">10</span>))%&gt;%str()</div></pre></td></tr></table></figure>
+<p><strong>R语言中的因子变量重编码</strong></p>
+<p>如果你有一个度量指标，需要将其转换为分段的因子变量，则可以通过cut函数来实现这种转换。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">scale&lt;-runif(<span class="number">100</span>,<span class="number">0</span>,<span class="number">100</span>)</div><div class="line">cut(x,breaks,labels=<span class="literal">NULL</span>,include.lowest=<span class="literal">FALSE</span>,right=<span class="literal">TRUE</span>,ordered=)</div></pre></td></tr></table></figure></p>
+<ul>
+<li>cut函数参数如上，接受一个数值型向量，breaks接受一个数值向量（标识分割点）或者单个数值（分割 数目）。</li>
+<li>right是逻辑参数，设定分割带是左开右闭或者左闭右开。（默认左开右闭）。</li>
+<li>include.lowest则根据right的设定，决定是否应该包含端点值（如果right为TRUE，左开右闭区间，则包含最小值，如果right为FALSE，左闭右开区间则包含最大值）,默认为FALSE。</li>
+<li>ordered则设定是否对因子水平进行排序。</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(factor1&lt;-cut(scale,breaks=c(<span class="number">0</span>,<span class="number">20</span>,<span class="number">40</span>,<span class="number">60</span>,<span class="number">80</span>,<span class="number">100</span>),labels=c(<span class="string">"0~20"</span>,<span class="string">"20~40"</span>,<span class="string">"40~60"</span>,<span class="string">"60~80"</span>,<span class="string">"80~100"</span>),include.lowest=<span class="literal">TRUE</span>,ordered=<span class="literal">TRUE</span>))</div></pre></td></tr></table></figure>
+<p><img src="http://orssvamao.bkt.clouddn.com/factor/image3.jpg" alt=""></p>
+<p><strong>另一种分割场景是使用分位数函数进行分割</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">qa &lt;- quantile(scale, c(<span class="number">0</span>,<span class="number">0.2</span>,<span class="number">0.4</span>,<span class="number">0.6</span>,<span class="number">0.8</span>,<span class="number">1.0</span>))</div><div class="line">(cut(scale,breaks=qa,labels=c(<span class="string">"0%~20%"</span>,<span class="string">"20%~40%"</span>,<span class="string">"40%~60%"</span>,<span class="string">"60%~80%"</span>,<span class="string">"80%~100%"</span>),include.lowest=<span class="literal">TRUE</span>,ordered=<span class="literal">TRUE</span>))</div></pre></td></tr></table></figure></p>
+<p><img src="http://orssvamao.bkt.clouddn.com/factor/image4.jpg" alt=""></p>
+<p>以上分割方法在是较为常用的因子变量转换方法，当然你可以使用if函数进行类似分割，但是相比较来讲，使用cut函数进行分割要高效很多。</p>
+<h3 id="Python因子编码处理函数："><a href="#Python因子编码处理函数：" class="headerlink" title="Python因子编码处理函数："></a>Python因子编码处理函数：</h3><p>在Python中，Pandas库包含了处理因子变量的一整套完整语法函数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> string</div></pre></td></tr></table></figure>
+<p>在pandas中的官方在线文档中，给出了pandas因子变量的详细论述，并在适当位置与R语言进行了对比描述。</p>
+<p><a href="http://pandas.pydata.org/pandas-docs/stable/categorical.html#working-with-categories" target="_blank" rel="external"></a></p>
+<p>当利用pandas生成序列时，可以在序列函数内的dtype参数设定因子变量类型。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">s = pd.Series([<span class="string">"A"</span>,<span class="string">"B"</span>,<span class="string">"C"</span>,<span class="string">"D"</span>,<span class="string">"E"</span>], dtype=<span class="string">"category"</span>)</div></pre></td></tr></table></figure></p>
+<p>生成数据框时，也可以直接生成因子变量。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">df = pd.DataFrame(&#123;<span class="string">"A"</span>:[<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"c"</span>,<span class="string">"a"</span>]&#125;)</div><div class="line">df[<span class="string">"B"</span>] = df[<span class="string">"A"</span>].astype(<span class="string">'category'</span>)</div></pre></td></tr></table></figure></p>
+<p><img src="http://orssvamao.bkt.clouddn.com/factor/image5.jpg" alt=""></p>
+<p>除了直接在生成序列或者数据框时生成因子变量之外，也可以通过一个特殊的函数pd.Categorical来完成在序列和数据框中创建因子变量。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">s = pd.Series(pd.Categorical([<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"c"</span>,<span class="string">"a"</span>], categories=[<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"c"</span>],ordered=<span class="keyword">False</span>))</div><div class="line">df = pd.DataFrame(&#123;<span class="string">"A"</span>:[<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"c"</span>,<span class="string">"a"</span>]&#125;)</div><div class="line">df[<span class="string">"B"</span>] =pd.Series(pd.Categorical([<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"c"</span>,<span class="string">"a"</span>], categories=[<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"c"</span>],ordered=<span class="keyword">False</span>))</div></pre></td></tr></table></figure></p>
+<p><img src="![](http://orssvamao.bkt.clouddn.com/factor/image6.jpg" alt="">)</p>
+<p>因子顺序的添加可以通过设定序列或者数框框列的.astype来进行详细的操作。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">s = pd.Series([<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"c"</span>,<span class="string">"a"</span>])</div><div class="line">s_cat = s.astype(<span class="string">"category"</span>, categories=[<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"c"</span>], ordered=<span class="keyword">True</span>)</div></pre></td></tr></table></figure></p>
+<p><img src="![](http://orssvamao.bkt.clouddn.com/factor/image7.jpg" alt="">)</p>
+<p>无论是序列中还是数据框中的因子变量生成之后，都可以通过以下属性查看其具体的类型、因子类别、以及是否含有顺序。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">s_cat.dtypes</div><div class="line">s_cat.cat.categories</div><div class="line">s_cat.cat.ordered</div></pre></td></tr></table></figure>
+<p>一种比较迂回的方法是，先生成普通序列，然后通过设定序列类型完成因子变量的转化。而想要舍弃因子变量，还原成普通的文本序列，则同样只需再其astype中进行格式设定。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">s = pd.Series([<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"c"</span>,<span class="string">"a"</span>])</div><div class="line">s2 = s.astype(<span class="string">'category'</span>,categories=[<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"c"</span>],ordered=<span class="keyword">True</span>)</div><div class="line">s2.astype(str)</div></pre></td></tr></table></figure>
+<p>最后讲一下，如何在数据框中分割数值型变量为因子变量，pandas的数据框也有与R语言同名的函数——cut。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">df = pd.DataFrame(&#123;<span class="string">'value'</span>: np.random.randint(<span class="number">0</span>, <span class="number">100</span>, <span class="number">20</span>)&#125;)</div><div class="line">labels = [ <span class="string">"&#123;0&#125; - &#123;1&#125;"</span>.format(i, i + <span class="number">9</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">100</span>,<span class="number">10</span>) ]</div><div class="line">df[<span class="string">'group'</span>] = pd.cut(df.value, range(<span class="number">0</span>, <span class="number">105</span>, <span class="number">10</span>), right=<span class="keyword">False</span>, labels=labels)</div></pre></td></tr></table></figure></p>
+<p><img src="![](http://orssvamao.bkt.clouddn.com/factor/image8.jpg" alt="">)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">pd.cut(x, bins, right=, labels=,include_lowest=<span class="keyword">False</span>)</div><div class="line"><span class="comment">#df.value代表待风格的变量，第二项是bins可以是一个列表（作为分割点），也可以是一个整数（作为分割带箱数），</span></div><div class="line"><span class="comment">#right控制带宽是左开右闭还是左闭右开，</span></div><div class="line"><span class="comment">#labels设定输出显示标签，</span></div><div class="line"><span class="comment">#include_lowest=控制是否包含边界点（以上参数可以类比R语言中的cut函数）。</span></div></pre></td></tr></table></figure>
+<h3 id="最后做一个小总结："><a href="#最后做一个小总结：" class="headerlink" title="最后做一个小总结："></a>最后做一个小总结：</h3><p>关于因子变量在R语言和Python中涉及到的操作函数;</p>
+<p><strong>R语言：</strong></p>
+<p>创建因子变量：<br>factor<br>转换因子变量：<br>as.factor<br>as.numeric(as.character)<br>分割因子变量：<br>cut函数</p>
+<p><strong>Python:</strong></p>
+<p>创建因子变量：<br>pd.Categorical(categories=,ordered=)<br>pd.Series(dtype=”category”)<br>转换因子变量：<br>df.astype(‘category’,categories,ordered)<br>分割因子变量：<br>df.cut(df.value,breaks=,right=,labels)</p>
+<hr>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
+<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
+<hr>
+<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://orssvamao.bkt.clouddn.com/factor/image.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;今天这篇介绍数据类型中因子变量的运用在R语言和Python中的实现。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://www.raindu.com/categories/Python/"/>
+    
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="Python" scheme="http://www.raindu.com/tags/Python/"/>
+    
+      <category term="数据分析" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
   
   <entry>
     <title>超强脑洞第一弹——子弹图~~~</title>
@@ -57,9 +147,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="路径图" scheme="http://www.raindu.com/tags/%E8%B7%AF%E5%BE%84%E5%9B%BE/"/>
     
@@ -123,9 +213,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -210,9 +300,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -259,11 +349,11 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="商务图表" scheme="http://www.raindu.com/tags/%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
-    
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -409,9 +499,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -483,9 +573,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -808,9 +898,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -869,9 +959,9 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -1086,13 +1176,13 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
-      <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="图表美化" scheme="http://www.raindu.com/tags/%E5%9B%BE%E8%A1%A8%E7%BE%8E%E5%8C%96/"/>
+    
+      <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
       <category term="ggtech" scheme="http://www.raindu.com/tags/ggtech/"/>
     
@@ -1159,9 +1249,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -1227,9 +1317,9 @@
       <category term="ggplot2" scheme="http://www.raindu.com/categories/ggplot2/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -1379,11 +1469,11 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="商务图表" scheme="http://www.raindu.com/tags/%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
-    
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="数据地图" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%9C%B0%E5%9B%BE/"/>
     
@@ -1433,11 +1523,11 @@
       <category term="R语言" scheme="http://www.raindu.com/categories/R%E8%AF%AD%E8%A8%80/"/>
     
     
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="商务图表" scheme="http://www.raindu.com/tags/%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
-    
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="数据地图" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%9C%B0%E5%9B%BE/"/>
     
@@ -1520,109 +1610,13 @@
       <category term="R语言" scheme="http://www.raindu.com/categories/R%E8%AF%AD%E8%A8%80/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
-      <category term="商务图表" scheme="http://www.raindu.com/tags/%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
-      <category term="数据地图" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%9C%B0%E5%9B%BE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>那些培训师都不曾告诉你的关于Excel图表的秘密~</title>
-    <link href="http://www.raindu.com/2017/06/20/%E9%82%A3%E4%BA%9B%E5%9F%B9%E8%AE%AD%E5%B8%88%E9%83%BD%E4%B8%8D%E6%9B%BE%E5%91%8A%E8%AF%89%E4%BD%A0%E7%9A%84%E5%85%B3%E4%BA%8EExcel%E5%9B%BE%E8%A1%A8%E7%9A%84%E7%A7%98%E5%AF%86/"/>
-    <id>http://www.raindu.com/2017/06/20/那些培训师都不曾告诉你的关于Excel图表的秘密/</id>
-    <published>2017-06-20T03:48:08.000Z</published>
-    <updated>2017-07-03T13:58:46.459Z</updated>
-    
-    <content type="html"><![CDATA[<p>这是一篇关于Excel数据可视化的心得汇总！</p>
-<a id="more"></a>
-<p>Excel对宽数据和长数据的适用范围：</p>
-<h3 id="Excel的图表模块更适合宽数据"><a href="#Excel的图表模块更适合宽数据" class="headerlink" title="Excel的图表模块更适合宽数据"></a>Excel的图表模块更适合宽数据</h3><p>（即汇总过的二维表）；</p>
-<p><img src="http://ortu7ddty.bkt.clouddn.com/image1.jpg" alt=""><br><img src="http://ortu7ddty.bkt.clouddn.com/image2.jpg" alt=""></p>
-<p>在长表中，我将选中得三列全部作为簇状柱形图的数据源，默认的柱形图如下所示，虽然在横轴上也出现了两个维度信息（公司维度、日期维度），但是两个维度布局的很不友好。</p>
-<p><img src="http://ortu7ddty.bkt.clouddn.com/image3.jpg" alt=""></p>
-<h3 id="Excel图表数据源行列限制规则："><a href="#Excel图表数据源行列限制规则：" class="headerlink" title="Excel图表数据源行列限制规则："></a>Excel图表数据源行列限制规则：</h3><p>针对宽数据而言，Excel并不严格限定行列（允许行列自由转置），过渡的自由有时候会造成制图效率的低下，所以如果等领会我接下来交给你的心得，那么你的制图效率将会提高很多。</p>
-<p>在详细解释以上内容之前，你需要对数据结构中的基本概念有所了解，即什么叫维度、什么叫度量。</p>
-<p><img src="http://ortu7ddty.bkt.clouddn.com/image4.jpg" alt=""></p>
-<p>如果不那么严格的进行定义，你可以粗略的将数值型指标当做度量（并不绝对，要视实际意义而定），类别型指标视作度量。（这其实对应于统计学中的变量类别划分标准：定类变量/定序变量——维度，定距变量/定比变量——度量）</p>
-<p>了解变量类型之后，我们可以知道，我们的源数据包含两个维度（公司、日期），一个度量（对应日期某公司的指标）。</p>
-<p>源数据的维度之间可以自由的转职（与线性代数中的转至概念没什么差别，就是行列位置的对应调整，并不改变具体度量值，改变的只是呈现数据的方式）。</p>
-<p>转至在Excel中有两种方式可以完成，一种是复制数据源，选择性黏贴——行列转换。</p>
-<p><img src="http://ortu7ddty.bkt.clouddn.com/image12.jpg" alt=""></p>
-<p>另一种则是在已经完成的默认图表选择菜单中点击行列数据变换。</p>
-<p><img src="http://ortu7ddty.bkt.clouddn.com/image5.jpg" alt=""></p>
-<p>我使用同一数据源的原始维度和转之后的维度分别插入了默认的簇状柱形图。结果如下。</p>
-<p><img src="http://ortu7ddty.bkt.clouddn.com/image6.jpg" alt=""></p>
-<p>仔细分析以上数据源与默认图表的行列对应关系你会发现，三个字段的位置在原始表格与图形化后的图表上分布及其有规律。</p>
-<p>列标题总是对应图表中的横轴，行标题总是对应图表中的图例。而度量总是呈现在图表的纵轴（数量轴）上。</p>
-<p>这个规律是Excel图表的默认规则，当然你不必要严格执行此规则，那么不执行的后果就是，如果维度呈现的顺序不符合你的意图，你要么需要在源数据中进行数据转至，要么需要在图表的选择菜单里进行行列变化，进而转换成你中意的图表呈现形式。</p>
-<p>所以结论就是，你的数据源组织，需符合以下要求：</p>
-<p>1、想要对比的维度按列分布；（最终将会呈现在X轴上）<br>2、需要分类的维度按行分布：（最终通过图例中的颜色分类进行区分）。<br>3、行列虽然可以自由变换（通过数据源选择性黏贴转至或者在图表的选择菜单中进行行列变换），但一定要想清楚你的图表侧重对比那个维度，按照那个维度分类。</p>
-<h3 id="Excel与数据聚合功能："><a href="#Excel与数据聚合功能：" class="headerlink" title="Excel与数据聚合功能："></a>Excel与数据聚合功能：</h3><p>Excel的图表模块并没有数据聚合功能。（原因大概是这个模块并不能识别因子变量）。</p>
-<p>我所说的聚合是指，通过将一组分类指标（一个维度与一个度量）按照类别分开并计算各类的均值、众数、中位数、方差、标准差、求和计算等。</p>
-<p>所以，无论你的维度理念包含多少类别，Excel图表都只会把单个观测值视作单独的指标，这是它与主流可视化工具以及编程类工具在可视化功能上的最大差别和缺憾，也是验证上述观点中：Excel图表模块专为二维表（宽数据）所设计的证据之一。</p>
-<p><img src="http://ortu7ddty.bkt.clouddn.com/image7.jpg" alt=""></p>
-<p>以上图示中，列是一个呈现公司维度的指标，这种维度在数据库中非常常见，可能是日期的细分维度、也可鞥是地区的细分维度。</p>
-<p>但是Excel的默认图表将维度的单个观测全部视作唯一值，而不会对齐进行任何分类聚合操作。</p>
-<p>所以我们要想直接呈现汇总后的图表，需动用数据透析表进行维度透析，或者，将其整理成二维表制作多分类的可视化图表。</p>
-<p>（以上操作同样适合条形图，只是条形图实质上相当于将柱形图向右旋转了90，所以条形图的行列概念与柱形图刚好颠倒过来）</p>
-<h3 id="Excel维度指标的识别："><a href="#Excel维度指标的识别：" class="headerlink" title="Excel维度指标的识别："></a>Excel维度指标的识别：</h3><p>这里先放四张图供大家思考：</p>
-<p><img src="http://ortu7ddty.bkt.clouddn.com/image8.jpg" alt=""><br><img src="http://ortu7ddty.bkt.clouddn.com/image9.jpg" alt=""><br><img src="http://ortu7ddty.bkt.clouddn.com/image10.jpg" alt=""><br><img src="http://ortu7ddty.bkt.clouddn.com/image11.jpg" alt=""></p>
-<p>我想大家一定看出了些猫腻，但是好像还不说不出其中的端倪。</p>
-<p><img src="http://ortu7ddty.bkt.clouddn.com/image8.jpg" alt=""></p>
-<p>我是这么理解的，Excel的图表模块是通过行列标题来自动探测并识别维度指标的。以上四幅图最符合我们需求的的应该是第一张图，该图完整的呈现了两个维度和度量的信息。</p>
-<p><img src="http://ortu7ddty.bkt.clouddn.com/image9.jpg" alt=""></p>
-<p>图二中，我们在首行首列的位置放入了一个YEAR的名称，我们理所当然的以为这个只是首列的标题而已，可是Excel并没有这么智能，它将其视作与后几列同样性质的公司维度中的一个名称。因为首列也成了一个特殊的公司（日期则成了该特殊公司的另一个维度不同水平的指标）。</p>
-<p>所以整个图表的行维度（公司数）变成了6个，而因为没有定义列维度（原始数据中失去了行标题，其实是有的，但是因为添加了一个首行首列交叉位置的YEAR标签，结果Excel将首行作为列的一个维度，因而也就不存在名义上的日期维度分类）。</p>
-<p>尽管Excel不知道丢失的维度的具体水平及名称，可是改变不了原始数据是一个二维表这样一个事实，因而还是给丢失的维度信息在图表中补全了，但是是通过默认的系列1、系列2、系列3……等方式来弥补的。</p>
-<p><strong>接下来看图示3：</strong></p>
-<p><img src="http://ortu7ddty.bkt.clouddn.com/image10.jpg" alt=""></p>
-<p>该图的原始数据仍然是一个二维表，但是只有明确的行列维度信息（你以为你写了一组2012、2013^2016这么一组有规律的数据，Excel就能明白这是一个日期维度呀，那你真的是想多了，它跟其他的数值型指标没有任何的区别），与图2的过程类似，维度信息的丢失改变不了原始数据是二维表这样一个事实。因而Excel仍然会帮其补全行列维度（图表横轴补全了原始表列维度信息【即我们想当然以为当做行维度信息的日期和后5列指标】，图表纵轴补原始表中行维度信息，此时行为度信息已经不是我们想当然以为的那个日期指标，而是一组未知度量）。</p>
-<p><strong>图示4：</strong></p>
-<p>图示4中只明确了表格中列维度信息，而没有声明行维度信息，因为不存在错误识别，该状况下，Excel可以很完美的识别列维度（呈现在图表的横轴上）。而丢失的行维度信息则自动补全（呈现在图例的分类颜色指标上）。</p>
-<p><img src="http://ortu7ddty.bkt.clouddn.com/image11.jpg" alt=""></p>
-<p>综上所示，Excel识别维度信息是通过原始二维表表结构中的首行首列标签来识别的(切记不要在首行首列中写入任何信息，一定要留白、一定要留白、一定要留白)。</p>
-<p>倘若不慎将首行首列（即行列维度标签的交叉单元格）标签交叉位置写入任何内容，那么结果是致命性的，你的列为度（也就是图表的横轴上）会被加入一个虚假的维度类别指标。</p>
-<h3 id="关于作图效率："><a href="#关于作图效率：" class="headerlink" title="关于作图效率："></a>关于作图效率：</h3><p>以下是分别在Excel中制作多分类序列图表和其他软件工具（包含桌面端可视化工具以及编程工具等）所分别适用的数据源。</p>
-<p><img src="http://ortu7ddty.bkt.clouddn.com/image13.png" alt=""><br><img src="http://ortu7ddty.bkt.clouddn.com/image14.png" alt=""></p>
-<p>从效率上来说，自然是其他 工具能更高一些，Excel将每一个分类都视作一个列字段（典型二维表风格），其他的工具是通过将分类序列进行堆栈操作，聚合成一个包含类别变量（因子变量）和一个度量（数值型变量）从而大大简化了数据源，这在分类特别特别多的时候具有很大的优势。（想象一下如果有一千个分类，你难倒要在Excel里面列出1001个列字段吗，使用二维表仍然是三个字段，公司名称、日期，指标）。</p>
-<p>当然 也不能说Excel这种二维表作图一无是处，二维表直观易懂，其本事就兼具图形化的信息呈现功能，否则为什么很多专业的报告中除了图表之外，包含很多表格呢，而一维表这种篇原始（但是易于存储）结构的数据应该不会常用于报告中。</p>
-<p>所以说对于小数据或者二维表而言，Excel的图表工具还是非常适于此种可视化场景，而要是将二维表用于其他攻击高来进行可视化（可视化桌面端工具或者编程工具），则你需要额外进行数据的长宽转换。<br>（关于数据长宽转换以及多维数据集在不同可视化工具中的最有可视化解决方案，我会专门列一篇进行分析讲解）</p>
-<p>以上关于行列维度的分析并不适用于呈现连续性数据的图表类型（如直方图、散点图、气泡图等），原因很简单，如果图表的二维坐标系中都呈现连续性指标，那么也就无所谓维度了，维度是针对分类资料所定义的一种特殊指标，连续性指标也就只剩下度量指标啦。</p>
-<p>事实上Excel出了为二维表作图而生之外，还是转门为分类数据可视化而生的（可能我说的比较绝对了，大家不要喷我），为什么的，原因有两个：</p>
-<ol>
-<li><p>Excel的现存图表库中绝大多数图表是适应分类数据作图，（只要一个轴支持分类数据即可算作离散数据可视化类型，而真正用于连续性数据可视化呈现的图表类型及其少，比如散点图【你会发现Excel的散点图也是支持类别变量的】、气泡图、直方图【直方图以往都是在数据分析库模块中，需要单独调用才能使用，近期才加入普通图表的菜单入口】）。</p>
-</li>
-<li><p>普通的业务分析场景下，更多的是不同维度间的交叉对比和汇总分析，而连续数据的可视化多用于预测与建模，这在学术研究中（时间序列数据的建模）以及企业的战略数据挖掘部门（市场拓展与销售预测等）使用场景比较多，而且数据量一般都大。（这也决定了Excel使用的局限性，即更适合客观呈现、适合分类资料的汇总可视化，不适合用于大数据量的挖掘呈现）。</p>
-</li>
-<li><p>当然我还有一个证据在证明我以上的看法，那就是最近两年微软公司尽心尽力培育的PowerBI商务智能系统，在数据源上完美支持主流数据库，可视化形式上使用一维表进行操作，在数据量上也大大突破了Excel所能承受的量级。这或许就是当前大数据如火如荼的形势下，微软的office系统显然已经无法支撑大数据下的分析与可视化需求，必须布局其自己的大数据分析与可视化系统。</p>
-</li>
-</ol>
-<hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）</p>
-<p>qq交流群：[魔方学院]298236508</p>
-<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<hr>
-<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;这是一篇关于Excel数据可视化的心得汇总！&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Excel" scheme="http://www.raindu.com/categories/Excel/"/>
-    
-    
-      <category term="Excel" scheme="http://www.raindu.com/tags/Excel/"/>
-    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="商务图表" scheme="http://www.raindu.com/tags/%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
+    
+      <category term="数据地图" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%9C%B0%E5%9B%BE/"/>
     
   </entry>
   
