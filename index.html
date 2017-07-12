@@ -467,74 +467,15 @@
 
       
         
-          
-            <p><img src="http://orz60j4aw.bkt.clouddn.com/taoxinyao/image.jpg" alt=""></p>
+          <p><img src="http://orz60j4aw.bkt.clouddn.com/taoxinyao/image.jpg" alt=""></p>
 <p>大连的盛夏实在是热的让人心烦（对于我这种既怕热又怕冷的真的没地呆了）。</p>
-<p>再加上令人头疼的毕业论文，这种日子怎能缺少MV来解暑呢。</p>
-<p>既然要听，怎么只听一首呢，既然学了爬虫怎么让技能荒废呢。</p>
-<p>好吧，烦躁的心情+想听MV的冲动+爬虫技能，今天小魔方教你使用R语言批量爬取秒拍小姐姐的MV视频短片。</p>
-<p><a href="http://www.miaopai.com/u/paike_wgleqt8r08" target="_blank" rel="external"></a></p>
-<p>今天要爬的主页是一位叫陶心瑶小姐姐，刷微博偶然听到她翻唱薛之谦的《方圆万里》，感觉蛮有味道的，于是搜了她的秒拍主页。</p>
-<p><img src="http://orz60j4aw.bkt.clouddn.com/taoxinyao/image1.jpg" alt=""></p>
-<p>主页的作品不多，仅有5首，但是因为仅作为爬虫练习只用，五首也够了（毕竟只是构造循环而已，1000首的步骤也是如此，可能需要构造翻页请求）。<br><img src="http://orz60j4aw.bkt.clouddn.com/taoxinyao/image2.jpg" alt=""></p>
-<p>MV挺长比较占内存，所以这里就不演示怎么去大批量的爬MV了（刚买的m本内存都快被掏空了）。</p>
-<h3 id="爬虫三步走："><a href="#爬虫三步走：" class="headerlink" title="爬虫三步走："></a>爬虫三步走：</h3><h4 id="第一步：分析网页："><a href="#第一步：分析网页：" class="headerlink" title="第一步：分析网页："></a>第一步：分析网页：</h4><p><strong>首先是到主页之后分析它的网页结构：</strong></p>
-<p>可以看到该主页只有5首mv列表，这时候鼠标随便定位到其中一首（我定位的是第一首），然后右键单击，打开开发者工具。<br><img src="http://orz60j4aw.bkt.clouddn.com/taoxinyao/image3.jpg" alt=""><br><img src="http://orz60j4aw.bkt.clouddn.com/taoxinyao/image4.jpg" alt=""></p>
-<p>可以看到该首MV的视频地址存放在：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">div.videoCont&gt;</div><div class="line">div.videoList&gt;</div><div class="line">div.video&gt;</div><div class="line">div.MIAOPAI_player&gt;</div><div class="line">div.video-player&gt;</div><div class="line">video</div><div class="line">src</div></pre></td></tr></table></figure>
-<p><a href="//gslb.miaopai.com/stream/AUTy2nx4l-T~BhG-zX60wSDwwqoWfwpa.mp4"></a></p>
-<p><strong>尝试着用这个地址来浏览器中运行：</strong></p>
-<p><img src="http://orz60j4aw.bkt.clouddn.com/taoxinyao/image5.jpg" alt=""></p>
-<p>OK，一切正常，说明这个地址很给力！</p>
-<p>随然完整的视频地址仅在video子节点的src属性中存放着，但是其实只要仔细研究就会发现，父节点MIAOPAI_player下的data-scid属性，data-img，子节点video内src,poster属性所存储的名称你图片链接名称中也是含有该视频的信息的。（共享一部分视频链接中的地址）。<br><img src="http://orz60j4aw.bkt.clouddn.com/taoxinyao/image6.jpg" alt=""></p>
-<p>事实上网页中展示的视频信息，最起码会给出三处可用的视频信息，即视频名称、视频封面页、视频的源地址。</p>
-<p>（给出这里的解析只是想让大家知道，爬虫不要钻牛角尖，不要以为只有视频原地址的链接一条路可走，万一节点的链接你抓不出来，那岂不是要哭瞎了）。</p>
-<h4 id="第二部：抓取网页："><a href="#第二部：抓取网页：" class="headerlink" title="第二部：抓取网页："></a>第二部：抓取网页：</h4><p>然后该干嘛呢，当然是抓视频地址了（这里使用rvest包来抓）<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">setwd(<span class="string">"E:/CloudMusic"</span>)</div><div class="line"><span class="keyword">library</span>(tidyverse)</div><div class="line"><span class="keyword">library</span>(rvest)</div><div class="line"><span class="keyword">library</span>(stringr)</div><div class="line">(read_html(url,encoding=<span class="string">"utf-8"</span>)%&gt;%html_nodes(<span class="string">"div.videoCont&gt;div.videoList&gt;div.video&gt;div.MIAOPAI_player&gt;div.video-player&gt;video"</span>))</div></pre></td></tr></table></figure></p>
-<blockquote>
-<p>{xml_nodeset (0)}</p>
-</blockquote>
-<p>啊哦，这意味着，软件不想理你，并向给你了个鄙视的眼神（请自己体会）。</p>
-<p>抓不到地址很心酸的（自己去网页里面复制那也太low啦）。</p>
-<p>肿么办，肿么办，肿么办？？？</p>
-<p>之前已经说过了，视频地址链接并非唯一的手段，因为视频的中的id在好几个属性值里面都有包含，所有我们只需任意抓一个属性值，通过观察原始视频地址进行链接的拼接即可。</p>
-<p>如果不想做复杂的字符串处理，那就抓最原始的名称吧。（这次目标是父节点MIAOPAI_player下的data-scid属性）。</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mylinks&lt;-read_html(url,encoding=<span class="string">"utf-8"</span>)%&gt;%html_nodes(<span class="string">"div.videoCont&gt;div.videoList&gt;div.video&gt;div.MIAOPAI_player"</span>)%&gt;%html_attr(<span class="string">"data-scid"</span>)</div></pre></td></tr></table></figure>
-<blockquote>
-<p>[1] “AUTy2nx4l-T~BhG-zX60wSDwwqoWfwpa” “ugJzN6LvH3emoPlSU2b52Cu-SbIQ5LFa” “wJ4AsVMgek6jp6lXDxIpXExCig9cVXo~” “I-J6u~qy7V5CpRIq-FoFA3pYtc6Yr0Sz”<br>[5] “pCLMPKezqWVWHyhjNHaRyKrX16APCeuw”</p>
-</blockquote>
-<p>OK，完美搞定，接下来该干啥呢（快想快想）。（因为视频数量少，没有换页存储，所以这里不用构造换页请求，整个代码效率都提高了很多）</p>
-<p>接下来当然是构造可用的视频地址啦，因为我们刚才抓的并非完整的可直接传递到视频源的地址，仅仅是视频的id而已。</p>
-<p>好吧现在我们对比之前手工复制的视频源地址和这次抓到的视频id信息，观察规律。</p>
-<blockquote>
-<p>AUTy2nx4l-T~BhG-zX60wSDwwqoWfwpa<br><a href="http://gslb.miaopai.com/stream/AUTy2nx4l-T~BhG-zX60wSDwwqoWfwpa.mp4" target="_blank" rel="external">http://gslb.miaopai.com/stream/AUTy2nx4l-T~BhG-zX60wSDwwqoWfwpa.mp4</a></p>
-</blockquote>
-<p>好吧，这次是不是一看就看明白咋回事儿啦，没错，视频源地址就是在视频id的基础上左侧添加了秒拍服务端的视频流服务器主网址，右侧添加了.MP4的视频格式而已，OK，接下我们的任务就是构造可用的视频下载地址。</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">baseurl&lt;-<span class="string">"http://gslb.miaopai.com/stream/"</span></div><div class="line">mymvlinks&lt;-paste0(baseurl,mylinks,<span class="string">".mp4"</span>)</div></pre></td></tr></table></figure>
-<p>OK两部搞定，敢不敢相信自己的眼睛哈哈。</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#[1] "http://gslb.miaopai.com/stream/AUTy2nx4l-T~BhG-zX60wSDwwqoWfwpa.mp4" "http://gslb.miaopai.com/stream/ugJzN6LvH3emoPlSU2b52Cu-SbIQ5LFa.mp4"</span></div><div class="line"><span class="comment">#[3] "http://gslb.miaopai.com/stream/wJ4AsVMgek6jp6lXDxIpXExCig9cVXo~.mp4" "http://gslb.miaopai.com/stream/I-J6u~qy7V5CpRIq-FoFA3pYtc6Yr0Sz.mp4"</span></div><div class="line"><span class="comment">#[5] "http://gslb.miaopai.com/stream/pCLMPKezqWVWHyhjNHaRyKrX16APCeuw.mp4"</span></div></pre></td></tr></table></figure>
-<p>如果不放心的话，可以使用这个地址再再浏览器中打开看一看，预览下是否可以观看视频。(放心吧我都替你试过了)</p>
-<p>现在我们只是获取了视频下载地址，可是没有MV的歌名呀（命名和123最后下载完事你可以需要打开听一听才知道是啥歌，如果使用ID的话一串字母数字组合也很烦人）。</p>
-<p><strong>好吧索性再把名字趴下来：</strong></p>
-<p>可以看到每首MV下面都有个含歌名的句子，就抓这句文字就行。</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">myinfo&lt;-read_html(url,encoding=<span class="string">"utf-8"</span>)%&gt;%html_nodes(<span class="string">"div.viedoAbout"</span>)%&gt;%html_text(trim = <span class="literal">TRUE</span>)</div><div class="line"></div><div class="line">[<span class="number">1</span>] <span class="string">"温暖女声陶心瑶翻唱薛之谦《方圆几里》                                 \n                                #陶心瑶第二自我##纪念青春的那些歌#"</span>    </div><div class="line">[<span class="number">2</span>] <span class="string">"陶心瑶首张实体专辑《第二自我》众筹宣传片                                 \n                                #陶心瑶第二自我##纪念青春的那些歌#"</span></div><div class="line">[<span class="number">3</span>] <span class="string">"上课中《丑八怪》"</span>                                                                                                                             </div><div class="line">[<span class="number">4</span>] <span class="string">"陶心瑶暖心翻唱JJ《她说》                                 \n                                #陶心瑶##林俊杰的第36页#"</span>                          </div><div class="line">[<span class="number">5</span>] <span class="string">"这个《双截棍》也太柔了吧！唱的心都醉啦"</span></div></pre></td></tr></table></figure>
-<p><img src="http://orz60j4aw.bkt.clouddn.com/taoxinyao/image7.jpg" alt=""></p>
-<p>抓完发现每一个句子里面的歌名都是带有书名号的（特么的中文的书名号怎么匹配内部中文呀，正则不会写~_~）</p>
-<p>好吧，技不如人但是我勤快呀，就用字符串匹配函数一个个匹配吧！<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mymvname&lt;-c()</div><div class="line"><span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1</span>:length(myinfo) )&#123;</div><div class="line">mymvname[i]&lt;-substr(myinfo[i],regexpr(<span class="string">"《"</span>,myinfo[i])[<span class="number">1</span>]+<span class="number">1</span>,regexpr(<span class="string">"》"</span>,myinfo[i])[<span class="number">1</span>]-<span class="number">1</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>匹配完成之后，把MP4的后缀带上。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mymvname&lt;-paste0(mymvname,<span class="string">".mp4"</span>)</div><div class="line">[<span class="number">1</span>] <span class="string">"方圆几里.mp4"</span> <span class="string">"第二自我.mp4"</span> <span class="string">"丑八怪.mp4"</span>   <span class="string">"她说.mp4"</span>     <span class="string">"双截棍.mp4"</span></div></pre></td></tr></table></figure></p>
-<p>都到了这份上了你还想怎样–好吧我只想把小姐姐的视频下载下来而已。</p>
-<h4 id="爬虫第三部：构建下载函数："><a href="#爬虫第三部：构建下载函数：" class="headerlink" title="爬虫第三部：构建下载函数："></a>爬虫第三部：构建下载函数：</h4><p>因为是五个视频文件要下载，所以需要构造循环下载函数：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1</span>:length(myinfo))&#123;</div><div class="line">download.file(mymvlinks[i],mymvname[i],mode=<span class="string">"wb"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><img src="http://orz60j4aw.bkt.clouddn.com/taoxinyao/image8.jpg" alt=""><br><img src="http://orz60j4aw.bkt.clouddn.com/taoxinyao/image9.jpg" alt=""><br><img src="http://orz60j4aw.bkt.clouddn.com/taoxinyao/image10.jpg" alt=""></p>
-<p>OK，爬完收工，是不是很简单呀，感觉去找个视频网站试一下吧，这个夏天，让音乐来的更猛烈一些吧！</p>
-<h3 id="接下来做一个完整的代码汇总："><a href="#接下来做一个完整的代码汇总：" class="headerlink" title="接下来做一个完整的代码汇总："></a>接下来做一个完整的代码汇总：</h3><p><strong>第一步：分析网页：</strong></p>
-<p><strong>第二部：爬取网页：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">setwd(<span class="string">"E:/CloudMusic"</span>)</div><div class="line"><span class="keyword">library</span>(tidyverse)</div><div class="line"><span class="keyword">library</span>(rvest)</div><div class="line"><span class="keyword">library</span>(stringr)</div><div class="line">mylinks&lt;-read_html(url,encoding=<span class="string">"utf-8"</span>)%&gt;%html_nodes(<span class="string">"div.videoCont&gt;div.videoList&gt;div.video&gt;div.MIAOPAI_player"</span>)%&gt;%html_attr(<span class="string">"data-scid"</span>)<span class="comment">#爬取视频ID：</span></div><div class="line">baseurl&lt;-<span class="string">"http://gslb.miaopai.com/stream/"</span></div><div class="line">mymvlinks&lt;-paste0(baseurl,mylinks,<span class="string">".mp4"</span>) <span class="comment">#构造视频链接：</span></div><div class="line">myinfo&lt;-read_html(url,encoding=<span class="string">"utf-8"</span>)%&gt;%html_nodes(<span class="string">"div.viedoAbout"</span>)%&gt;%html_text(trim = <span class="literal">TRUE</span>)<span class="comment">#爬取评论文本</span></div><div class="line">mymvname&lt;-c()</div><div class="line"><span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1</span>:length(myinfo) )&#123;</div><div class="line">mymvname[i]&lt;-substr(myinfo[i],regexpr(<span class="string">"《"</span>,myinfo[i])[<span class="number">1</span>]+<span class="number">1</span>,regexpr(<span class="string">"》"</span>,myinfo[i])[<span class="number">1</span>]-<span class="number">1</span>)</div><div class="line">&#125;<span class="comment">#提取视频名称</span></div><div class="line">mymvname&lt;-paste0(mymvname,<span class="string">".mp4"</span>)<span class="comment">#构造视频名称（带格式）</span></div></pre></td></tr></table></figure></p>
-<p><strong>第三步：构造下载函数：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1</span>:length(myinfo))&#123;</div><div class="line">download.file(mymvlinks[i],mymvname[i],mode=<span class="string">"wb"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
-<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<hr>
-<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/12/一言不合就爬虫系列之——爬取小姐姐的秒拍MV/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
