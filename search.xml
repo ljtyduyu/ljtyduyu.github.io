@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[一言不合就爬虫系列之——爬取小姐姐的秒拍MV]]></title>
+    <url>%2F2017%2F07%2F12%2F%E4%B8%80%E8%A8%80%E4%B8%8D%E5%90%88%E5%B0%B1%E7%88%AC%E8%99%AB%E7%B3%BB%E5%88%97%E4%B9%8B%E2%80%94%E2%80%94%E7%88%AC%E5%8F%96%E5%B0%8F%E5%A7%90%E5%A7%90%E7%9A%84%E7%A7%92%E6%8B%8DMV%2F</url>
+    <content type="text"><![CDATA[大连的盛夏实在是热的让人心烦（对于我这种既怕热又怕冷的真的没地呆了）。 再加上令人头疼的毕业论文，这种日子怎能缺少MV来解暑呢。 既然要听，怎么只听一首呢，既然学了爬虫怎么让技能荒废呢。 好吧，烦躁的心情+想听MV的冲动+爬虫技能，今天小魔方教你使用R语言批量爬取秒拍小姐姐的MV视频短片。 今天要爬的主页是一位叫陶心瑶小姐姐，刷微博偶然听到她翻唱薛之谦的《方圆万里》，感觉蛮有味道的，于是搜了她的秒拍主页。 主页的作品不多，仅有5首，但是因为仅作为爬虫练习只用，五首也够了（毕竟只是构造循环而已，1000首的步骤也是如此，可能需要构造翻页请求）。 MV挺长比较占内存，所以这里就不演示怎么去大批量的爬MV了（刚买的m本内存都快被掏空了）。 爬虫三步走：第一步：分析网页：首先是到主页之后分析它的网页结构： 可以看到该主页只有5首mv列表，这时候鼠标随便定位到其中一首（我定位的是第一首），然后右键单击，打开开发者工具。 可以看到该首MV的视频地址存放在： 1234567div.videoCont&gt;div.videoList&gt;div.video&gt;div.MIAOPAI_player&gt;div.video-player&gt;videosrc 尝试着用这个地址来浏览器中运行： OK，一切正常，说明这个地址很给力！ 随然完整的视频地址仅在video子节点的src属性中存放着，但是其实只要仔细研究就会发现，父节点MIAOPAI_player下的data-scid属性，data-img，子节点video内src,poster属性所存储的名称你图片链接名称中也是含有该视频的信息的。（共享一部分视频链接中的地址）。 事实上网页中展示的视频信息，最起码会给出三处可用的视频信息，即视频名称、视频封面页、视频的源地址。 （给出这里的解析只是想让大家知道，爬虫不要钻牛角尖，不要以为只有视频原地址的链接一条路可走，万一节点的链接你抓不出来，那岂不是要哭瞎了）。 第二部：抓取网页：然后该干嘛呢，当然是抓视频地址了（这里使用rvest包来抓）12345setwd("E:/CloudMusic")library(tidyverse)library(rvest)library(stringr)(read_html(url,encoding="utf-8")%&gt;%html_nodes("div.videoCont&gt;div.videoList&gt;div.video&gt;div.MIAOPAI_player&gt;div.video-player&gt;video")) {xml_nodeset (0)} 啊哦，这意味着，软件不想理你，并向给你了个鄙视的眼神（请自己体会）。 抓不到地址很心酸的（自己去网页里面复制那也太low啦）。 肿么办，肿么办，肿么办？？？ 之前已经说过了，视频地址链接并非唯一的手段，因为视频的中的id在好几个属性值里面都有包含，所有我们只需任意抓一个属性值，通过观察原始视频地址进行链接的拼接即可。 如果不想做复杂的字符串处理，那就抓最原始的名称吧。（这次目标是父节点MIAOPAI_player下的data-scid属性）。 1mylinks&lt;-read_html(url,encoding="utf-8")%&gt;%html_nodes("div.videoCont&gt;div.videoList&gt;div.video&gt;div.MIAOPAI_player")%&gt;%html_attr("data-scid") [1] “AUTy2nx4l-T~BhG-zX60wSDwwqoWfwpa” “ugJzN6LvH3emoPlSU2b52Cu-SbIQ5LFa” “wJ4AsVMgek6jp6lXDxIpXExCig9cVXo~” “I-J6u~qy7V5CpRIq-FoFA3pYtc6Yr0Sz”[5] “pCLMPKezqWVWHyhjNHaRyKrX16APCeuw” OK，完美搞定，接下来该干啥呢（快想快想）。（因为视频数量少，没有换页存储，所以这里不用构造换页请求，整个代码效率都提高了很多） 接下来当然是构造可用的视频地址啦，因为我们刚才抓的并非完整的可直接传递到视频源的地址，仅仅是视频的id而已。 好吧现在我们对比之前手工复制的视频源地址和这次抓到的视频id信息，观察规律。 AUTy2nx4l-T~BhG-zX60wSDwwqoWfwpahttp://gslb.miaopai.com/stream/AUTy2nx4l-T~BhG-zX60wSDwwqoWfwpa.mp4 好吧，这次是不是一看就看明白咋回事儿啦，没错，视频源地址就是在视频id的基础上左侧添加了秒拍服务端的视频流服务器主网址，右侧添加了.MP4的视频格式而已，OK，接下我们的任务就是构造可用的视频下载地址。 12baseurl&lt;-"http://gslb.miaopai.com/stream/"mymvlinks&lt;-paste0(baseurl,mylinks,".mp4") OK两部搞定，敢不敢相信自己的眼睛哈哈。 123#[1] "http://gslb.miaopai.com/stream/AUTy2nx4l-T~BhG-zX60wSDwwqoWfwpa.mp4" "http://gslb.miaopai.com/stream/ugJzN6LvH3emoPlSU2b52Cu-SbIQ5LFa.mp4"#[3] "http://gslb.miaopai.com/stream/wJ4AsVMgek6jp6lXDxIpXExCig9cVXo~.mp4" "http://gslb.miaopai.com/stream/I-J6u~qy7V5CpRIq-FoFA3pYtc6Yr0Sz.mp4"#[5] "http://gslb.miaopai.com/stream/pCLMPKezqWVWHyhjNHaRyKrX16APCeuw.mp4" 如果不放心的话，可以使用这个地址再再浏览器中打开看一看，预览下是否可以观看视频。(放心吧我都替你试过了) 现在我们只是获取了视频下载地址，可是没有MV的歌名呀（命名和123最后下载完事你可以需要打开听一听才知道是啥歌，如果使用ID的话一串字母数字组合也很烦人）。 好吧索性再把名字趴下来： 可以看到每首MV下面都有个含歌名的句子，就抓这句文字就行。 1234567myinfo&lt;-read_html(url,encoding="utf-8")%&gt;%html_nodes("div.viedoAbout")%&gt;%html_text(trim = TRUE)[1] "温暖女声陶心瑶翻唱薛之谦《方圆几里》 \n #陶心瑶第二自我##纪念青春的那些歌#" [2] "陶心瑶首张实体专辑《第二自我》众筹宣传片 \n #陶心瑶第二自我##纪念青春的那些歌#"[3] "上课中《丑八怪》" [4] "陶心瑶暖心翻唱JJ《她说》 \n #陶心瑶##林俊杰的第36页#" [5] "这个《双截棍》也太柔了吧！唱的心都醉啦" 抓完发现每一个句子里面的歌名都是带有书名号的（特么的中文的书名号怎么匹配内部中文呀，正则不会写~_~） 好吧，技不如人但是我勤快呀，就用字符串匹配函数一个个匹配吧！1234mymvname&lt;-c()for (i in 1:length(myinfo) )&#123;mymvname[i]&lt;-substr(myinfo[i],regexpr("《",myinfo[i])[1]+1,regexpr("》",myinfo[i])[1]-1)&#125; 匹配完成之后，把MP4的后缀带上。12mymvname&lt;-paste0(mymvname,".mp4")[1] "方圆几里.mp4" "第二自我.mp4" "丑八怪.mp4" "她说.mp4" "双截棍.mp4" 都到了这份上了你还想怎样–好吧我只想把小姐姐的视频下载下来而已。 爬虫第三部：构建下载函数：因为是五个视频文件要下载，所以需要构造循环下载函数：123for (i in 1:length(myinfo))&#123;download.file(mymvlinks[i],mymvname[i],mode="wb")&#125; OK，爬完收工，是不是很简单呀，感觉去找个视频网站试一下吧，这个夏天，让音乐来的更猛烈一些吧！ 接下来做一个完整的代码汇总：第一步：分析网页： 第二部：爬取网页：12345678910111213setwd("E:/CloudMusic")library(tidyverse)library(rvest)library(stringr)mylinks&lt;-read_html(url,encoding="utf-8")%&gt;%html_nodes("div.videoCont&gt;div.videoList&gt;div.video&gt;div.MIAOPAI_player")%&gt;%html_attr("data-scid")#爬取视频ID：baseurl&lt;-"http://gslb.miaopai.com/stream/"mymvlinks&lt;-paste0(baseurl,mylinks,".mp4") #构造视频链接：myinfo&lt;-read_html(url,encoding="utf-8")%&gt;%html_nodes("div.viedoAbout")%&gt;%html_text(trim = TRUE)#爬取评论文本mymvname&lt;-c()for (i in 1:length(myinfo) )&#123;mymvname[i]&lt;-substr(myinfo[i],regexpr("《",myinfo[i])[1]+1,regexpr("》",myinfo[i])[1]-1)&#125;#提取视频名称mymvname&lt;-paste0(mymvname,".mp4")#构造视频名称（带格式） 第三步：构造下载函数：123for (i in 1:length(myinfo))&#123;download.file(mymvlinks[i],mymvname[i],mode="wb")&#125; 联系方式：wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]298236508 个人简介：杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。Mail:578708965@qq.com 备注信息：本作品采用知识共享署名-非商业性使用 4.0 国际许可协议进行许可。]]></content>
+      <categories>
+        <category>网络爬虫</category>
+      </categories>
+      <tags>
+        <tag>R语言</tag>
+        <tag>网络爬虫</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[左手用R右手Python系列——因子变量与分类重编码]]></title>
     <url>%2F2017%2F07%2F10%2F%E5%B7%A6%E6%89%8B%E7%94%A8R%E5%8F%B3%E6%89%8BPython%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94%E5%9B%A0%E5%AD%90%E5%8F%98%E9%87%8F%E4%B8%8E%E5%88%86%E7%B1%BB%E9%87%8D%E7%BC%96%E7%A0%81%2F</url>
     <content type="text"><![CDATA[今天这篇介绍数据类型中因子变量的运用在R语言和Python中的实现。 因子变量是数据结构中用于描述分类事物的一类重要变量。其在现实生活中对应着大量具有实际意义的分类事物。 比如年龄段、性别、职位、爱好，星座等。 之所以给其单独列出一个篇幅进行讲解，除了其在数据结构中的特殊地位之外，在数据可视化和数据分析与建模过程中，因子变量往往也承担中描述某一事物重要维度特征的作用，其意义非同寻常，无论是在数据处理过程中还是后期的分析与建模，都不容忽视。 通常意义上，按照其所描述的维度实际意义，因子变量一般又可细分为无序因子（类别之间没有特定顺序，水平相等）和有序因子（类别中间存在某种约定俗成的顺序，如年龄段、职称、学历、体重等）。 在统计学中对变量进行了如下四类划分：定类变量、定序变量、定距变量、定比变量。而其中的定类和定比变量就对应着我们今天将要讲解的因子变量（无序因子和有序因子变量）。 因子变量从信息含量上来看，其要比单纯的定性变量（文本变量）所包含的描述信息多一些，但是又比数值型变量（定距变量和定比变量）所表述的信息含量少一些。 因而原则上来讲，数值型变量可以转换为因子变量，因子变量可以转换为文本型变量，但是以上顺序却是不可逆的（信息含量多的变量可以放弃信息量，转换为信息含量较少的变量类型，但是信息含量较少的变量却无法增加信息含量）。 以下将分别讲解在R语言和Python中如何生成因子变量、如何将数值型变量转换为因子变量、以及如何对因子变量进行重编码。 R语言因子变量处理函数：在R语言中，通常使用factor直接生成因子变量，我们仅需一个向量（原则上可以是文本型、也可以是数字型，但是通常从实际意义上来说，被转换的应该是一个含有多类别的类别型文本变量）。 1factor(x, levels,labels=levels,ordered=) 以上参数中，x即是我们将要转换的变量，levels是将要设定的因子水平（可选参数，省略则自动以向量中的不重复对象为因子水平），labels作为因子标签（可选参数，与前述因子水平对应，若设置，则打印时显示的是对应因子标签，省略则同因子水平一样，使用向量中不重复值【即类别】作为标签），ordered是逻辑参数，设定是否对因子水平排序。12vector&lt;-rep(LETTERS[1:5],6);print(vector);plyr::count(vector)myfactor&lt;-(factor(vector,levels=c("E","D","C","B","A"),labels=c("EEE","DDD","CCC","BBB","AAA"),ordered=TRUE) 通常来说，factor函数中，levels一般不用设置，函数会自动判断向量内有几个水平，但是倘若要生成有序因子的话，默认会根据字母顺序排列，如果自然顺序与目标有序因子顺序不一致，则一定要指定levels，labels则视具体需求而定，如果本身就是文本类别的话，一般无需设定标签。 如果是问卷类数据，而且编码为数值，则一定要通过labels标签的设定来还原每一个编码的真实意义。1factor(vector,labels=c("AAA","BBB","CCC","DDD","EEE"),ordered=TRUE) 因子变量与文本变量数值变量之间的互转则通过as.character()或者as.numeric()函数来实现。 123library(dplyr)as.character(as.factor(1:10))%&gt;%str()as.numeric(as.factor(1:10))%&gt;%str() R语言中的因子变量重编码 如果你有一个度量指标，需要将其转换为分段的因子变量，则可以通过cut函数来实现这种转换。12scale&lt;-runif(100,0,100)cut(x,breaks,labels=NULL,include.lowest=FALSE,right=TRUE,ordered=) cut函数参数如上，接受一个数值型向量，breaks接受一个数值向量（标识分割点）或者单个数值（分割 数目）。 right是逻辑参数，设定分割带是左开右闭或者左闭右开。（默认左开右闭）。 include.lowest则根据right的设定，决定是否应该包含端点值（如果right为TRUE，左开右闭区间，则包含最小值，如果right为FALSE，左闭右开区间则包含最大值）,默认为FALSE。 ordered则设定是否对因子水平进行排序。 1(factor1&lt;-cut(scale,breaks=c(0,20,40,60,80,100),labels=c("0~20","20~40","40~60","60~80","80~100"),include.lowest=TRUE,ordered=TRUE)) 另一种分割场景是使用分位数函数进行分割12qa &lt;- quantile(scale, c(0,0.2,0.4,0.6,0.8,1.0))(cut(scale,breaks=qa,labels=c("0%~20%","20%~40%","40%~60%","60%~80%","80%~100%"),include.lowest=TRUE,ordered=TRUE)) 以上分割方法在是较为常用的因子变量转换方法，当然你可以使用if函数进行类似分割，但是相比较来讲，使用cut函数进行分割要高效很多。 Python因子编码处理函数：在Python中，Pandas库包含了处理因子变量的一整套完整语法函数。 123import pandas as pdimport numpy as npimport string 在pandas中的官方在线文档中，给出了pandas因子变量的详细论述，并在适当位置与R语言进行了对比描述。 当利用pandas生成序列时，可以在序列函数内的dtype参数设定因子变量类型。1s = pd.Series(["A","B","C","D","E"], dtype="category") 生成数据框时，也可以直接生成因子变量。12df = pd.DataFrame(&#123;"A":["a","b","c","a"]&#125;)df["B"] = df["A"].astype('category') 除了直接在生成序列或者数据框时生成因子变量之外，也可以通过一个特殊的函数pd.Categorical来完成在序列和数据框中创建因子变量。123s = pd.Series(pd.Categorical(["a","b","c","a"], categories=["a","b","c"],ordered=False))df = pd.DataFrame(&#123;"A":["a","b","c","a"]&#125;)df["B"] =pd.Series(pd.Categorical(["a","b","c","a"], categories=["a","b","c"],ordered=False)) 因子顺序的添加可以通过设定序列或者数框框列的.astype来进行详细的操作。12s = pd.Series(["a","b","c","a"])s_cat = s.astype("category", categories=["a","b","c"], ordered=True) 无论是序列中还是数据框中的因子变量生成之后，都可以通过以下属性查看其具体的类型、因子类别、以及是否含有顺序。 123s_cat.dtypess_cat.cat.categoriess_cat.cat.ordered 一种比较迂回的方法是，先生成普通序列，然后通过设定序列类型完成因子变量的转化。而想要舍弃因子变量，还原成普通的文本序列，则同样只需再其astype中进行格式设定。 123s = pd.Series(["a","b","c","a"])s2 = s.astype('category',categories=["a","b","c"],ordered=True)s2.astype(str) 最后讲一下，如何在数据框中分割数值型变量为因子变量，pandas的数据框也有与R语言同名的函数——cut。123df = pd.DataFrame(&#123;'value': np.random.randint(0, 100, 20)&#125;)labels = [ "&#123;0&#125; - &#123;1&#125;".format(i, i + 9) for i in range(0,100,10) ]df['group'] = pd.cut(df.value, range(0, 105, 10), right=False, labels=labels) 12345pd.cut(x, bins, right=, labels=,include_lowest=False)#df.value代表待风格的变量，第二项是bins可以是一个列表（作为分割点），也可以是一个整数（作为分割带箱数），#right控制带宽是左开右闭还是左闭右开，#labels设定输出显示标签，#include_lowest=控制是否包含边界点（以上参数可以类比R语言中的cut函数）。 最后做一个小总结：关于因子变量在R语言和Python中涉及到的操作函数; R语言： 创建因子变量：factor转换因子变量：as.factoras.numeric(as.character)分割因子变量：cut函数 Python: 创建因子变量：pd.Categorical(categories=,ordered=)pd.Series(dtype=”category”)转换因子变量：df.astype(‘category’,categories,ordered)分割因子变量：df.cut(df.value,breaks=,right=,labels) 联系方式：wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]298236508 个人简介：杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。Mail:578708965@qq.com 备注信息：本作品采用知识共享署名-非商业性使用 4.0 国际许可协议进行许可。]]></content>
@@ -8,8 +20,8 @@
         <category>Python</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>Python</tag>
         <tag>数据分析</tag>
       </tags>
@@ -22,10 +34,10 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
-        <tag>路径图</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
+        <tag>路径图</tag>
       </tags>
   </entry>
   <entry>
@@ -36,8 +48,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>信息图</tag>
       </tags>
@@ -50,8 +62,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>数据地图</tag>
       </tags>
@@ -64,9 +76,9 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>商务图表</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -91,8 +103,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>数据地图</tag>
       </tags>
@@ -105,8 +117,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>信息图</tag>
       </tags>
@@ -145,8 +157,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -158,8 +170,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>ggradar</tag>
       </tags>
@@ -186,10 +198,10 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
-        <tag>图表美化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
+        <tag>图表美化</tag>
         <tag>ggtech</tag>
       </tags>
   </entry>
@@ -201,8 +213,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>ggtech</tag>
       </tags>
@@ -215,8 +227,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -242,9 +254,9 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>商务图表</tag>
+        <tag>R语言</tag>
         <tag>数据地图</tag>
       </tags>
   </entry>
@@ -256,9 +268,9 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>商务图表</tag>
+        <tag>R语言</tag>
         <tag>数据地图</tag>
       </tags>
   </entry>
@@ -270,9 +282,9 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>商务图表</tag>
+        <tag>R语言</tag>
         <tag>数据地图</tag>
       </tags>
   </entry>
@@ -284,8 +296,8 @@
         <category>Excel</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>Excel</tag>
+        <tag>数据可视化</tag>
         <tag>商务图表</tag>
       </tags>
   </entry>
@@ -297,8 +309,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>图表美化</tag>
         <tag>theme</tag>
         <tag>视觉信号</tag>
@@ -312,8 +324,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>气泡云图.superbubble</tag>
         <tag>PowerBI</tag>
         <tag>Tableau</tag>
@@ -327,8 +339,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>图表美化</tag>
         <tag>配色技巧</tag>
       </tags>
@@ -341,8 +353,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>数据地图</tag>
         <tag>九段线</tag>
         <tag>mini导航窗口</tag>
@@ -356,8 +368,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>图表美化</tag>
         <tag>主题定制</tag>
       </tags>
@@ -370,8 +382,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -386,8 +398,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>版面控制</tag>
       </tags>
@@ -400,8 +412,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>动态图表</tag>
         <tag>版面控制</tag>
@@ -415,8 +427,8 @@
         <category>可视化案例呈现</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>Excel</tag>
+        <tag>数据可视化</tag>
         <tag>商务图表</tag>
       </tags>
   </entry>
@@ -428,9 +440,9 @@
         <category>可视化案例呈现</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>商务图表</tag>
+        <tag>R语言</tag>
       </tags>
   </entry>
   <entry>
@@ -441,8 +453,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>版式设计</tag>
         <tag>grid</tag>
@@ -456,8 +468,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>ggplot2</tag>
         <tag>数据地图</tag>
@@ -485,8 +497,8 @@
         <category>PowerBI</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>在线地图</tag>
         <tag>PowerBI</tag>
       </tags>
@@ -499,8 +511,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>多边形填充</tag>
       </tags>
@@ -518,8 +530,8 @@
         <category>图表配色</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>配色</tag>
       </tags>
   </entry>
@@ -531,8 +543,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>极坐标</tag>
         <tag>饼图</tag>
@@ -548,8 +560,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -561,8 +573,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -576,8 +588,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>REmap</tag>
         <tag>热力密度地图</tag>
@@ -591,11 +603,11 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
-        <tag>REmap</tag>
         <tag>填充地图</tag>
+        <tag>REmap</tag>
       </tags>
   </entry>
   <entry>
@@ -606,8 +618,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>REmap</tag>
@@ -621,8 +633,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>REmap</tag>
@@ -637,8 +649,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>REmap</tag>
@@ -652,8 +664,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -668,8 +680,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>json</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
@@ -684,8 +696,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -700,8 +712,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -717,8 +729,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -733,8 +745,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -749,8 +761,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>ggplot2</tag>
         <tag>mini柱形/条形图</tag>
@@ -764,8 +776,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>ggplot2</tag>
         <tag>mini饼图</tag>
@@ -779,8 +791,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>爬虫</tag>
         <tag>国产电影</tag>
@@ -795,8 +807,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>爬虫</tag>
         <tag>空气质量可视化</tag>
@@ -810,10 +822,10 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
-        <tag>路径图</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
+        <tag>路径图</tag>
       </tags>
   </entry>
   <entry>
@@ -824,8 +836,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>热力地图</tag>
       </tags>
@@ -838,8 +850,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>信息图</tag>
         <tag>版面设计</tag>
@@ -854,8 +866,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>信息图</tag>
       </tags>
@@ -868,8 +880,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>动态图表</tag>
         <tag>gif</tag>
@@ -883,8 +895,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>gif</tag>
         <tag>动态地图</tag>
@@ -898,8 +910,8 @@
         <category>仪表盘</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>仪表盘</tag>
         <tag>排版</tag>
@@ -913,8 +925,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>信息图</tag>
       </tags>
@@ -927,8 +939,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>爬虫</tag>
         <tag>emoji</tag>
@@ -942,8 +954,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -955,8 +967,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>爬虫</tag>
       </tags>
@@ -969,8 +981,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>爬虫</tag>
         <tag>PowerBI</tag>
       </tags>
@@ -983,8 +995,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -996,8 +1008,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -1009,8 +1021,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>

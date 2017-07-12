@@ -325,6 +325,198 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/05/23/emoji表情可视化北京历史天气/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RainDu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="raindu's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/05/23/emoji表情可视化北京历史天气/" itemprop="url">emoji表情可视化北京历史天气</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-23T10:08:40+08:00">
+                2017-05-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/R语言/" itemprop="url" rel="index">
+                    <span itemprop="name">R语言</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/05/23/emoji表情可视化北京历史天气/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://www.raindu.com/2017/05/23/emoji表情可视化北京历史天气/" class="cy_cmt_count" data-xid="2017/05/23/emoji表情可视化北京历史天气/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+             <span id="/2017/05/23/emoji表情可视化北京历史天气/" class="leancloud_visitors" data-flag-title="emoji表情可视化北京历史天气">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,884 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  10 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="数据抓取："><a href="#数据抓取：" class="headerlink" title="数据抓取："></a>数据抓取：</h3><p>加载包<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(RCurl)</div><div class="line"><span class="keyword">library</span>(XML)</div><div class="line"><span class="keyword">library</span>(dplyr)</div><div class="line"><span class="keyword">library</span>(ggplot2)</div><div class="line"><span class="keyword">library</span>(stringr)</div><div class="line"><span class="keyword">library</span>(rvest)</div><div class="line"><span class="keyword">library</span>(lubridate)</div><div class="line"><span class="keyword">library</span>(<span class="string">"DT"</span>)</div><div class="line"><span class="keyword">library</span>(openair)</div><div class="line"><span class="keyword">library</span>(ggplot2)</div><div class="line"><span class="keyword">library</span>(scales)</div><div class="line"><span class="keyword">library</span>(showtext)</div><div class="line"><span class="keyword">library</span>(grid)</div><div class="line"><span class="keyword">library</span>(Cairo)</div></pre></td></tr></table></figure></p>
+<p>用更加优雅的方式加载包：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">all.pcg&lt;-c(<span class="string">"RCurl"</span>,<span class="string">"XML"</span>,<span class="string">"dplyr"</span>,<span class="string">"ggplot2"</span>,<span class="string">"stringr"</span>,<span class="string">"rvest"</span>,<span class="string">"lubridate"</span>,<span class="string">"DT"</span>,<span class="string">"scales"</span>,<span class="string">"showtext"</span>,<span class="string">"grid"</span>,<span class="string">"Cairo"</span>) </div><div class="line">req.pcg &lt;- <span class="keyword">function</span>(pcg)&#123; </div><div class="line">new &lt;- pcg[!(pcg %<span class="keyword">in</span>% installed.packages()[, <span class="string">"Package"</span>])] </div><div class="line"><span class="keyword">if</span> (length(new)) install.packages(new, dependencies = <span class="literal">T</span>) </div><div class="line">sapply(req.pcg, <span class="keyword">require</span>, ch = <span class="literal">T</span>) </div><div class="line">&#125; </div><div class="line">req.pcg(all.pcg)</div></pre></td></tr></table></figure></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/23/emoji表情可视化北京历史天气/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/05/22/中国字体地图/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -560,7 +752,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">71</span>
+                <span class="site-state-item-count">72</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -582,7 +774,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-count">64</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -691,7 +883,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共108.5k字</span>
+  <span class="post-count">博客全站共110.6k字</span>
 </div>
 
 <div class="theme-info">
