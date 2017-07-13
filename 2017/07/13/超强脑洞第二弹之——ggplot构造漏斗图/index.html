@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="数据可视化,R语言,ggplot2," />
 
 
 
@@ -97,16 +97,25 @@
 
 
 
-<meta name="description" content="身体和心灵，总有一个在路上！">
-<meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="http://www.raindu.com/categories/index.html">
+<meta name="description" content="今天这篇要用ggplot构造漏斗图，其实ggplot内置图层函数中不存在所谓的漏斗图、子弹图等比较复杂的图表类型，但是ggplot的现有图层函数和标度设置完全可以胜任这些图形，以下是利用ggplot临摹漏斗图的代码过程。">
+<meta name="keywords" content="数据可视化,R语言,ggplot2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="超强脑洞第二弹之——ggplot构造漏斗图">
+<meta property="og:url" content="http://www.raindu.com/2017/07/13/超强脑洞第二弹之——ggplot构造漏斗图/index.html">
 <meta property="og:site_name" content="raindu&#39;s home">
-<meta property="og:description" content="身体和心灵，总有一个在路上！">
-<meta property="og:updated_time" content="2017-05-22T01:15:37.031Z">
+<meta property="og:description" content="今天这篇要用ggplot构造漏斗图，其实ggplot内置图层函数中不存在所谓的漏斗图、子弹图等比较复杂的图表类型，但是ggplot的现有图层函数和标度设置完全可以胜任这些图形，以下是利用ggplot临摹漏斗图的代码过程。">
+<meta property="og:image" content="http://oro3igf2g.bkt.clouddn.com/funnel/image.jpg">
+<meta property="og:image" content="http://oro3igf2g.bkt.clouddn.com/funnel/image1.jpg">
+<meta property="og:image" content="http://oro3igf2g.bkt.clouddn.com/funnel/image2.jpg">
+<meta property="og:image" content="http://oro3igf2g.bkt.clouddn.com/funnel/image3.jpg">
+<meta property="og:image" content="http://oro3igf2g.bkt.clouddn.com/funnel/image4.jpg">
+<meta property="og:image" content="http://oro3igf2g.bkt.clouddn.com/funnel/image5.jpg">
+<meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
+<meta property="og:updated_time" content="2017-07-13T01:13:48.558Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="categories">
-<meta name="twitter:description" content="身体和心灵，总有一个在路上！">
+<meta name="twitter:title" content="超强脑洞第二弹之——ggplot构造漏斗图">
+<meta name="twitter:description" content="今天这篇要用ggplot构造漏斗图，其实ggplot内置图层函数中不存在所谓的漏斗图、子弹图等比较复杂的图表类型，但是ggplot的现有图层函数和标度设置完全可以胜任这些图形，以下是利用ggplot临摹漏斗图的代码过程。">
+<meta name="twitter:image" content="http://oro3igf2g.bkt.clouddn.com/funnel/image.jpg">
 
 
 
@@ -134,13 +143,13 @@
 
 
 
-  <link rel="canonical" href="http://www.raindu.com/categories/"/>
+  <link rel="canonical" href="http://www.raindu.com/2017/07/13/超强脑洞第二弹之——ggplot构造漏斗图/"/>
 
 
 
 
 
-  <title>categories | raindu's home</title>
+  <title>超强脑洞第二弹之——ggplot构造漏斗图 | raindu's home</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -166,7 +175,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -315,30 +324,294 @@
             
 
   <div id="posts" class="posts-expand">
-  <header class="post-header">
+    
 
-	<h1 class="post-title" itemprop="name headline">categories</h1>
+  
 
+  
+  
+  
 
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.raindu.com/2017/07/13/超强脑洞第二弹之——ggplot构造漏斗图/">
 
-</header>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RainDu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="raindu's home">
+    </span>
 
     
-    
-      <div class="category-all-page">
-        <div class="category-all-title">
-            目前共计 12 个分类
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">超强脑洞第二弹之——ggplot构造漏斗图</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-13T09:01:32+08:00">
+                2017-07-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/R语言/" itemprop="url" rel="index">
+                    <span itemprop="name">R语言</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/07/13/超强脑洞第二弹之——ggplot构造漏斗图/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/07/13/超强脑洞第二弹之——ggplot构造漏斗图/" class="leancloud_visitors" data-flag-title="超强脑洞第二弹之——ggplot构造漏斗图">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,122 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  5 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
         </div>
-        <div class="category-all">
-          <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Excel/">Excel</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PowerBI/">PowerBI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/R语言/">R语言</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tableau/">Tableau</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ggplot2/">ggplot2</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/仪表盘/">仪表盘</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/可视化案例呈现/">可视化案例呈现</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/图表配色/">图表配色</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/地理信息可视化/">地理信息可视化</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据可视化/">数据可视化</a><span class="category-list-count">26</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网络爬虫/">网络爬虫</a><span class="category-list-count">2</span></li></ul>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://oro3igf2g.bkt.clouddn.com/funnel/image.jpg" alt=""></p>
+<p>今天这篇要用ggplot构造漏斗图，其实ggplot内置图层函数中不存在所谓的漏斗图、子弹图等比较复杂的图表类型，但是ggplot的现有图层函数和标度设置完全可以胜任这些图形，以下是利用ggplot临摹漏斗图的代码过程。</p>
+<a id="more"></a>
+<h3 id="数据准备："><a href="#数据准备：" class="headerlink" title="数据准备："></a>数据准备：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(reshape2)</div><div class="line"><span class="keyword">library</span>(plyr)</div><div class="line"><span class="keyword">library</span>(ggplot2)</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">scope&lt;-c(<span class="number">0.9</span>,<span class="number">0.8</span>,<span class="number">0.6</span>,<span class="number">0.4</span>,<span class="number">0.2</span>)</div><div class="line">Part&lt;-paste(<span class="string">"part"</span>,<span class="number">1</span>:<span class="number">5</span>,sep=<span class="string">""</span>)</div><div class="line">Order&lt;-<span class="number">1</span>:<span class="number">5</span></div><div class="line">help&lt;-(<span class="number">1</span>-scope)/<span class="number">2</span></div><div class="line">mydata&lt;-data.frame(Order,Part,help,scope)</div><div class="line">mydata1&lt;-melt(mydata,id.vars=c(<span class="string">"Order"</span>,<span class="string">"Part"</span>),variable.name=<span class="string">"perform"</span>,value.name=<span class="string">"scope"</span>)</div><div class="line">mydata1$perform&lt;-factor(mydata1$perform,level=c(<span class="string">"scope"</span>,<span class="string">"help"</span>),order=<span class="literal">T</span>)</div></pre></td></tr></table></figure>
+<p>很重要的一步，需要构造有序因子变量，两个因子水平，分别是实际指标值和辅助值，在构造有序因子变量时，注意辅助值因子水平要高于实际值数据。柱形图堆叠时，按照因子水平由高到低堆叠（底层因子水平高，顶层因子水平低，这样才能将指标值的数据条撑起，其实水平均居中）。</p>
+<h3 id="可视化过程："><a href="#可视化过程：" class="headerlink" title="可视化过程："></a>可视化过程：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggplot(mydata1,aes(Order,scope,order=desc(scope),fill=perform))+geom_bar(stat=<span class="string">"identity"</span>,position=<span class="string">"stack"</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://oro3igf2g.bkt.clouddn.com/funnel/image1.jpg" alt=""></p>
+<p><strong>制作色盘：</strong><br>（其实使用了一个白色色值隐藏掉了辅助列，理念跟在excel里面制作漏斗图一致，但是色盘颜色顺序白色要在第一个，这样将来颜色映射的时候颜色顺序与因子水平由大到小进行匹配的。）这一点非常重要，也是ggplot临摹漏斗图的核心技巧。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Color&lt;-c(<span class="string">"#FFFFFF"</span>,<span class="string">"#088158"</span>)</div><div class="line">CairoPNG(file=<span class="string">"C:/Users/Administrator/Desktop/漏斗图1.png"</span>,width=<span class="number">330</span>,height=<span class="number">400</span>)</div><div class="line">ggplot()+</div><div class="line">geom_bar(data=mydata1,aes(x=Order,y=scope,fill=perform),stat=<span class="string">"identity"</span>,position=<span class="string">"stack"</span>)+</div><div class="line">scale_fill_manual(values=sort(Color))+ </div><div class="line">geom_text(data=mydata,aes(x=Order,y=help+scope/<span class="number">2</span>-<span class="number">.025</span>,label=Part),col=<span class="string">"white"</span>,size=<span class="number">4</span>)+</div><div class="line">geom_text(data=mydata,aes(x=Order,y=help+scope/<span class="number">2</span>+<span class="number">.035</span>,label=paste(<span class="number">100</span>*mydata$scope,<span class="string">"%"</span>,sep=<span class="string">""</span>)),col=<span class="string">"white"</span>,size=<span class="number">5.5</span>)+</div><div class="line">theme_nothing()</div><div class="line">dev.off()</div></pre></td></tr></table></figure></p>
+<p><img src="http://oro3igf2g.bkt.clouddn.com/funnel/image2.jpg" alt=""></p>
+<p><strong>转向</strong>（反转坐标轴）<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">CairoPNG(file=<span class="string">"C:/Users/Administrator/Desktop/漏斗图2.png"</span>,width=<span class="number">330</span>,height=<span class="number">400</span>)</div><div class="line">ggplot()+</div><div class="line">geom_bar(data=mydata1,aes(x=Order,y=scope,fill=perform),stat=<span class="string">"identity"</span>,position=<span class="string">"stack"</span>)+</div><div class="line">scale_fill_manual(values=sort(Color))+ </div><div class="line">scale_x_reverse()+</div><div class="line">geom_text(data=mydata,aes(x=Order,y=help+scope/<span class="number">2</span>-<span class="number">.025</span>,label=Part),col=<span class="string">"white"</span>,size=<span class="number">4</span>)+</div><div class="line">geom_text(data=mydata,aes(x=Order,y=help+scope/<span class="number">2</span>+<span class="number">.035</span>,label=paste(<span class="number">100</span>*mydata$scope,<span class="string">"%"</span>,sep=<span class="string">""</span>)),col=<span class="string">"white"</span>,size=<span class="number">5.5</span>)+</div><div class="line">theme_nothing()</div><div class="line">dev.off()</div></pre></td></tr></table></figure></p>
+<p><img src="http://oro3igf2g.bkt.clouddn.com/funnel/image3.jpg" alt=""></p>
+<p><strong>水平漏斗图：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">CairoPNG(file=<span class="string">"C:/Users/Administrator/Desktop/漏斗图3.png"</span>,width=<span class="number">330</span>,height=<span class="number">400</span>)</div><div class="line">ggplot()+</div><div class="line">geom_bar(data=mydata1,aes(x=Order,y=scope,fill=perform),stat=<span class="string">"identity"</span>,position=<span class="string">"stack"</span>)+</div><div class="line">scale_fill_manual(values=sort(Color))+ </div><div class="line">coord_flip()+</div><div class="line">geom_text(data=mydata,aes(x=Order,y=help+scope/<span class="number">2</span>-<span class="number">.04</span>,label=Part),col=<span class="string">"white"</span>,size=<span class="number">4</span>)+</div><div class="line">geom_text(data=mydata,aes(x=Order,y=help+scope/<span class="number">2</span>+<span class="number">.04</span>,label=paste(<span class="number">100</span>*mydata$scope,<span class="string">"%"</span>,sep=<span class="string">""</span>)),col=<span class="string">"white"</span>,size=<span class="number">5.5</span>)+</div><div class="line">theme_nothing()</div><div class="line">dev.off()</div></pre></td></tr></table></figure></p>
+<p><img src="http://oro3igf2g.bkt.clouddn.com/funnel/image4.jpg" alt=""></p>
+<p><strong>反转坐标轴：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">CairoPNG(file=<span class="string">"C:/Users/Administrator/Desktop/漏斗图4.png"</span>,width=<span class="number">330</span>,height=<span class="number">400</span>)</div><div class="line">ggplot()+</div><div class="line">geom_bar(data=mydata1,aes(x=Order,y=scope,fill=perform),stat=<span class="string">"identity"</span>,position=<span class="string">"stack"</span>)+</div><div class="line">scale_fill_manual(values=sort(Color))+ </div><div class="line">coord_flip()+</div><div class="line">scale_x_reverse()+</div><div class="line">geom_text(data=mydata,aes(x=Order,y=help+scope/<span class="number">2</span>-<span class="number">.05</span>,label=Part),col=<span class="string">"white"</span>,size=<span class="number">4</span>)+</div><div class="line">geom_text(data=mydata,aes(x=Order,y=help+scope/<span class="number">2</span>+<span class="number">.05</span>,label=paste(<span class="number">100</span>*mydata$scope,<span class="string">"%"</span>,sep=<span class="string">""</span>)),col=<span class="string">"white"</span>,size=<span class="number">5.5</span>)+</div><div class="line">theme_nothing()</div><div class="line">dev.off()</div></pre></td></tr></table></figure></p>
+<p><img src="http://oro3igf2g.bkt.clouddn.com/funnel/image5.jpg" alt=""></p>
+<h3 id="本文小结："><a href="#本文小结：" class="headerlink" title="本文小结："></a>本文小结：</h3><p><strong>下面总结以下使用ggplot临摹漏斗图的核心技巧：</strong></p>
+<ul>
+<li>指标值和辅助列值这两个因子水平的设置上，需要设置成有序因子，因子水平大小为指标值因子水平&lt;辅助值因子水平。因为柱状图堆叠时因子水平由大到小从底部顺次向顶部堆积。这样辅助列可以堆在底部，刚好撑起数据列，将其置于水平居中位置。因此模拟漏斗图。</li>
+<li>色盘设置，色值顺序白色在前，数值色在后。颜色映射时，色板颜色会顺次分配给由高到低的因子水平。（其实因为就两个颜色，即便是颜色色值写反了，使用逆序函数倒过来就好了）。</li>
+</ul>
+<p>好了，期待下一篇ggplot的脑洞吧，可能是甘特图，也有可能是瀑布图，或者其他不知名的图表~</p>
+<hr>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
+<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
+<hr>
+<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://oqbxptw4f.bkt.clouddn.com/dashang/wechat.jpg" alt="RainDu WeChat Pay"/>
+          <p>微信打赏</p>
         </div>
-      </div>
-    
-	
-  <div class="comments" id="comments">
-    
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://oqbxptw4f.bkt.clouddn.com/dashang/Alipay.png" alt="RainDu Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
   </div>
 
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据可视化/" rel="tag"># 数据可视化</a>
+          
+            <a href="/tags/R语言/" rel="tag"># R语言</a>
+          
+            <a href="/tags/ggplot2/" rel="tag"># ggplot2</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/12/一言不合就爬虫系列之——爬取小姐姐的秒拍MV/" rel="next" title="一言不合就爬虫系列之——爬取小姐姐的秒拍MV">
+                <i class="fa fa-chevron-left"></i> 一言不合就爬虫系列之——爬取小姐姐的秒拍MV
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
   </div>
 
 
@@ -372,8 +645,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.png"
@@ -480,6 +762,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据准备："><span class="nav-number">1.</span> <span class="nav-text">数据准备：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可视化过程："><span class="nav-number">2.</span> <span class="nav-text">可视化过程：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本文小结："><span class="nav-number">3.</span> <span class="nav-text">本文小结：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -620,6 +918,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
 
   
 
