@@ -4,6 +4,30 @@
 
     
   <url>
+    <loc>http://www.raindu.com/2017/07/27/%E8%B6%85%E5%BC%BA%E8%84%91%E6%B4%9E%E7%AC%AC%E4%BA%94%E5%BC%B9%E2%80%94%E2%80%94ggplot-%E6%9E%84%E9%80%A0%E8%BF%9E%E7%8E%AF%E9%A5%BC%E5%9B%BE/</loc>
+    <lastmod>2017-07-27T15:13:41.405Z</lastmod>
+    <data>
+        <display>
+        <title>超强脑洞第五弹——ggplot 构造连环饼图</title>
+        <pubTime>2017-07-27T15:05:46.000Z</pubTime>
+        
+        <tag>数据可视化</tag>
+         
+        <tag>R语言</tag>
+         
+        <tag>ggplot2</tag>
+         
+         
+           
+             
+              <breadCrumb title="R语言" url="http://www.raindu.com/categories/R%E8%AF%AD%E8%A8%80/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.raindu.com/2017/07/26/%E8%B6%85%E5%BC%BA%E8%84%91%E6%B4%9E%E7%AC%AC%E5%9B%9B%E5%BC%B9%E2%80%94%E2%80%94ggplot%E6%9E%84%E9%80%A0%E7%94%98%E7%89%B9%E5%9B%BE/</loc>
     <lastmod>2017-07-26T11:01:26.647Z</lastmod>
     <data>
@@ -391,9 +415,9 @@
          
         <tag>R语言</tag>
          
-        <tag>ggplot2</tag>
-         
         <tag>图表美化</tag>
+         
+        <tag>ggplot2</tag>
          
         <tag>ggtech</tag>
          
@@ -1618,9 +1642,9 @@
          
         <tag>地理信息可视化</tag>
          
-        <tag>热力密度地图</tag>
-         
         <tag>REmap</tag>
+         
+        <tag>热力密度地图</tag>
          
          
            
@@ -1646,9 +1670,9 @@
          
         <tag>地理信息可视化</tag>
          
-        <tag>REmap</tag>
-         
         <tag>填充地图</tag>
+         
+        <tag>REmap</tag>
          
          
            
@@ -1728,9 +1752,9 @@
          
         <tag>R语言</tag>
          
-        <tag>主题定制</tag>
-         
         <tag>图表美化</tag>
+         
+        <tag>主题定制</tag>
          
          
            

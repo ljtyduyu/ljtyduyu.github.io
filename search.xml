@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[超强脑洞第五弹——ggplot 构造连环饼图]]></title>
+    <url>%2F2017%2F07%2F27%2F%E8%B6%85%E5%BC%BA%E8%84%91%E6%B4%9E%E7%AC%AC%E4%BA%94%E5%BC%B9%E2%80%94%E2%80%94ggplot-%E6%9E%84%E9%80%A0%E8%BF%9E%E7%8E%AF%E9%A5%BC%E5%9B%BE%2F</url>
+    <content type="text"><![CDATA[今天这篇之前曾有涉略过，就是利用ggplot的辅助插件工具——scatterpie制作基于气泡图的饼图，之前曾在地图图层上演示过此种类似图表，不过这里我将其与折线图融合，案例来源于陈荣兴老师的名作——《Excel图表拒绝平庸》。 数据准备：123library("ggplot2")library("scatterpie")library("Cairo") 数据集构造：12345678mydata&lt;-c(1,1,1,1,1,1,1,1,1,2,3,2,3,5,5,1,1,1,1,1,2,2,4,5,1,3,2,3,5,5,4,2,4,2,1,2,1,1,0.5,0.5)Dummy&lt;-5*seq(1:8)mynewdata&lt;-matrix(mydata,nrow=8,ncol=5,byrow=T)colnames(mynewdata)&lt;-c("S1","S2","S3","S4","S5")mynewdata&lt;-as.data.frame(mynewdata)as.integer(mynewdata1$Year)mynewdata1&lt;-cbind(Year,Dummy,Data,mynewdata)as.integer(mynewdata1$Dummy) 构造色盘：12color1&lt;-c("#FF2D2D","#F79646","#4BACC6","#FFC000","#92D050")color2&lt;-c("#17375E","#23538D","#558ED5","#8EB4E3","#C6D9F1") 图形可视化：色盘1图表输出：123456789101112131415161718CairoPNG(file="C:/Users/Administrator/Desktop/scatterpie1.png",width=500,height=330)ggplot()+geom_line(data=mynewdata1,aes(x=Dummy,y=Data,group=1),col="#085264",size=.8)+geom_scatterpie(data=mynewdata1,aes(x=Dummy,y=Data,r=2),cols=colnames(mynewdata1)[4:8],color=NA)+ylim(0,25)+scale_fill_manual(values=color1)+scale_x_continuous(breaks=mynewdata1$Dummy,labels=c(2004:2011))+guides( fill=guide_legend(label.position ="top"))+theme(axis.title=element_blank(),legend.title=element_blank(),panel.background=element_blank(),axis.line=element_line(),axis.ticks=element_line(),legend.direction="horizontal",legend.position=c(0.15,0.9),)dev.off() 色盘2输出：123456789101112131415161718CairoPNG(file="C:/Users/Administrator/Desktop/scatterpie2.png",width=500,height=330)ggplot()+geom_line(data=mynewdata1,aes(x=Dummy,y=Data,group=1),col="#085264",size=.8)+geom_scatterpie(data=mynewdata1,aes(x=Dummy,y=Data,r=2),cols=colnames(mynewdata1)[4:8],color=NA)+ylim(0,25)+scale_fill_manual(values=color2)+scale_x_continuous(breaks=mynewdata1$Dummy,labels=c(2004:2011))+guides( fill=guide_legend(label.position ="top"))+theme(axis.title=element_blank(),legend.title=element_blank(),panel.background=element_blank(),axis.line=element_line(),axis.ticks=element_line(),legend.direction="horizontal",legend.position=c(0.15,0.9),)dev.off() 本来原始图表在案例中使用VBA写的，大体思路是在折线图对应点位置强制插入8个饼图对象。（就是对应八个点位置的饼图）思路虽好，可是VBA的笨拙语法操作起来实在不易，代码量巨大。 源案例代码截图： 而使用R语言，不算主题修饰成分，核心代码只有短短6行，由此可见R在图形操控方面的便利。 核心要点总结：本例适用场景： 基于时间维度的个指标结构分解（年度GDP构成）； 基于地域维度的指标构成分解。（不同地区产品销量、销额等）。 核心要点： 需掌握geom_scatterpie 图层函数要义（其实就是熟知scatterpie包的参数）； 保证横、纵轴刻度线量级一致，细心地童鞋可能已经发现，我并未直接将X轴映射给Year变量，而是费事儿的用0,5,10……40等间隔为5的数值来作为X轴，之后才将刻度标签替换成2004~2011的年份（具有实际意义的指标）。原因就是因为规避横纵坐标量级差异导致饼图变形。（算是scatterpie的bug吧，无法自动优化饼图半径）。 联系方式：wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]298236508 个人简介：杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。Mail:578708965@qq.com 备注信息：本作品采用知识共享署名-非商业性使用 4.0 国际许可协议]]></content>
+      <categories>
+        <category>R语言</category>
+      </categories>
+      <tags>
+        <tag>数据可视化</tag>
+        <tag>R语言</tag>
+        <tag>ggplot2</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[超强脑洞第四弹——ggplot构造甘特图]]></title>
     <url>%2F2017%2F07%2F26%2F%E8%B6%85%E5%BC%BA%E8%84%91%E6%B4%9E%E7%AC%AC%E5%9B%9B%E5%BC%B9%E2%80%94%E2%80%94ggplot%E6%9E%84%E9%80%A0%E7%94%98%E7%89%B9%E5%9B%BE%2F</url>
     <content type="text"><![CDATA[甘特图即便是用excel来做，也是要吃些苦头的，ggplot中无此内置图层函数，但是，没啥图能难道哈神的巨作，ggplot制作甘特不费吹灰之力，而且还能做得有模有样，有板有眼。以下是代码过程。 数据准备：1234567library("lubridate")library("ggplot2")library("ggmap")library(showtext)library(grid)library(scales)library(Cairo) 数据集构造：123456Item&lt;-paste("Step"," ",1:8,sep="")Planned_Start_Date&lt;-c("2016/03/03","2016/03/16","2016/03/28","2016/04/02","2016/04/12","2016/04/22","2016/05/16","2016/05/22")Planned_Finish_Date&lt;-c("2016/03/15","2016/03/31","2016/04/04","2016/04/15","2016/04/26","2016/05/20","2016/05/28","2016/06/12")Actual_Start_Date&lt;-c("2016/03/03","2016/03/16","2016/03/27","2016/04/05","2016/04/13","2016/04/22","2016/05/16","2016/05/22")Actual_Finish_Date&lt;-c("2016/03/18","2016/03/28","2016/04/05","2016/04/16","2016/04/27","2016/05/15","2016/05/16","2016/05/22")mydata&lt;-data.frame(Item,Planned_Start_Date,Planned_Finish_Date,Actual_Start_Date,Actual_Finish_Date,stringsAsFactors = FALSE) 日期变量转换：1234mydata$Planned_Start_Date&lt;-ymd(mydata$Planned_Start_Date)mydata$Planned_Finish_Date&lt;-ymd(mydata$Planned_Finish_Date)mydata$Actual_Start_Date&lt;-ymd(mydata$Actual_Start_Date)mydata$Actual_Finish_Date&lt;-ymd(mydata$Actual_Finish_Date) 12datebreaks&lt;-seq(as.Date("2015-03-01"),as.Date("2015-06-01"),by="1 month")time&lt;-as.Date("2016-05-15") 可视化过程：GGsave函数渲染输出：123456789101112131415161718192021windowsFonts(myFont = windowsFont("微软雅黑"))p&lt;-ggplot()+geom_linerange(data=mydata,aes(x=Item,ymin=Planned_Start_Date,ymax=Planned_Finish_Date),size=10,color="#BFBFBF",alpha=0.8)+geom_linerange(data=mydata,aes(x=Item,ymin=Actual_Start_Date,ymax=Actual_Finish_Date),size=7,color="#085264",alpha=0.8)+scale_x_discrete(limits=sort(Item,decreasing=T))+scale_y_date(position ="top")+#scale_y_date(breaks=datebreaks,labels=date_format("%Y %b"))+#geom_hline(data=NULL,aes(hintercept=time))+coord_flip()+theme(axis.title=element_blank(),axis.text.x=element_text(margin=margin(5,0,0,0,"pt")),axis.text.y=element_text(margin=margin(0,10,0,0,"pt")),axis.ticks.y=element_blank(),panel.grid.major.y=element_line(color="#FFB666",linetype=5),panel.background=element_rect(fill="white"),axis.text=element_text(colour ="black",size=10,face="italic",family="myFont"),axis.line.x=element_line(),panel.spacing=unit(-0.3,"cm"))ggsave("C:/Users/Administrator/Desktop/甘特图.png",p,width=140,height=75,unit="mm",dpi=100) Cairo高清渲染输出：123456789101112131415161718192021222324font.add("myfont","msyhl.ttc")CairoPNG(file="C:/Users/Administrator/Desktop/Gante.png",width=600,height=300)showtext.begin()ggplot()+geom_linerange(data=mydata,aes(x=Item,ymin=Planned_Start_Date,ymax=Planned_Finish_Date),size=10,color="#BFBFBF",alpha=0.8)+geom_linerange(data=mydata,aes(x=Item,ymin=Actual_Start_Date,ymax=Actual_Finish_Date),size=7,color="#085264",alpha=0.8)+scale_x_discrete(limits=sort(Item,decreasing=T))+scale_y_date(position ="top")+#scale_y_date(breaks=datebreaks,labels=date_format("%Y %b"))+#geom_hline(data=NULL,aes(hintercept=time))+coord_flip()+theme(axis.title=element_blank(),axis.text.x=element_text(margin=margin(5,0,0,0,"pt")),axis.text.y=element_text(margin=margin(0,10,0,0,"pt")),axis.ticks.y=element_blank(),panel.grid.major.y=element_line(color="#FFB666",linetype=5),panel.background=element_rect(fill="white"),axis.text=element_text(colour ="black",size=10,face="italic",family="myfont"),axis.line.x=element_line(),panel.spacing=unit(-0.3,"cm"))showtext.end()dev.off() 核心要点总结： 数据构造：本案例使用geom图层系统中的范围线图层来临摹的（linerange），该图层接受两个变量的范围（起点、终点），因为有计划日期、实际执行日期，所以使用了两个linerange图层，四个变量（计划开始日期、计划结束日期、实际开始日期、实际结束日期）。数据构造主要涉及日期变量转换。图层映射过程，掌握好linerange图层内的元素调整（颜色、线条宽度、类型等）。 联系方式：wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]298236508 个人简介：杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。Mail:578708965@qq.com 备注信息：本作品采用知识共享署名-非商业性使用 4.0 国际许可协议]]></content>
@@ -252,8 +265,8 @@
       <tags>
         <tag>数据可视化</tag>
         <tag>R语言</tag>
-        <tag>ggplot2</tag>
         <tag>图表美化</tag>
+        <tag>ggplot2</tag>
         <tag>ggtech</tag>
       </tags>
   </entry>
@@ -422,8 +435,8 @@
       <tags>
         <tag>数据可视化</tag>
         <tag>R语言</tag>
-        <tag>主题定制</tag>
         <tag>图表美化</tag>
+        <tag>主题定制</tag>
       </tags>
   </entry>
   <entry>
@@ -643,8 +656,8 @@
         <tag>数据可视化</tag>
         <tag>R语言</tag>
         <tag>地理信息可视化</tag>
-        <tag>热力密度地图</tag>
         <tag>REmap</tag>
+        <tag>热力密度地图</tag>
       </tags>
   </entry>
   <entry>
@@ -658,8 +671,8 @@
         <tag>数据可视化</tag>
         <tag>R语言</tag>
         <tag>地理信息可视化</tag>
-        <tag>REmap</tag>
         <tag>填充地图</tag>
+        <tag>REmap</tag>
       </tags>
   </entry>
   <entry>
