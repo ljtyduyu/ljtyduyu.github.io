@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[教你如何优雅的用R语言调用有道翻译]]></title>
+    <url>%2F2017%2F07%2F28%2F%E6%95%99%E4%BD%A0%E5%A6%82%E4%BD%95%E4%BC%98%E9%9B%85%E7%9A%84%E7%94%A8R%E8%AF%AD%E8%A8%80%E8%B0%83%E7%94%A8%E6%9C%89%E9%81%93%E7%BF%BB%E8%AF%91%2F</url>
+    <content type="text"><![CDATA[最近刚发现了个有趣的包，一个R语言发烧友开发了R语言与有道在线翻译的接口，可能这位大神也是一个受够了每天打开网页狂敲键盘查词的罪，索性自己动手，从此丰衣足食。 函数简介：感觉这种性格，跟我超级像哈哈，可是我目前还没有那种说干就干底气，达不到开发包的水平，以后要是学会了，一定要多贡献一些偷懒神器！ 以下是代码思路，这里我提供两种方法，一种是集合包内翻译函数和for循环，算是笨方法。另一种是对该包封装的函数源码进行了稍许调整，使得输出更加和谐一些。 1library("RYoudaoTranslate") 鉴于在线调用有道翻译服务需要自己现在有道词典的开放平台免费注册开发者服务并获取有限量调用服务的API账号密码，每日限调用6000次。注册地址如下： 注册地址 以下是该包官方文档提供的免费账号密码，试了一下还能用，感觉大神还是很够意思的，提供了好用的产品不说，还自己分享了免费账号。 apikey = “498375134”keyfrom = “JustForTestYouDao” 随机生成了五个单词： 1word&lt;-c("weather","father","apple","like","hate") 调用过程：方法一：1234567url&lt;-paste("http://fanyi.youdao.com/openapi.do?keyfrom=JustForTestYouDao&amp;key=498375134&amp;type=data&amp;doctype=json&amp;version=1.1&amp;q=",word,sep="")url&lt;-youdaoUrl(word=word,api="498375134",keyfrom="JustForTestYouDao")#以上两句等价。Res&lt;-c()for( i in word)&#123; Res[i] = youdaoLookUp(i,api="282671603",keyfrom="fy1991--421fy") &#125; 以上使用for循环，结合包内的查询函数，可获取查询结果向量。 其实我是觉得这样的不加筛选的输出不够友好，看了下源码里面的封装函数，稍微做了些改动，以下是方法二。 方法二： 123456789youdaoUrl = function(word)&#123;paste("http://fanyi.youdao.com/openapi.do?keyfrom=fy1991--421fy&amp;key=282671603&amp;type=data&amp;doctype=json&amp;version=1.1&amp;q=",word,sep="")&#125;youdaoTranslate&lt;-function(word)&#123; url = getURL(youdaoUrl(word)) obj = fromJSON(url) result=paste0(obj$web[[1]]$value,collapse="；") return(result)&#125; 以上构造了两个函数，一个提供单词的URL地址匹配，一个提供查询结果。 1sapply(word,youdaoTranslate,simplify=TRUE) 这里结果摒弃for循环，使用内置的apply组函数sapply，懂行的都知道为什么！ 以上经过我的进一步筛选，结果更加简洁，实用。 如果是遇到大批量的翻译需求，这种方式还是很能提高效率的，不过我还没有测试中文单词的翻译效果，有兴趣的大家可以自己玩。 你以为到这里就结束了吗？ NO！ 后面还有好戏呢！ 其实微软的excel更新至13版以后，也提供了调用有道在线翻译的服务。而且使用比较简单。以下是函数语句，不要被冗长的各种参数吓到了，你需要改的只是其中的单元格引用。（本例中位于中间位置的A2，记得用的时候是相对引用，否则填充后只能翻译首个单元格内容）。 本小编已经测试过了翻译结果，中英文互译效果相当棒，但是限制是：单词翻译效果好，句子不行，水平还不如小编我，即便是那种带空格的短句、地名、人名也够呛。 1=FILTERXML(WEBSERVICE(&quot;http://fanyi.youdao.com/translate?&amp;i=&quot;&amp;A2&amp;&quot;&amp;doctype=xml&amp;version&quot;),&quot;//translation&quot;) 带函数的测试文件待我推送后，会传到QQ群共享中，下载后直接复制该单元格引用就OK了。 联系方式：wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]298236508 个人简介：杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。Mail:578708965@qq.com 备注信息：本作品采用知识共享署名-非商业性使用 4.0 国际许可协议]]></content>
+      <categories>
+        <category>爬虫</category>
+      </categories>
+      <tags>
+        <tag>R语言</tag>
+        <tag>爬虫</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[超强脑洞第五弹——ggplot 构造连环饼图]]></title>
     <url>%2F2017%2F07%2F27%2F%E8%B6%85%E5%BC%BA%E8%84%91%E6%B4%9E%E7%AC%AC%E4%BA%94%E5%BC%B9%E2%80%94%E2%80%94ggplot-%E6%9E%84%E9%80%A0%E8%BF%9E%E7%8E%AF%E9%A5%BC%E5%9B%BE%2F</url>
     <content type="text"><![CDATA[今天这篇之前曾有涉略过，就是利用ggplot的辅助插件工具——scatterpie制作基于气泡图的饼图，之前曾在地图图层上演示过此种类似图表，不过这里我将其与折线图融合，案例来源于陈荣兴老师的名作——《Excel图表拒绝平庸》。 数据准备：123library("ggplot2")library("scatterpie")library("Cairo") 数据集构造：12345678mydata&lt;-c(1,1,1,1,1,1,1,1,1,2,3,2,3,5,5,1,1,1,1,1,2,2,4,5,1,3,2,3,5,5,4,2,4,2,1,2,1,1,0.5,0.5)Dummy&lt;-5*seq(1:8)mynewdata&lt;-matrix(mydata,nrow=8,ncol=5,byrow=T)colnames(mynewdata)&lt;-c("S1","S2","S3","S4","S5")mynewdata&lt;-as.data.frame(mynewdata)as.integer(mynewdata1$Year)mynewdata1&lt;-cbind(Year,Dummy,Data,mynewdata)as.integer(mynewdata1$Dummy) 构造色盘：12color1&lt;-c("#FF2D2D","#F79646","#4BACC6","#FFC000","#92D050")color2&lt;-c("#17375E","#23538D","#558ED5","#8EB4E3","#C6D9F1") 图形可视化：色盘1图表输出：123456789101112131415161718CairoPNG(file="C:/Users/Administrator/Desktop/scatterpie1.png",width=500,height=330)ggplot()+geom_line(data=mynewdata1,aes(x=Dummy,y=Data,group=1),col="#085264",size=.8)+geom_scatterpie(data=mynewdata1,aes(x=Dummy,y=Data,r=2),cols=colnames(mynewdata1)[4:8],color=NA)+ylim(0,25)+scale_fill_manual(values=color1)+scale_x_continuous(breaks=mynewdata1$Dummy,labels=c(2004:2011))+guides( fill=guide_legend(label.position ="top"))+theme(axis.title=element_blank(),legend.title=element_blank(),panel.background=element_blank(),axis.line=element_line(),axis.ticks=element_line(),legend.direction="horizontal",legend.position=c(0.15,0.9),)dev.off() 色盘2输出：123456789101112131415161718CairoPNG(file="C:/Users/Administrator/Desktop/scatterpie2.png",width=500,height=330)ggplot()+geom_line(data=mynewdata1,aes(x=Dummy,y=Data,group=1),col="#085264",size=.8)+geom_scatterpie(data=mynewdata1,aes(x=Dummy,y=Data,r=2),cols=colnames(mynewdata1)[4:8],color=NA)+ylim(0,25)+scale_fill_manual(values=color2)+scale_x_continuous(breaks=mynewdata1$Dummy,labels=c(2004:2011))+guides( fill=guide_legend(label.position ="top"))+theme(axis.title=element_blank(),legend.title=element_blank(),panel.background=element_blank(),axis.line=element_line(),axis.ticks=element_line(),legend.direction="horizontal",legend.position=c(0.15,0.9),)dev.off() 本来原始图表在案例中使用VBA写的，大体思路是在折线图对应点位置强制插入8个饼图对象。（就是对应八个点位置的饼图）思路虽好，可是VBA的笨拙语法操作起来实在不易，代码量巨大。 源案例代码截图： 而使用R语言，不算主题修饰成分，核心代码只有短短6行，由此可见R在图形操控方面的便利。 核心要点总结：本例适用场景： 基于时间维度的个指标结构分解（年度GDP构成）； 基于地域维度的指标构成分解。（不同地区产品销量、销额等）。 核心要点： 需掌握geom_scatterpie 图层函数要义（其实就是熟知scatterpie包的参数）； 保证横、纵轴刻度线量级一致，细心地童鞋可能已经发现，我并未直接将X轴映射给Year变量，而是费事儿的用0,5,10……40等间隔为5的数值来作为X轴，之后才将刻度标签替换成2004~2011的年份（具有实际意义的指标）。原因就是因为规避横纵坐标量级差异导致饼图变形。（算是scatterpie的bug吧，无法自动优化饼图半径）。 联系方式：wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]298236508 个人简介：杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。Mail:578708965@qq.com 备注信息：本作品采用知识共享署名-非商业性使用 4.0 国际许可协议]]></content>
@@ -265,8 +277,8 @@
       <tags>
         <tag>数据可视化</tag>
         <tag>R语言</tag>
-        <tag>图表美化</tag>
         <tag>ggplot2</tag>
+        <tag>图表美化</tag>
         <tag>ggtech</tag>
       </tags>
   </entry>
@@ -671,8 +683,8 @@
         <tag>数据可视化</tag>
         <tag>R语言</tag>
         <tag>地理信息可视化</tag>
-        <tag>填充地图</tag>
         <tag>REmap</tag>
+        <tag>填充地图</tag>
       </tags>
   </entry>
   <entry>
