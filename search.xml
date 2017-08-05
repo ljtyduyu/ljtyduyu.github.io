@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[送你两款炫酷到没朋友的神奇字体~]]></title>
+    <url>%2F2017%2F08%2F05%2F%E9%80%81%E4%BD%A0%E4%B8%A4%E6%AC%BE%E7%82%AB%E9%85%B7%E5%88%B0%E6%B2%A1%E6%9C%8B%E5%8F%8B%E7%9A%84%E7%A5%9E%E5%A5%87%E5%AD%97%E4%BD%93%2F</url>
+    <content type="text"><![CDATA[今天给大家介绍两款字体，这两款字体是一个喜欢设计的大神学长开发的，专门用作mini图表字体。 而且只要是支持字体显示的设备，几乎都可以用,当然Excel里面也可以用，这里我用R语言来演示如何使用图表字体来制作mini信息图，丰富数据表达形式。 PieChart #mini百分比饼图 BlockChart #mini方块堆积百分比图 项目主页：9ishare 数据准备：以下代码运行前务必要保证系统已经安装了这两款字体：12345library("ggplot2")library("showtext")library("Cairo")library("ggthemes")library("dplyr") 导入这两款字体：12font.add("BlockCharts","BlockCharts.ttf")font.add("PieChart","PieCharts.ttf") 构造数据：12#mini饼图数据：PieChart&lt;-data.frame(x=rep(1:5,2),y=rep(2:3,each=5),value=round(runif(10,0,1),2),class=rep(c("A","B"),each=5)) 1234#匹配mini饼图字体代码：char1&lt;-"A0F1K2P3U4Z5e6j7o8t9y"%&gt;%strsplit("")%&gt;%unlistchar2&lt;-"BCDEGHIJLMNOQRSTVWXYabcdfghiklmnpqrsuvwx"%&gt;%strsplit("")%&gt;%unlistPieChart$label&lt;-ifelse((100*PieChart$value)%%5==0,char1[PieChart$value*20+1],char2[PieChart$value*40+1]) 12345678910111213#mini饼图可视化过程：setwd("E:/微信公众号/公众号——数据小魔方/2017年8月/20170805/")CairoPNG(file="PieChart.png",width=1000,height=750)showtext.begin()ggplot(PieChart,aes(x,y))+geom_text(aes(label=label,colour=class),hjust=1,family="PieChart",size=45)+geom_text(aes(y=y+.35,label=paste0(value,"%")),hjust=.5,size=7,colour="#C10000")+scale_colour_manual(values=c("#92D24F","#FFC000"),guide=FALSE)+ylim(1.5,3.5)+xlim(.5,5.5)+theme_void()showtext.end()dev.off() 123#匹配mini百分比方块堆积图代码：char3&lt;-"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz①②③④⑤⑥⑦⑧⑨七三上下九二八六十千口土大天太女子山工干平开心才文方无日木四"%&gt;%strsplit("")%&gt;%unlistPieChart$label2&lt;-char3[PieChart$value*100+1] 123456789101112#百分比方块堆积图可视化过程：CairoPNG(file="BlockCharts.png",width=1000,height=750)showtext.begin()ggplot(PieChart,aes(x,y))+geom_text(aes(label=label2,colour=class),hjust=.5,family="BlockCharts",size=45)+geom_text(aes(y=y+.35,label=paste0(value,"%")),hjust=.5,size=7,colour="#C10000")+scale_colour_manual(values=c("#92D24F","#FFC000"),guide=FALSE)+ylim(1.5,3.5)+xlim(0.5,5.5)+theme_void()showtext.end()dev.off() 是不是感觉很神奇呀，R语言中竟然可以这么玩字体，没错就是这种操作，不夸张的说，只要是系统注册过的字体，都可以用R语言这么玩，还记得曾经发过的那一篇中国身份字体地图吗，也是这么玩出来的！ 挑战不可能之——ggplot环形字体地图 期待大家可以用这些字体做出新的创意图表！ 联系方式：wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]298236508 个人简介：杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。Mail:578708965@qq.com 备注信息：本作品采用知识共享署名-非商业性使用 4.0 国际许可协议]]></content>
+      <categories>
+        <category>信息图</category>
+      </categories>
+      <tags>
+        <tag>数据可视化</tag>
+        <tag>R语言</tag>
+        <tag>ggplot2</tag>
+        <tag>信息图</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[当大家都在讨论金刚狼3的时候，他们到底在说些什么~]]></title>
     <url>%2F2017%2F07%2F30%2F%E5%BD%93%E5%A4%A7%E5%AE%B6%E9%83%BD%E5%9C%A8%E8%AE%A8%E8%AE%BA%E9%87%91%E5%88%9A%E7%8B%BC3%E7%9A%84%E6%97%B6%E5%80%99%EF%BC%8C%E4%BB%96%E4%BB%AC%E5%88%B0%E5%BA%95%E5%9C%A8%E8%AF%B4%E4%BA%9B%E4%BB%80%E4%B9%88%2F</url>
     <content type="text"><![CDATA[最近的金刚狼3着实让大家过足了瘾，虽然很悲情、英雄迟暮，光鲜不再，可是惋惜之余，大家对这步狼叔的封山之作还是充满敬意和关切的，豆瓣评分8.5，影评里将近4万多条短评，这里截取其中内容内容质量比较好的，以文字云的形式呈现，看下大家对于金刚狼都有着怎么的认知标签。 数据准备：本文数据获取过程所用到的所有相关包：1234567library(XML)library(Rwordseg)library(wordcloud2)library(RCurl)library(stringr)library(plyr)library(dplyr) 12url&lt;-"https://movie.douban.com/subject/25765735/reviews?rating=&amp;start=0"baseurl&lt;-"https://movie.douban.com/subject/25765735/reviews" 建立影评网址抓取函数1234567891011#豆瓣影评的网址遍历过程urln&lt;-paste0(baseurl,"?rating=&amp;start=",20*(seq(0:73)-1)) fun&lt;-function(urln)&#123; rd &lt;- getURL(urln,.encoding="UTF-8") #获取网页rdhtml &lt;- htmlParse(rd,encoding="UTF-8") #解析网页root &lt;- xmlRoot(rdhtml) #获取根节点page&lt;-getNodeSet(root,"//div[@class='review-short']/div[@class='short-content']/a")#目标节点获取pagevalue&lt;-unique(laply(page,xmlGetAttr,name='href')) #获取目标节点内的属性值（这里是评论网址）&#125; 使用向量化函数进行循环处理123pagefull&lt;-sapply(urln,fun) #转换列表为向量pagefullnew&lt;-unlist(pagefull,use.names =F) 建立评论区评论文本获取函数123456789func&lt;-function(page)&#123;rd &lt;- getURL(page,.encoding="UTF-8") #获取网页rdhtml&lt;-htmlParse(rd,encoding="UTF-8") # 解析网页root&lt;-xmlRoot(rdhtml) #获取根节点ly&lt;-getNodeSet(root,"//div[@class='main-bd']/div[@id='link-report']/div[@property='v:description']/p")#获取目标节点value&lt;- laply(ly,xmlValue,trim=T) #获取目标节点内的属性值（这里是评论文本）&#125; 1234#使用向量化函数进行循环处理valuefull&lt;-sapply(pagefullnew,func)#转换列表为向量valuefullnew&lt;-unlist(valuefull,use.names =F) 文本分词处理过程1234myrevieww&lt;-valuefullnewthewords &lt;- segmentCN(myrevieww,nature=T)%&gt;%unlist()thewords &lt;- gsub("[a-z]|\\.", "", thewords)thewords&lt;-thewords[nchar(thewords)&gt;1] 建立关于影评的停止词1234567891011121314invalid.words &lt;- c("电影", "演员", "导演", "我们", "他们", "一个", "没有", "所以", "可以", "影片", "但是", "因为", "什么", "自己", "这个", "故事", "最后", "这样", "觉得", "为了", "一部", "这部", "片子", "其实", "当然", "时候", "看到", "已经", "这种", "知道", "这些", "一样", "如果", "观众", "人物", "开始", "那么", "那个", "可能", "情节", "结局", "结尾", "风格", "节奏", "剧情", "有点", "终于", "之后", "怎么", "一种", "出现", "作品", "地方", "本片", "一些", "一定", "之前", "还是", "虽然", "这么", "角色", "这么", "不过", "类型", "以为", "显得", "还是", "算是", "东西", "有些")theflags &lt;- thewords %in% invalid.wordsthewords&lt;-thewords[!theflags]reviewdata&lt;-table(thewords)%&gt;%as.data.frame(stringsAsFactors = FALSE)%&gt;% arrange(desc(Freq))reviewdata$thewords[1]&lt;-"金刚狼" 词云可视化：使用文字云包处理1wordcloud2(reviewdata[1:1000,],color = "random-light",minSize=.5,size=1,backgroundColor = "dark",minRotation = -pi/6, maxRotation = -pi/6,fontFamily ="微软雅黑") 导出词频结果 write.table(reviewdata,file=”D:\R\File\reviewdata.csv”, sep =”,”, row.names =FALSE) 为了更加完美的利用文字云呈现广大影迷们对连狼叔的封山之作评价标签，这里我使用著名的在线文字云平台——tagul（https://tagul.com/cloud/1）来制作两幅文字云。 因为平台不支持中文，所以要先将汉语转化为英文，考虑到之前使用R语言调用有道词典结果不够完美，这里使用excel自带的在线翻译函数在excel中进行翻译，然后导入在线平台制作。 最终的词云效果： 因为不太懂关于影评的停止词设置，还是留下了很多副词，导致最终的效果有些不是很完美，但是作为一次尝试，以后会慢慢改善的！ 联系方式：wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]298236508 个人简介：杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。Mail:578708965@qq.com 备注信息：本作品采用知识共享署名-非商业性使用 4.0 国际许可协议]]></content>
@@ -503,8 +517,8 @@
       <tags>
         <tag>数据可视化</tag>
         <tag>R语言</tag>
-        <tag>ggplot2</tag>
         <tag>动态图表</tag>
+        <tag>ggplot2</tag>
         <tag>版面控制</tag>
       </tags>
   </entry>
@@ -710,8 +724,8 @@
         <tag>数据可视化</tag>
         <tag>R语言</tag>
         <tag>地理信息可视化</tag>
-        <tag>REmap</tag>
         <tag>在线地图</tag>
+        <tag>REmap</tag>
       </tags>
   </entry>
   <entry>
@@ -725,8 +739,8 @@
         <tag>数据可视化</tag>
         <tag>R语言</tag>
         <tag>地理信息可视化</tag>
-        <tag>REmap</tag>
         <tag>在线地图</tag>
+        <tag>REmap</tag>
         <tag>路径图</tag>
       </tags>
   </entry>
@@ -741,8 +755,8 @@
         <tag>数据可视化</tag>
         <tag>R语言</tag>
         <tag>地理信息可视化</tag>
-        <tag>REmap</tag>
         <tag>在线地图</tag>
+        <tag>REmap</tag>
       </tags>
   </entry>
   <entry>
@@ -771,9 +785,9 @@
       <tags>
         <tag>数据可视化</tag>
         <tag>R语言</tag>
+        <tag>json</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
-        <tag>json</tag>
         <tag>leaflet</tag>
       </tags>
   </entry>
@@ -805,8 +819,8 @@
         <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
-        <tag>路径图</tag>
         <tag>leaflet</tag>
+        <tag>路径图</tag>
         <tag>mini柱形/条形图</tag>
       </tags>
   </entry>
@@ -971,8 +985,8 @@
       <tags>
         <tag>数据可视化</tag>
         <tag>R语言</tag>
-        <tag>ggplot2</tag>
         <tag>动态图表</tag>
+        <tag>ggplot2</tag>
         <tag>gif</tag>
       </tags>
   </entry>
