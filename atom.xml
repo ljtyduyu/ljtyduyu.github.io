@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.raindu.com/"/>
-  <updated>2017-08-05T11:07:00.159Z</updated>
+  <updated>2017-08-08T15:30:13.617Z</updated>
   <id>http://www.raindu.com/</id>
   
   <author>
@@ -14,6 +14,59 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>经历过绝望之后，选择去知乎爬了几张图~</title>
+    <link href="http://www.raindu.com/2017/08/08/%E7%BB%8F%E5%8E%86%E8%BF%87%E7%BB%9D%E6%9C%9B%E4%B9%8B%E5%90%8E%EF%BC%8C%E9%80%89%E6%8B%A9%E5%8E%BB%E7%9F%A5%E4%B9%8E%E7%88%AC%E4%BA%86%E5%87%A0%E5%BC%A0%E5%9B%BE/"/>
+    <id>http://www.raindu.com/2017/08/08/经历过绝望之后，选择去知乎爬了几张图/</id>
+    <published>2017-08-08T15:22:48.000Z</published>
+    <updated>2017-08-08T15:30:13.617Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://oqdvmreg2.bkt.clouddn.com/Spyderphoto/image.jpg" alt=""></p>
+<p>本来今天要跟大家分享怎么批量爬取2016年各大上市公司年报的，可是代码刚写了开头，就发现年报这玩意儿，真的不太好爬，还以为自己写的姿势不对，换了好几个网站。</p>
+<a id="more"></a>
+<p>眼睁睁的开着网页源码里排的整整齐齐的pdf文档，可是就是爬不到，NND，还是火候不够，本来打算放弃的，可是想着不干点什么太没成就感了，就跑去知乎爬了人家几张图。</p>
+<p>之前分享过知乎爬图的代码，当时利用的Rvest爬的，今天换RCurl+XML包来爬，也算是新知识点了。</p>
+<p>用R语言抓取网页图片——从此高效存图告别手工时代</p>
+<p>因为害怕爬太多，会被禁IP，毕竟知乎每天必看的，被禁了那就不好了，特意选了个图片不多的摄影外拍的帖子。</p>
+<p><a href="https://www.zhihu.com/question/31785374/answer/150310292" target="_blank" rel="external">外拍帖子地址</a></p>
+<p>代码一共没几行，很好理解，可以作为学习的案例：</p>
+<h3 id="数据准备："><a href="#数据准备：" class="headerlink" title="数据准备："></a>数据准备：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#加载包：</span></div><div class="line"><span class="keyword">library</span>(<span class="string">"RCurl"</span>)</div><div class="line"><span class="keyword">library</span>(XML)</div><div class="line"><span class="keyword">library</span>(stringr)</div><div class="line"><span class="keyword">library</span>(dplyr)</div><div class="line"><span class="keyword">library</span>(plyr)</div></pre></td></tr></table></figure>
+<h3 id="爬取过程："><a href="#爬取过程：" class="headerlink" title="爬取过程："></a>爬取过程：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">url&lt;-<span class="string">"https://www.zhihu.com/question/31785374/answer/150310292"</span></div><div class="line"><span class="comment">#获取目标网页（注意查看网页编码）</span></div><div class="line">rd &lt;-getURL(url,.encoding=<span class="string">"UTF-8"</span>)</div><div class="line"><span class="comment">#利用xml包函数整理网页树结构</span></div><div class="line">rdhtml &lt;- htmlParse(rd,encoding=<span class="string">"UTF-8"</span>) </div><div class="line"><span class="comment">#获取根目录</span></div><div class="line">root &lt;- xmlRoot(rdhtml)        </div><div class="line"><span class="comment">#获取话题下的所有img标签（里面含有所有的图片网址）         </span></div><div class="line">Name&lt;-getNodeSet(root,<span class="string">"//div[@class='zm-editable-content clearfix']/img"</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://oqdvmreg2.bkt.clouddn.com/Spyderphoto/image1.png" alt=""></p>
+<p>根据Name列表中的内容，img下面有关于三个带图片网址的属性，第一个src是打开帖子直接看到的，后两个data-original\data-actualsrc是该图片的原地址，就是点击图片后大图的网址。</p>
+<p>这里选择data-original网址，利用拉laply函数提取该属性下的网址列表。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Name1 &lt;-laply(Name,xmlGetAttr,name=<span class="string">'data-original'</span>)</div><div class="line"><span class="comment">#为方便命名，这里截取一部分图片网址后缀作为名称</span></div><div class="line">Name2&lt;-sub(<span class="string">"https://pic\\d.zhimg.com/v2-"</span>,<span class="string">""</span>,Name1)</div></pre></td></tr></table></figure></p>
+<p><img src="http://oqdvmreg2.bkt.clouddn.com/Spyderphoto/image2.png" alt=""></p>
+<p><strong>下载过程</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#建立新文件夹</span></div><div class="line">dir.create(<span class="string">"D:/R/Image/zhihu/image"</span>)</div><div class="line"><span class="comment">#使用for循环批量下载：</span></div><div class="line"><span class="keyword">for</span>(i <span class="keyword">in</span> <span class="number">1</span>:length(Name1))&#123;</div><div class="line"> download.file(Name1[i],paste0(<span class="string">"D:/R/Image/zhihu/image/"</span>,Name2[i],sep = <span class="string">""</span>), mode = <span class="string">"wb"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><img src="http://oqdvmreg2.bkt.clouddn.com/Spyderphoto/image3.png" alt=""></p>
+<p>###最终收获：<br><img src="http://oqdvmreg2.bkt.clouddn.com/Spyderphoto/image4.png" alt=""></p>
+<h3 id="爬图的核心要点："><a href="#爬图的核心要点：" class="headerlink" title="爬图的核心要点："></a>爬图的核心要点：</h3><ul>
+<li>抓img下的图片网址，这里你要学会迅速的进行html结构定位，无论是使用CSS选择器还是Xpath路径，都要稳、准、狠！这是决定你整过过程的首要任务。</li>
+<li>建立批量下载任务：无论是使用for循环还是使用其他的向量化函数都可以，图多的话还是建议尝试使用apply组函数或者plyr包内的升级版apply函数族。</li>
+<li>如果网页结构复杂且图比较多，可能要考虑伪装报头、设置随机暂停以防被封IP。</li>
+</ul>
+<hr>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
+<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
+<hr>
+<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://oqdvmreg2.bkt.clouddn.com/Spyderphoto/image.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;本来今天要跟大家分享怎么批量爬取2016年各大上市公司年报的，可是代码刚写了开头，就发现年报这玩意儿，真的不太好爬，还以为自己写的姿势不对，换了好几个网站。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="网络爬虫" scheme="http://www.raindu.com/categories/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/"/>
+    
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="网络爬虫" scheme="http://www.raindu.com/tags/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/"/>
+    
+  </entry>
   
   <entry>
     <title>送你两款炫酷到没朋友的神奇字体~</title>
@@ -59,9 +112,9 @@
       <category term="信息图" scheme="http://www.raindu.com/categories/%E4%BF%A1%E6%81%AF%E5%9B%BE/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -231,9 +284,9 @@
       <category term="R语言" scheme="http://www.raindu.com/categories/R%E8%AF%AD%E8%A8%80/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -276,9 +329,9 @@
       <category term="R语言" scheme="http://www.raindu.com/categories/R%E8%AF%AD%E8%A8%80/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -325,9 +378,9 @@
       <category term="R语言" scheme="http://www.raindu.com/categories/R%E8%AF%AD%E8%A8%80/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -429,9 +482,9 @@
       <category term="R语言" scheme="http://www.raindu.com/categories/R%E8%AF%AD%E8%A8%80/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -483,9 +536,9 @@
       <category term="R语言" scheme="http://www.raindu.com/categories/R%E8%AF%AD%E8%A8%80/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -662,9 +715,9 @@
       <category term="Python" scheme="http://www.raindu.com/categories/Python/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="Python" scheme="http://www.raindu.com/tags/Python/"/>
     
@@ -714,9 +767,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="路径图" scheme="http://www.raindu.com/tags/%E8%B7%AF%E5%BE%84%E5%9B%BE/"/>
     
@@ -780,9 +833,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -867,9 +920,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -916,11 +969,11 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="商务图表" scheme="http://www.raindu.com/tags/%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
-    
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -1066,9 +1119,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -1140,9 +1193,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -1379,97 +1432,6 @@
       <category term="数据合并与追加" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%90%88%E5%B9%B6%E4%B8%8E%E8%BF%BD%E5%8A%A0/"/>
     
       <category term="Python" scheme="http://www.raindu.com/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>用R语言复盘美国总统大选结果~</title>
-    <link href="http://www.raindu.com/2017/06/25/%E7%94%A8R%E8%AF%AD%E8%A8%80%E5%A4%8D%E7%9B%98%E7%BE%8E%E5%9B%BD%E6%80%BB%E7%BB%9F%E5%A4%A7%E9%80%89%E7%BB%93%E6%9E%9C/"/>
-    <id>http://www.raindu.com/2017/06/25/用R语言复盘美国总统大选结果/</id>
-    <published>2017-06-25T01:13:19.000Z</published>
-    <updated>2017-07-03T13:58:46.369Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://orp205tiu.bkt.clouddn.com/President/President17.jpg" alt=""></p>
-<p>这两天各种社交媒体都被美国大选的消息刷屏，各种段子满天飞，把平时不怎么关注政治的小编都吸引了。</p>
-<a id="more"></a>
-<p>美国大选的投票数据，给小编的写作提供了非常宝贵的案例数据，毕竟四年才一次哦，这次一定不能放过。</p>
-<p>接下来我们用R语言来复盘一下，昨日投票结果吧。</p>
-<h3 id="主要内容："><a href="#主要内容：" class="headerlink" title="主要内容："></a>主要内容：</h3><p>本文将从以下几个方面全方位展示大选的形势：</p>
-<ul>
-<li>克林顿与希拉里的选举人票结果及其占比；</li>
-<li>二者的获胜州分布情况、各自在各州的支持率；</li>
-<li>不同群体及阶层的支持率。</li>
-</ul>
-<p>以上可视化图形均为R语言制作，在讲解过程中会共享代码;</p>
-<h3 id="加载扩展包："><a href="#加载扩展包：" class="headerlink" title="加载扩展包："></a>加载扩展包：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(<span class="string">"ggplot2"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"RColorBrewer"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"maps"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"mapdata"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"maptools"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"plyr"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"Cairo"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"reshape2"</span>)</div></pre></td></tr></table></figure>
-<h3 id="克林顿与希拉里的选举人票"><a href="#克林顿与希拉里的选举人票" class="headerlink" title="克林顿与希拉里的选举人票:"></a>克林顿与希拉里的选举人票:</h3><p><strong>二者的选举人票结果</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">data&lt;-data.frame(x=c(<span class="string">"Trump"</span>,<span class="string">"Clinton"</span>),y=c(<span class="number">290</span>,<span class="number">232</span>))</div><div class="line">ggplot(data,aes(x,y,fill=x))+</div><div class="line">      geom_bar(stat=<span class="string">"identity"</span>,width=<span class="number">0.7</span>)+</div><div class="line">      geom_text(aes(label=y,vjust=-<span class="number">0.5</span>,hjust=<span class="number">0.5</span>))+</div><div class="line">      ggtitle(<span class="string">"presidential results"</span>)+</div><div class="line">      scale_fill_manual(values=c(<span class="string">"#FF5252"</span>,<span class="string">"#2196F3"</span>))+</div><div class="line">theme(panel.grid = element_blank(),</div><div class="line">      panel.background = element_blank(),</div><div class="line">      axis.text.y = element_blank(),</div><div class="line">      axis.ticks.length=unit(<span class="number">0.5</span>,<span class="string">'cm'</span>),</div><div class="line">      axis.ticks.y = element_blank(),</div><div class="line">      axis.line.x  = element_line(),</div><div class="line">      axis.title = element_blank(),</div><div class="line">      plot.title=element_text(size=<span class="number">25</span>),</div><div class="line">      legend.position = <span class="string">"none"</span></div><div class="line">      )</div></pre></td></tr></table></figure></p>
-<p>!<img src="http://orp205tiu.bkt.clouddn.com/President/President1.png" alt=""></p>
-<p><strong>两者普选支持人数对比*</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">data1&lt;-data.frame(x=c(<span class="string">"Trump"</span>,<span class="string">"Clinton"</span>),y=c(<span class="number">59698506</span>,<span class="number">59926386</span>))</div><div class="line">p %+% data1 <span class="comment">#给上图代码赋值为p,使用通道函数%+%简化代码</span></div></pre></td></tr></table></figure></p>
-<p>!<img src="http://orp205tiu.bkt.clouddn.com/President/President2.png" alt=""></p>
-<p><strong>两者选举人票得票比例</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">data3&lt;-data.frame(x=c(<span class="string">"Trump"</span>,<span class="string">"Clinton"</span>),y=c(<span class="number">43</span>,<span class="number">54</span>))</div><div class="line">mydata &lt;- transform(data3, mid_y = ave(data3$y,data3$x, FUN = <span class="keyword">function</span>(val) cumsum(val) - (<span class="number">0.5</span> * val)))</div><div class="line">ggplot(mydata,aes(x=<span class="number">1</span>,y=y,fill=x))+</div><div class="line">geom_bar(stat=<span class="string">"identity"</span>,col=<span class="string">"white"</span>)+</div><div class="line">coord_polar(theta=<span class="string">"y"</span>,start=<span class="number">0</span>,direction=<span class="number">1</span>) +</div><div class="line">geom_text(aes(label=paste(y,<span class="string">"%"</span>,sep=<span class="string">""</span>)),vjust=-<span class="number">0.5</span>,hjust=<span class="number">0.5</span>,size=<span class="number">10</span>,color=<span class="string">"white"</span>)+</div><div class="line">ggtitle(<span class="string">"presidential results"</span>)+</div><div class="line">guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>))+</div><div class="line">scale_fill_manual(values=c(<span class="string">"#FF5252"</span>,<span class="string">"#2196F3"</span>))+</div><div class="line">theme(panel.grid = element_blank(),</div><div class="line">      panel.background = element_blank(),</div><div class="line">      axis.text = element_blank(),</div><div class="line">      axis.ticks.length=unit(<span class="number">0.5</span>,<span class="string">'cm'</span>),</div><div class="line">      axis.line.x  = element_line(),</div><div class="line">      axis.ticks.y = element_blank(),</div><div class="line">      axis.title = element_blank(),</div><div class="line">      plot.title=element_text(size=<span class="number">25</span>),</div><div class="line">      legend.position = <span class="string">"none"</span></div><div class="line">      )</div></pre></td></tr></table></figure></p>
-<p><img src="http://orp205tiu.bkt.clouddn.com/President/President3.png" alt=""></p>
-<h3 id="二者的获胜州分布情况、各州的支持率；"><a href="#二者的获胜州分布情况、各州的支持率；" class="headerlink" title="二者的获胜州分布情况、各州的支持率；"></a>二者的获胜州分布情况、各州的支持率；</h3><p><strong>数据准备：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">American_map &lt;-readShapePoly(<span class="string">"C:/rstudy/USA_map/STATES.SHP"</span>)</div><div class="line">AD1 &lt;- American_map@data</div><div class="line">AD2 &lt;- data.frame(id=rownames(AD1),AD1)</div><div class="line">American_map1 &lt;- fortify(American_map)</div><div class="line">American_map_data &lt;- join(American_map1,AD2, type = <span class="string">"full"</span>)</div><div class="line">American_map_data&lt;-American_map_data[,<span class="number">1</span>:<span class="number">12</span>]</div></pre></td></tr></table></figure></p>
-<p><strong>提取各州数据集：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mydata&lt;-data.frame(STATE_NAME=unique(American_map_data$STATE_NAME),STATE_ABBR=unique(American_map_data$STATE_ABBR))</div><div class="line">write.table (mydata, file =<span class="string">"D:\\R\\File\\President.csv"</span>, sep =<span class="string">","</span>, row.names =<span class="literal">FALSE</span>)</div><div class="line">newdata&lt;-read.csv(<span class="string">"D:\\R\\File\\President.csv"</span>)</div></pre></td></tr></table></figure></p>
-<p><strong>分离大陆与夏威夷、阿拉斯加：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">data1&lt;-subset(American_map_data,STATE_NAME!=<span class="string">'Alaska'</span>&amp; STATE_NAME!=<span class="string">'Hawaii'</span>)    </div><div class="line">data2&lt;-subset(American_map_data,STATE_NAME==<span class="string">"Hawaii"</span>)    </div><div class="line">data3&lt;-subset(American_map_data,STATE_NAME==<span class="string">"Alaska"</span>)</div></pre></td></tr></table></figure></p>
-<p><strong>更改阿拉斯加与夏威夷坐标并合并：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">data2$long&lt;-data2$long+<span class="number">65</span></div><div class="line">data3$long&lt;-data3$long+<span class="number">40</span></div><div class="line">data3$lat&lt;-data3$lat-<span class="number">42</span></div><div class="line">data4&lt;-rbind(data1,data2,data3)</div></pre></td></tr></table></figure></p>
-<p><strong>合并地理信息数据与选举数据：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">American_data &lt;- join(data4, newdata, type=<span class="string">"full"</span>)</div></pre></td></tr></table></figure></p>
-<p><strong>提取各州中心经纬度指标：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">midpos &lt;- <span class="keyword">function</span>(AD1)&#123;mean(range(AD1,na.rm=<span class="literal">TRUE</span>))&#125; </div><div class="line">centres &lt;- ddply(American_data,.(STATE_ABBR),colwise(midpos,.(long,lat)))</div><div class="line">mynewdata&lt;-join(centres,newdata,type=<span class="string">"full"</span>)</div></pre></td></tr></table></figure></p>
-<h4 id="美国总统大选的各州选举人票数分布："><a href="#美国总统大选的各州选举人票数分布：" class="headerlink" title="美国总统大选的各州选举人票数分布："></a>美国总统大选的各州选举人票数分布：</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">ggplot()+</div><div class="line">      geom_polygon(data=American_data,aes(x=long,y=lat,group=group),colour=<span class="string">"grey"</span>,fill=<span class="string">"white"</span>)+</div><div class="line">      geom_point(data=mynewdata,aes(x=long,y=lat,size=Count,fill=Count),shape=<span class="number">21</span>,colour=<span class="string">"black"</span>)+</div><div class="line">      scale_size_area(max_size=<span class="number">10</span>)+ </div><div class="line">      scale_fill_gradient(low=<span class="string">"white"</span>,high=<span class="string">"#D73434"</span>)+</div><div class="line">      coord_map(<span class="string">"polyconic"</span>) +</div><div class="line">      theme(               </div><div class="line">          panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank(),</div><div class="line">          legend.position =<span class="string">"none"</span></div><div class="line">          )</div></pre></td></tr></table></figure>
-<p><img src="http://orp205tiu.bkt.clouddn.com/President/President4.png" alt=""></p>
-<h4 id="美国总统大选投票结果双方获胜州分布情况："><a href="#美国总统大选投票结果双方获胜州分布情况：" class="headerlink" title="美国总统大选投票结果双方获胜州分布情况："></a>美国总统大选投票结果双方获胜州分布情况：</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">ggplot(American_data,aes(x=long,y=lat,group=group,fill=Results))+</div><div class="line">      geom_polygon(colour=<span class="string">"white"</span>)+</div><div class="line">      scale_fill_manual(values=c(<span class="string">"#19609F"</span>,<span class="string">"#CB1C2A"</span>),labels=c(<span class="string">"Hillary"</span>, <span class="string">"Trump"</span>))+</div><div class="line">      coord_map(<span class="string">"polyconic"</span>) +</div><div class="line">      guides(fill=guide_legend(title=<span class="literal">NULL</span>))+ </div><div class="line">      theme(               </div><div class="line">          panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank(),</div><div class="line">          legend.position =<span class="string">"top"</span></div><div class="line">          )</div></pre></td></tr></table></figure>
-<p><img src="http://orp205tiu.bkt.clouddn.com/President/President5.png" alt=""></p>
-<h4 id="希拉里各州选票支持率统计；"><a href="#希拉里各州选票支持率统计；" class="headerlink" title="希拉里各州选票支持率统计；"></a>希拉里各州选票支持率统计；</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">qa &lt;- quantile(na.omit(American_data$Clinton), c(<span class="number">0</span>,<span class="number">0.2</span>,<span class="number">0.4</span>,<span class="number">0.6</span>,<span class="number">0.8</span>,<span class="number">1.0</span>))</div><div class="line">American_data$Clinton_q&lt;-cut(American_data$Clinton,qa,labels = c(<span class="string">"0-20%"</span>, <span class="string">"20-40%"</span>,<span class="string">"40-60%"</span>,<span class="string">"60-80%"</span>, <span class="string">"80-100%"</span>),include.lowest = <span class="literal">TRUE</span>)</div><div class="line">ggplot(American_data,aes(long,lat,group=group,fill=Clinton_q))+</div><div class="line">     geom_polygon(colour=<span class="string">"white"</span>)+</div><div class="line">     scale_fill_brewer(palette=<span class="string">"Blues"</span>)+</div><div class="line">     coord_map(<span class="string">"polyconic"</span>) +</div><div class="line">     guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))+ </div><div class="line">     theme(</div><div class="line">          panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank(),</div><div class="line">          legend.position = c(<span class="number">0.18</span>,<span class="number">0.75</span>),</div><div class="line">          legend.text.align=<span class="number">1</span></div><div class="line">          )</div></pre></td></tr></table></figure>
-<p><img src="http://orp205tiu.bkt.clouddn.com/President/President6.png" alt=""></p>
-<h4 id="川普各州选票支持率统计；"><a href="#川普各州选票支持率统计；" class="headerlink" title="川普各州选票支持率统计；"></a>川普各州选票支持率统计；</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">qb &lt;- quantile(na.omit(American_data$Trump), c(<span class="number">0</span>,<span class="number">0.2</span>,<span class="number">0.4</span>,<span class="number">0.6</span>,<span class="number">0.8</span>,<span class="number">1.0</span>))</div><div class="line">American_data$Trump_q&lt;-cut(American_data$Trump,qb,labels = c(<span class="string">"0-20%"</span>, <span class="string">"20-40%"</span>,<span class="string">"40-60%"</span>,<span class="string">"60-80%"</span>, <span class="string">"80-100%"</span>),include.lowest = <span class="literal">TRUE</span>)</div><div class="line">ggplot(American_data,aes(long,lat,group=group,fill=Trump_q))+</div><div class="line">     geom_polygon(colour=<span class="string">"white"</span>)+</div><div class="line">     scale_fill_brewer(palette=<span class="string">"Reds"</span>)+</div><div class="line">     coord_map(<span class="string">"polyconic"</span>) +</div><div class="line">     guides(fill=guide_legend(reverse=<span class="literal">TRUE</span>,title=<span class="literal">NULL</span>))+ </div><div class="line">     theme(</div><div class="line">          panel.grid = element_blank(),</div><div class="line">          panel.background = element_blank(),</div><div class="line">          axis.text = element_blank(),</div><div class="line">          axis.ticks = element_blank(),</div><div class="line">          axis.title = element_blank(),</div><div class="line">          legend.position = c(<span class="number">0.18</span>,<span class="number">0.75</span>),</div><div class="line">          legend.text.align=<span class="number">1</span></div><div class="line">          )</div></pre></td></tr></table></figure>
-<p><img src="http://orp205tiu.bkt.clouddn.com/President/President7.png" alt=""></p>
-<h3 id="多维度统计二者支持率"><a href="#多维度统计二者支持率" class="headerlink" title="多维度统计二者支持率;"></a>多维度统计二者支持率;</h3><h4 id="性别分布"><a href="#性别分布" class="headerlink" title="性别分布"></a>性别分布</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">gender&lt;-data.frame(gender=c(<span class="string">"male"</span>,<span class="string">"female"</span>),clinton=c(<span class="number">41</span>,<span class="number">54</span>),trump=c(<span class="number">53</span>,<span class="number">42</span>))</div><div class="line">genderA&lt;-melt(gender,id.vars=<span class="string">"gender"</span>,variable.name=<span class="string">"Name"</span>,value.name=<span class="string">"level"</span>)</div><div class="line">ggplot(genderA,aes(gender,level,fill=Name))+</div><div class="line">geom_bar(stat=<span class="string">"identity"</span>,width=<span class="number">0.7</span>)+</div><div class="line">geom_text(aes(label=level,vjust=<span class="number">5</span>,hjust=<span class="number">0.5</span>),position=<span class="string">"stack"</span>,size=<span class="number">10</span>,col=<span class="string">"white"</span>,fontface=<span class="string">"bold"</span>)+</div><div class="line">scale_fill_manual(values=c(<span class="string">"#2196F3"</span>,<span class="string">"#FF5252"</span>))+</div><div class="line">guides(fill=guide_legend(title=<span class="literal">NULL</span>))+       </div><div class="line">theme(panel.grid = element_blank(),</div><div class="line">      panel.background = element_blank(),</div><div class="line">      axis.text.y = element_blank(),</div><div class="line">      axis.ticks.length=unit(<span class="number">0.5</span>,<span class="string">'cm'</span>),</div><div class="line">      axis.ticks.y = element_blank(),</div><div class="line">      axis.ticks.x = element_line(),</div><div class="line">      axis.line.x  = element_line(),</div><div class="line">      axis.title = element_blank()</div><div class="line">      )</div></pre></td></tr></table></figure>
-<p><img src="http://orp205tiu.bkt.clouddn.com/President/President8.png" alt=""></p>
-<p>从性别上来看，男性支持川普的多一点，女性支持希拉里的多一点，这应该算是性别效应吧~</p>
-<h4 id="年龄分布统计；"><a href="#年龄分布统计；" class="headerlink" title="年龄分布统计；"></a>年龄分布统计；</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">age&lt;-data.frame(age=c(<span class="string">"18~29"</span>,<span class="string">"30~44"</span>,<span class="string">"45~64"</span>,<span class="string">"64~"</span>),clinton=c(<span class="number">55</span>,<span class="number">50</span>,<span class="number">44</span>,<span class="number">45</span>),trump=c(<span class="number">37</span>,<span class="number">42</span>,<span class="number">53</span>,<span class="number">53</span>))</div><div class="line">ageA&lt;-melt(age,id.vars=<span class="string">"age"</span>,variable.name=<span class="string">"Name"</span>,value.name=<span class="string">"level"</span>)</div><div class="line">ggplot(ageA,aes(age,level,fill=Name))+</div><div class="line">geom_bar(stat=<span class="string">"identity"</span>,width=<span class="number">0.95</span>)+</div><div class="line">geom_text(aes(label=level,vjust=<span class="number">5</span>,hjust=<span class="number">0.5</span>),position=<span class="string">"stack"</span>,size=<span class="number">10</span>,col=<span class="string">"white"</span>,fontface=<span class="string">"bold"</span>)+</div><div class="line">      scale_fill_manual(values=c(<span class="string">"#2196F3"</span>,<span class="string">"#FF5252"</span>))+</div><div class="line">      guides(fill=guide_legend(title=<span class="literal">NULL</span>))+       </div><div class="line">theme(panel.grid = element_blank(),</div><div class="line">      panel.background = element_blank(),</div><div class="line">      axis.text.y = element_blank(),</div><div class="line">      axis.ticks.length=unit(<span class="number">0.5</span>,<span class="string">'cm'</span>),</div><div class="line">      axis.ticks.y = element_blank(),</div><div class="line">      axis.ticks.x = element_line(),</div><div class="line">      axis.line.x  = element_line(),</div><div class="line">      axis.title = element_blank()</div><div class="line">      )</div></pre></td></tr></table></figure>
-<p><img src="http://orp205tiu.bkt.clouddn.com/President/President10.png" alt=""></p>
-<p>这个年龄段分布的也是相当有规律啊，川普大叔很得中老年选民的亲来，而希拉里阿姨则俘获了青少年的心。</p>
-<h4 id="种族分布统计；"><a href="#种族分布统计；" class="headerlink" title="种族分布统计；"></a>种族分布统计；</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">race&lt;-data.frame(race=c(<span class="string">"white"</span>,<span class="string">"black"</span>,<span class="string">"latino"</span>,<span class="string">"asian"</span>,<span class="string">"other"</span>),clinton=c(<span class="number">37</span>,<span class="number">88</span>,<span class="number">65</span>,<span class="number">65</span>,<span class="number">56</span>),trump=c(<span class="number">58</span>,<span class="number">8</span>,<span class="number">29</span>,<span class="number">29</span>,<span class="number">37</span>))</div><div class="line">raceA&lt;-melt(race,id.vars=<span class="string">"race"</span>,variable.name=<span class="string">"Name"</span>,value.name=<span class="string">"level"</span>)</div><div class="line">ggplot(raceA,aes(race,level,fill=Name))+</div><div class="line">      geom_bar(stat=<span class="string">"identity"</span>,width=<span class="number">0.95</span>)+</div><div class="line">      geom_text(aes(label=level,vjust=<span class="number">5</span>,hjust=<span class="number">0.5</span>),position=<span class="string">"stack"</span>,size=<span class="number">10</span>,col=<span class="string">"white"</span>)+</div><div class="line">      scale_fill_manual(values=c(<span class="string">"#2196F3"</span>,<span class="string">"#FF5252"</span>))+</div><div class="line">      guides(fill=guide_legend(title=<span class="literal">NULL</span>))+       </div><div class="line">theme(panel.grid = element_blank(),</div><div class="line">      panel.background = element_blank(),</div><div class="line">      axis.text.y = element_blank(),</div><div class="line">      axis.ticks.length=unit(<span class="number">0.5</span>,<span class="string">'cm'</span>),</div><div class="line">      axis.ticks.y = element_blank(),</div><div class="line">      axis.ticks.x = element_line(),</div><div class="line">      axis.line.x  = element_line(),</div><div class="line">      axis.title = element_blank()</div><div class="line">      )</div></pre></td></tr></table></figure>
-<p><img src="http://orp205tiu.bkt.clouddn.com/President/President11.png" alt=""></p>
-<p>从种族上来看，希拉里在black、latino、asian以及其他种族中占据绝对优势，川普则把控着white的选票。</p>
-<h4 id="选民受教育水平分布统计；"><a href="#选民受教育水平分布统计；" class="headerlink" title="选民受教育水平分布统计；"></a>选民受教育水平分布统计；</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">educ&lt;-data.frame(educ=c(<span class="string">"high"</span>,<span class="string">"some"</span>,<span class="string">"college"</span>,<span class="string">"post"</span>),clinton=c(<span class="number">45</span>,<span class="number">43</span>,<span class="number">49</span>,<span class="number">58</span>),trump=c(<span class="number">51</span>,<span class="number">52</span>,<span class="number">45</span>,<span class="number">37</span>))</div><div class="line">educA&lt;-melt(educ,id.vars=<span class="string">"educ"</span>,variable.name=<span class="string">"Name"</span>,value.name=<span class="string">"level"</span>)</div><div class="line">ggplot(educA,aes(educ,level,fill=Name))+</div><div class="line">geom_bar(stat=<span class="string">"identity"</span>,width=<span class="number">0.95</span>)+      geom_text(aes(label=level,vjust=<span class="number">5</span>,hjust=<span class="number">0.5</span>),position=<span class="string">"stack"</span>,size=<span class="number">10</span>,col=<span class="string">"white"</span>)+</div><div class="line">      scale_fill_manual(values=c(<span class="string">"#2196F3"</span>,<span class="string">"#FF5252"</span>))+</div><div class="line">      scale_x_discrete(limits=c(<span class="string">"high"</span>,<span class="string">"some"</span>,<span class="string">"college"</span>,<span class="string">"post"</span>))+</div><div class="line">      guides(fill=guide_legend(title=<span class="literal">NULL</span>))+       </div><div class="line">theme(panel.grid = element_blank(),</div><div class="line">      panel.background = element_blank(),</div><div class="line">      axis.text.y = element_blank(),</div><div class="line">      axis.ticks.length=unit(<span class="number">0.5</span>,<span class="string">'cm'</span>),</div><div class="line">      axis.ticks.y = element_blank(),</div><div class="line">      axis.ticks.x = element_line(),</div><div class="line">      axis.line.x  = element_line(),</div><div class="line">      axis.title = element_blank()</div><div class="line">      )</div></pre></td></tr></table></figure>
-<p><img src="http://orp205tiu.bkt.clouddn.com/President/President112.png" alt=""></p>
-<p>从受教育水平看，希拉里阿姨的选民受教育水平相对较高（单也非绝对，因为这里是CNN做的抽样调查，样本只有24537个，范围较小，并不代表实际情况）。</p>
-<h4 id="选民收入分布统计；"><a href="#选民收入分布统计；" class="headerlink" title="选民收入分布统计；"></a>选民收入分布统计；</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">Inco&lt;-data.frame(inco=c(<span class="string">"under $100K"</span>,<span class="string">"above $100K"</span>),clinton=c(<span class="number">49</span>,<span class="number">47</span>),trump=c(<span class="number">45</span>,<span class="number">48</span>))</div><div class="line">IncoA&lt;-melt(Inco,id.vars=<span class="string">"inco"</span>,variable.name=<span class="string">"Name"</span>,value.name=<span class="string">"level"</span>)</div><div class="line">ggplot(IncoA,aes(inco,level,fill=Name))+</div><div class="line">geom_bar(stat=<span class="string">"identity"</span>,position=<span class="string">"dodge"</span>)+    geom_text(aes(label=level,vjust=<span class="number">5</span>,hjust=<span class="number">0.5</span>),position=position_dodge(width=<span class="number">0.9</span>),size=<span class="number">10</span>,col=<span class="string">"white"</span>)+</div><div class="line">scale_fill_manual(values=c(<span class="string">"#2196F3"</span>,<span class="string">"#FF5252"</span>))+</div><div class="line">scale_x_discrete(limits=c(<span class="string">"under $100K"</span>,<span class="string">"above $100K"</span>))+</div><div class="line">guides(fill=guide_legend(title=<span class="literal">NULL</span>))+       </div><div class="line">theme(panel.grid = element_blank(),</div><div class="line">      panel.background = element_blank(),</div><div class="line">      axis.text.y = element_blank(),</div><div class="line">      axis.ticks.length=unit(<span class="number">0.5</span>,<span class="string">'cm'</span>),</div><div class="line">      axis.ticks.y = element_blank(),</div><div class="line">      axis.ticks.x = element_line(),</div><div class="line">      axis.line.x  = element_line(),</div><div class="line">      axis.title = element_blank()</div><div class="line">      )</div></pre></td></tr></table></figure>
-<p><img src="http://orp205tiu.bkt.clouddn.com/President/President13.png" alt=""></p>
-<h4 id="选民政治倾向分布；"><a href="#选民政治倾向分布；" class="headerlink" title="选民政治倾向分布；"></a>选民政治倾向分布；</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">Ideo&lt;-data.frame(ideo=c(<span class="string">"liberal"</span>,<span class="string">"moderate"</span>,<span class="string">"conservative"</span>),clinton=c(<span class="number">84</span>,<span class="number">52</span>,<span class="number">15</span>),trump=c(<span class="number">10</span>,<span class="number">41</span>,<span class="number">81</span>))</div><div class="line">IncoA&lt;-melt(Ideo,id.vars=<span class="string">"ideo"</span>,variable.name=<span class="string">"Name"</span>,value.name=<span class="string">"level"</span>)</div><div class="line">ggplot(IncoA,aes(ideo,level,fill=Name))+</div><div class="line">geom_bar(stat=<span class="string">"identity"</span>,position=<span class="string">"dodge"</span>)+</div><div class="line">geom_text(aes(label=level,vjust=<span class="number">5</span>,hjust=<span class="number">0.5</span>),position=position_dodge(width=<span class="number">0.9</span>),size=<span class="number">10</span>,col=<span class="string">"white"</span>)+</div><div class="line">      scale_fill_manual(values=c(<span class="string">"#2196F3"</span>,<span class="string">"#FF5252"</span>))+</div><div class="line">            scale_x_discrete(limits=c(<span class="string">"liberal"</span>,<span class="string">"moderate"</span>,<span class="string">"conservative"</span>))+</div><div class="line">      guides(fill=guide_legend(title=<span class="literal">NULL</span>))+       </div><div class="line">theme(panel.grid = element_blank(),</div><div class="line">      panel.background = element_blank(),</div><div class="line">      axis.text.y = element_blank(),</div><div class="line">      axis.ticks.length=unit(<span class="number">0.5</span>,<span class="string">'cm'</span>),</div><div class="line">      axis.ticks.y = element_blank(),</div><div class="line">      axis.ticks.x = element_line(),</div><div class="line">      axis.line.x  = element_line(),</div><div class="line">      axis.title = element_blank()</div><div class="line">      )</div></pre></td></tr></table></figure>
-<p><img src="http://orp205tiu.bkt.clouddn.com/President/President14.png" alt=""></p>
-<p>上图还是比较能反映两党的政治主张的。</p>
-<h4 id="选民的婚姻状况统计分布；"><a href="#选民的婚姻状况统计分布；" class="headerlink" title="选民的婚姻状况统计分布；"></a>选民的婚姻状况统计分布；</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">Marl&lt;-data.frame(marry=c(<span class="string">"married men"</span>,<span class="string">"married women"</span>,<span class="string">"unmarried men"</span>,<span class="string">"unmarried women"</span>),clinton=c(<span class="number">37</span>,<span class="number">49</span>,<span class="number">46</span>,<span class="number">62</span>),trump=c(<span class="number">58</span>,<span class="number">47</span>,<span class="number">45</span>,<span class="number">33</span>))</div><div class="line">MarlA&lt;-melt(Marl,id.vars=<span class="string">"marry"</span>,variable.name=<span class="string">"Name"</span>,value.name=<span class="string">"level"</span>)</div><div class="line">ggplot(MarlA,aes(marry,level,fill=Name))+</div><div class="line">geom_bar(stat=<span class="string">"identity"</span>,position=<span class="string">"dodge"</span>)+</div><div class="line">geom_text(aes(label=level,vjust=<span class="number">5</span>,hjust=<span class="number">0.5</span>),position=position_dodge(width=<span class="number">0.9</span>),size=<span class="number">10</span>,col=<span class="string">"white"</span>)+</div><div class="line">scale_fill_manual(values=c(<span class="string">"#2196F3"</span>,<span class="string">"#FF5252"</span>))+</div><div class="line">scale_x_discrete(limits=c(<span class="string">"married men"</span>,<span class="string">"married women"</span>,<span class="string">"unmarried men"</span>,<span class="string">"unmarried women"</span>))+</div><div class="line">guides(fill=guide_legend(title=<span class="literal">NULL</span>))+       </div><div class="line">theme(panel.grid = element_blank(),</div><div class="line">      panel.background = element_blank(),</div><div class="line">      axis.text.y = element_blank(),</div><div class="line">      axis.ticks.length=unit(<span class="number">0.5</span>,<span class="string">'cm'</span>),</div><div class="line">      axis.ticks.y = element_blank(),</div><div class="line">      axis.ticks.x = element_line(),</div><div class="line">      axis.line.x  = element_line(),</div><div class="line">      axis.title = element_blank()</div><div class="line">      )</div></pre></td></tr></table></figure>
-<p><img src="http://orp205tiu.bkt.clouddn.com/President/President15.png" alt=""></p>
-<p>川普在已婚男性选民群体中的支持率有明显优势，而希拉里在未婚女性选民群体中优势明显。</p>
-<h4 id="宗教信仰分布统计；"><a href="#宗教信仰分布统计；" class="headerlink" title="宗教信仰分布统计；"></a>宗教信仰分布统计；</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">Rellglon&lt;-data.frame(rell=c(<span class="string">"protestant"</span>,<span class="string">"catholic"</span>,<span class="string">"mormon"</span>,<span class="string">"orther christian"</span>,<span class="string">"jewish"</span>,<span class="string">"other religon"</span>,<span class="string">"no religion"</span>),clinton=c(<span class="number">37</span>,<span class="number">45</span>,<span class="number">25</span>,<span class="number">43</span>,<span class="number">71</span>,<span class="number">58</span>,<span class="number">68</span>),trump=c(<span class="number">60</span>,<span class="number">52</span>,<span class="number">61</span>,<span class="number">55</span>,<span class="number">24</span>,<span class="number">33</span>,<span class="number">26</span>))</div><div class="line">RellglonA&lt;-melt(Rellglon,id.vars=<span class="string">"rell"</span>,variable.name=<span class="string">"Name"</span>,value.name=<span class="string">"level"</span>)</div><div class="line">ggplot(RellglonA,aes(rell,level,fill=Name))+</div><div class="line">      geom_bar(stat=<span class="string">"identity"</span>,width=<span class="number">1</span>,col=<span class="string">"white"</span>)+</div><div class="line">      scale_fill_manual(values=c(<span class="string">"#2196F3"</span>,<span class="string">"#FF5252"</span>))+</div><div class="line">      scale_x_discrete(limits=c(<span class="string">"protestant"</span>,<span class="string">"catholic"</span>,<span class="string">"mormon"</span>,<span class="string">"orther christian"</span>,<span class="string">"jewish"</span>,<span class="string">"other religon"</span>,<span class="string">"no religion"</span>))+</div><div class="line">      ylim(-<span class="number">20</span>,<span class="number">100</span>)+</div><div class="line">      guides(fill=guide_legend(title=<span class="literal">NULL</span>))+     </div><div class="line">      coord_polar(theta=<span class="string">"x"</span>,start=<span class="number">0</span>,direction=<span class="number">1</span>) + </div><div class="line">      facet_grid(.~Name)+</div><div class="line">theme(panel.grid = element_blank(),</div><div class="line">      panel.background = element_blank(),</div><div class="line">      axis.text.y = element_blank(),</div><div class="line">      axis.ticks.length=unit(<span class="number">0.5</span>,<span class="string">'cm'</span>),</div><div class="line">      axis.ticks.y = element_blank(),</div><div class="line">      axis.ticks.x = element_line(),</div><div class="line">      axis.title = element_blank()</div><div class="line">      )</div></pre></td></tr></table></figure>
-<p><img src="http://orp205tiu.bkt.clouddn.com/President/President16.png" alt=""></p>
-<p>本文数据来源于<a href="http://edition.cnn.com/election/results" target="_blank" rel="external">CNN官网：</a></p>
-<p>因为数据多源于小范围问卷调查（选票数据除外），限于样本范围和地域局限性，结果可能有偏颇。</p>
-<p>文中所需的地图数据及代码文本分享在魔方 学院QQ群中：</p>
-<hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）</p>
-<p>qq交流群：[魔方学院]298236508</p>
-<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<hr>
-<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://orp205tiu.bkt.clouddn.com/President/President17.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;这两天各种社交媒体都被美国大选的消息刷屏，各种段子满天飞，把平时不怎么关注政治的小编都吸引了。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
-    
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
   </entry>
   
