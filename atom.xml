@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.raindu.com/"/>
-  <updated>2017-08-29T12:19:09.700Z</updated>
+  <updated>2017-08-29T12:23:20.076Z</updated>
   <id>http://www.raindu.com/</id>
   
   <author>
@@ -20,13 +20,12 @@
     <link href="http://www.raindu.com/2017/08/29/%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E6%8F%AD%E5%BC%80office%E9%85%8D%E8%89%B2%E6%A8%A1%E6%9D%BF%E7%9A%84%E7%9A%84%E7%A5%9E%E7%A7%98%E9%9D%A2%E7%BA%B1/"/>
     <id>http://www.raindu.com/2017/08/29/一篇文章揭开office配色模板的的神秘面纱/</id>
     <published>2017-08-29T11:48:15.000Z</published>
-    <updated>2017-08-29T12:19:09.700Z</updated>
+    <updated>2017-08-29T12:23:20.076Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://or3sddq9r.bkt.clouddn.com/office/image.jpg" alt=""></p>
 <p>今天我教大家用R语言做一些有趣的事情，什么事情呢~暂时保密哦，想知道的话，认真往下看哟！</p>
 <a id="more"></a>
-<p>###背景介绍：</p>
-<p>想必经常使用office的童鞋（无论你用的Word、PPT、还是Excel），经常会遇到这样的问题，如果做出来的图表不加修饰的话，然后效果就巨难看，你知道这是为什么嘛~</p>
+<h3 id="背景介绍："><a href="#背景介绍：" class="headerlink" title="背景介绍："></a>背景介绍：</h3><p>想必经常使用office的童鞋（无论你用的Word、PPT、还是Excel），经常会遇到这样的问题，如果做出来的图表不加修饰的话，然后效果就巨难看，你知道这是为什么嘛~</p>
 <p>好吧让小魔方来告诉你吧，因为office给你用的默认配色模板，这种配色模板呢，坦白的说，我不认为好看（至少跟主流的设计搭配风格比起来的话），可是没有办法呀，谁让偌大的地球，只有微软一家开发出了完善的office办公平台了吧（虽然有些组件是收购的，某软只是做了整合的工作）。</p>
 <p>可是你要知道，微软是一年技术驱动的公司（至少跟苹果这种设计驱动的公司相比的话），你要让哪些整天码代码的码农给你设计好看的配色，这个也有点儿不现实不是（真的跟公司创始人和企业文化有关，想想当年乔布斯为什么竭力地址IE和Windows甚至不惜自己开发了一套专供MAC平台使用的演示文稿软件——keynote）。</p>
 <p>这种配色的不协调、不养眼、没品位在office2003及以前版本中体现的最深（不过也不可以过分苛责、毕竟整个社会的审美水平也是有选序渐进的趋势）。</p>
@@ -41,8 +40,7 @@
 <blockquote>
 <p>本人office版本及系统信息：<br>　W10专业版（64） office2016（64） </p>
 </blockquote>
-<p>###office配色系统：</p>
-<p>那么接下来大家可能要问了，如果要想要自己定义配色模板是否可行呢，yes of course！</p>
+<h3 id="office配色系统："><a href="#office配色系统：" class="headerlink" title="office配色系统："></a>office配色系统：</h3><p>那么接下来大家可能要问了，如果要想要自己定义配色模板是否可行呢，yes of course！</p>
 <p>方法很简单，我刚才已经强调过一点，office平台所有组件共享诸多模块，当然也包含配色模板，也就是说，无论你在那个组件界面自定义了色板，最终都会保存在office平台公用的自定义配色模板文件夹里。（确实如此，无论是在Word界面自定义、还是Excel甚至PPT或者其他office组件内自定义配色模板，最终都会保存在同一个公用自定义配色模板文件夹，但是在软件界面你无法看到该文件保存的路径）。</p>
 <p>所以说你就不用纠结应该在哪儿设置自定义配色了，那么我们就用Excel做一个尝试吧~</p>
 <p>当你在Excel软件界面的页面布局——颜色下拉菜单底部点击自定义配色的时候，弹出菜单如下：</p>
@@ -67,8 +65,7 @@
 </ul>
 <p><strong>了解xml语法结构，并会适当修改色值。</strong>（只是了解，不要求会写，事实上看不懂没关系，我也不会写，一会儿会一步一步的教你拆解xml）。</p>
 <p>接下来我们就来拆拆拆~</p>
-<p>###使用R语言的XML包处理office配色模板：</p>
-<p>首先先随便自定义一个模板（在软件里面自定义），然后定位到自定义模板文件夹里：将xml文件用txt记事本打开（notpad++也可以），随便浏览下xml文档结构：</p>
+<h3 id="使用R语言的XML包处理office配色模板："><a href="#使用R语言的XML包处理office配色模板：" class="headerlink" title="使用R语言的XML包处理office配色模板："></a>使用R语言的XML包处理office配色模板：</h3><p>首先先随便自定义一个模板（在软件里面自定义），然后定位到自定义模板文件夹里：将xml文件用txt记事本打开（notpad++也可以），随便浏览下xml文档结构：</p>
 <p><img src="http://or3sddq9r.bkt.clouddn.com/office/image6.png" alt=""></p>
 <p>看吧，其实模板也没啥神秘的，xml语法结构树中，包含了刚才自定义的所有12中颜色的十六进制色值信息。（数一数一共几个val）。</p>
 <p>但是介于好多小伙伴没有xml基础，txt记事本没有标注xml机构的功能，本文全部是紧凑排列的，挤在一起看不出来什么。</p>
@@ -83,8 +80,7 @@
 <p><img src="http://or3sddq9r.bkt.clouddn.com/office/image8.png" alt=""></p>
 <p>好吧，就问你，这个配色方案丑不丑，之前自定义的时候一个颜色没改，就是office2016默认的配色方案，怪不得你做不出来好点的图表作品~</p>
 <p>那么我们是不是可以自己在txt中把一些好看的色值给黏贴进去呢，这样也做成了也挺神奇的哈~说干就干~</p>
-<p>###自制调色板：</p>
-<p>首先找一个好的在线配色平台——</p>
+<h3 id="自制调色板："><a href="#自制调色板：" class="headerlink" title="自制调色板："></a>自制调色板：</h3><p>首先找一个好的在线配色平台——</p>
 <p>没错就它了——Adobe Color CC<br><img src="http://or3sddq9r.bkt.clouddn.com/office/image9.png" alt=""></p>
 <p>看着还不错</p>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">setwd(<span class="string">"C:/Users/Administrator/AppData/Roaming/Microsoft/Templates/Document Themes/Theme Colors"</span>)</div><div class="line">color2&lt;-xmlTreeParse(<span class="string">"balalala.xml"</span>,useInternalNodes=<span class="literal">TRUE</span>)</div><div class="line">colorgroup&lt;-getNodeSet(color2,<span class="string">'//a:srgbClr'</span>) </div><div class="line">colorindex&lt;-laply(colorgroup,xmlAttrs,name=<span class="string">'val'</span>) </div><div class="line">colorindex&lt;-paste0(<span class="string">"#"</span>,colorindex)</div><div class="line">show_col(colorindex,labels=<span class="literal">F</span>)</div></pre></td></tr></table></figure>
