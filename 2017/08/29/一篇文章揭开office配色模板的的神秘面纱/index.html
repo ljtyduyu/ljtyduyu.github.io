@@ -116,10 +116,10 @@
 <meta property="og:image" content="http://or3sddq9r.bkt.clouddn.com/office/image9.png">
 <meta property="og:image" content="http://or3sddq9r.bkt.clouddn.com/office/image13.png">
 <meta property="og:image" content="http://or3sddq9r.bkt.clouddn.com/office/image10.png">
-<meta property="og:image" content="http://or3sddq9r.bkt.clouddn.com/office/image11.png">
+<meta property="og:image" content="http://or3sddq9r.bkt.clouddn.com/office/image11.jpg">
 <meta property="og:image" content="http://or3sddq9r.bkt.clouddn.com/office/image12.png">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-08-29T12:10:14.513Z">
+<meta property="og:updated_time" content="2017-08-29T12:19:09.700Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一篇文章揭开office配色模板的的神秘面纱~">
 <meta name="twitter:description" content="今天我教大家用R语言做一些有趣的事情，什么事情呢~暂时保密哦，想知道的话，认真往下看哟！">
@@ -552,7 +552,7 @@
 <p>没错这就是某软提供的所有默认配色模板（一共22套）<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">mycolorfile&lt;-c()</div><div class="line">fun&lt;-<span class="keyword">function</span>(i)&#123;  </div><div class="line">color2&lt;-xmlTreeParse(a[i],useInternalNodes=<span class="literal">TRUE</span>)</div><div class="line">colornames&lt;-xmlRoot(color2)%&gt;%xmlChildren()%&gt;%names()</div><div class="line">colorgroup&lt;-getNodeSet(color2,<span class="string">'//a:srgbClr'</span>) </div><div class="line">colorindex&lt;-laply(colorgroup,xmlAttrs,name=<span class="string">'val'</span>)</div><div class="line">colorindex&lt;-paste0(<span class="string">"#"</span>,colorindex)</div><div class="line">&#125;  </div><div class="line"><span class="keyword">for</span> ( i <span class="keyword">in</span> <span class="number">1</span>:length(a))&#123;</div><div class="line">mycolorfile&lt;-c(mycolorfile,fun(i))</div><div class="line">&#125;</div><div class="line"></div><div class="line">show_col(mycolorfile,labels=<span class="literal">F</span>)</div></pre></td></tr></table></figure></p>
 <p><img src="http://or3sddq9r.bkt.clouddn.com/office/image10.png" alt=""></p>
 <p>好吧，这就是微软office所提供的所有默认配色，给你一个眼神，自己体会~_~<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">colordata&lt;-myfullcolorfile[c(-<span class="number">221</span>,-<span class="number">222</span>)]</div><div class="line">dim(colordata)&lt;-c(<span class="number">10</span>,length(a))</div><div class="line">rownames(colordata)&lt;-colornames[c(-<span class="number">1</span>,-<span class="number">2</span>)]</div><div class="line">colnames(colordata)&lt;-sub(<span class="string">".xml"</span>,<span class="string">""</span>,a)</div><div class="line">colordata&lt;-t(colordata)</div><div class="line">write.table(colordata,<span class="string">"F:/colordata.txt"</span>,sep=<span class="string">" "</span>,row.names=<span class="literal">FALSE</span>,col.names=<span class="literal">TRUE</span>,quote=<span class="literal">FALSE</span>)</div></pre></td></tr></table></figure></p>
-<p><img src="http://or3sddq9r.bkt.clouddn.com/office/image11.png" alt=""><br><img src="http://or3sddq9r.bkt.clouddn.com/office/image12.png" alt=""></p>
+<p><img src="http://or3sddq9r.bkt.clouddn.com/office/image11.jpg" alt=""><br><img src="http://or3sddq9r.bkt.clouddn.com/office/image12.png" alt=""></p>
 <p>好了，大功告成，这样你还会觉得office的配色模板很神秘嘛，哈哈是不是今天学到了很多，不要谢我哟~</p>
 <hr>
 <p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
