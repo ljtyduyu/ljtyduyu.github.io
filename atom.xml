@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.raindu.com/"/>
-  <updated>2017-08-28T04:15:18.861Z</updated>
+  <updated>2017-08-29T12:10:14.513Z</updated>
   <id>http://www.raindu.com/</id>
   
   <author>
@@ -14,6 +14,112 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>一篇文章揭开office配色模板的的神秘面纱~</title>
+    <link href="http://www.raindu.com/2017/08/29/%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E6%8F%AD%E5%BC%80office%E9%85%8D%E8%89%B2%E6%A8%A1%E6%9D%BF%E7%9A%84%E7%9A%84%E7%A5%9E%E7%A7%98%E9%9D%A2%E7%BA%B1/"/>
+    <id>http://www.raindu.com/2017/08/29/一篇文章揭开office配色模板的的神秘面纱/</id>
+    <published>2017-08-29T11:48:15.000Z</published>
+    <updated>2017-08-29T12:10:14.513Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://or3sddq9r.bkt.clouddn.com/office/image.jpg" alt=""></p>
+<p>今天我教大家用R语言做一些有趣的事情，什么事情呢~暂时保密哦，想知道的话，认真往下看哟！</p>
+<a id="more"></a>
+<p>###背景介绍：</p>
+<p>想必经常使用office的童鞋（无论你用的Word、PPT、还是Excel），经常会遇到这样的问题，如果做出来的图表不加修饰的话，然后效果就巨难看，你知道这是为什么嘛~</p>
+<p>好吧让小魔方来告诉你吧，因为office给你用的默认配色模板，这种配色模板呢，坦白的说，我不认为好看（至少跟主流的设计搭配风格比起来的话），可是没有办法呀，谁让偌大的地球，只有微软一家开发出了完善的office办公平台了吧（虽然有些组件是收购的，某软只是做了整合的工作）。</p>
+<p>可是你要知道，微软是一年技术驱动的公司（至少跟苹果这种设计驱动的公司相比的话），你要让哪些整天码代码的码农给你设计好看的配色，这个也有点儿不现实不是（真的跟公司创始人和企业文化有关，想想当年乔布斯为什么竭力地址IE和Windows甚至不惜自己开发了一套专供MAC平台使用的演示文稿软件——keynote）。</p>
+<p>这种配色的不协调、不养眼、没品位在office2003及以前版本中体现的最深（不过也不可以过分苛责、毕竟整个社会的审美水平也是有选序渐进的趋势）。</p>
+<p>好吧，说到这里，小魔方就给大家展示一下自己所使用平台的office官方默认配色系统是什么样的：</p>
+<p>因为office系统组件贡献配色模板，所以这里给大家对比下Word、PPT、Excel的配色模板入口：</p>
+<ul>
+<li>word:设计——颜色——下拉菜单</li>
+<li>Excel：页面布局——主题——颜色</li>
+<li>ppt：视图——幻灯片模板——背景——颜色</li>
+</ul>
+<p><img src="http://or3sddq9r.bkt.clouddn.com/office/image1.png" alt=""></p>
+<blockquote>
+<p>本人office版本及系统信息：<br>　W10专业版（64） office2016（64） </p>
+</blockquote>
+<p>###office配色系统：</p>
+<p>那么接下来大家可能要问了，如果要想要自己定义配色模板是否可行呢，yes of course！</p>
+<p>方法很简单，我刚才已经强调过一点，office平台所有组件共享诸多模块，当然也包含配色模板，也就是说，无论你在那个组件界面自定义了色板，最终都会保存在office平台公用的自定义配色模板文件夹里。（确实如此，无论是在Word界面自定义、还是Excel甚至PPT或者其他office组件内自定义配色模板，最终都会保存在同一个公用自定义配色模板文件夹，但是在软件界面你无法看到该文件保存的路径）。</p>
+<p>所以说你就不用纠结应该在哪儿设置自定义配色了，那么我们就用Excel做一个尝试吧~</p>
+<p>当你在Excel软件界面的页面布局——颜色下拉菜单底部点击自定义配色的时候，弹出菜单如下：</p>
+<p><img src="http://or3sddq9r.bkt.clouddn.com/office/image2.png" alt=""></p>
+<p>主题颜色一共12个选项，前四个是分深浅的两组文字背景颜色，中间6组是以着色1:6进行编号命名的颜色组合（通常用在系列配色中，如图表序列、线条系列等）。最后两个是超链接颜色（包括默认颜色和访问过的颜色显示）。</p>
+<p>自定义模板一般来说是定义3:10这8个颜色，因为这也是显示在你软件界面配色选项中第一排的颜色（无论是字体颜色菜单、形状填充颜色菜单还是线条颜色菜单都是如此）。至于颜色1和颜色2为何不显示这个问题我也很纳闷，最后两个超链接颜色用的频率不高可以忽略。</p>
+<p>随意打开一个颜色对应下拉框，你就可以看到很熟悉的调色板，没错跟软件主界面的字体、线条和图形填充颜色菜单一模一样，接下来就不用我说了，自己选就行。</p>
+<p><img src="http://or3sddq9r.bkt.clouddn.com/office/image3.png" alt=""></p>
+<p>定义完目标色之后，点击保存，在公用配色模板目录就会多一个配色模板（.xml格式，没错就是xml，透露一个秘密，office文档结构其实是一组.xml文件组成的压缩包，不信你用任意一个docx、pptx、xlsx文档修改后缀名为.rar，然后用解压软件打开仔细看看里面都放了什么东西，有惊喜哦~）</p>
+<p><img src="http://or3sddq9r.bkt.clouddn.com/office/image4.png" alt=""></p>
+<p>我保存了一个名为balalala的自定义配色模板。然后……</p>
+<p>对吧，我没有骗你吧，确实是定义一个，所有的软件都可以共用——</p>
+<p><img src="http://or3sddq9r.bkt.clouddn.com/office/image5.png" alt=""></p>
+<p>接下来做一些有挑战性的事情，既然office平台的配色模板是.xml格式的文件，那么我们可不可以不用再软件里面手动定义，而直接生成符合xml语法格式的配色模板文件呢~</p>
+<p>答案当然是可以的啦，不过做这个需要你掌握以下两点知识：</p>
+<p><strong>知道office配色模板的存放路径：</strong></p>
+<p>一般有两类模板，一类是系统模板，就是安装软件时候，系统自动加载的，一般配色都不甚好看，显示在颜色下拉菜单的第二个栏目，而自定义模板可以给大家充分发挥想象力的空间。一般显示在颜色下拉菜单的第一个部分。</p>
+<p>模板的路径如下（个人电脑的路径，其他平台及品牌类比操作）：</p>
+<ul>
+<li>系统：C:\Program Files\Microsoft Office\root\Document Themes 16\Theme Colors</li>
+<li>自定义：C:\Users\Administrator\AppData\Roaming\Microsoft\Templates\Document Themes\Theme Colors</li>
+</ul>
+<p><strong>了解xml语法结构，并会适当修改色值。</strong>（只是了解，不要求会写，事实上看不懂没关系，我也不会写，一会儿会一步一步的教你拆解xml）。</p>
+<p>接下来我们就来拆拆拆~</p>
+<p>###使用R语言的XML包处理office配色模板：</p>
+<p>首先先随便自定义一个模板（在软件里面自定义），然后定位到自定义模板文件夹里：将xml文件用txt记事本打开（notpad++也可以），随便浏览下xml文档结构：</p>
+<p><img src="http://or3sddq9r.bkt.clouddn.com/office/image6.png" alt=""></p>
+<p>看吧，其实模板也没啥神秘的，xml语法结构树中，包含了刚才自定义的所有12中颜色的十六进制色值信息。（数一数一共几个val）。</p>
+<p>但是介于好多小伙伴没有xml基础，txt记事本没有标注xml机构的功能，本文全部是紧凑排列的，挤在一起看不出来什么。</p>
+<p>这里我将其导入R中，使用规范的xml树结构工具来拆解xml文档。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(XML)</div><div class="line"><span class="keyword">library</span>(plyr)</div><div class="line"><span class="keyword">library</span>(dplyr)</div><div class="line"><span class="keyword">library</span>(scales)</div><div class="line">setwd(<span class="string">"C:/Users/Administrator/AppData/Roaming/Microsoft/Templates/Document Themes/Theme Colors"</span>)</div><div class="line">color2&lt;-xmlTreeParse(<span class="string">"balalala.xml"</span>,useInternalNodes=<span class="literal">TRUE</span>)</div><div class="line">color2</div></pre></td></tr></table></figure></p>
+<p><img src="http://or3sddq9r.bkt.clouddn.com/office/image7.png" alt=""></p>
+<p>这回看清楚了吧，以上函数将该xml还原成其xml结构下的树结构，这也是一个语法完整的xml文档，第一行是xml的头文件，声明该xml文档的类型、版本号编码方式以及是否含有外部DTD（什么鬼我也不知道）该树结构分为三级子元素结构：</p>
+<p>分别是带有命名空间的元素a:clrScheme<br>二级元素：a:dkl……a:folHlink 刚好12个二级子元素，对应之前自定义的12中颜色；<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">colornames&lt;-xmlRoot(color2)%&gt;%xmlChildren()%&gt;%names()</div><div class="line"> [<span class="number">1</span>] <span class="string">"dk1"</span>      <span class="string">"lt1"</span>      <span class="string">"dk2"</span>      <span class="string">"lt2"</span>      <span class="string">"accent1"</span>  <span class="string">"accent2"</span>  <span class="string">"accent3"</span>  <span class="string">"accent4"</span> </div><div class="line"> [<span class="number">9</span>] <span class="string">"accent5"</span>  <span class="string">"accent6"</span>  <span class="string">"hlink"</span>    <span class="string">"folHlink"</span></div></pre></td></tr></table></figure></p>
+<p>三级元素：a:sysClr 12个三级元素拥有同样的名称，而我们定义的颜色色值变存储在这12个三级空子元素的val属性值内。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">colorgroup&lt;-getNodeSet(color2,<span class="string">'//a:srgbClr'</span>) <span class="comment">#选取所有三级节点a</span></div><div class="line">colorindex&lt;-laply(colorgroup,xmlAttrs,name=<span class="string">'val'</span>) <span class="comment">#提取所有三级节点中的val属性值</span></div><div class="line">colorindex  </div><div class="line"> [<span class="number">1</span>] <span class="string">"44546A"</span> <span class="string">"E7E6E6"</span> <span class="string">"4472C4"</span> <span class="string">"ED7D31"</span> <span class="string">"A5A5A5"</span> <span class="string">"FFC000"</span> <span class="string">"5B9BD5"</span> <span class="string">"70AD47"</span> <span class="string">"0563C1"</span> <span class="string">"954F72"</span></div></pre></td></tr></table></figure>
+<p>因为R中的16进制色值需要加前缀#才能识别，所以最好加上前缀，这样我们就可以愉快的在R中查看颜色了。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">colorindex&lt;-paste0(<span class="string">"#"</span>,colorindex)</div><div class="line">show_col(colorindex,labels=<span class="literal">F</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://or3sddq9r.bkt.clouddn.com/office/image8.png" alt=""></p>
+<p>好吧，就问你，这个配色方案丑不丑，之前自定义的时候一个颜色没改，就是office2016默认的配色方案，怪不得你做不出来好点的图表作品~</p>
+<p>那么我们是不是可以自己在txt中把一些好看的色值给黏贴进去呢，这样也做成了也挺神奇的哈~说干就干~</p>
+<p>###自制调色板：</p>
+<p>首先找一个好的在线配色平台——</p>
+<p>没错就它了——Adobe Color CC<br><img src="http://or3sddq9r.bkt.clouddn.com/office/image9.png" alt=""></p>
+<p>看着还不错</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">setwd(<span class="string">"C:/Users/Administrator/AppData/Roaming/Microsoft/Templates/Document Themes/Theme Colors"</span>)</div><div class="line">color2&lt;-xmlTreeParse(<span class="string">"balalala.xml"</span>,useInternalNodes=<span class="literal">TRUE</span>)</div><div class="line">colorgroup&lt;-getNodeSet(color2,<span class="string">'//a:srgbClr'</span>) </div><div class="line">colorindex&lt;-laply(colorgroup,xmlAttrs,name=<span class="string">'val'</span>) </div><div class="line">colorindex&lt;-paste0(<span class="string">"#"</span>,colorindex)</div><div class="line">show_col(colorindex,labels=<span class="literal">F</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://or3sddq9r.bkt.clouddn.com/office/image13.png" alt=""></p>
+<p>哈哈，这回配色是不是稍微好一些了，至少要比刚才好很多！</p>
+<p>接下来我有个疯狂的想法，我想把office平台系统默认配色模板全部都导出到R中，然后做成一个万花筒，让大家好好看看微软的工程师都给我们弄了啥花花绿绿的颜色——</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">setwd(<span class="string">"C:/Program Files/Microsoft Office/root/Document Themes 16/Theme Colors"</span>)</div><div class="line">a&lt;-list.files(<span class="string">"."</span>,pattern = <span class="string">"*.xml$"</span>)  </div><div class="line"></div><div class="line"> [<span class="number">1</span>] <span class="string">"Aspect.xml"</span>             <span class="string">"Blue Green.xml"</span>         <span class="string">"Blue II.xml"</span>           </div><div class="line"> [<span class="number">4</span>] <span class="string">"Blue Warm.xml"</span>          <span class="string">"Blue.xml"</span>               <span class="string">"Grayscale.xml"</span>         </div><div class="line"> [<span class="number">7</span>] <span class="string">"Green Yellow.xml"</span>       <span class="string">"Green.xml"</span>              <span class="string">"Marquee.xml"</span>           </div><div class="line">[<span class="number">10</span>] <span class="string">"Median.xml"</span>             <span class="string">"Office 2007 - 2010.xml"</span> <span class="string">"Orange Red.xml"</span>        </div><div class="line">[<span class="number">13</span>] <span class="string">"Orange.xml"</span>             <span class="string">"Paper.xml"</span>              <span class="string">"Red Orange.xml"</span>        </div><div class="line">[<span class="number">16</span>] <span class="string">"Red Violet.xml"</span>         <span class="string">"Red.xml"</span>                <span class="string">"Slipstream.xml"</span>        </div><div class="line">[<span class="number">19</span>] <span class="string">"Violet II.xml"</span>          <span class="string">"Violet.xml"</span>             <span class="string">"Yellow Orange.xml"</span>     </div><div class="line">[<span class="number">22</span>] <span class="string">"Yellow.xml"</span></div></pre></td></tr></table></figure>
+<p>没错这就是某软提供的所有默认配色模板（一共22套）<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">mycolorfile&lt;-c()</div><div class="line">fun&lt;-<span class="keyword">function</span>(i)&#123;  </div><div class="line">color2&lt;-xmlTreeParse(a[i],useInternalNodes=<span class="literal">TRUE</span>)</div><div class="line">colornames&lt;-xmlRoot(color2)%&gt;%xmlChildren()%&gt;%names()</div><div class="line">colorgroup&lt;-getNodeSet(color2,<span class="string">'//a:srgbClr'</span>) </div><div class="line">colorindex&lt;-laply(colorgroup,xmlAttrs,name=<span class="string">'val'</span>)</div><div class="line">colorindex&lt;-paste0(<span class="string">"#"</span>,colorindex)</div><div class="line">&#125;  </div><div class="line"><span class="keyword">for</span> ( i <span class="keyword">in</span> <span class="number">1</span>:length(a))&#123;</div><div class="line">mycolorfile&lt;-c(mycolorfile,fun(i))</div><div class="line">&#125;</div><div class="line"></div><div class="line">show_col(mycolorfile,labels=<span class="literal">F</span>)</div></pre></td></tr></table></figure></p>
+<p><img src="http://or3sddq9r.bkt.clouddn.com/office/image10.png" alt=""></p>
+<p>好吧，这就是微软office所提供的所有默认配色，给你一个眼神，自己体会~_~<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">colordata&lt;-myfullcolorfile[c(-<span class="number">221</span>,-<span class="number">222</span>)]</div><div class="line">dim(colordata)&lt;-c(<span class="number">10</span>,length(a))</div><div class="line">rownames(colordata)&lt;-colornames[c(-<span class="number">1</span>,-<span class="number">2</span>)]</div><div class="line">colnames(colordata)&lt;-sub(<span class="string">".xml"</span>,<span class="string">""</span>,a)</div><div class="line">colordata&lt;-t(colordata)</div><div class="line">write.table(colordata,<span class="string">"F:/colordata.txt"</span>,sep=<span class="string">" "</span>,row.names=<span class="literal">FALSE</span>,col.names=<span class="literal">TRUE</span>,quote=<span class="literal">FALSE</span>)</div></pre></td></tr></table></figure></p>
+<p><img src="http://or3sddq9r.bkt.clouddn.com/office/image11.png" alt=""><br><img src="http://or3sddq9r.bkt.clouddn.com/office/image12.png" alt=""></p>
+<p>好了，大功告成，这样你还会觉得office的配色模板很神秘嘛，哈哈是不是今天学到了很多，不要谢我哟~</p>
+<hr>
+<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）<br>团队公众号：EasyCharts<br>qq交流群：[魔方学院]298236508</p>
+<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。</p>
+<h2 id="Mail-578708965-qq-com"><a href="#Mail-578708965-qq-com" class="headerlink" title="Mail:578708965@qq.com "></a>Mail:578708965@qq.com </h2><p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://or3sddq9r.bkt.clouddn.com/office/image.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;今天我教大家用R语言做一些有趣的事情，什么事情呢~暂时保密哦，想知道的话，认真往下看哟！&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+    
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="office" scheme="http://www.raindu.com/tags/office/"/>
+    
+  </entry>
   
   <entry>
     <title>一篇文章教你搞定JSON素材，从此告别SHP时代~</title>
@@ -79,9 +185,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -184,9 +290,9 @@
       <category term="信息图" scheme="http://www.raindu.com/categories/%E4%BF%A1%E6%81%AF%E5%9B%BE/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -356,9 +462,9 @@
       <category term="R语言" scheme="http://www.raindu.com/categories/R%E8%AF%AD%E8%A8%80/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -401,9 +507,9 @@
       <category term="R语言" scheme="http://www.raindu.com/categories/R%E8%AF%AD%E8%A8%80/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -450,9 +556,9 @@
       <category term="R语言" scheme="http://www.raindu.com/categories/R%E8%AF%AD%E8%A8%80/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -554,9 +660,9 @@
       <category term="R语言" scheme="http://www.raindu.com/categories/R%E8%AF%AD%E8%A8%80/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -608,9 +714,9 @@
       <category term="R语言" scheme="http://www.raindu.com/categories/R%E8%AF%AD%E8%A8%80/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -787,9 +893,9 @@
       <category term="Python" scheme="http://www.raindu.com/categories/Python/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="Python" scheme="http://www.raindu.com/tags/Python/"/>
     
@@ -839,9 +945,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="路径图" scheme="http://www.raindu.com/tags/%E8%B7%AF%E5%BE%84%E5%9B%BE/"/>
     
@@ -905,9 +1011,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -992,9 +1098,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -1041,11 +1147,11 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
+      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
       <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="商务图表" scheme="http://www.raindu.com/tags/%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8/"/>
-    
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -1191,9 +1297,9 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
@@ -1265,136 +1371,13 @@
       <category term="数据可视化" scheme="http://www.raindu.com/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
     
-      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="数据可视化" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="ggplot2" scheme="http://www.raindu.com/tags/ggplot2/"/>
     
       <category term="信息图" scheme="http://www.raindu.com/tags/%E4%BF%A1%E6%81%AF%E5%9B%BE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>R语言数据处理——数据合并与追加</title>
-    <link href="http://www.raindu.com/2017/06/28/R%E8%AF%AD%E8%A8%80%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E5%90%88%E5%B9%B6%E4%B8%8E%E8%BF%BD%E5%8A%A0/"/>
-    <id>http://www.raindu.com/2017/06/28/R语言数据处理——数据合并与追加/</id>
-    <published>2017-06-28T02:47:39.000Z</published>
-    <updated>2017-07-03T13:58:45.910Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/%E6%BC%94%E7%A4%BA%E6%96%87%E7%A8%BF1.jpg" alt=""></p>
-<p>数据结构的塑造是数据可视化前重要的一环，虽说本公众号重心在于数据可视化，可是涉及到一些至关重要的数据整合技巧，还是有必要跟大家分享一下的。</p>
-<a id="more"></a>
-<p>在可视化前的数据处理技巧中，导入导出、长宽转换已经跟大家详细的介绍过了。</p>
-<p>今天跟大大家分享数据集的合并与追加，并且这里根据所依赖函数的处理效率，给出诺干套解决方案。</p>
-<h3 id="本文主要内容："><a href="#本文主要内容：" class="headerlink" title="本文主要内容："></a>本文主要内容：</h3><p><strong>数据合并操作涉及以下几个问题：</strong></p>
-<ul>
-<li><p>横向合并；</p>
-<ul>
-<li><p>是否需要匹配字段</p>
-<ul>
-<li><p>匹配字段合并  </p>
-<ul>
-<li><p>主字段同名</p>
-</li>
-<li><p>主字段不同名</p>
-</li>
-</ul>
-</li>
-<li><p>无需匹配字段合并</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>纵向合并：（情况比较简单，列字段数量相同，名称相同）</p>
-</li>
-</ul>
-<p>因为纵向合并情况比较简单，所以本篇讲解也着重以横向合并为主，按照以上几个问题，需要用到的函数列举如下：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cbind rbind merge plyr::join tidyr:: inner_join/full_join/left_join/right_join</div></pre></td></tr></table></figure>
-<h3 id="首先介绍base内置的两三个函数："><a href="#首先介绍base内置的两三个函数：" class="headerlink" title="首先介绍base内置的两三个函数："></a>首先介绍base内置的两三个函数：</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cbind rbind merge</div></pre></td></tr></table></figure>
-<h4 id="横向追加（无需匹配字段）"><a href="#横向追加（无需匹配字段）" class="headerlink" title="横向追加（无需匹配字段）"></a>横向追加（无需匹配字段）</h4><p>数据集构造如下：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">ID&lt;-c(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</div><div class="line">Name&lt;-c(<span class="string">"A"</span>,<span class="string">"B"</span>,<span class="string">"C"</span>,<span class="string">"D"</span>)</div><div class="line">Score&lt;-c(<span class="number">60</span>,<span class="number">70</span>,<span class="number">80</span>,<span class="number">90</span>)</div><div class="line">Sex&lt;-c(<span class="string">"M"</span>,<span class="string">"F"</span>,<span class="string">"M"</span>,<span class="string">"M"</span>)</div><div class="line">One&lt;-data.frame(ID,Name)</div><div class="line">Two&lt;-data.frame(Score,Sex)</div></pre></td></tr></table></figure></p>
-<p><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image1.png" alt=""></p>
-<p>合并:<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Total&lt;-cbind(One,Two)</div></pre></td></tr></table></figure></p>
-<p><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image2.png" alt=""></p>
-<p>可以看到cbind函数横向合并无需匹配主字段，仅仅是将两个数据集横向拼接在一起。</p>
-<h4 id="纵向合并"><a href="#纵向合并" class="headerlink" title="纵向合并:"></a>纵向合并:</h4><p>构造数据集：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">ID&lt;-c(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</div><div class="line">Name&lt;-c(<span class="string">"A"</span>,<span class="string">"B"</span>,<span class="string">"C"</span>,<span class="string">"D"</span>)</div><div class="line">Student1&lt;-data.frame(ID,Name)</div><div class="line">ID&lt;-c(<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>)</div><div class="line">Name&lt;-c(<span class="string">"E"</span>,<span class="string">"F"</span>,<span class="string">"G"</span>,<span class="string">"H"</span>)</div><div class="line">Student2&lt;-data.frame(ID,Name)</div></pre></td></tr></table></figure></p>
-<p><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image3.png" alt=""></p>
-<p>合并：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Total_student3&lt;-rbind(Student1,Student2)</div></pre></td></tr></table></figure>
-<p><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image4.png" alt=""></p>
-<p>以上通过rbind函数对Student1,Student2两个数据集进行纵向合并（也称追加）。</p>
-<h3 id="merge函数："><a href="#merge函数：" class="headerlink" title="merge函数："></a>merge函数：</h3><p>merge函数主要针对横向（列字段）合并，而且可以针对主字段（主键）进行匹配，如果主字段名称不同，还可以指定前后相匹配的主字段。</p>
-<p>基本语法如下：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">merge(x, y, by = , by.x = , by.y = , all = , all.x = , all.y = , sort = , suffixes = , incomparables = , <span class="keyword">...</span>)</div></pre></td></tr></table></figure>
-<p>具体参数解释如下：</p>
-<p><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image5.png" alt=""></p>
-<p>接下来按照名相同与不同分两种情况介绍；</p>
-<p>列名相同：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">ID&lt;-c(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</div><div class="line">name&lt;-c(<span class="string">"A"</span>,<span class="string">"B"</span>,<span class="string">"C"</span>,<span class="string">"D"</span>)</div><div class="line">score&lt;-c(<span class="number">60</span>,<span class="number">70</span>,<span class="number">80</span>,<span class="number">90</span>)</div><div class="line">student1&lt;-data.frame(ID,name)</div><div class="line">student2&lt;-data.frame(ID,score)</div><div class="line">total_student1&lt;-merge(student1,student2,by=<span class="string">"ID"</span>)</div></pre></td></tr></table></figure></p>
-<p><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image6.png" alt=""></p>
-<p>以上两个数据集有相同的列名（ID）时，by参数可以省略（by=”ID”）</p>
-<p>以上两个数据集中，authors和books中有相同属性的主字段（surname&amp;name）但是主字段名称不同，这里需要给merge函数指定匹配的主字段。</p>
-<p><strong>横向合并的四种类型：</strong></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#inner（内部链接）只合并交集</span></div><div class="line">m1 &lt;- merge(authors, books, by.x = <span class="string">"surname"</span>, by.y = <span class="string">"name"</span>)</div><div class="line"><span class="comment">#left join（左连接）</span></div><div class="line">m2 &lt;- merge(authors, books, by.x = <span class="string">"surname"</span>, by.y = <span class="string">"name"</span>,all.x=<span class="literal">TRUE</span>)</div><div class="line"><span class="comment">#right join（右连接）</span></div><div class="line">m3 &lt;- merge(authors, books, by.x = <span class="string">"surname"</span>, by.y = <span class="string">"name"</span>,all.y=<span class="literal">TRUE</span>)</div><div class="line"><span class="comment">#all_join（外连接）</span></div><div class="line">m4 &lt;- merge(authors, books, by.x = <span class="string">"surname"</span>, by.y = <span class="string">"name"</span>,all=<span class="literal">TRUE</span>)</div></pre></td></tr></table></figure>
-<p><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image7.png" alt=""><br><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image8.png" alt=""><br><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image9.png" alt=""><br><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image10.png" alt=""><br><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image11.png" alt=""></p>
-<h3 id="plyr-join函数"><a href="#plyr-join函数" class="headerlink" title="plyr::join函数"></a>plyr::join函数</h3><p>join函数源于plyr包（该包作者就是大名鼎鼎的Hadley Wickham，就是ggplot2的开发者，当然它开发的包还有很多），使用前需要加载：</p>
-<p>以下是该函数语法：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">join(x, y, by = <span class="literal">NULL</span>, type = <span class="string">"left"</span>, match = <span class="string">"all"</span>)</div></pre></td></tr></table></figure></p>
-<p>当两个数据集主字段有相同名称时，by参数可以省略（by=”name”）,当名称不同时，需指定左右两个数据集匹配的主字段名称。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">join(x,y,by=intersect(<span class="string">"Name"</span>,<span class="string">"name"</span>),type = <span class="string">"left"</span>)</div></pre></td></tr></table></figure></p>
-<p>以下我只演示相同主字段名称下的四种类型合并语句：</p>
-<p>构造待合并数据集:<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">x&lt;-data.frame(name=c(<span class="string">"John"</span>,<span class="string">"Paul"</span>,<span class="string">"George"</span>,<span class="string">"Ringo"</span>,<span class="string">"Stuart"</span>,<span class="string">"Pete"</span>),instrument=c(<span class="string">"guitar"</span>,<span class="string">"bass"</span>,<span class="string">"guitar"</span>,<span class="string">"drums"</span>,<span class="string">"bass"</span>,<span class="string">"drums"</span>))</div><div class="line">y&lt;-data.frame(name=c(<span class="string">"John"</span>,<span class="string">"Paul"</span>,<span class="string">"George"</span>,<span class="string">"Ringo"</span>,<span class="string">"Brian"</span>),band=c(<span class="string">"TRUE"</span>,<span class="string">"TRUE"</span>,<span class="string">"TRUE"</span>,<span class="string">"TRUE"</span>,<span class="string">"FALSE"</span>))</div></pre></td></tr></table></figure></p>
-<p><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image12.png" alt=""></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#left_join</span></div><div class="line">data1&lt;-join(x,y,by=<span class="string">"name"</span>,type = <span class="string">"left"</span>)</div><div class="line"><span class="comment">#right_join</span></div><div class="line">data2&lt;-join(x,y,by=<span class="string">"name"</span>,type = <span class="string">"right"</span>)</div><div class="line"><span class="comment">#inner_join</span></div><div class="line">data3&lt;-join(x,y,by=<span class="string">"name"</span>,type = <span class="string">"inner"</span>)</div><div class="line"><span class="comment">#full_join</span></div><div class="line">data4&lt;-join(x,y,by=<span class="string">"name"</span>,type = <span class="string">"full"</span>)</div></pre></td></tr></table></figure>
-<p><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image13.png" alt=""><br><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image14.png" alt=""></p>
-<p>合并函数与merge函数基本相同。</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dplyr::inner_join/full_join/left_join/right_join</div></pre></td></tr></table></figure>
-<p>（告诉你一个不幸的消息，该包作者还是Hadley Wickham，没办法，一个赢者通吃的时代，谁让人家有才任性呢哈哈~_~）</p>
-<p>dplyr的数据合并语句要比plyr还要精练：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">x&lt;-data.frame(Name=c(<span class="string">"John"</span>,<span class="string">"Paul"</span>,<span class="string">"George"</span>,<span class="string">"Ringo"</span>,<span class="string">"Stuart"</span>,<span class="string">"Pete"</span>),instrument=c(<span class="string">"guitar"</span>,<span class="string">"bass"</span>,<span class="string">"guitar"</span>,<span class="string">"drums"</span>,<span class="string">"bass"</span>,<span class="string">"drums"</span>))</div><div class="line">y&lt;-data.frame(name=c(<span class="string">"John"</span>,<span class="string">"Paul"</span>,<span class="string">"George"</span>,<span class="string">"Ringo"</span>,<span class="string">"Brian"</span>),band=c(<span class="string">"TRUE"</span>,<span class="string">"TRUE"</span>,<span class="string">"TRUE"</span>,<span class="string">"TRUE"</span>,<span class="string">"FALSE"</span>))</div></pre></td></tr></table></figure></p>
-<p><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image15.png" alt=""></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#(1)inner_join(x, y) ：只包含同时出现在x,y表中的行</span></div><div class="line">data1&lt;-inner_join(x,y,by=c(<span class="string">"Name"</span>=<span class="string">"name"</span>))</div><div class="line"><span class="comment">#(2)left_join(x, y) ：包含所有x中以及y中匹配的行</span></div><div class="line">data2&lt;-left_join(x,y,by=c(<span class="string">"Name"</span>=<span class="string">"name"</span>))</div><div class="line"><span class="comment">#(3)right_join(x, y,by=c("Name"="name")) ：包含所有y中以及x中匹配的行</span></div><div class="line">data3&lt;-right_join(x,y,by=c(<span class="string">"Name"</span>=<span class="string">"name"</span>))</div><div class="line"><span class="comment">#(4)full_join(x,y,by=c("Name"="name")) ：包含所以x、y中的行</span></div><div class="line">data4&lt;-full_join(x,y,by=c(<span class="string">"Name"</span>=<span class="string">"name"</span>))</div><div class="line"><span class="comment">#(5)semi_join(x, y) ：包含x中，在y中有匹配的行，结果为x的子集</span></div><div class="line">data5&lt;-semi_join(x,y,by=c(<span class="string">"Name"</span>=<span class="string">"name"</span>))</div><div class="line"><span class="comment">#(6)anti_join(x, y) ：包含x中，不匹配y的行，结果为x的子集，与semi_join相反</span></div><div class="line">data6&lt;-anti_join(x,y)</div></pre></td></tr></table></figure>
-<p><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image16.png" alt=""><br><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image17.png" alt=""></p>
-<p>以上连接类型中，前四个（内连接、外连接、左连接、右连接）最为常用，大家可以将dplyr和plyr以及merge函数三种连接方式进行对比记忆。</p>
-<p>下面聊一列为啥要专门讲一节数据连接方式：</p>
-<p>因为……</p>
-<p>在excel中……</p>
-<p>这种数据连接真的……真的……真的……太费劲了</p>
-<p>我所知道的连接方式——</p>
-<ul>
-<li>第一：手动复制黏贴；（大家不要随便作死）</li>
-<li>第二：最古老的Microsoft Query（藏在excel数据导入菜单的最底层，据说微软也不更新了，如果的excel是精简版的，可能都没法调用，菜单特丑）</li>
-<li>第三：数据透视表；Alt+D+P（为啥微软要把调用数据透视表多表合并的菜单隐藏起来只能用快捷键，太烦人了）</li>
-<li>第四：微软的最新商务智能应用——PowerBI(其中的PowerQuery、PowerPivot)</li>
-<li>第五：第三方的效率插件（很多VBA大神写过这些办公插件，但是我就不爱用，多装一个，Excel启动拖后两秒钟，时间就是金钱啊你说是不）</li>
-</ul>
-<p>以上四种方式（第一种除外），虽说都可以完成数据合并操作，但是效率上不敢恭维，每次都得走一遍菜单流程。如果有点R语言基础的同学，强烈建议将这些操作放在R中操作，数据导入导出、长宽转换、横纵合并，只需修改一下代码路径、参数分分钟搞定。</p>
-<p>当然对于有数据库基础的同学(相信大部分同学都有吧，应该是大学本科的必修课)来讲，写几个SQL也可以瞬间完成。</p>
-<p>虽然已经N多年没有用过了，但是还是想在这里献丑一下：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">内连接 inner join</div><div class="line">语法：<span class="keyword">select</span> * <span class="keyword">from</span> x <span class="keyword">inner</span> <span class="keyword">join</span> y <span class="keyword">on</span> x.Name =y.name</div><div class="line"></div><div class="line">左连接 <span class="keyword">left</span> <span class="keyword">join</span>（左表中所有数据，右表中对应数据）</div><div class="line">语法：<span class="keyword">select</span> * <span class="keyword">from</span> x <span class="keyword">left</span> <span class="keyword">join</span> y <span class="keyword">on</span> x.Name = y.name</div><div class="line"></div><div class="line">右连接 <span class="keyword">right</span> <span class="keyword">join</span>（右表中所有数据，左表中对应数据）</div><div class="line">语法：<span class="keyword">select</span> * <span class="keyword">from</span> x <span class="keyword">right</span> <span class="keyword">join</span> y <span class="keyword">on</span> x.Name = y.name</div><div class="line"></div><div class="line">全连接 <span class="keyword">full</span> <span class="keyword">join</span></div><div class="line">语法：<span class="keyword">select</span> * <span class="keyword">from</span> x <span class="keyword">full</span> <span class="keyword">join</span> y <span class="keyword">on</span> x.Name = y.name</div></pre></td></tr></table></figure>
-<p><img src="http://orrrzlir6.bkt.clouddn.com/R/merge/image18.png" alt=""></p>
-<p>我是一个比较懒、嫌麻烦但注重效率的人，很多关于数据处理上的需求，如果能用简单的方式解决（比如VBA、R或者效率函数）,我都不会去选择安装插件或者外部软件，一方面太浪费时间，操作麻烦；另一方面，使用插件大多需要用菜单点选，以后遇到同样的需要还得从新走一遍流程，所以我更倾向用简单的可重复利用的代码来解决。</p>
-<p>简单、省事儿、快捷、可重复……</p>
-<hr>
-<p><strong>联系方式：</strong><br>wechat：ljty1991<br>Mail:578708965@qq.com<br>个人公众号：数据小魔方（datamofang）</p>
-<p>qq交流群：[魔方学院]298236508</p>
-<p><strong>个人简介：</strong><br><strong><em>杜雨</em></strong><br>财经专业研究僧；<br>伪数据可视化达人；<br>文科背景的编程小白；<br>喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。<br>Mail:578708965@qq.com </p>
-<hr>
-<p><strong>备注信息：</strong><br><a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a><br>本作品采用<a rel="external" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://orrrzlir6.bkt.clouddn.com/R/merge/%E6%BC%94%E7%A4%BA%E6%96%87%E7%A8%BF1.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;数据结构的塑造是数据可视化前重要的一环，虽说本公众号重心在于数据可视化，可是涉及到一些至关重要的数据整合技巧，还是有必要跟大家分享一下的。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="R语言" scheme="http://www.raindu.com/categories/R%E8%AF%AD%E8%A8%80/"/>
-    
-    
-      <category term="R语言" scheme="http://www.raindu.com/tags/R%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="数据清洗" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E6%B8%85%E6%B4%97/"/>
-    
-      <category term="数据合并与追加" scheme="http://www.raindu.com/tags/%E6%95%B0%E6%8D%AE%E5%90%88%E5%B9%B6%E4%B8%8E%E8%BF%BD%E5%8A%A0/"/>
     
   </entry>
   
