@@ -112,7 +112,7 @@
 <meta property="og:image" content="http://or3sddq9r.bkt.clouddn.com/json_shp/image6.jpg">
 <meta property="og:image" content="http://or3sddq9r.bkt.clouddn.com/json_shp/image1.jpg">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc/4.0/88x31.png">
-<meta property="og:updated_time" content="2017-08-28T04:15:18.861Z">
+<meta property="og:updated_time" content="2017-08-29T12:27:24.629Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一篇文章教你搞定JSON素材，从此告别SHP时代~">
 <meta name="twitter:description" content="最近几天推送频率之所以下降了，不是因为偷懒，是在攻克一个难题~ 还记得前一篇推送，关于山东省财政数据可视化那一篇，因为没有精准、最新的山东省县级市边界地图素材数据，花了好多冤枉功夫，搜地图素材各种碰壁，最后的得到的地图数据并不尽如人意。">
@@ -478,19 +478,16 @@
 <a id="more"></a>
 <p>现在shp的素材相比json整体都不太流行了，无论是制作成本上还是占用内存上以及与实际行政区划的更新速度上，json地图素材轻便、时效、易获取，很多网站都提供这种轻量级的数据文件。</p>
 <p>可是json文件遵循的JS语法，导入R中之后，全部被强制转化为各种嵌套的list、data.frame、array等混合体，如果没有对R数据结构很好的把握，基本看上一眼就绝望了。</p>
-<p>###json数据预览：</p>
-<p><strong>记事本打开的json数据</strong><br><img src="http://or3sddq9r.bkt.clouddn.com/json_shp/image2.jpg" alt=""></p>
+<h3 id="json数据预览："><a href="#json数据预览：" class="headerlink" title="json数据预览："></a>json数据预览：</h3><p><strong>记事本打开的json数据</strong><br><img src="http://or3sddq9r.bkt.clouddn.com/json_shp/image2.jpg" alt=""></p>
 <p><strong>R中打开的json数据</strong><br><img src="http://or3sddq9r.bkt.clouddn.com/json_shp/image3.jpg" alt=""></p>
 <p><strong>网页渲染后的json数据代码</strong><br><img src="http://or3sddq9r.bkt.clouddn.com/json_shp/image4.jpg" alt=""></p>
 <p>虽然难以理解，但是又不得不用，所以再难也得拿下~</p>
-<p>###json数据类型：</p>
-<p>这里先说明一下，Json数据格式分为两类，一类是geojson，内部的数据类型显示FeatureCollection，这种类型数据文件里面直接存储的是解码后的经纬度数据，另一类是topojson，这种类型是需要通过坐标转换后才能使用，因为每一个点不是真实经纬度，所以下载的时候一定要看清楚。</p>
+<h3 id="json数据类型："><a href="#json数据类型：" class="headerlink" title="json数据类型："></a>json数据类型：</h3><p>这里先说明一下，Json数据格式分为两类，一类是geojson，内部的数据类型显示FeatureCollection，这种类型数据文件里面直接存储的是解码后的经纬度数据，另一类是topojson，这种类型是需要通过坐标转换后才能使用，因为每一个点不是真实经纬度，所以下载的时候一定要看清楚。</p>
 <p>这里提供给大家三个网址：<br><a href="http://geojson.io/#map=7/32.064/117.268" target="_blank" rel="external">geojson.io</a></p>
 <blockquote>
 <p>以上网址自选、也可以通过导入shp数据转换格式（其中就可以将topojson转化为geojson）。<br><a href="http://mapshaper.org/" target="_blank" rel="external">mapshaper</a><br><a href="http://datav.aliyun.com/static/tools/atlas/#&amp;lat=36.416862115300304&amp;lng=117.5701904296875&amp;zoom=7" target="_blank" rel="external">datav</a></p>
 </blockquote>
-<p>###数据准备：</p>
-<p>以下过程我用两个示例展示提取json地图数据的过程：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(<span class="string">"jsonlite"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"ggplot2"</span>)</div><div class="line"><span class="keyword">library</span>(plyr)</div><div class="line"><span class="keyword">library</span>(dplyr)</div><div class="line">setwd(<span class="string">"D:/R/mapdata/City/"</span>)</div></pre></td></tr></table></figure></p>
+<h3 id="数据准备："><a href="#数据准备：" class="headerlink" title="数据准备："></a>数据准备：</h3><p>以下过程我用两个示例展示提取json地图数据的过程：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(<span class="string">"jsonlite"</span>)</div><div class="line"><span class="keyword">library</span>(<span class="string">"ggplot2"</span>)</div><div class="line"><span class="keyword">library</span>(plyr)</div><div class="line"><span class="keyword">library</span>(dplyr)</div><div class="line">setwd(<span class="string">"D:/R/mapdata/City/"</span>)</div></pre></td></tr></table></figure></p>
 <p><strong>提取济南市json地图数据：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">json_data &lt;- fromJSON(<span class="string">"370100.json"</span>)</div><div class="line">city&lt;-json_data$features$properties</div><div class="line">names(city)[<span class="number">2</span>]&lt;-<span class="string">"code"</span></div><div class="line">city$id&lt;-<span class="number">1</span>:nrow(city)</div><div class="line">city$sale&lt;-round(rnorm(nrow(city),<span class="number">100</span>,<span class="number">20</span>),<span class="number">0</span>)</div></pre></td></tr></table></figure></p>
 <p>这里提取了济南市各区的名称、代码，并生成了虚拟指标</p>
 <p><strong>济南市各区边界点坐标：</strong><br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">citydata&lt;-json_data$features$geometry$coordinates</div><div class="line">mapdata&lt;-data.frame()</div><div class="line"><span class="keyword">for</span>( i <span class="keyword">in</span> <span class="number">1</span>:length(citydata))&#123;</div><div class="line">citymapdata&lt;-citydata[[i]]</div><div class="line">dim(citymapdata)=c(length(citymapdata)/<span class="number">2</span>,<span class="number">2</span>)</div><div class="line">citymapdata&lt;-data.frame(citymapdata);names(citymapdata)[<span class="number">1</span>:<span class="number">2</span>]&lt;-c(<span class="string">"lon"</span>,<span class="string">"lat"</span>)</div><div class="line">citymapdata$id&lt;-i</div><div class="line">citymapdata$group&lt;-as.numeric(paste0(i,<span class="string">"."</span>,<span class="number">1</span>))</div><div class="line">citymapdata$order&lt;-<span class="number">1</span>:dim(citymapdata)[<span class="number">1</span>]</div><div class="line">mapdata&lt;-rbind(mapdata,citymapdata)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
@@ -667,8 +664,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.png"
@@ -683,7 +689,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">83</span>
+                <span class="site-state-item-count">84</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -776,6 +782,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#json数据预览："><span class="nav-number">1.</span> <span class="nav-text">json数据预览：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#json数据类型："><span class="nav-number">2.</span> <span class="nav-text">json数据类型：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据准备："><span class="nav-number">3.</span> <span class="nav-text">数据准备：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -814,7 +836,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共126.2k字</span>
+  <span class="post-count">博客全站共127.9k字</span>
 </div>
 
 <div class="theme-info">
