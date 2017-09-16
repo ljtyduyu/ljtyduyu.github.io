@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[用R语言制作商务图表，让你的图表美出新高度~]]></title>
+    <url>%2F2017%2F09%2F16%2F%E7%94%A8R%E8%AF%AD%E8%A8%80%E5%88%B6%E4%BD%9C%E5%95%86%E5%8A%A1%E5%9B%BE%E8%A1%A8%EF%BC%8C%E8%AE%A9%E4%BD%A0%E7%9A%84%E5%9B%BE%E8%A1%A8%E7%BE%8E%E5%87%BA%E6%96%B0%E9%AB%98%E5%BA%A6%2F</url>
+    <content type="text"><![CDATA[本文案例图表是之前本公众号推送过的一个方块面积比较图，之前看到过刘万祥老师在其公众号及博客中也提供了很好的制作思路。 当时就想如果是使用R来写该图表，不止是否可行呢，只是当时一时半会儿没有思路，直到最近，随着对ggplot 系统的理解进一步加深，这才找到了比较合适的思路。 今天跟大家分享使用R语言的ggplot函数来模仿该图表： 以下是原图： 为了 将本文 制作的成品图与该案例原图进行比较，我使用了相同的数据源：1234library(ggplot2)library(ggmap) #加载ggmap是为了使用其theme_nothing（）函数清空其原有主题元素 制作数据源：1mydata&lt;-data.frame(X=c(3,7,11,15,19),A=c(2471,1893,1248,1078,556),B=c(1385,951,869,784,366),C=c(56,7,19,13,40)) 以下过程构造三个序列的矩形范围数据（X轴起点终点、Y轴起点终点）12345678910111213141516mydata$Axmin&lt;-mydata$X-sqrt(mydata$A)/30mydata$Axmax&lt;-mydata$X+sqrt(mydata$A)/30mydata$Aymin&lt;-0mydata$Aymax&lt;-sqrt(mydata$A)/15mydata$Bxmin&lt;-mydata$X+sqrt(mydata$A)/30-sqrt(mydata$B)/15mydata$Bxmax&lt;-mydata$X+sqrt(mydata$A)/30mydata$Bymin&lt;-0mydata$Bymax&lt;-sqrt(mydata$B)/15mydata$Cxmin&lt;-mydata$X+sqrt(mydata$A)/30-sqrt(mydata$C)/10mydata$Cxmax&lt;-mydata$X+sqrt(mydata$A)/30mydata$Cymin&lt;-0mydata$Cymax&lt;-sqrt(mydata$C)/10 仔细体会我在设置以上起始点时所用到的思路 其中第一个序列在最底层，可以使其中心对齐 第二、三个序列则需要对齐第一个序列的右侧 原数据开方后仍然很大需要酌情进行压缩标度（这里除以15） 数值标签和文本标签12mydata$text&lt;-c("University of\n Pennsylvania","University of\n Notre Dame","Princeton\n University","Stanford\n University","California Institute\n of Technology")mydata$full&lt;-c("31663","16548","27189","34348","5225") 数据整理1234567891011121314mydata1&lt;-mydata[,5:8]names(mydata1)&lt;-c("xmin","xmax","ymin","ymax")mydata1$Group&lt;-"A"mydata2&lt;-mydata[,9:12]names(mydata2)&lt;-c("xmin","xmax","ymin","ymax")mydata2$Group&lt;-"B"mydata3&lt;-mydata[,13:16]names(mydata3)&lt;-c("xmin","xmax","ymin","ymax")mydata3$Group&lt;-"C"mynewdata&lt;-rbind(mydata1,mydata2,mydata3)mynewdata$Group&lt;-factor(mynewdata$Group,order=T) 设置字体为arial字体1windowsFonts(myFont = windowsFont("arial")) 运行以下图表函数：1234567891011121314151617ggplot(mynewdata)+geom_rect(aes(xmin=xmin,xmax=xmax,ymin=ymin,ymax=ymax,fill=Group))+scale_fill_manual(values=c("#59AF8A","#0074A3","#C72733"))+geom_linerange(aes(x=X+2,ymin=0,ymax=4.8),col="grey",linetype=2)+ylim(-.5,6)+labs(x="",y="")+geom_text(aes(x=X,y=4.5,label=text),size=4,fontface="bold",family="myFont")+geom_label(aes(x=X,y=3.7,label=full),fill="#EFE5CA",colour="black",fontface="bold",size=3.5,label.r=unit(0.15,"lines"),family="myFont")+geom_text(aes(x=Axmin,y=Aymax,label=A),hjust=-.2,vjust=1,size=3.5,col="white",family="myFont")+geom_text(aes(x=Bxmin,y=Bymax,label=B),hjust=-.2,vjust=1,size=3.5,col="white",family="myFont")+geom_text(aes(x=Cxmin,y=Cymax,label=C),hjust=-.2,vjust=1,size=3,col="white",family="myFont")+annotate("text",x=2.5,y=5.7,label="Class Struggle",col="black", size=6,family="myFont")+ annotate("text",x=8.85,y=5.2,label="A spot on a university or college's waitlist rarely translates into admission. A look at the numbers for several institutions", size=4,family="myFont")+ annotate("text",x=3.9,y=-.32,label="Source:The universities and 2011-2012 Common Data Set",col="black",size=3,family="myFont")+ annotate("text",x=19.8,y=-.32,label="The wall Street Jaunual",col="black",size=3,family="myFont")+ theme_nothing()+theme(panel.background=element_rect(fill="#F5F2E1")) 建议保存尺寸（1035*330） 建议使用Cairo包进行保存操作： 使用方法如下： 123456font.add("myfont", "arial.ttf")CairoPNG(file="C:/Users/Administrator/Desktop/image.png",width=1035,height=330)showtext.begin()……showtext.end()dev.off() 联系方式：wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]298236508 个人简介：杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。Mail:578708965@qq.com 备注信息：本作品采用知识共享署名-非商业性使用 4.0 国际许可协议]]></content>
+      <categories>
+        <category>数据可视化</category>
+      </categories>
+      <tags>
+        <tag>数据可视化</tag>
+        <tag>R语言</tag>
+        <tag>ggplot2</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[大连市2016年空气质量数据可视化~]]></title>
     <url>%2F2017%2F08%2F30%2F%E5%A4%A7%E8%BF%9E%E5%B8%822016%E5%B9%B4%E7%A9%BA%E6%B0%94%E8%B4%A8%E9%87%8F%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%2F</url>
     <content type="text"><![CDATA[前几天发现了一个很有趣的包——openair，可以将年度时间序列刻画成周年日历热图，感觉这种形式非常适合用于呈现年度空气质量可视化，所以抓空爬了一些大连市2016年年度空气质量数据拿来玩玩，目标网站网页结构比较简单，爬取过程很轻松，界面部分很规律，感觉这个代码可以作为模板用，感兴趣的小伙伴儿可以试着玩一玩！ ###数据准备 12345678910library(RCurl)library(XML)library(dplyr)library(ggplot2)library(stringr)library(rvest)library(lubridate)library("DT")library(openair)library(ggplot2) ###数据爬取过程： 构造月度url地址（网站是按照月度数据存储的，需要按月爬取）12345678urlbase&lt;-"https://www.aqistudy.cn/historydata/"url&lt;-"https://www.aqistudy.cn/historydata/monthdata.php?city=大连"rd &lt;- getURL(url,.encoding="UTF-8")rdhtml &lt;- htmlParse(rd,encoding="UTF-8")otherpage&lt;-getNodeSet(rdhtml,"//a")allurl&lt;-laply(otherpage,xmlGetAttr,name='href')%&gt;%grep("2016",.,value=T)%&gt;%sub("麓贸脕卢","大连",.)#以上还是编码出了问题，不知道那个乱码是什么鬼！只能强行替换了！allurl&lt;-paste0(urlbase,allurl) 以上过程也可先通过观察大连市的月度空气质量url地址规律，然后通过paste函数直接生成。 1allurl&lt;-paste0("https://www.aqistudy.cn/historydata/daydata.php?city=大连&amp;month=",201601:201612) 这是简单粗暴的方式，但是不保证任何网址都可以使用 先写完一个看下具体情况 1tbls&lt;-read_html(allurl[1],encoding="utf-8")%&gt;%html_table(.,header=TRUE,trim=TRUE);tbls&lt;-tbls[[1]] 编写单次爬取函数，使用for循环遍历网址进行数据获取（原谅我又用了for循环）123456789mytable&lt;-data.frame()for (i in allurl)&#123;Sys.sleep(sample(1:5,1))fun&lt;-function(m)&#123;table&lt;-read_html(m,encoding="utf-8")%&gt;%html_table(.,header=TRUE,trim=TRUE)table&lt;-table[[1]]&#125;mytable&lt;-rbind(mytable,fun(i))&#125; 使用动态表格查看数据1datatable(mytable) 备份一份数据，以防原数据损坏1mytableb&lt;-mytable ###调整时间变量1mytable$日期&lt;-as.Date(mytable$日期);names(mytable)[1]&lt;-"date" AQI指数年度分布日力图1calendarPlot(mytable,pollutant="AQI",year=2016) PM2.5指数年度分布日力图1calendarPlot(mytable,pollutant="PM2.5",year=2016) ###使用ggplot函数制作同样的日力图1dat &lt;- mytable 这次使用lubridate包来处理时间日期变量（超级好用）123456dat$month&lt;-as.numeric(as.POSIXlt(dat$date)$mon+1)dat$monthf&lt;-factor(dat$month,levels=as.character(1:12),labels=c("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"),ordered=TRUE)dat$weekday&lt;-as.POSIXlt(dat$date)$wdaydat$weekdayf&lt;-factor(dat$weekday,levels=rev(0:6),labels=rev(c("Sun","Mon","Tue","Wed","Thu","Fri","Sat")),ordered=TRUE)dat$week &lt;- as.numeric(format(dat$date,"%W"))dat&lt;-ddply(dat,.(monthf),transform,monthweek=1+week-min(week)) AQI指数为污染级别以上的天数分布1234567windowsFonts(myFont = windowsFont("微软雅黑"))ggplot(dat,aes(monthweek,weekdayf,fill=AQI))+ geom_tile(colour='white') + facet_wrap(~monthf ,nrow=3) + scale_fill_gradient(space="Lab",limits=c(100, max(dat$AQI)),low="yellow", high="red") + labs(title="大连市2016年空气日历热图",subtitle="AQI指数为污染级别以上的天数分布（AQI&gt;=100）",x="Week of Month",y="")+ theme(title=element_text(family="myFont")) PM2.5指数为污染级别以上的天数分布123456ggplot(dat,aes(monthweek,weekdayf,fill=PM2.5))+ geom_tile(colour='white') + facet_wrap(~monthf ,nrow=3) + scale_fill_gradient(space="Lab",limits=c(75, max(dat$PM2.5)),low="yellow", high="red") + labs(title="大连市2016年气温日历热图",subtitle="PM2.5指数为污染级别以上的天数分布（PM2.5&gt;=75）",x="Week of Month",y="")+ theme(title=element_text(family="myFont")) 大体来看，大连整个2016年度污染天气相对来讲，还算是挺良心的，跟帝都比起来要好很多。AQI和PM2.5在污染级别以上的天数不超过两个月。 ###时间维度考察 接下来呢，我们做一些详细的统计工作，具体就是从时间细分维度来查看季度、月度、周度等平均AQI、PM2.5指数分布情况123data3&lt;-mytable[,c(1,2,4,5)]data3&lt;-transform(data3,Quarter=quarter(date),Month=month(date),Week=week(date))data3$质量等级&lt;-factor(data3$质量等级,levels=c("重度污染","中度污染","轻度污染","良","优"),labels=c("重度污染","中度污染","轻度污染","良","优"),order=T) 首选查看五个污染级别在2016年度出现的频率：123456789101112131415countd&lt;-count(data3$质量等级)%&gt;%arrange(.,-freq)ggplot(countd,aes(reorder(x,freq),freq))+geom_bar(fill="#0C8DC4",stat="identity")+coord_flip()+labs(title="大连市2016年度空气质量分布",subtitle="污染级别频率分布图",caption="https://www.aqistudy.cn/")+geom_text(aes(label=freq),hjust=1,colour="white",size=8)+theme_bw()+theme( text=element_text(family="myFont"), panel.border=element_blank(), panel.grid.major=element_line(linetype="dashed"), panel.grid.minor=element_blank(), plot.caption=element_text(hjust=0,size=10), axis.title=element_blank() ) 基于季度空气质量平均水平分布图：1234567891011121314Quarter&lt;-aggregate(AQI~Quarter,data=data3,FUN=mean)ggplot(Quarter,aes(reorder(Quarter,-AQI),AQI))+geom_bar(fill="#0C8DC4",stat="identity")+labs(title="大连市2016年度空气质量分布",subtitle="AQI污染指数季度指标平均分布图",caption="https://www.aqistudy.cn/")+geom_text(aes(label=round(AQI)),vjust=1.5,colour="white",size=8)+theme_bw()+theme( text=element_text(family="myFont"), panel.border=element_blank(), panel.grid.major=element_line(linetype="dashed"), panel.grid.minor=element_blank(), plot.caption=element_text(hjust=0,size=10), axis.title=element_blank() ) 基于月度空气质量平均水平分布图：1234567891011121314Month&lt;-aggregate(AQI~Month,data=data3,FUN=mean)ggplot(Month,aes(reorder(Month,-AQI),AQI))+geom_bar(fill="#0C8DC4",stat="identity")+labs(title="大连市2016年度空气质量分布",subtitle="AQI污染指数月度指标平均分布图",caption="https://www.aqistudy.cn/")+geom_text(aes(label=round(AQI)),vjust=1.5,colour="white",size=6)+theme_bw()+theme( text=element_text(family="myFont"), panel.border=element_blank(), panel.grid.major=element_line(linetype="dashed"), panel.grid.minor=element_blank(), plot.caption=element_text(hjust=0,size=10), axis.title=element_blank() ) 基于月度空气质量平均水平分布图：1234567891011121314Week&lt;-aggregate(AQI~Week,data=data3,FUN=mean)ggplot(Week,aes(factor(Week,order=T),AQI,group=1))+geom_line(col="#0C8DC4")+labs(title="大连市2016年度空气质量分布",subtitle="AQI污染指数周度指标平均分布图",caption="https://www.aqistudy.cn/")+geom_text(aes(label=ifelse(Week&gt;100,Week,"")),vjust=1.5,colour="white",size=6)+theme_bw()+theme( text=element_text(family="myFont"), panel.border=element_blank(), panel.grid.major=element_line(linetype="dashed"), panel.grid.minor=element_blank(), plot.caption=element_text(hjust=0,size=10), axis.title=element_blank() ) 从以上周度AQI平均指标上来看，大连市2016年度的周度平均AQI指数大部分周都在100以下，看到这个感觉生活在大连还是蛮幸福的，看着北上的小伙伴儿隔三差五的在朋友圈晒人间仙境也是一件很有趣的事哈哈！ 联系方式：wechat：ljty1991Mail:578708965@qq.com个人公众号：数据小魔方（datamofang）团队公众号：EasyChartsqq交流群：[魔方学院]298236508 个人简介：杜雨财经专业研究僧；伪数据可视化达人；文科背景的编程小白；喜欢研究商务图表与地理信息数据可视化，爱倒腾PowerBI、SAP DashBoard、Tableau、R ggplot2、Think-cell chart等诸如此类的数据可视化软件，创建并运营微信公众号“数据小魔方”。Mail:578708965@qq.com 备注信息：本作品采用知识共享署名-非商业性使用 4.0 国际许可协议]]></content>
@@ -8,8 +21,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -21,8 +34,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>office</tag>
       </tags>
   </entry>
@@ -34,8 +47,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -59,8 +72,8 @@
         <category>信息图</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>信息图</tag>
       </tags>
@@ -97,8 +110,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -110,8 +123,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -123,8 +136,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -136,8 +149,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -149,8 +162,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -174,8 +187,8 @@
         <category>Python</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>Python</tag>
         <tag>数据分析</tag>
       </tags>
@@ -188,8 +201,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>路径图</tag>
         <tag>ggplot2</tag>
       </tags>
@@ -202,8 +215,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>信息图</tag>
       </tags>
@@ -216,8 +229,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>数据地图</tag>
       </tags>
@@ -230,9 +243,9 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>商务图表</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -257,8 +270,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>数据地图</tag>
       </tags>
@@ -271,8 +284,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>信息图</tag>
       </tags>
@@ -311,8 +324,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -324,8 +337,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>ggradar</tag>
       </tags>
@@ -352,8 +365,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>图表美化</tag>
         <tag>ggplot2</tag>
         <tag>ggtech</tag>
@@ -367,8 +380,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>ggtech</tag>
       </tags>
@@ -381,8 +394,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -408,9 +421,9 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>商务图表</tag>
+        <tag>R语言</tag>
         <tag>数据地图</tag>
       </tags>
   </entry>
@@ -422,9 +435,9 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>商务图表</tag>
+        <tag>R语言</tag>
         <tag>数据地图</tag>
       </tags>
   </entry>
@@ -436,9 +449,9 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>商务图表</tag>
+        <tag>R语言</tag>
         <tag>数据地图</tag>
       </tags>
   </entry>
@@ -450,8 +463,8 @@
         <category>Excel</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>Excel</tag>
+        <tag>数据可视化</tag>
         <tag>商务图表</tag>
       </tags>
   </entry>
@@ -463,8 +476,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>图表美化</tag>
         <tag>theme</tag>
         <tag>视觉信号</tag>
@@ -478,8 +491,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>气泡云图.superbubble</tag>
         <tag>PowerBI</tag>
         <tag>Tableau</tag>
@@ -493,8 +506,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>图表美化</tag>
         <tag>配色技巧</tag>
       </tags>
@@ -507,8 +520,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>数据地图</tag>
         <tag>九段线</tag>
         <tag>mini导航窗口</tag>
@@ -522,8 +535,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>图表美化</tag>
         <tag>主题定制</tag>
       </tags>
@@ -536,8 +549,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -552,8 +565,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>版面控制</tag>
       </tags>
@@ -566,11 +579,11 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
+        <tag>动态图表</tag>
         <tag>ggplot2</tag>
         <tag>版面控制</tag>
-        <tag>动态图表</tag>
       </tags>
   </entry>
   <entry>
@@ -581,8 +594,8 @@
         <category>可视化案例呈现</category>
       </categories>
       <tags>
-        <tag>数据可视化</tag>
         <tag>Excel</tag>
+        <tag>数据可视化</tag>
         <tag>商务图表</tag>
       </tags>
   </entry>
@@ -594,9 +607,9 @@
         <category>可视化案例呈现</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
         <tag>商务图表</tag>
+        <tag>R语言</tag>
       </tags>
   </entry>
   <entry>
@@ -607,8 +620,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>版式设计</tag>
         <tag>grid</tag>
@@ -622,8 +635,8 @@
         <category>ggplot2</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>ggplot2</tag>
         <tag>数据地图</tag>
@@ -651,8 +664,8 @@
         <category>PowerBI</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>在线地图</tag>
         <tag>PowerBI</tag>
       </tags>
@@ -665,8 +678,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>多边形填充</tag>
       </tags>
@@ -684,8 +697,8 @@
         <category>图表配色</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>配色</tag>
       </tags>
   </entry>
@@ -697,8 +710,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>极坐标</tag>
         <tag>饼图</tag>
@@ -714,8 +727,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -727,8 +740,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -742,8 +755,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>REmap</tag>
         <tag>热力密度地图</tag>
@@ -757,11 +770,11 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
-        <tag>REmap</tag>
         <tag>填充地图</tag>
+        <tag>REmap</tag>
       </tags>
   </entry>
   <entry>
@@ -772,11 +785,11 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
-        <tag>在线地图</tag>
         <tag>REmap</tag>
+        <tag>在线地图</tag>
       </tags>
   </entry>
   <entry>
@@ -787,11 +800,11 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
-        <tag>在线地图</tag>
         <tag>REmap</tag>
+        <tag>在线地图</tag>
         <tag>路径图</tag>
       </tags>
   </entry>
@@ -803,11 +816,11 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
-        <tag>在线地图</tag>
         <tag>REmap</tag>
+        <tag>在线地图</tag>
       </tags>
   </entry>
   <entry>
@@ -818,8 +831,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -834,11 +847,11 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
-        <tag>在线地图</tag>
         <tag>json</tag>
+        <tag>在线地图</tag>
         <tag>leaflet</tag>
       </tags>
   </entry>
@@ -850,8 +863,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -866,12 +879,12 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
-        <tag>路径图</tag>
         <tag>leaflet</tag>
+        <tag>路径图</tag>
         <tag>mini柱形/条形图</tag>
       </tags>
   </entry>
@@ -883,8 +896,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -899,8 +912,8 @@
         <category>地理信息可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>在线地图</tag>
         <tag>leaflet</tag>
@@ -915,8 +928,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>ggplot2</tag>
         <tag>mini柱形/条形图</tag>
@@ -930,8 +943,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>地理信息可视化</tag>
         <tag>ggplot2</tag>
         <tag>mini饼图</tag>
@@ -945,8 +958,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>爬虫</tag>
         <tag>国产电影</tag>
@@ -961,8 +974,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>爬虫</tag>
         <tag>空气质量可视化</tag>
@@ -976,8 +989,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>路径图</tag>
         <tag>ggplot2</tag>
       </tags>
@@ -990,8 +1003,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>热力地图</tag>
       </tags>
@@ -1004,8 +1017,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>信息图</tag>
         <tag>版面设计</tag>
@@ -1020,8 +1033,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>信息图</tag>
       </tags>
@@ -1034,10 +1047,10 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
-        <tag>ggplot2</tag>
+        <tag>R语言</tag>
         <tag>动态图表</tag>
+        <tag>ggplot2</tag>
         <tag>gif</tag>
       </tags>
   </entry>
@@ -1049,8 +1062,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>gif</tag>
         <tag>动态地图</tag>
@@ -1064,8 +1077,8 @@
         <category>仪表盘</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>仪表盘</tag>
         <tag>排版</tag>
@@ -1079,8 +1092,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>信息图</tag>
       </tags>
@@ -1093,8 +1106,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>爬虫</tag>
         <tag>emoji</tag>
@@ -1108,8 +1121,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -1121,8 +1134,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
         <tag>爬虫</tag>
       </tags>
@@ -1135,8 +1148,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>爬虫</tag>
         <tag>PowerBI</tag>
       </tags>
@@ -1149,8 +1162,8 @@
         <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -1162,8 +1175,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
@@ -1175,8 +1188,8 @@
         <category>R语言</category>
       </categories>
       <tags>
-        <tag>R语言</tag>
         <tag>数据可视化</tag>
+        <tag>R语言</tag>
         <tag>ggplot2</tag>
       </tags>
   </entry>
