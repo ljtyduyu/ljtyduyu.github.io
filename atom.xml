@@ -75,11 +75,11 @@
     <link href="http://www.raindu.com/2017/08/30/%E5%A4%A7%E8%BF%9E%E5%B8%822016%E5%B9%B4%E7%A9%BA%E6%B0%94%E8%B4%A8%E9%87%8F%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     <id>http://www.raindu.com/2017/08/30/大连市2016年空气质量数据可视化/</id>
     <published>2017-08-30T11:15:45.000Z</published>
-    <updated>2017-08-30T11:35:20.860Z</updated>
+    <updated>2017-09-19T01:03:46.568Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://oqdvmreg2.bkt.clouddn.com/dalianweather/image2.png" alt=""></p>
-<p>前几天发现了一个很有趣的包——openair，可以将年度时间序列刻画成周年日历热图，感觉这种形式非常适合用于呈现年度空气质量可视化，所以抓空爬了一些大连市2016年年度空气质量数据拿来玩玩，目标网站网页结构比较简单，爬取过程很轻松，界面部分很规律，感觉这个代码可以作为模板用，感兴趣的小伙伴儿可以试着玩一玩！</p>
-<p>###数据准备<br><a id="more"></a></p>
+<p>前几天发现了一个很有趣的包——openair，可以将年度时间序列刻画成周年日历热图，感觉这种形式非常适合用于呈现年度空气质量可视化，所以抓空爬了一些大连市2016年年度空气质量数据拿来玩玩，目标网站网页结构比较简单，爬取过程很轻松，界面部分很规律，感觉这个代码可以作为模板用，感兴趣的小伙伴儿可以试着玩一玩！<br><a id="more"></a></p>
+<p>###数据准备</p>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(RCurl)</div><div class="line"><span class="keyword">library</span>(XML)</div><div class="line"><span class="keyword">library</span>(dplyr)</div><div class="line"><span class="keyword">library</span>(ggplot2)</div><div class="line"><span class="keyword">library</span>(stringr)</div><div class="line"><span class="keyword">library</span>(rvest)</div><div class="line"><span class="keyword">library</span>(lubridate)</div><div class="line"><span class="keyword">library</span>(<span class="string">"DT"</span>)</div><div class="line"><span class="keyword">library</span>(openair)</div><div class="line"><span class="keyword">library</span>(ggplot2)</div></pre></td></tr></table></figure>
 <p>###数据爬取过程：</p>
 <p>构造月度url地址（网站是按照月度数据存储的，需要按月爬取）<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">urlbase&lt;-<span class="string">"https://www.aqistudy.cn/historydata/"</span></div><div class="line">url&lt;-<span class="string">"https://www.aqistudy.cn/historydata/monthdata.php?city=大连"</span></div><div class="line">rd &lt;- getURL(url,.encoding=<span class="string">"UTF-8"</span>)</div><div class="line">rdhtml &lt;- htmlParse(rd,encoding=<span class="string">"UTF-8"</span>)</div><div class="line">otherpage&lt;-getNodeSet(rdhtml,<span class="string">"//a"</span>)</div><div class="line">allurl&lt;-laply(otherpage,xmlGetAttr,name=<span class="string">'href'</span>)%&gt;%grep(<span class="string">"2016"</span>,.,value=<span class="literal">T</span>)%&gt;%sub(<span class="string">"麓贸脕卢"</span>,<span class="string">"大连"</span>,.)</div><div class="line"><span class="comment">#以上还是编码出了问题，不知道那个乱码是什么鬼！只能强行替换了！</span></div><div class="line">allurl&lt;-paste0(urlbase,allurl)</div></pre></td></tr></table></figure></p>
@@ -127,8 +127,7 @@
     <summary type="html">
     
       &lt;p&gt;&lt;img src=&quot;http://oqdvmreg2.bkt.clouddn.com/dalianweather/image2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;前几天发现了一个很有趣的包——openair，可以将年度时间序列刻画成周年日历热图，感觉这种形式非常适合用于呈现年度空气质量可视化，所以抓空爬了一些大连市2016年年度空气质量数据拿来玩玩，目标网站网页结构比较简单，爬取过程很轻松，界面部分很规律，感觉这个代码可以作为模板用，感兴趣的小伙伴儿可以试着玩一玩！&lt;/p&gt;
-&lt;p&gt;###数据准备&lt;br&gt;
+&lt;p&gt;前几天发现了一个很有趣的包——openair，可以将年度时间序列刻画成周年日历热图，感觉这种形式非常适合用于呈现年度空气质量可视化，所以抓空爬了一些大连市2016年年度空气质量数据拿来玩玩，目标网站网页结构比较简单，爬取过程很轻松，界面部分很规律，感觉这个代码可以作为模板用，感兴趣的小伙伴儿可以试着玩一玩！&lt;br&gt;
     
     </summary>
     
